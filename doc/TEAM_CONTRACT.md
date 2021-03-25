@@ -1,17 +1,18 @@
-# Example Team Contract
+1. Team meetings:
+ * Meetings will be Wednesdays, 12:30.
+ * Slack announcements will be used to communicate action items.
+ * Notify team of missed meetings. Ask for followup after missed meetings.
+ * Be willing to compromise.
 
-### As a project team, we promise to:
- * respect each other's ideas and work.
- * communicate with the team regularly to keep everyone in the loop about the project.
- * others based on your team discussion
+  2. Communications:
+ * Slack
+ * Try to respond within 12 hours. Decisions will be made without missing members.
+ * Major breaking changes should be announced on Slack.
 
-### If someone on our team breaks one or more of these promises, the team may:
- * have a team meeting and ask the person to follow this agreement.
- * report the issue in the Team Sprint Report.
- * Others based on your team discussion
+  3. Helping each other:
+ * Team members will agree to ask for and give help as needed.
 
-### Team Procedures:
- * Day, time, and place for regular team meetings (not necessarily with the client)
- * Preferred method of communication (e.g., e-mail, cell phone, Facebook, Slack, face-to-face, etc.)
- * Decision-making policy (e.g., by consensus? by majority vote?)
- * Method for setting and following meeting agendas (how will items get on each agenda? by when? reminders? keeping meetings on track?)
+  4. Commitments:
+ * Team members will do work to the best of their ability and on time and provide commitments others on the team can rely on;
+ * Failure to meet commitments will be dealt with by public shaming.
+ * We do not anticipate that issues will be require escalation to instructors.
