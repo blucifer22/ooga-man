@@ -11,6 +11,10 @@ public class PacmanGameState {
   private PacmanGrid grid;
   private Collection<Sprite> sprites;
 
+  public void addExistenceObserver(SpriteExistenceObserver spriteExistenceObserver) {
+
+  }
+
   // advance game state by `dt' seconds
   public void step(double dt) {
 
