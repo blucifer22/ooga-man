@@ -176,67 +176,135 @@ In Ms. Pac-Man, fruits bounce randomly around the maze, entering and possibly le
 
 ### David #1
 - The game state advances, without user input (i.e. Pacman moves forward).
-    - The backend increments or decrements the Pacman `Sprite`'s tile offset (depending on Pacman's orientation).
-    - The update to the `Sprite` triggers a notification to the `Sprite`'s observers:
+  - The backend increments or decrements the Pacman `Sprite`'s tile offset (depending on Pacman's orientation).
+  - The update to the `Sprite` triggers a notification to the `Sprite`'s observers:
     ```java=
     // in Sprite.java
     for (SpriteObserver so: observers) {
-    so.onSpriteUpdate(new SpriteEvent(this, EventType.TRANSLATE));
+        so.onSpriteUpdate(new SpriteEvent(this, EventType.TRANSLATE));
     }
     ```
-    - The observing `SpriteView` then translates to the new position of the `Sprite` in response to the `SpriteEvent`.
+  - The observing `SpriteView` then translates to the new position of the `Sprite` in response to the `SpriteEvent`.
 
 ### David #2
 - The user presses an arrow key at a valid turning time, making Pacman rotate to the left or right.
-    - The backend then increments or decrements the Pacman `Sprite`'s orientation (depending on the arrow key pressed).
-    - The update to the `Sprite` triggers a notification to the `Sprite`'s observers:
-        ```java=
-        // in Sprite.java
-        for (SpriteObserver so: observers) {
-            so.onSpriteUpdate(new SpriteEvent(this, EventType.ROTATE));
-        }
-        ```
-    - The observing `SpriteView` then rotates to the new orientation of the `Sprite` in response to the `SpriteEvent`.
+  - The backend then increments or decrements the Pacman `Sprite`'s orientation (depending on the arrow key pressed).
+  - The update to the `Sprite` triggers a notification to the `Sprite`'s observers:
+      ```java=
+      // in Sprite.java
+      for (SpriteObserver so: observers) {
+          so.onSpriteUpdate(new SpriteEvent(this, EventType.ROTATE));
+      }
+      ```
+  - The observing `SpriteView` then rotates to the new orientation of the `Sprite` in response to the `SpriteEvent`.
 
 
 ### David #3
 - Pacman hits a ghost-eating powerup, turning all of the ghosts blue.
-    - The backend changes the `Sprite` type of all ghosts to "panic_ghost" (subject to change).
-    - The update to the `Sprite` triggers a notification to the `Sprite`'s observers:
-        ```java=
-        // in Sprite.java
-        for (SpriteObserver so: observers) {
-            so.onSpriteUpdate(new SpriteEvent(this, EventType.TYPE_CHANGE));
-        }
-        ```
-    - The observing `SpriteView` then changes its image in response to the `SpriteEvent`.
+  - The backend changes the `Sprite` type of all ghosts to "panic_ghost" (subject to change).
+  - The update to the `Sprite` triggers a notification to the `Sprite`'s observers:
+      ```java=
+      // in Sprite.java
+      for (SpriteObserver so: observers) {
+          so.onSpriteUpdate(new SpriteEvent(this, EventType.TYPE_CHANGE));
+      }
+      ```
+  - The observing `SpriteView` then changes its image in response to the `SpriteEvent`.
 
 
 ### David #4
 - Pacman eats a powerup, causing the powerup to disappear.
-    - The game state object recognizes that the powerup has been consumed.
-    - Upon recognizing that the powerup has been destroyed, the game state notifies its `SpriteExistenceObserver`s that the Sprite has been destroyed:
-        ```java=
-        // in a TBD backend class
-        for(SpriteExistenceObserver seo: observers) {
-            seo.onSpriteDestruction(destroyedSpriteObservable);
-        }
-        ```
-    - The observing `GameView` then de-renders the destroyed `SpriteObservable`.
-
+  - The game state object recognizes that the powerup has been consumed.
+  - Upon recognizing that the powerup has been destroyed, the game state notifies its `SpriteExistenceObserver`s that the Sprite has been destroyed:
+      ```java=
+      // in a TBD backend class
+      for(SpriteExistenceObserver seo: observers) {
+          seo.onSpriteDestruction(destroyedSpriteObservable);
+      }
+      ```
+  - The observing `GameView` then de-renders the destroyed `SpriteObservable`'s associated `SpriteView`.
 
 ### David #5
+- A powerup flash animation begins with the hiding of a powerup.
+  - The game state object recognizes that the powerup should begin its flash animation.
+  - The game state object sets the powerup's visibility to `false`.
+  - The update to the powerup `Sprite` triggers a notification to the `Sprite`'s observers:
+      ```java=
+      // in Sprite.java
+      for (SpriteObserver so: observers) {
+          so.onSpriteUpdate(new SpriteEvent(this, EventType.VISIBILITY));
+      }
+      ```
+  - The observing `SpriteView` then hides itself after checking `SpriteObservable::isVisible` (which returns `false`).
 
 ### David #6
+- A powerup flash animation ends with the re-showing of a powerup.
+  - The game state object recognizes that the powerup should finish its flash animation.
+  - The game state object sets the powerup's visibility to `true`.
+  - The update to the powerup `Sprite` triggers a notification to the `Sprite`'s observers:
+      ```java=
+      // in Sprite.java
+      for (SpriteObserver so: observers) {
+          so.onSpriteUpdate(new SpriteEvent(this, EventType.VISIBILITY));
+      }
+      ```
+  - The observing `SpriteView` then re-shows itself after checking `SpriteObservable::isVisible` (which returns `true`).
 
 ### David #7
+- At the beginning of a round, the grid is populated with dots.
+  - The backend creates many (many, many) new `Sprite`s representing the dots.
+  - On the creation of each dot, the backend notifies the observing `GameView`:
+    ```java=
+    // in a TBD backend class
+    for (SpriteExistenceObserver seo: observers) {
+        seo.onSpriteCreation(createdSpriteObservable);
+    }
+    ```
+  - The observing `GameView` then renders each `SpriteObservable` (one per dot).
 
 ### David #8
+- The game is about to begin, and the game logic must be loaded and connected to a the game view.
+  - Control flow begins with `Controller`:
+      ```java=
+      controller.startGame();
+      ```
+  - Inside `Controller::startGame`, we attach the `GameView` as an observer of the `GameState`:
+      ```java=
+      PacmanGameState pgs = new PacmanGameState();
+      GameView gv = new GameView();
+      pgs.addExistenceObserver(gv);
+      pgs.start();
+      ```
+  - The `GameView` is then notified whenever the `PacmanGameState` creates or destroys a `Sprite`.
 
 ### David #9
+- The game advances to a new round, and Pacman must be placed back at his starting position.
+  - The backend increments or decrements the Pacman `Sprite`'s tile location, tile offset, orientation, and visibility (depending on Pacman's previous location/orientation).
+  - The updates to the `Sprite` trigger several notifications to the `Sprite`'s observers:
+    ```java=
+    // in Sprite.java
+    for (SpriteObserver so: observers) {
+        so.onSpriteUpdate(new SpriteEvent(this, EventType.TRANSLATE));
+    }
+    // elsewhere in the same file
+    for (SpriteObserver so: observers) {
+        so.onSpriteUpdate(new SpriteEvent(this, EventType.ROTATE));
+    }
+    // etc.
+    ```
+  - The observing `SpriteView` then translates, rotates, and adjusts opacity to the new position/orientation/visibility of the `Sprite` in response to the `SpriteEvent`s.
 
 ### David #10
-
+- The round ends, causing all (non-reused) `Sprite`s to be destroyed.
+  - The game state object recognizes that the round has ended, causing it to destroy non-reused `Sprite`s.
+  - Upon recognizing that the `Sprite`s have been destroyed, the game state notifies its `SpriteExistenceObserver`s that the Sprite has been destroyed:
+      ```java=
+      // in a TBD backend class, many times
+      for(SpriteExistenceObserver seo: observers) {
+          seo.onSpriteDestruction(destroyedSpriteObservable);
+      }
+      ```
+  - The observing `GameView` then de-renders the destroyed `SpriteObservable`s' associated `SpriteView`s.
 ***
 
 ### Marc #1
