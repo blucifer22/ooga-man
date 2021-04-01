@@ -1,8 +1,5 @@
 package ooga;
 
-import ooga.model.BouncingBanana;
-import ooga.model.ConcretePacmanGrid;
-import ooga.model.MovingSprite;
 import ooga.model.SpriteCoordinates;
 import ooga.model.TileCoordinates;
 
