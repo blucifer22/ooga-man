@@ -8,7 +8,7 @@ import ooga.controller.SpriteObserver;
  */
 public abstract class Sprite implements SpriteObservable {
 
-  abstract boolean isStationary();
+  public abstract boolean isStationary();
 
   public abstract String getType();
 
@@ -35,5 +35,5 @@ public abstract class Sprite implements SpriteObservable {
   }
 
   // advance state by dt seconds
-  abstract void step(double dt);
+  protected abstract void step(double dt);
 }
