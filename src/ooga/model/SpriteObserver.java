@@ -1,4 +1,4 @@
-package ooga.controller;
+package ooga.model;
 
 import ooga.model.SpriteEvent;
 

@@ -3,6 +3,6 @@ package ooga.model;
 /**
  * Stationary sprites can never move.
  */
-public abstract class StationarySprite {
+public abstract class StationarySprite extends Sprite {
 
 }
