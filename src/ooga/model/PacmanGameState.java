@@ -36,4 +36,7 @@ public class PacmanGameState {
   public PacmanGrid getGrid() {
     return null;
   }
+
+  public void advanceLevel() {
+  }
 }
