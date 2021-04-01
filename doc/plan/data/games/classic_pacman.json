@@ -1,0 +1,4 @@
+{
+  "title": "Classic Pac-Man",
+  "levels": ["levels/level_1.json", "levels/level_2.json"]
+}
