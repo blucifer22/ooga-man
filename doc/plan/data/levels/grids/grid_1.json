@@ -1,0 +1,17 @@
+{
+  "layout" : [
+    [
+      {
+        "appearance" : "EMPTY",
+        "accessibility" : ["GHOSTS", "PACMAN"]
+      },
+      {
+        "appearance" : "SPAWN_BOX_LID",
+        "accessibility" : ["PACMAN"]
+      },
+      {
+        "appearance" : "QUARTER_CIRCLE"
+      }
+    ]
+  ]
+}
