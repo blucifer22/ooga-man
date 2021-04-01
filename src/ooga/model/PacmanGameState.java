@@ -10,6 +10,7 @@ public class PacmanGameState {
 
   private PacmanGrid grid;
   private Collection<Sprite> sprites;
+  private int pacManScore;
 
   public void addExistenceObserver(SpriteExistenceObserver spriteExistenceObserver) {
 
