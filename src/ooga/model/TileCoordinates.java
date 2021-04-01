@@ -3,7 +3,7 @@ package ooga.model;
 /**
  * Represents a coordinate grid location composed of solely integer values
  */
-class TileCoordinates {
+public class TileCoordinates {
 
   public int getX() {
     return 0;

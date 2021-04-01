@@ -1,6 +1,6 @@
 package ooga.view;
 
-import ooga.controller.SpriteObserver;
+import ooga.model.SpriteObserver;
 import ooga.model.SpriteEvent;
 import ooga.model.SpriteObservable;
 

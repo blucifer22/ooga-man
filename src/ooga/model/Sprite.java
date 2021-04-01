@@ -1,7 +1,5 @@
 package ooga.model;
 
-import ooga.controller.SpriteObserver;
-
 /**
  * Sprites are things that exist on top of the grid, but are not pure UI elements such as score
  * labels.

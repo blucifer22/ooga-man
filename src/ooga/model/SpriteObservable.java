@@ -1,7 +1,5 @@
 package ooga.model;
 
-import ooga.controller.SpriteObserver;
-
 public interface SpriteObservable {
 
   String getType();
