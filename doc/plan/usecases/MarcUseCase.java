@@ -1,4 +1,4 @@
-package ooga;
+package ooga.model;
 
 import java.util.Collection;
 
@@ -8,16 +8,16 @@ public class MarcUseCase {
 
     Collection<Sprite> sprites = pgs.getSprites(); // Get the current sprites
 
-    if(consumablesRemaining() == 0) {
+    if(consumablesRemaining(sprites) == 0) {
       System.out.println("Pac-Man has eaten ALL THE THINGS!!!");
       // TODO: Handle loading the next level or ending the game if this is the last one.
     }
     else {
-      System.out.println("Pac-Man still has to eat " + consumablesRemaining() + " things.");
+      System.out.println("Pac-Man still has to eat " + consumablesRemaining(sprites) + " things.");
     }
   }
 
-  private int consumablesRemaining(Collection<Sprite> sprites) {
+  private static int consumablesRemaining(Collection<Sprite> sprites) {
     int numConsumablesRemaining = 0;
     for (Sprite sprite : sprites) {
       if(sprite.mustBeConsumed()) {
