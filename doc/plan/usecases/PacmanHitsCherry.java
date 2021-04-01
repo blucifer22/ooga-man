@@ -5,7 +5,8 @@ import ooga.model.SpriteEvent;
 import ooga.model.SpriteObservable;
 
 /**
- * This use cases tests if pacman hits a cherry sprite using the current methods at the time of writing this code
+ * This use cases tests if pacman hits a cherry sprite using the current methods at the time of
+ * writing this code (was able to compile when in the src folder)
  */
 public class PacmanHitsCherry.java {
 
