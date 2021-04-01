@@ -1,0 +1,13 @@
+{
+  "pacman_open_mouth": {
+    "image" : "themes/classic_theme/images/pacman_open_mouth.png",
+    "width" : 1.5
+  },
+  "pacman_closed_mouth" : {
+    "image" : "themes/classic_theme/images/pacman_closed_mouth.png",
+    "height" : 1.5
+  },
+  "vertical_line_tile" : {
+    "image" : "themes/classic_theme/images/vertical_line_tile.png"
+  }
+}
