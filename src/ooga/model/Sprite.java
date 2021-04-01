@@ -36,4 +36,6 @@ public abstract class Sprite implements SpriteObservable {
 
   // advance state by dt seconds
   public abstract void step(double dt);
+
+  public abstract boolean mustBeConsumed();
 }
