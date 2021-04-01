@@ -5,7 +5,7 @@ public class SpriteEvent {
     TYPE_CHANGE, SHOW, HIDE, TRANSLATE, ROTATE, SCALE
   }
 
-  public void SpriteObservationEvent(SpriteObservable sender, EventType type) {
+  public SpriteEvent(SpriteObservable sender, EventType type) {
 
   }
 
