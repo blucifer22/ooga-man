@@ -2,14 +2,15 @@ package ooga.view;
 
 import java.util.HashMap;
 import java.util.Map;
+import javafx.scene.Node;
 import ooga.model.SpriteExistenceObserver;
 import ooga.model.SpriteObservable;
 
-public class GameView implements SpriteExistenceObserver {
+public class GameGridView implements SpriteExistenceObserver, Renderable {
 
   private Map<SpriteObservable, SpriteView> views;
 
-  public GameView() {
+  public GameGridView() {
     this.views = new HashMap<>();
   }
 
@@ -22,5 +23,10 @@ public class GameView implements SpriteExistenceObserver {
   public void onSpriteDestruction(SpriteObservable so) {
     views.remove(so);
     // de-render the SpriteView
+  }
+
+  @Override
+  public Node getRenderingNode() {
+    return null;
   }
 }
