@@ -12,6 +12,32 @@ public class SpriteView implements SpriteObserver {
   }
 
   public void onSpriteUpdate(SpriteEvent e) {
-    // handle the SpriteEvent
+    switch (e.getEventType()) {
+      case TYPE_CHANGE -> updateType();
+      case TRANSLATE -> updatePosition();
+      case SCALE -> updateInternalSize();
+      case ROTATE -> updateOrientation();
+      case VISIBILITY -> updateVisibility();
+    }
+  }
+
+  private void updateType() {
+
+  }
+
+  private void updatePosition() {
+
+  }
+
+  private void updateOrientation() {
+
+  }
+
+  private void updateInternalSize() {
+
+  }
+
+  private void updateVisibility() {
+
   }
 }
