@@ -1,14 +1,19 @@
 package ooga.util;
 
 /**
- * This class is a representation of the 2D vector needed for turtle positions. For example, when
- * a turtle position is updated, it may use any of these methods to update the Vec2 of the TurtleModel.
+ * This class implements a double-precision 2-vector over the reals.
+ *
+ * This is a utility class that was imported verbatim from one of our
+ * previous projects.
  *
  * @author Mindy Wu
+ * @author Franklin Wei
  */
 public class Vec2 {
   private double x;
   private double y;
+
+  public static final Vec2 ZERO = new Vec2(0, 0);
 
   public Vec2() {
     this.x = 0;
