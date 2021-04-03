@@ -2,14 +2,17 @@
   "layout" : [
     [
       {
+        "coordinates" : [0, 0],
         "appearance" : "EMPTY",
         "accessibility" : ["GHOSTS", "PACMAN"]
       },
       {
+        "coordinates" : [1,0],
         "appearance" : "SPAWN_BOX_LID",
         "accessibility" : ["PACMAN"]
       },
       {
+        "coordinates" : [2,0],
         "appearance" : "QUARTER_CIRCLE"
       }
     ]

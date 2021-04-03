@@ -23,9 +23,13 @@ public class GridDescription {
 
     this.grid = new Tile[width][height];
     for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            grid[i][j] = tileList.get((i * width) + j);
-        }
+      for (int j = 0; j < width; j++) {
+        grid[i][j] = tileList.get((i * width) + j);
+      }
+    }
+    if (!tileList.isEmpty()) {
+      throw new IllegalArgumentException(
+          "ILLEGAL ARGUMENT EXCEPTION:\nTOO MANY TILES FOR INDICATED DIMENSIONS!");
     }
   }
 
