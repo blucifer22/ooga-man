@@ -10,4 +10,5 @@ import javafx.scene.input.KeyCode;
  */
 public interface HumanInputConsumer {
   void onKeyPress(KeyCode keyCode);
+  void onKeyRelease(KeyCode keyCode);
 }
