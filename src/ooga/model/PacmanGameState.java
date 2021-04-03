@@ -20,7 +20,7 @@ public class PacmanGameState {
 
   }
 
-  public void startLevel(LevelDescription level) {
+  public void startLevel(GridDescription level) {
 
   }
 
