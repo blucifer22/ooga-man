@@ -1,23 +1,44 @@
 {
-  "width" : 2,
-  "height" : 2,
-  "layout" : [
+  "width": 2,
+  "height": 2,
+  "grid_description": [
     [
       {
-        "coordinates" : [0, 0],
-        "appearance" : "EMPTY",
-        "accessibility" : ["GHOSTS", "PACMAN"]
+        "coordinates": [
+          0,
+          0
+        ],
+        "tile_type": "EMPTY",
+        "is_accessible_to_pacman": true,
+        "is_accessible_to_ghosts": true
       },
       {
-        "coordinates" : [1,0],
-        "appearance" : "SPAWN_BOX_LID",
-        "accessibility" : ["PACMAN"]
+        "coordinates": [
+          1,
+          0
+        ],
+        "tile_type": "SPAWN_BOX_LID",
+        "is_accessible_to_pacman": false,
+        "is_accessible_to_ghosts": true
       },
       {
-        "coordinates" : [0,1],
-        "appearance" : "QUARTER_CIRCLE"
+        "coordinates": [
+          0,
+          1
+        ],
+        "tile_type": "QUARTER_CIRCLE",
+        "is_accessible_to_pacman": false,
+        "is_accessible_to_ghosts": false
       },
-
+      {
+        "coordinates": [
+          1,
+          1
+        ],
+        "tile_type": "QUARTER_CIRCLE",
+        "is_accessible_to_pacman": false,
+        "is_accessible_to_ghosts": false
+      }
     ]
   ]
 }
