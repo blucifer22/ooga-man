@@ -1,14 +1,20 @@
 package ooga.view;
 
+import javafx.scene.Node;
+import javafx.scene.shape.Rectangle;
 import ooga.model.SpriteObserver;
 import ooga.model.SpriteEvent;
 import ooga.model.SpriteObservable;
 
-public class SpriteView implements SpriteObserver {
+public class SpriteView implements SpriteObserver, Renderable {
+
+  private final Rectangle viewGraphic;
+  private final SpriteObservable dataSource;
 
   public SpriteView(SpriteObservable so) {
     so.addObserver(this);
-    // create the view
+    this.dataSource = so;
+    this.viewGraphic = new Rectangle(100, 100);
   }
 
   public void onSpriteUpdate(SpriteEvent e) {
@@ -30,7 +36,7 @@ public class SpriteView implements SpriteObserver {
   }
 
   private void updateOrientation() {
-
+    viewGraphic.setRotate(dataSource.getOrientation());
   }
 
   private void updateInternalSize() {
@@ -38,6 +44,11 @@ public class SpriteView implements SpriteObserver {
   }
 
   private void updateVisibility() {
+    viewGraphic.setVisible(dataSource.isVisible());
+  }
 
+  @Override
+  public Node getRenderingNode() {
+    return this.viewGraphic;
   }
 }
