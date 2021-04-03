@@ -8,21 +8,27 @@ public class Tile {
 
   private final TileCoordinates tileCoordinates;
   private final String tileType;
-  private final boolean isOpen;
+  private final boolean isOpenToPacman;
+  private final boolean isOpenToGhosts;
 
-  public Tile(TileCoordinates tileCoordinates, String initialType, boolean isOpen) {
+  public Tile(TileCoordinates tileCoordinates, String initialType, boolean isOpenToPacman, boolean isOpenToGhosts) {
     this.tileCoordinates = tileCoordinates;
     this.tileType = initialType;
-    this.isOpen = isOpen;
+    this.isOpenToPacman = isOpenToPacman;
+    this.isOpenToGhosts = isOpenToGhosts;
   }
 
   public TileCoordinates getCoordinates() {
     return tileCoordinates;
   }
 
-  public boolean isOpen() {
-    // true if pacman/ghosts can move into this tile
-    return isOpen;
+  public boolean isOpenToPacman() {
+    // true if pacman can move into this tile
+    return isOpenToPacman;
+  }
+
+  public boolean isOpenToGhosts() {
+    return isOpenToGhosts;
   }
 
   public String getType() {

@@ -1,4 +1,6 @@
 {
+  "width" : 2,
+  "height" : 2,
   "layout" : [
     [
       {
@@ -12,9 +14,10 @@
         "accessibility" : ["PACMAN"]
       },
       {
-        "coordinates" : [2,0],
+        "coordinates" : [0,1],
         "appearance" : "QUARTER_CIRCLE"
-      }
+      },
+
     ]
   ]
 }

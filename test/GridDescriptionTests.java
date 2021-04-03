@@ -21,10 +21,10 @@ public class GridDescriptionTests {
     int height = 2;
     List<Tile> tileList =
         List.of(
-            new Tile(new TileCoordinates(0, 0), "Tile 0", false),
-            new Tile(new TileCoordinates(1, 0), "Tile 1", true),
-            new Tile(new TileCoordinates(0, 1), "Tile 2", false),
-            new Tile(new TileCoordinates(1, 1), "Tile 3", false));
+            new Tile(new TileCoordinates(0, 0), "Tile 0", false, true),
+            new Tile(new TileCoordinates(1, 0), "Tile 1", true, true),
+            new Tile(new TileCoordinates(0, 1), "Tile 2", false, false),
+            new Tile(new TileCoordinates(1, 1), "Tile 3", false, false));
 
     GridDescription gridDescription = new GridDescription(width, height, tileList);
 
@@ -44,10 +44,10 @@ public class GridDescriptionTests {
     int height = 1;
     List<Tile> tileList =
         List.of(
-            new Tile(new TileCoordinates(0, 0), "Tile 0", false),
-            new Tile(new TileCoordinates(1, 0), "Tile 1", true),
-            new Tile(new TileCoordinates(0, 1), "Tile 2", false),
-            new Tile(new TileCoordinates(1, 1), "Tile 3", false));
+            new Tile(new TileCoordinates(0, 0), "Tile 0", false, false),
+            new Tile(new TileCoordinates(1, 0), "Tile 1", true, false),
+            new Tile(new TileCoordinates(0, 1), "Tile 2", false, true),
+            new Tile(new TileCoordinates(1, 1), "Tile 3", false, true));
 
     assertThrows(
         IllegalArgumentException.class,
@@ -63,10 +63,10 @@ public class GridDescriptionTests {
     int height = 1;
     List<Tile> tileList =
         List.of(
-            new Tile(new TileCoordinates(0, 0), "Tile 0", false),
-            new Tile(new TileCoordinates(1, 0), "Tile 1", true),
-            new Tile(new TileCoordinates(0, 1), "Tile 2", false),
-            new Tile(new TileCoordinates(1, 1), "Tile 3", false));
+            new Tile(new TileCoordinates(0, 0), "Tile 0", false, true),
+            new Tile(new TileCoordinates(1, 0), "Tile 1", true, false),
+            new Tile(new TileCoordinates(0, 1), "Tile 2", false, false),
+            new Tile(new TileCoordinates(1, 1), "Tile 3", false, true));
 
     assertThrows(
         IllegalArgumentException.class,
