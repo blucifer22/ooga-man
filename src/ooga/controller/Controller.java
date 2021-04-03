@@ -2,7 +2,7 @@ package ooga.controller;
 
 import javafx.stage.Stage;
 import ooga.model.PacmanGameState;
-import ooga.view.GameView;
+import ooga.view.GameGridView;
 
 public class Controller {
   private final Stage primaryStage;
@@ -13,7 +13,7 @@ public class Controller {
 
   public void startGame() {
     PacmanGameState pgs = new PacmanGameState();
-    GameView gv = new GameView();
+    GameGridView gv = new GameGridView(0, 0);
     pgs.addExistenceObserver(gv);
     // start game through a call to PacmanGameState!
   }

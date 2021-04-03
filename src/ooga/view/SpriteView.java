@@ -21,7 +21,6 @@ public class SpriteView implements SpriteObserver, Renderable {
     switch (e.getEventType()) {
       case TYPE_CHANGE -> updateType();
       case TRANSLATE -> updatePosition();
-      case SCALE -> updateInternalSize();
       case ROTATE -> updateOrientation();
       case VISIBILITY -> updateVisibility();
     }
@@ -37,10 +36,6 @@ public class SpriteView implements SpriteObserver, Renderable {
 
   private void updateOrientation() {
     viewGraphic.setRotate(dataSource.getOrientation());
-  }
-
-  private void updateInternalSize() {
-
   }
 
   private void updateVisibility() {
