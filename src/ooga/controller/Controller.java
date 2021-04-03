@@ -13,7 +13,7 @@ public class Controller {
 
   public void startGame() {
     PacmanGameState pgs = new PacmanGameState();
-    GameGridView gv = new GameGridView();
+    GameGridView gv = new GameGridView(0, 0);
     pgs.addExistenceObserver(gv);
     // start game through a call to PacmanGameState!
   }
