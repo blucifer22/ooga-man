@@ -16,7 +16,11 @@ public class PacmanGameState {
     //this.grid = new PacmanGrid();
   }
 
-  public void addExistenceObserver(SpriteExistenceObserver spriteExistenceObserver) {
+  public void addSpriteExistenceObserver(SpriteExistenceObserver spriteExistenceObserver) {
+
+  }
+
+  public void startLevel(LevelDescription level) {
 
   }
 

@@ -6,7 +6,7 @@ import java.util.Iterator;
  * Object that represents the structure of the Grid and its contents, along with dimensional
  * properties.
  */
-class PacmanGrid implements Iterable<Tile>, AbstractGrid {
+class PacmanGrid implements Iterable<Tile>, ObservableGrid {
 
   private final int width;
   private final int height;
