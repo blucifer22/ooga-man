@@ -1,4 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.List;
 import ooga.model.GridDescription;
 import ooga.model.Tile;
@@ -33,5 +35,22 @@ public class GridDescriptionTests {
         assertEquals("Tile " + ((i * width) + j), tiles[i][j].getType());
       }
     }
+  }
+
+  @Test
+  public void testGridDescriptionExceptions() {
+    // Simulate loading in a small grid from JSON
+    int width = 1;
+    int height = 1;
+    List<Tile> tileList =
+        List.of(
+            new Tile(new TileCoordinates(0, 0), "Tile 0", false),
+            new Tile(new TileCoordinates(1, 0), "Tile 1", true),
+            new Tile(new TileCoordinates(0, 1), "Tile 2", false),
+            new Tile(new TileCoordinates(1, 1), "Tile 3", false));
+
+    assertThrows(IllegalArgumentException.class, () -> {
+      GridDescription gridDescription = new GridDescription(width, height, tileList);
+    });
   }
 }
