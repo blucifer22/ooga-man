@@ -17,6 +17,11 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
 
   private final Set<KeyCode> pressedKeys;
 
+  /**
+   * Basic constructor for HumanInputManager.
+   *
+   * Creates a new HashSet of pressedKeys.
+   */
   public HumanInputManager() {
     pressedKeys = new HashSet<>();
   }
