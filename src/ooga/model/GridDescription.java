@@ -15,21 +15,22 @@ public class GridDescription {
   private final int height;
   private final Tile[][] grid;
 
-  public GridDescription(int width, int height, List<Tile> tileList, Collection<Sprite> sprites)
+  public GridDescription(int width, int height, List<Tile> tileList)
       throws IllegalArgumentException {
 
     this.width = width;
     this.height = height;
+
+    if (tileList.size() > width * height) {
+      throw new IllegalArgumentException(
+          "ILLEGAL ARGUMENT EXCEPTION:\nTOO MANY TILES FOR INDICATED DIMENSIONS!");
+    }
 
     this.grid = new Tile[width][height];
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         grid[i][j] = tileList.get((i * width) + j);
       }
-    }
-    if (!tileList.isEmpty()) {
-      throw new IllegalArgumentException(
-          "ILLEGAL ARGUMENT EXCEPTION:\nTOO MANY TILES FOR INDICATED DIMENSIONS!");
     }
   }
 
