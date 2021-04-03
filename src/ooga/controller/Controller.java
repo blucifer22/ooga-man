@@ -15,7 +15,7 @@ public class Controller {
   public void startGame() {
     PacmanGameState pgs = new PacmanGameState();
     GameView gv = new GameView(0, 0);
-    pgs.addExistenceObserver(gv);
+    pgs.addSpriteExistenceObserver(gv);
     // start game through a call to PacmanGameState!
   }
 }
