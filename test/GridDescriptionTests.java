@@ -30,8 +30,8 @@ public class GridDescriptionTests {
 
     Tile[][] tiles = gridDescription.getGrid();
 
-    for(int i = 0; i < tiles.length; i++) {
-      for(int j = 0; j < tiles[0].length; j++ ) {
+    for (int i = 0; i < tiles.length; i++) {
+      for (int j = 0; j < tiles[0].length; j++) {
         assertEquals("Tile " + ((i * width) + j), tiles[i][j].getType());
       }
     }
@@ -49,12 +49,15 @@ public class GridDescriptionTests {
             new Tile(new TileCoordinates(0, 1), "Tile 2", false),
             new Tile(new TileCoordinates(1, 1), "Tile 3", false));
 
-    assertThrows(IllegalArgumentException.class, () -> {
-      GridDescription gridDescription = new GridDescription(width, height, tileList);
-    });
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> {
+          GridDescription gridDescription = new GridDescription(width, height, tileList);
+        });
   }
 
-  @Test public void testGridDescriptionUnderflowException() {
+  @Test
+  public void testGridDescriptionUnderflowException() {
     // Simulate loading in a small grid from JSON
     int width = 10;
     int height = 1;
@@ -65,8 +68,10 @@ public class GridDescriptionTests {
             new Tile(new TileCoordinates(0, 1), "Tile 2", false),
             new Tile(new TileCoordinates(1, 1), "Tile 3", false));
 
-    assertThrows(IllegalArgumentException.class, () -> {
-      GridDescription gridDescription = new GridDescription(width, height, tileList);
-    });
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> {
+          GridDescription gridDescription = new GridDescription(width, height, tileList);
+        });
   }
 }

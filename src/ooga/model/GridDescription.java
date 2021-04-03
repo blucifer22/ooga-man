@@ -1,6 +1,5 @@
 package ooga.model;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -33,7 +32,7 @@ public class GridDescription {
 
     if (tileList.size() != width * height) {
       throw new IllegalArgumentException(
-          "ILLEGAL ARGUMENT EXCEPTION:\nTOO MANY TILES FOR INDICATED DIMENSIONS!");
+          "ILLEGAL ARGUMENT EXCEPTION:\nWRONG NUMBER OF TILES FOR INDICATED DIMENSIONS!");
     }
 
     this.grid = new Tile[width][height];
