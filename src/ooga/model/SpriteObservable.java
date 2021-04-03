@@ -1,12 +1,14 @@
 package ooga.model;
 
+import ooga.util.Vec2;
+
 public interface SpriteObservable {
 
   String getType();
 
   SpriteCoordinates getCenter();
 
-  double getOrientation();
+  Vec2 getDirection();
 
   boolean isVisible();
 

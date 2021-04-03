@@ -1,10 +1,14 @@
 package ooga.model;
 
-public class PacMan extends MovingSprite{
+import ooga.util.Vec2;
+
+public class PacMan extends MovingSprite {
 
   public static final String TYPE = "Pac-Man";
 
-  public PacMan()
+  public PacMan(SpriteCoordinates position, Vec2 direction, double speed) {
+    super(position, direction, speed);
+  }
 
   @Override
   public boolean isStationary() {
@@ -13,11 +17,12 @@ public class PacMan extends MovingSprite{
 
   @Override
   public String getType() {
-    return TYPE;
+    return null;
   }
 
   @Override
   public SpriteCoordinates getCenter() {
+    // TODO:
     return null;
   }
 
