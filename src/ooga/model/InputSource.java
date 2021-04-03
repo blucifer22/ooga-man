@@ -1,7 +1,8 @@
 package ooga.model;
 
-public abstract interface InputSource {
+public interface InputSource {
   Vec2 getMovementDirection();
+  boolean isActionPressed(ActionInput actionInput);
   enum ActionInput {
     FIRE,
     SPEED_UP,
