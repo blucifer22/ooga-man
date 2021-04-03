@@ -2,7 +2,7 @@ package ooga.model;
 
 public class SpriteEvent {
   public enum EventType {
-    TYPE_CHANGE, VISIBILITY, TRANSLATE, ROTATE, SCALE
+    TYPE_CHANGE, VISIBILITY, TRANSLATE, ROTATE
   }
 
   public SpriteEvent(SpriteObservable sender, EventType type) {
