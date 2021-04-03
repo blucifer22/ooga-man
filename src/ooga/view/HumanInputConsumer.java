@@ -3,8 +3,11 @@ package ooga.view;
 import javafx.scene.input.KeyCode;
 
 /**
- * Front-end interface to handle human inputs
+ * Interface for classes that consume input events from the frontend.
+ *
+ * For example, when the user presses an arrow key, this interface's
+ * onKeyPress method gets called with the appropriate JavaFX keycode.
  */
 public interface HumanInputConsumer {
-  void onKeypress(KeyCode keyCode);
+  void onKeyPress(KeyCode keyCode);
 }
