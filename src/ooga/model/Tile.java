@@ -5,14 +5,26 @@ package ooga.model;
  */
 public class Tile {
 
+  private final TileCoordinates tileCoordinates;
+  private final String tileType;
+  private final boolean isOpen;
+
+  public Tile(TileCoordinates tileCoordinates, String initialType, boolean isOpen) {
+    this.tileCoordinates = tileCoordinates;
+    this.tileType = initialType;
+    this.isOpen = isOpen;
+  }
+
   public TileCoordinates getCoordinates() {
-    return null;
+    return tileCoordinates;
   }
 
   public boolean isOpen() {
     // true if pacman/ghosts can move into this tile
-    return false;
+    return isOpen;
   }
 
-  //public String
+  public String getType() {
+    return tileType;
+  }
 }
