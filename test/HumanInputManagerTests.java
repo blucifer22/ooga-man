@@ -23,7 +23,8 @@ public class HumanInputManagerTests {
     inputManager.onKeyPress(KeyCode.UP);
     Vec2 ret = inputManager.getRequestedDirection();
     assertEquals(ret.getX(), 0);
-    assertEquals(ret.getY(), -1);;
+    assertEquals(ret.getY(), -1);
+    ;
   }
 
   @Test

@@ -8,8 +8,8 @@ import ooga.util.Vec2;
 import ooga.view.HumanInputConsumer;
 
 /**
- * HumanInputManager handles the interpretation of the currently pressed keys
- * on the keyboard and translates them to Vec2's that can be utilized by Sprites.
+ * HumanInputManager handles the interpretation of the currently pressed keys on the keyboard and
+ * translates them to Vec2's that can be utilized by Sprites.
  *
  * @author Marc Chmielewski
  */
@@ -20,7 +20,7 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
   /**
    * Basic constructor for HumanInputManager.
    *
-   * Creates a new HashSet of pressedKeys.
+   * <p>Creates a new HashSet of pressedKeys.
    */
   public HumanInputManager() {
     pressedKeys = new HashSet<>();
@@ -47,11 +47,22 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
     return ret;
   }
 
+  /**
+   * On receiving a depressed KeyCode from the front-end, add the KeyCode to the Set of pressedKeys.
+   *
+   * @param code The KeyCode of the currently depressed key.
+   */
   @Override
   public void onKeyPress(KeyCode code) {
     pressedKeys.add(code);
   }
 
+  /**
+   * On receiving a released KeyCode from the front-end, remove the KeyCode from the Set of
+   * pressedKeys.
+   *
+   * @param code The KeyCode of the currently released key.
+   */
   @Override
   public void onKeyRelease(KeyCode code) {
     pressedKeys.remove(code);
