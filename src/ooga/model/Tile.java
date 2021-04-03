@@ -2,6 +2,7 @@ package ooga.model;
 
 /**
  * Represents basic properties of a Tile such as whether they can be occupied
+ * @author George Hong
  */
 public class Tile {
 

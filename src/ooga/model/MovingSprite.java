@@ -5,6 +5,8 @@ import ooga.util.Vec2;
 /**
  * Mobile sprites can be in motion (although this does not need to always be true -- mobile sprites
  * can occasionally remain stationary)
+ *
+ * @author George Hong
  */
 public abstract class MovingSprite extends Sprite {
 

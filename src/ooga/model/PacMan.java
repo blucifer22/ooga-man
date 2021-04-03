@@ -2,6 +2,9 @@ package ooga.model;
 
 import ooga.util.Vec2;
 
+/**
+ * @author George Hong
+ */
 public class PacMan extends MovingSprite {
 
   public static final String TYPE = "Pac-Man";

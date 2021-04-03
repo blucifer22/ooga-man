@@ -46,7 +46,7 @@ public class SpriteView implements SpriteObserver, Renderable {
   }
 
   private void updateOrientation() {
-    viewGraphic.setRotate(dataSource.getDirection());
+    //viewGraphic.setRotate(dataSource.getDirection());
   }
 
   private void updateVisibility() {

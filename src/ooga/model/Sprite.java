@@ -5,6 +5,8 @@ import ooga.util.Vec2;
 /**
  * Sprites are things that exist on top of the grid, but are not pure UI elements such as score
  * labels.
+ *
+ * @author George Hong
  */
 public abstract class Sprite implements SpriteObservable {
 
@@ -38,7 +40,7 @@ public abstract class Sprite implements SpriteObservable {
    * @return
    */
   public SpriteCoordinates getCoordinates() {
-    return null;
+    return position;
   }
 
   /**
@@ -47,7 +49,7 @@ public abstract class Sprite implements SpriteObservable {
    * @return
    */
   public Vec2 getDirection() {
-    return null;
+    return direction;
   }
 
   public boolean isVisible() {
