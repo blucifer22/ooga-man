@@ -1,16 +1,25 @@
 package ooga.controller;
 
+import java.util.HashSet;
 import java.util.Set;
 import javafx.scene.input.KeyCode;
 import ooga.model.InputSource;
 import ooga.util.Vec2;
 import ooga.view.HumanInputConsumer;
 
+/**
+ * HumanInputManager handles the interpretation of the currently pressed keys
+ * on the keyboard and translates them to Vec2's that can be utilized by Sprites.
+ *
+ * @author Marc Chmielewski
+ */
 public class HumanInputManager implements InputSource, HumanInputConsumer {
 
-  Set<KeyCode> pressedKeys;
+  private final Set<KeyCode> pressedKeys;
 
-  public HumanInputManager() {}
+  public HumanInputManager() {
+    pressedKeys = new HashSet<>();
+  }
 
   /**
    * This method queries the source for the _current_ state of which directional inputs are being
@@ -26,10 +35,10 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
   @Override
   public Vec2 getRequestedDirection() {
     Vec2 ret = Vec2.ZERO;
-    if (pressedKeys.contains(KeyCode.UP)) ret.add(new Vec2(0, -1));
-    if (pressedKeys.contains(KeyCode.DOWN)) ret.add(new Vec2(0, 1));
-    if (pressedKeys.contains(KeyCode.LEFT)) ret.add(new Vec2(-1, 0));
-    if (pressedKeys.contains(KeyCode.RIGHT)) ret.add(new Vec2(1, 0));
+    if (pressedKeys.contains(KeyCode.UP)) ret = ret.add(new Vec2(0, -1));
+    if (pressedKeys.contains(KeyCode.DOWN)) ret = ret.add(new Vec2(0, 1));
+    if (pressedKeys.contains(KeyCode.LEFT)) ret = ret.add(new Vec2(-1, 0));
+    if (pressedKeys.contains(KeyCode.RIGHT)) ret = ret.add(new Vec2(1, 0));
     return ret;
   }
 
