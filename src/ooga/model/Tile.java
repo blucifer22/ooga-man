@@ -1,7 +1,11 @@
 package ooga.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Represents basic properties of a Tile such as whether they can be occupied
+ *
  * @author George Hong
  */
 public class Tile {
@@ -11,7 +15,12 @@ public class Tile {
   private final boolean isOpenToPacman;
   private final boolean isOpenToGhosts;
 
-  public Tile(TileCoordinates tileCoordinates, String initialType, boolean isOpenToPacman, boolean isOpenToGhosts) {
+  @JsonCreator
+  public Tile(
+      @JsonProperty("coordinates") TileCoordinates tileCoordinates,
+      @JsonProperty("type") String initialType,
+      @JsonProperty("isOpenToPacman") boolean isOpenToPacman,
+      @JsonProperty("isOpenToGhosts") boolean isOpenToGhosts) {
     this.tileCoordinates = tileCoordinates;
     this.tileType = initialType;
     this.isOpenToPacman = isOpenToPacman;

@@ -1,9 +1,12 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.util.List;
 import ooga.model.GridDescription;
+import ooga.model.GridDescriptionFactory;
 import ooga.model.Tile;
 import ooga.model.TileCoordinates;
 import org.junit.jupiter.api.Test;
@@ -29,11 +32,11 @@ public class GridDescriptionTests {
 
     GridDescription gridDescription = new GridDescription(width, height, tileList);
 
-    Tile[][] tiles = gridDescription.getGrid();
+    List<List<Tile>> tiles = gridDescription.getGrid();
 
-    for (int i = 0; i < tiles.length; i++) {
-      for (int j = 0; j < tiles[0].length; j++) {
-        assertEquals("Tile " + ((i * width) + j), tiles[i][j].getType());
+    for (int i = 0; i < tiles.size(); i++) {
+      for (int j = 0; j < tiles.get(0).size(); j++) {
+        assertEquals("Tile " + ((i * width) + j), tiles.get(i).get(j).getType());
       }
     }
   }
@@ -77,7 +80,8 @@ public class GridDescriptionTests {
   }
 
   @Test
-  public void testGridDescriptionToJSON() {
+  public void testGridDescriptionJSON() {
+    String path = "data/levels/grids/test_grid.json";
     int width = 2;
     int height = 2;
     List<Tile> tileList =
@@ -90,10 +94,28 @@ public class GridDescriptionTests {
     GridDescription gridDescription = new GridDescription(width, height, tileList);
 
     try {
-      gridDescription.toJSON("data/levels/grids/test_grid.json");
-    }
-    catch (IOException e) {
+      gridDescription.toJSON(path);
+    } catch (IOException e) {
       System.err.println(e.getMessage());
+      fail();
     }
+
+    GridDescriptionFactory gridDescriptionFactory = new GridDescriptionFactory();
+    GridDescription description = null;
+
+    try {
+      description = gridDescriptionFactory.getGridDescriptionFromJSON(path);
+    } catch (IOException e) {
+      System.err.println(e.getMessage());
+      fail();
+    }
+
+    assertEquals(description.getWidth(), 2);
+    assertEquals(description.getHeight(), 2);
+    List<List<Tile>> grid = description.getGrid();
+    assertEquals(grid.get(0).get(1).getType(), "Tile 0");
+    assertEquals(grid.get(1).get(1).getCoordinates(), new TileCoordinates(1, 1));
+    assertTrue(grid.get(1).get(0).isOpenToPacman());
+    assertTrue(grid.get(1).get(0).isOpenToGhosts());
   }
 }

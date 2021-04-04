@@ -1,10 +1,12 @@
 package ooga.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +20,7 @@ public class GridDescription {
 
   private final int width;
   private final int height;
-  private final Tile[][] grid;
+  private final List<List<Tile>> grid;
 
   /**
    * The general constructor for GridDescription. Takes in a width, a height, and a 2D array of
@@ -29,7 +31,11 @@ public class GridDescription {
    * @param tileList The List of Tiles that compose the Grid that this GridDescription represents.
    * @throws IllegalArgumentException If the wrong number of Tiles are provided
    */
-  public GridDescription(int width, int height, List<Tile> tileList)
+  @JsonCreator
+  public GridDescription(
+      @JsonProperty("width") int width,
+      @JsonProperty("height") int height,
+      @JsonProperty("grid") List<Tile> tileList)
       throws IllegalArgumentException {
 
     this.width = width;
@@ -40,14 +46,21 @@ public class GridDescription {
           "ILLEGAL ARGUMENT EXCEPTION:\nWRONG NUMBER OF TILES FOR INDICATED DIMENSIONS!");
     }
 
-    this.grid = new Tile[width][height];
+    this.grid = new ArrayList<>();
     for (int i = 0; i < height; i++) {
+      grid.add(i, new ArrayList<>());
       for (int j = 0; j < width; j++) {
-        grid[i][j] = tileList.get((i * width) + j);
+        grid.get(i).add(j, tileList.get((i * width) + j));
       }
     }
   }
 
+  /**
+   * Writes this GridDescription to a JSON file at the indicated filepath.
+   *
+   * @param filepath The filepath at which to write the JSON.
+   * @throws IOException If the provided filepath is invalid.
+   */
   public void toJSON(String filepath) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
     mapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -77,7 +90,7 @@ public class GridDescription {
    *
    * @return A 2D array of Tiles that make up this GridDescription
    */
-  public Tile[][] getGrid() {
+  public List<List<Tile>> getGrid() {
     return grid;
   }
 }
