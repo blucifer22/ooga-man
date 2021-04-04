@@ -22,6 +22,12 @@ public class TileCoordinates {
     this.y = y;
   }
 
+  public TileCoordinates() {
+    // TODO: Verify that this is appropriate behavior for the no-arg constructor
+    this.x = 0;
+    this.y = 0;
+  }
+
   public int getX() {
     return x;
   }
