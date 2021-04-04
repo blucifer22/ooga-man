@@ -23,8 +23,7 @@ public class Controller {
     PacmanGameState pgs = new PacmanGameState();
     GameView gv = new GameView(10, 10);
     pgs.addSpriteExistenceObserver(gv);
-    primaryStage.setScene(new Scene((Pane) (new GameGridView(10,10)).getRenderingNode(), 400.0,
-        400.0));
+    primaryStage.setScene(new Scene((Pane) gv.getRenderingNode(), 400.0, 400.0));
     gv.onSpriteCreation(new Sprite() {
 
       @Override
