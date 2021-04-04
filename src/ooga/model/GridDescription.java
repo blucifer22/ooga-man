@@ -1,6 +1,9 @@
 package ooga.model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 
@@ -45,7 +48,11 @@ public class GridDescription {
     }
   }
 
-
+  public void toJSON(String filepath) throws IOException {
+    ObjectMapper mapper = new ObjectMapper();
+    mapper.enable(SerializationFeature.INDENT_OUTPUT);
+    mapper.writeValue(new File(filepath), this);
+  }
 
   /**
    * Get the width of this GridDescription.
