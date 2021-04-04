@@ -7,9 +7,13 @@ import ooga.util.Vec2;
  */
 public class SpriteCoordinates {
 
-  private final Vec2 position;
+  private Vec2 position;
 
   public SpriteCoordinates(Vec2 position) {
+    this.position = position;
+  }
+
+  public void setPosition(Vec2 position){
     this.position = position;
   }
 

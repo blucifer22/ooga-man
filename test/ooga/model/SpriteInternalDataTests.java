@@ -9,13 +9,39 @@ import org.junit.jupiter.api.Test;
 public class SpriteInternalDataTests {
 
   private PacMan pacMan;
+  private PacmanGrid grid;
 
   @BeforeEach
   public void setupPacMan() {
-    Vec2 position = new Vec2(2.5, 1.5);
-    Vec2 direction = new Vec2(1, 0);
+    int[][] protoGrid = {
+        {1, 1, 1, 1, 1, 1},
+        {1, 0, 1, 1, 1, 1},
+        {1, 0, 0, 0, 0, 1},
+        {1, 1, 1, 1, 1, 1},
+    };
+
+    grid = new PacmanGrid(6, 4);
+    for (int j = 0; j < protoGrid.length; j++) {
+      for (int k = 0; k < protoGrid[0].length; k++) {
+        Tile tile = protoGrid[j][k] == 0 ? new Tile(new TileCoordinates(k, j), null, true, false)
+            : new Tile(new TileCoordinates(k, j), null, false, false);
+        grid.setTile(j, k, tile);
+      }
+    }
+    Vec2 position = new Vec2(4.5, 2.5);
+    Vec2 direction = new Vec2(-1, 0);
     SpriteCoordinates spriteCoordinates = new SpriteCoordinates(position);
-    pacMan = new PacMan(spriteCoordinates, direction, 11);
+    pacMan = new PacMan(spriteCoordinates, direction, 11, grid);
+  }
+
+  @Test
+  public void moveLeftTest() {
+    TestInputSource input = new TestInputSource();
+    pacMan.setInputSource(input);
+    for (int k = 0; k < 500; k++){
+      pacMan.step(1.0/60);
+    }
+    System.out.println(pacMan.getCoordinates().getTileCoordinates());
   }
 
   @Test
@@ -96,11 +122,44 @@ public class SpriteInternalDataTests {
     }
   }
 
+  @Test
+  public void inBetweenTest() {
+    Vec2 center = new Vec2(0.5, 0.5);
+    Vec2[] inputList1 = {
+        new Vec2(0.5, 0),
+        new Vec2(0.5, 0.75),
+        new Vec2(0, 0.5),
+        new Vec2(0.45, 0.5),
+        new Vec2(0.45, 0.5),
+    };
+    Vec2[] inputList2 = {
+        new Vec2(0.5, 0.75),
+        new Vec2(0.5, 0),
+        new Vec2(1, 0.5),
+        new Vec2(0.51, 0.5),
+        new Vec2(0.51, 0.51),
+    };
+    boolean[] expected = {
+        true,
+        true,
+        true,
+        true,
+        false,
+    };
+    for (int k = 0; k < inputList1.length; k++) {
+      Vec2 vecA = inputList1[k];
+      Vec2 vecB = inputList2[k];
+      boolean expectedValue = expected[k];
+      assertEquals(expectedValue, center.isBetween(vecA, vecB));
+    }
+
+  }
+
 
   @Test
   public void truncationTest() {
     TileCoordinates actualTileCoords = pacMan.getCoordinates().getTileCoordinates();
-    TileCoordinates expectedTileCoords = new TileCoordinates(2, 1);
+    TileCoordinates expectedTileCoords = new TileCoordinates(4, 2);
     assertEquals(expectedTileCoords, actualTileCoords);
   }
 
@@ -108,9 +167,9 @@ public class SpriteInternalDataTests {
   public void initialStatesSavedTest() {
     Vec2 actualDirection = pacMan.getDirection();
     Vec2 actualPosition = pacMan.getCoordinates().getExactCoordinates();
-    assertEquals(new Vec2(1, 0), actualDirection);
-    assertEquals(new Vec2(2.5, 1.5), actualPosition);
-    assertEquals(10, pacMan.getSpeed());
+    assertEquals(new Vec2(-1, 0), actualDirection);
+    assertEquals(new Vec2(4.5, 2.5), actualPosition);
+    assertEquals(11, pacMan.getSpeed());
   }
 
 }

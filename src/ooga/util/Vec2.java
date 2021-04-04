@@ -107,6 +107,7 @@ public class Vec2 {
    * @return boolean representing whether this vector resides on the line connecting two points.
    */
   public boolean isBetween(Vec2 vectorA, Vec2 vectorB) {
+    // https://stackoverflow.com/questions/328107/how-can-you-determine-a-point-is-between-two-other-points-on-a-line-segment
     double shortestDistance = vectorA.distance(vectorB);
     double distanceAll = this.distance(vectorA) + this.distance(vectorB);
     return Math.abs(distanceAll - shortestDistance) < EPSILON;
