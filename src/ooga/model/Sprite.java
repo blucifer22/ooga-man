@@ -18,6 +18,12 @@ public abstract class Sprite implements SpriteObservable {
     this.direction = direction;
   }
 
+  public Sprite () {
+    // TODO: Verify that this is appropriate behavior for the no-arg constructor
+    this.position = new SpriteCoordinates();
+    this.direction = Vec2.ZERO;
+  }
+
   /**
    * Returns whether this Sprite moves over the course of the game
    *

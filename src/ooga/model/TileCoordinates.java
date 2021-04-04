@@ -1,5 +1,6 @@
 package ooga.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ooga.util.Vec2;
 
 /**
@@ -16,9 +17,15 @@ public class TileCoordinates {
   private final int x;
   private final int y;
 
-  public TileCoordinates(int x, int y) {
+  public TileCoordinates(@JsonProperty("x") int x, @JsonProperty("y") int y) {
     this.x = x;
     this.y = y;
+  }
+
+  public TileCoordinates() {
+    // TODO: Verify that this is appropriate behavior for the no-arg constructor
+    this.x = 0;
+    this.y = 0;
   }
 
   public int getX() {

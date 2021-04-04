@@ -24,7 +24,7 @@ public class PacMan extends MovingSprite {
 
   @Override
   public String getType() {
-    return null;
+    return TYPE;
   }
 
   @Override

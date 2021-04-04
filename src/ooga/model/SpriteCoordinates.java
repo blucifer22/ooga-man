@@ -13,7 +13,12 @@ public class SpriteCoordinates {
     this.position = position;
   }
 
-  public void setPosition(Vec2 position){
+  public SpriteCoordinates() {
+    // TODO: Verify that this is appropriate behavior for the no-arg constructor
+    this.position = Vec2.ZERO;
+  }
+
+  public void setPosition(Vec2 position) {
     this.position = position;
   }
 
