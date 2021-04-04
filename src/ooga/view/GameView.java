@@ -2,12 +2,17 @@ package ooga.view;
 
 import java.util.HashMap;
 import java.util.Map;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import ooga.model.SpriteExistenceObserver;
@@ -16,7 +21,7 @@ import ooga.model.SpriteObservable;
 public class GameView implements SpriteExistenceObserver, Renderable {
 
   private final Map<SpriteObservable, SpriteView> views;
-  private final StackPane primaryView;
+  private final GridPane primaryView;
   private final Group sprites;
   private final DoubleProperty tileSize;
 
@@ -28,10 +33,34 @@ public class GameView implements SpriteExistenceObserver, Renderable {
 
     // Lay out grid
     GameGridView backgroundGrid = new GameGridView(rows, cols);
-    this.primaryView = new StackPane(backgroundGrid.getRenderingNode(), this.sprites);
-    this.primaryView.setAlignment(Pos.TOP_LEFT);
+    StackPane layeredView = new StackPane(backgroundGrid.getRenderingNode(), this.sprites);
+    layeredView.setAlignment(Pos.TOP_LEFT);
     this.tileSize = new SimpleDoubleProperty(0);
     this.tileSize.bind(backgroundGrid.tileSizeProperty());
+
+    this.primaryView = new GridPane();
+
+    RowConstraints flexRow = new RowConstraints();
+    flexRow.setVgrow(Priority.ALWAYS);
+
+    RowConstraints fixedRow = new RowConstraints();
+    fixedRow.setVgrow(Priority.NEVER);
+    fixedRow.prefHeightProperty().bind(this.primaryView.heightProperty());
+
+    ColumnConstraints flexCol = new ColumnConstraints();
+    flexCol.setHgrow(Priority.ALWAYS);
+
+    ColumnConstraints fixedCol = new ColumnConstraints();
+    fixedCol.setHgrow(Priority.NEVER);
+    fixedCol.prefWidthProperty().bind(this.primaryView.widthProperty());
+
+    this.primaryView.getRowConstraints().addAll(flexRow, fixedRow, flexRow);
+    this.primaryView.getColumnConstraints().addAll(flexCol, fixedCol, flexCol);
+
+    GridPane.setConstraints(layeredView, 1, 1);
+
+    this.primaryView.getChildren().add(layeredView);
+
   }
 
   @Override
