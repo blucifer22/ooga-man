@@ -2,6 +2,7 @@ package ooga.view;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.Node;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import ooga.model.SpriteCoordinates;
 import ooga.model.SpriteObserver;
@@ -21,9 +22,10 @@ public class SpriteView implements SpriteObserver, Renderable {
     this.size = tileSize;
 
     // render
-    this.viewGraphic = new Rectangle();
-    this.viewGraphic.widthProperty().bind(tileSize);
-    this.viewGraphic.heightProperty().bind(tileSize);
+    this.viewGraphic = new Rectangle(50, 50, 50, 50);
+    this.viewGraphic.setFill(Color.BLUE);
+    //this.viewGraphic.widthProperty().bind(size);
+    //this.viewGraphic.heightProperty().bind(size);
   }
 
   public void onSpriteUpdate(SpriteEvent e) {
