@@ -2,6 +2,8 @@ package ooga.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,12 +38,156 @@ public class SpriteInternalDataTests {
 
   @Test
   public void moveLeftTest() {
-    TestInputSource input = new TestInputSource();
-    pacMan.setInputSource(input);
-    for (int k = 0; k < 500; k++){
-      pacMan.step(1.0/60);
+    class TestInputSource implements InputSource {
+
+      private final List<Vec2> prepopulatedActions = new ArrayList<>();
+      private int dex = 0;
+
+      public TestInputSource() {
+        for (int j = 0; j < 1000; j++) {
+          prepopulatedActions.add(new Vec2(-1, 0));
+        }
+      }
+
+      @Override
+      public Vec2 getRequestedDirection() {
+        return prepopulatedActions.get(dex++);
+      }
+
+      @Override
+      public boolean isActionPressed() {
+        return false;
+      }
     }
-    System.out.println(pacMan.getCoordinates().getTileCoordinates());
+    TestInputSource input = new TestInputSource() {
+    };
+    pacMan.setInputSource(input);
+
+    for (int k = 0; k < 500; k++) {
+      pacMan.step(1.0 / 60);
+    }
+
+    assertEquals(new Vec2(1.5, 2.5), pacMan.getCoordinates().getExactCoordinates());
+  }
+
+  @Test
+  public void cannotMoveUpRightDownTest() {
+    class TestInputSource implements InputSource {
+
+      private final List<Vec2> prepopulatedActions = new ArrayList<>();
+      private int dex = 0;
+
+      public TestInputSource() {
+        prepopulatedActions.add(new Vec2(1, 0));
+        prepopulatedActions.add(new Vec2(0, -1));
+        prepopulatedActions.add(new Vec2(1, 0));
+        prepopulatedActions.add(new Vec2(0, 1));
+        prepopulatedActions.add(new Vec2(-1, 0));
+        for (int k = 0; k < 50; k++){
+          prepopulatedActions.add(Vec2.ZERO);
+        }
+      }
+
+      @Override
+      public Vec2 getRequestedDirection() {
+        return prepopulatedActions.get(dex++);
+      }
+
+      @Override
+      public boolean isActionPressed() {
+        return false;
+      }
+    }
+    TestInputSource input = new TestInputSource() {
+    };
+    pacMan.setInputSource(input);
+
+    for (int k = 0; k < 4; k++) {
+      pacMan.step(1.0 / 60);
+    }
+
+    assertEquals(new Vec2(4.5, 2.5), pacMan.getCoordinates().getExactCoordinates());
+
+    for (int k = 0; k < 40; k++) {
+      pacMan.step(1.0 / 60);
+    }
+
+    assertEquals(new Vec2(1.5, 2.5), pacMan.getCoordinates().getExactCoordinates());
+  }
+
+  @Test
+  public void moveUpStickyTest() {
+    class TestInputSource implements InputSource {
+
+      private final List<Vec2> prepopulatedActions = new ArrayList<>();
+      private int dex = 0;
+
+      public TestInputSource() {
+        for (int j = 0; j < 4; j++) {
+          prepopulatedActions.add(new Vec2(-1, 0));
+        }
+        prepopulatedActions.add(new Vec2(0, -1));
+        for (int j = 0; j < 100; j++) {
+          prepopulatedActions.add(new Vec2(-1, 0));
+        }
+      }
+
+      @Override
+      public Vec2 getRequestedDirection() {
+        return prepopulatedActions.get(dex++);
+      }
+
+      @Override
+      public boolean isActionPressed() {
+        return false;
+      }
+    }
+    TestInputSource input = new TestInputSource() {
+    };
+    pacMan.setInputSource(input);
+
+    for (int k = 0; k < 100; k++) {
+      pacMan.step(1.0 / 60);
+    }
+
+    assertEquals(new Vec2(1.5, 1.5), pacMan.getCoordinates().getExactCoordinates());
+  }
+
+  @Test
+  public void immediateLeftRightTest() {
+    class TestInputSource implements InputSource {
+
+      private final List<Vec2> prepopulatedActions = new ArrayList<>();
+      private int dex = 0;
+
+      public TestInputSource() {
+        for (int j = 0; j < 2; j++) {
+          prepopulatedActions.add(new Vec2(-1, 0));
+        }
+        for (int j = 0; j < 2; j++) {
+          prepopulatedActions.add(new Vec2(1, 0));
+        }
+      }
+
+      @Override
+      public Vec2 getRequestedDirection() {
+        return prepopulatedActions.get(dex++);
+      }
+
+      @Override
+      public boolean isActionPressed() {
+        return false;
+      }
+    }
+    TestInputSource input = new TestInputSource() {
+    };
+    pacMan.setInputSource(input);
+
+    for (int k = 0; k < 4; k++) {
+      pacMan.step(1.0 / 60);
+    }
+
+    assertEquals(new Vec2(4.5, 2.5), pacMan.getCoordinates().getExactCoordinates());
   }
 
   @Test
