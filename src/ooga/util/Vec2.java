@@ -2,18 +2,19 @@ package ooga.util;
 
 /**
  * This class implements a double-precision 2-vector over the reals.
- *
- * This is a utility class that was imported verbatim from one of our
- * previous projects.
+ * <p>
+ * This is a utility class that was imported verbatim from one of our previous projects.
  *
  * @author Mindy Wu
  * @author Franklin Wei
+ * @author George Hong
  */
 public class Vec2 {
-  private double x;
-  private double y;
 
   public static final Vec2 ZERO = new Vec2(0, 0);
+  public static final double EPSILON = 1E-6;
+  private double x;
+  private double y;
 
   public Vec2() {
     this.x = 0;
@@ -23,6 +24,11 @@ public class Vec2 {
   public Vec2(double x, double y) {
     this.x = x;
     this.y = y;
+  }
+
+  public static Vec2 unitVectorPointing(double angleDegrees) {
+    return new Vec2(Math.cos(Math.toRadians(angleDegrees)),
+        Math.sin(Math.toRadians(angleDegrees)));
   }
 
   public Vec2 add(Vec2 other) {
@@ -60,7 +66,7 @@ public class Vec2 {
   }
 
   public double getMagnitude() {
-    return Math.sqrt(this.x*this.x + this.y*this.y);
+    return Math.sqrt(this.x * this.x + this.y * this.y);
   }
 
   public double getX() {
@@ -71,14 +77,46 @@ public class Vec2 {
     return this.y;
   }
 
-  public static Vec2 unitVectorPointing(double angleDegrees) {
-    return new Vec2(Math.cos(Math.toRadians(angleDegrees)),
-                    Math.sin(Math.toRadians(angleDegrees)));
+  /**
+   * Returns whether two vectors are parallel to each other
+   *
+   * @param other vector to consider
+   * @return boolean representing whether two vectors are parallel
+   */
+  public boolean parallelTo(Vec2 other) {
+    return Math.abs(this.angleTo(other)) < EPSILON ||
+        Math.abs(this.angleTo(other) - 180) < EPSILON;
   }
+
+  /**
+   * Calculates the distance between two vectors.
+   *
+   * @param other
+   * @return
+   */
+  public double distance(Vec2 other) {
+    Vec2 difference = this.subtract(other);
+    return difference.getMagnitude();
+  }
+
+  /**
+   * Returns whether this vector resides on the line connecting two points
+   *
+   * @param vectorA one of the two endpoints
+   * @param vectorB other endpoint
+   * @return boolean representing whether this vector resides on the line connecting two points.
+   */
+  public boolean isBetween(Vec2 vectorA, Vec2 vectorB) {
+    // https://stackoverflow.com/questions/328107/how-can-you-determine-a-point-is-between-two-other-points-on-a-line-segment
+    double shortestDistance = vectorA.distance(vectorB);
+    double distanceAll = this.distance(vectorA) + this.distance(vectorB);
+    return Math.abs(distanceAll - shortestDistance) < EPSILON;
+  }
+
 
   @Override
   public boolean equals(Object o) {
-    if(o instanceof Vec2) {
+    if (o instanceof Vec2) {
       Vec2 vec = (Vec2) o;
       return vec.x == this.x && vec.y == this.y;
     }

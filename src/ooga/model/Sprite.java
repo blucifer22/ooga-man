@@ -10,10 +10,10 @@ import ooga.util.Vec2;
  */
 public abstract class Sprite implements SpriteObservable {
 
-  private SpriteCoordinates position;
+  private final SpriteCoordinates position;
   private Vec2 direction;
 
-  public Sprite(SpriteCoordinates position, Vec2 direction){
+  public Sprite(SpriteCoordinates position, Vec2 direction) {
     this.position = position;
     this.direction = direction;
   }
@@ -56,6 +56,10 @@ public abstract class Sprite implements SpriteObservable {
    */
   public Vec2 getDirection() {
     return direction;
+  }
+
+  public void setDirection(Vec2 direction) {
+    this.direction = direction;
   }
 
   public boolean isVisible() {

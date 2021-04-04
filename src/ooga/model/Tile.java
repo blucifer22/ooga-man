@@ -1,5 +1,6 @@
 package ooga.model;
 
+import ooga.util.Vec2;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
