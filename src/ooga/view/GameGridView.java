@@ -21,17 +21,16 @@ public class GameGridView implements Renderable {
   public GameGridView(int rows, int cols) {
     this.tileGrid = new GridPane();
 
-    RowConstraints flexRow = new RowConstraints();
-    flexRow.setVgrow(Priority.ALWAYS);
-    flexRow.setFillHeight(true);
-    RowConstraints rc = new RowConstraints();
-    rc.setVgrow(Priority.NEVER);
-    tileGrid.getRowConstraints().add(flexRow);
-    for (int i = 0; i < rows; i++) {
-      tileGrid.getRowConstraints().add(rc);
-    }
-    tileGrid.getRowConstraints().add(flexRow);
+    this.tileSizeProperty = new SimpleDoubleProperty(0);
+    this.tileSizeProperty.bind(Bindings.min(tileGrid.widthProperty().divide(cols),
+        tileGrid.heightProperty().divide(rows)));
 
+    configureRowConstraints(rows);
+    configureColumnConstraints(cols);
+    addGridTiles(rows, cols);
+  }
+
+  private void configureColumnConstraints(int cols) {
     ColumnConstraints flexCol = new ColumnConstraints();
     flexCol.setHgrow(Priority.ALWAYS);
     flexCol.setFillWidth(true);
@@ -43,15 +42,25 @@ public class GameGridView implements Renderable {
     }
     tileGrid.getColumnConstraints().add(flexCol);
 
-    this.tileSizeProperty = new SimpleDoubleProperty(0);
-    this.tileSizeProperty.bind(Bindings.min(tileGrid.widthProperty().divide(cols),
-        tileGrid.heightProperty().divide(rows)));
-
     cc.prefWidthProperty().bind(tileSizeProperty);
+  }
+
+  private void configureRowConstraints(int rows) {
+    RowConstraints flexRow = new RowConstraints();
+    flexRow.setVgrow(Priority.ALWAYS);
+    flexRow.setFillHeight(true);
+    RowConstraints rc = new RowConstraints();
+    rc.setVgrow(Priority.NEVER);
+    tileGrid.getRowConstraints().add(flexRow);
+    for (int i = 0; i < rows; i++) {
+      tileGrid.getRowConstraints().add(rc);
+    }
+    tileGrid.getRowConstraints().add(flexRow);
+
     rc.prefHeightProperty().bind(tileSizeProperty());
+  }
 
-    this.tileGrid.setGridLinesVisible(true);
-
+  private void addGridTiles(int rows, int cols) {
     for (int i = 1; i < rows+1; i++) {
       for (int j = 1; j < cols+1; j++) {
         Rectangle r = new Rectangle(0, 0, 0, 0);
