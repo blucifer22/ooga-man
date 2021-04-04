@@ -66,8 +66,8 @@ public class GameGridView implements Renderable {
         Rectangle r = new Rectangle(0, 0, 0, 0);
         r.widthProperty().bind(tileSizeProperty);
         r.heightProperty().bind(tileSizeProperty);
-        r.setFill(Color.PINK);
-        r.setStroke(Color.WHITE);
+        r.setFill(Color.TRANSPARENT);
+        r.setStroke(Color.PINK);
         r.setStrokeWidth(1.0);
         r.setStrokeType(StrokeType.INSIDE);
         GridPane.setConstraints(r, j, i);

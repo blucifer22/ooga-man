@@ -8,16 +8,18 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import ooga.model.SpriteExistenceObserver;
 import ooga.model.SpriteObservable;
 
 public class GameView implements SpriteExistenceObserver, Renderable {
 
   private final Map<SpriteObservable, SpriteView> views;
-  private final GridPane primaryView;
+  private final Pane primaryView;
   private final Group sprites;
   private final DoubleProperty tileSize;
 
@@ -28,21 +30,8 @@ public class GameView implements SpriteExistenceObserver, Renderable {
 
     // Lay out grid
     GameGridView backgroundGrid = new GameGridView(rows, cols);
-    StackPane overlay = new StackPane(backgroundGrid.getRenderingNode(), this.sprites);
+    this.primaryView = new StackPane(backgroundGrid.getRenderingNode(), this.sprites);
     this.tileSize = new SimpleDoubleProperty(0);
-
-    this.primaryView = new GridPane();
-    GridPane.setConstraints(overlay, 0, 0);
-    primaryView.getChildren().add(overlay);
-
-    RowConstraints rc = new RowConstraints();
-    rc.setVgrow(Priority.ALWAYS);
-    ColumnConstraints cc = new ColumnConstraints();
-    cc.setHgrow(Priority.ALWAYS);
-
-    primaryView.getRowConstraints().add(rc);
-    primaryView.getColumnConstraints().add(cc);
-
     this.tileSize.bind(backgroundGrid.tileSizeProperty());
   }
 
