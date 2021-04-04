@@ -18,6 +18,7 @@ import java.util.List;
  */
 public class GridDescription {
 
+  private final String gridName;
   private final int width;
   private final int height;
   private final List<List<Tile>> grid;
@@ -26,6 +27,7 @@ public class GridDescription {
    * The general constructor for GridDescription. Takes in a width, a height, and a 2D array of
    * Tiles with which to initially populate itself.
    *
+   * @param gridName The name of the Grid that this GridDescription represents.
    * @param width The width of the Grid that this GridDescription represents.
    * @param height The height of the Grid that this GridDescription represents.
    * @param tileList The List of Tiles that compose the Grid that this GridDescription represents.
@@ -33,11 +35,13 @@ public class GridDescription {
    */
   @JsonCreator
   public GridDescription(
+      @JsonProperty("gridName") String gridName,
       @JsonProperty("width") int width,
       @JsonProperty("height") int height,
       @JsonProperty("grid") List<List<Tile>> tileList)
       throws IllegalArgumentException {
 
+    this.gridName = gridName;
     this.width = width;
     this.height = height;
 
@@ -59,6 +63,16 @@ public class GridDescription {
     ObjectMapper mapper = new ObjectMapper();
     mapper.enable(SerializationFeature.INDENT_OUTPUT);
     mapper.writeValue(new File(filepath), this);
+  }
+
+  /**
+   * Get the name of this GridDescription.
+   *
+   * @return The name of this GridDescription.
+   */
+  @JsonGetter
+  public String getGridName() {
+    return gridName;
   }
 
   /**

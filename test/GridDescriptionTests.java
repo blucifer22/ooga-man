@@ -22,6 +22,7 @@ public class GridDescriptionTests {
   @Test
   public void testGridDescriptionConstructor() {
     // Simulate loading in a small grid from JSON
+    String name = "testGrid";
     int width = 2;
     int height = 2;
     List<List<Tile>> tileList =
@@ -33,7 +34,7 @@ public class GridDescriptionTests {
                 new Tile(new TileCoordinates(0, 1), "Tile 2", false, false),
                 new Tile(new TileCoordinates(1, 1), "Tile 3", false, true)));
 
-    GridDescription gridDescription = new GridDescription(width, height, tileList);
+    GridDescription gridDescription = new GridDescription(name, width, height, tileList);
 
     List<List<Tile>> tiles = gridDescription.getGrid();
 
@@ -47,6 +48,7 @@ public class GridDescriptionTests {
   @Test
   public void testGridDescriptionOverflowException() {
     // Simulate loading in a small grid from JSON
+    String name = "overflowingTestGrid";
     int width = 1;
     int height = 1;
     List<List<Tile>> tileList =
@@ -61,13 +63,14 @@ public class GridDescriptionTests {
     assertThrows(
         IllegalArgumentException.class,
         () -> {
-          GridDescription gridDescription = new GridDescription(width, height, tileList);
+          GridDescription gridDescription = new GridDescription(name, width, height, tileList);
         });
   }
 
   @Test
   public void testGridDescriptionUnderflowException() {
     // Simulate loading in a small grid from JSON
+    String name = "underflowingTestGrid";
     int width = 10;
     int height = 1;
     List<List<Tile>> tileList =
@@ -82,13 +85,14 @@ public class GridDescriptionTests {
     assertThrows(
         IllegalArgumentException.class,
         () -> {
-          GridDescription gridDescription = new GridDescription(width, height, tileList);
+          GridDescription gridDescription = new GridDescription(name, width, height, tileList);
         });
   }
 
   @Test
   public void testGridDescriptionJSON() {
     String path = "data/levels/grids/test_grid.json";
+    String name = "testGrid";
     int width = 2;
     int height = 2;
     List<List<Tile>> tileList =
@@ -100,7 +104,7 @@ public class GridDescriptionTests {
                 new Tile(new TileCoordinates(1, 0), "Tile 2", false, false),
                 new Tile(new TileCoordinates(1, 1), "Tile 3", false, true)));
 
-    GridDescription gridDescription = new GridDescription(width, height, tileList);
+    GridDescription gridDescription = new GridDescription(name, width, height, tileList);
 
     try {
       gridDescription.toJSON(path);
