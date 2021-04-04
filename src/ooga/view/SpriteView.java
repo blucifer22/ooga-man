@@ -22,10 +22,10 @@ public class SpriteView implements SpriteObserver, Renderable {
     this.size = tileSize;
 
     // render
-    this.viewGraphic = new Rectangle(50, 50, 50, 50);
+    this.viewGraphic = new Rectangle();
     this.viewGraphic.setFill(Color.BLUE);
-    //this.viewGraphic.widthProperty().bind(size);
-    //this.viewGraphic.heightProperty().bind(size);
+    this.viewGraphic.widthProperty().bind(size);
+    this.viewGraphic.heightProperty().bind(size);
   }
 
   public void onSpriteUpdate(SpriteEvent e) {

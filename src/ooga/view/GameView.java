@@ -4,17 +4,19 @@ import java.util.HashMap;
 import java.util.Map;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
 import ooga.model.SpriteExistenceObserver;
 import ooga.model.SpriteObservable;
 
 public class GameView implements SpriteExistenceObserver, Renderable {
 
   private final Map<SpriteObservable, SpriteView> views;
-  private final Pane primaryView;
+  private final StackPane primaryView;
   private final Group sprites;
   private final DoubleProperty tileSize;
 
@@ -22,10 +24,12 @@ public class GameView implements SpriteExistenceObserver, Renderable {
     // Track existing Sprites with Map; render them with Group
     this.views = new HashMap<>();
     this.sprites = new Group();
+    this.sprites.getChildren().add(new Rectangle(0,0,0,0));
 
     // Lay out grid
     GameGridView backgroundGrid = new GameGridView(rows, cols);
     this.primaryView = new StackPane(backgroundGrid.getRenderingNode(), this.sprites);
+    this.primaryView.setAlignment(Pos.TOP_LEFT);
     this.tileSize = new SimpleDoubleProperty(0);
     this.tileSize.bind(backgroundGrid.tileSizeProperty());
   }
