@@ -1,7 +1,10 @@
 package ooga.model;
 
+import ooga.util.Vec2;
+
 /**
  * Represents basic properties of a Tile such as whether they can be occupied
+ *
  * @author George Hong
  */
 public class Tile {
@@ -11,7 +14,8 @@ public class Tile {
   private final boolean isOpenToPacman;
   private final boolean isOpenToGhosts;
 
-  public Tile(TileCoordinates tileCoordinates, String initialType, boolean isOpenToPacman, boolean isOpenToGhosts) {
+  public Tile(TileCoordinates tileCoordinates, String initialType, boolean isOpenToPacman,
+      boolean isOpenToGhosts) {
     this.tileCoordinates = tileCoordinates;
     this.tileType = initialType;
     this.isOpenToPacman = isOpenToPacman;
