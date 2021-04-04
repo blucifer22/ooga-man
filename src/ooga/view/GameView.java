@@ -37,7 +37,6 @@ public class GameView implements SpriteExistenceObserver, Renderable {
   @Override
   public void onSpriteCreation(SpriteObservable so) {
     SpriteView createdSpriteView = new SpriteView(so, tileSize);
-    System.out.println(tileSize);
     views.put(so, createdSpriteView);
     sprites.getChildren().add(createdSpriteView.getRenderingNode());
   }

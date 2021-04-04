@@ -31,38 +31,26 @@ public class GameGridView implements Renderable {
   }
 
   private void configureColumnConstraints(int cols) {
-    ColumnConstraints flexCol = new ColumnConstraints();
-    flexCol.setHgrow(Priority.ALWAYS);
-    flexCol.setFillWidth(true);
     ColumnConstraints cc = new ColumnConstraints();
     cc.setHgrow(Priority.NEVER);
-    tileGrid.getColumnConstraints().add(flexCol);
     for (int i = 0; i < cols; i++) {
       tileGrid.getColumnConstraints().add(cc);
     }
-    tileGrid.getColumnConstraints().add(flexCol);
-
     cc.prefWidthProperty().bind(tileSizeProperty);
   }
 
   private void configureRowConstraints(int rows) {
-    RowConstraints flexRow = new RowConstraints();
-    flexRow.setVgrow(Priority.ALWAYS);
-    flexRow.setFillHeight(true);
     RowConstraints rc = new RowConstraints();
     rc.setVgrow(Priority.NEVER);
-    tileGrid.getRowConstraints().add(flexRow);
     for (int i = 0; i < rows; i++) {
       tileGrid.getRowConstraints().add(rc);
     }
-    tileGrid.getRowConstraints().add(flexRow);
-
     rc.prefHeightProperty().bind(tileSizeProperty());
   }
 
   private void addGridTiles(int rows, int cols) {
-    for (int i = 1; i < rows+1; i++) {
-      for (int j = 1; j < cols+1; j++) {
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < cols; j++) {
         Rectangle r = new Rectangle(0, 0, 0, 0);
         r.widthProperty().bind(tileSizeProperty);
         r.heightProperty().bind(tileSizeProperty);
