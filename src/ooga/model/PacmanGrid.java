@@ -6,18 +6,32 @@ import java.util.Iterator;
  * Object that represents the structure of the Grid and its contents, along with dimensional
  * properties.
  */
-abstract class PacmanGrid implements Iterable<Tile> {
+class PacmanGrid implements Iterable<Tile>, ObservableGrid {
+
+  private final int width;
+  private final int height;
+  private final Tile[][] contents;
+
+  public PacmanGrid(int width, int height) {
+    this.width = width;
+    this.height = height;
+    contents = new Tile[height][width];
+  }
 
   public int getWidth() {
-    return 0;
+    return width;
   }
 
   public int getHeight() {
-    return 0;
+    return height;
   }
 
   public Tile getTile(TileCoordinates tileCoordinates) {
-    return null;
+    return contents[tileCoordinates.getY()][tileCoordinates.getX()];
+  }
+
+  public void setTile(int row, int col, Tile tile) {
+    contents[row][col] = tile;
   }
 
   @Override

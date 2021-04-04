@@ -12,7 +12,15 @@ public class PacmanGameState {
   private Collection<Sprite> sprites;
   private int pacManScore;
 
-  public void addExistenceObserver(SpriteExistenceObserver spriteExistenceObserver) {
+  public PacmanGameState() {
+    //this.grid = new PacmanGrid();
+  }
+
+  public void addSpriteExistenceObserver(SpriteExistenceObserver spriteExistenceObserver) {
+
+  }
+
+  public void startLevel(GridDescription level) {
 
   }
 

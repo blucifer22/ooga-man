@@ -7,6 +7,7 @@ import ooga.model.PacmanGameState;
 import ooga.model.Sprite;
 import ooga.model.SpriteCoordinates;
 import ooga.model.TileCoordinates;
+import ooga.view.GameGridView;
 import ooga.view.GameView;
 
 public class Controller {
@@ -21,9 +22,9 @@ public class Controller {
   public void startGame() {
     PacmanGameState pgs = new PacmanGameState();
     GameView gv = new GameView(10, 10);
-    pgs.addExistenceObserver(gv);
-    primaryStage.setScene(new Scene((Pane) (new GameView(10,10).getRenderingNode()), 400,
-        400));
+    pgs.addSpriteExistenceObserver(gv);
+    primaryStage.setScene(new Scene((Pane) (new GameGridView(10,10)).getRenderingNode(), 400.0,
+        400.0));
     gv.onSpriteCreation(new Sprite() {
 
       @Override
