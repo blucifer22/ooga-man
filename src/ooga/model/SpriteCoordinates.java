@@ -13,6 +13,11 @@ public class SpriteCoordinates {
     this.position = position;
   }
 
+  public SpriteCoordinates() {
+    // TODO: Verify that this is appropriate behavior for the no-arg constructor
+    this.position = Vec2.ZERO;
+  }
+
   public Vec2 getExactCoordinates() {
     return position;
   }
