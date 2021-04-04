@@ -1,4 +1,5 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -23,12 +24,14 @@ public class GridDescriptionTests {
     // Simulate loading in a small grid from JSON
     int width = 2;
     int height = 2;
-    List<Tile> tileList =
+    List<List<Tile>> tileList =
         List.of(
-            new Tile(new TileCoordinates(0, 0), "Tile 0", false, true),
-            new Tile(new TileCoordinates(1, 0), "Tile 1", true, true),
-            new Tile(new TileCoordinates(0, 1), "Tile 2", false, false),
-            new Tile(new TileCoordinates(1, 1), "Tile 3", false, false));
+            List.of(
+                new Tile(new TileCoordinates(0, 0), "Tile 0", false, true),
+                new Tile(new TileCoordinates(1, 0), "Tile 1", true, false)),
+            List.of(
+                new Tile(new TileCoordinates(0, 1), "Tile 2", false, false),
+                new Tile(new TileCoordinates(1, 1), "Tile 3", false, true)));
 
     GridDescription gridDescription = new GridDescription(width, height, tileList);
 
@@ -46,12 +49,14 @@ public class GridDescriptionTests {
     // Simulate loading in a small grid from JSON
     int width = 1;
     int height = 1;
-    List<Tile> tileList =
+    List<List<Tile>> tileList =
         List.of(
-            new Tile(new TileCoordinates(0, 0), "Tile 0", false, false),
-            new Tile(new TileCoordinates(1, 0), "Tile 1", true, false),
-            new Tile(new TileCoordinates(0, 1), "Tile 2", false, true),
-            new Tile(new TileCoordinates(1, 1), "Tile 3", false, true));
+            List.of(
+                new Tile(new TileCoordinates(0, 0), "Tile 0", false, true),
+                new Tile(new TileCoordinates(1, 0), "Tile 1", true, false)),
+            List.of(
+                new Tile(new TileCoordinates(0, 1), "Tile 2", false, false),
+                new Tile(new TileCoordinates(1, 1), "Tile 3", false, true)));
 
     assertThrows(
         IllegalArgumentException.class,
@@ -65,12 +70,14 @@ public class GridDescriptionTests {
     // Simulate loading in a small grid from JSON
     int width = 10;
     int height = 1;
-    List<Tile> tileList =
+    List<List<Tile>> tileList =
         List.of(
-            new Tile(new TileCoordinates(0, 0), "Tile 0", false, true),
-            new Tile(new TileCoordinates(1, 0), "Tile 1", true, false),
-            new Tile(new TileCoordinates(0, 1), "Tile 2", false, false),
-            new Tile(new TileCoordinates(1, 1), "Tile 3", false, true));
+            List.of(
+                new Tile(new TileCoordinates(0, 0), "Tile 0", false, true),
+                new Tile(new TileCoordinates(1, 0), "Tile 1", true, false)),
+            List.of(
+                new Tile(new TileCoordinates(0, 1), "Tile 2", false, false),
+                new Tile(new TileCoordinates(1, 1), "Tile 3", false, true)));
 
     assertThrows(
         IllegalArgumentException.class,
@@ -84,12 +91,14 @@ public class GridDescriptionTests {
     String path = "data/levels/grids/test_grid.json";
     int width = 2;
     int height = 2;
-    List<Tile> tileList =
+    List<List<Tile>> tileList =
         List.of(
-            new Tile(new TileCoordinates(0, 0), "Tile 0", false, true),
-            new Tile(new TileCoordinates(1, 0), "Tile 1", true, true),
-            new Tile(new TileCoordinates(0, 1), "Tile 2", false, false),
-            new Tile(new TileCoordinates(1, 1), "Tile 3", false, false));
+            List.of(
+                new Tile(new TileCoordinates(0, 0), "Tile 0", false, true),
+                new Tile(new TileCoordinates(0, 1), "Tile 1", true, false)),
+            List.of(
+                new Tile(new TileCoordinates(1, 0), "Tile 2", false, false),
+                new Tile(new TileCoordinates(1, 1), "Tile 3", false, true)));
 
     GridDescription gridDescription = new GridDescription(width, height, tileList);
 
@@ -113,9 +122,9 @@ public class GridDescriptionTests {
     assertEquals(description.getWidth(), 2);
     assertEquals(description.getHeight(), 2);
     List<List<Tile>> grid = description.getGrid();
-    assertEquals(grid.get(0).get(1).getType(), "Tile 0");
+    assertEquals(grid.get(0).get(1).getType(), "Tile 1");
     assertEquals(grid.get(1).get(1).getCoordinates(), new TileCoordinates(1, 1));
-    assertTrue(grid.get(1).get(0).isOpenToPacman());
-    assertTrue(grid.get(1).get(0).isOpenToGhosts());
+    assertTrue(grid.get(0).get(1).isOpenToPacman());
+    assertFalse(grid.get(0).get(1).isOpenToGhosts());
   }
 }

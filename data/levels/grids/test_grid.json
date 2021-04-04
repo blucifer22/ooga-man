@@ -11,16 +11,16 @@
     "openToGhosts" : true
   }, {
     "coordinates" : {
-      "x" : 1,
-      "y" : 0
+      "x" : 0,
+      "y" : 1
     },
     "type" : "Tile 1",
     "openToPacman" : true,
-    "openToGhosts" : true
+    "openToGhosts" : false
   } ], [ {
     "coordinates" : {
-      "x" : 0,
-      "y" : 1
+      "x" : 1,
+      "y" : 0
     },
     "type" : "Tile 2",
     "openToPacman" : false,
@@ -32,6 +32,6 @@
     },
     "type" : "Tile 3",
     "openToPacman" : false,
-    "openToGhosts" : false
+    "openToGhosts" : true
   } ] ]
 }

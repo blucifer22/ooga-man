@@ -1,6 +1,7 @@
 package ooga.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -19,27 +20,31 @@ public class Tile {
   public Tile(
       @JsonProperty("coordinates") TileCoordinates tileCoordinates,
       @JsonProperty("type") String initialType,
-      @JsonProperty("isOpenToPacman") boolean isOpenToPacman,
-      @JsonProperty("isOpenToGhosts") boolean isOpenToGhosts) {
+      @JsonProperty("openToPacman") boolean isOpenToPacman,
+      @JsonProperty("openToGhosts") boolean isOpenToGhosts) {
     this.tileCoordinates = tileCoordinates;
     this.tileType = initialType;
     this.isOpenToPacman = isOpenToPacman;
     this.isOpenToGhosts = isOpenToGhosts;
   }
 
+  @JsonGetter
   public TileCoordinates getCoordinates() {
     return tileCoordinates;
   }
 
+  @JsonGetter
   public boolean isOpenToPacman() {
     // true if pacman can move into this tile
     return isOpenToPacman;
   }
 
+  @JsonGetter
   public boolean isOpenToGhosts() {
     return isOpenToGhosts;
   }
 
+  @JsonGetter
   public String getType() {
     return tileType;
   }

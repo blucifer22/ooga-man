@@ -1,12 +1,12 @@
 package ooga.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,24 +35,18 @@ public class GridDescription {
   public GridDescription(
       @JsonProperty("width") int width,
       @JsonProperty("height") int height,
-      @JsonProperty("grid") List<Tile> tileList)
+      @JsonProperty("grid") List<List<Tile>> tileList)
       throws IllegalArgumentException {
 
     this.width = width;
     this.height = height;
 
-    if (tileList.size() != width * height) {
+    if (tileList.size() != width || tileList.get(0).size() != height) {
       throw new IllegalArgumentException(
           "ILLEGAL ARGUMENT EXCEPTION:\nWRONG NUMBER OF TILES FOR INDICATED DIMENSIONS!");
     }
 
-    this.grid = new ArrayList<>();
-    for (int i = 0; i < height; i++) {
-      grid.add(i, new ArrayList<>());
-      for (int j = 0; j < width; j++) {
-        grid.get(i).add(j, tileList.get((i * width) + j));
-      }
-    }
+    this.grid = tileList;
   }
 
   /**
@@ -72,6 +66,7 @@ public class GridDescription {
    *
    * @return The width of this GridDescription.
    */
+  @JsonGetter
   public int getWidth() {
     return width;
   }
@@ -81,6 +76,7 @@ public class GridDescription {
    *
    * @return The height of this GridDescription.
    */
+  @JsonGetter
   public int getHeight() {
     return height;
   }
@@ -90,6 +86,7 @@ public class GridDescription {
    *
    * @return A 2D array of Tiles that make up this GridDescription
    */
+  @JsonGetter
   public List<List<Tile>> getGrid() {
     return grid;
   }
