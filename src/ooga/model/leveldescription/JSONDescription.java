@@ -6,7 +6,18 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.File;
 import java.io.IOException;
 
-public class JSONDescription {
+/**
+ * Superclass of objects that can be serialized to JSON files.
+ *
+ * This superclass contains one method -- toJSON(), which serializes
+ * an object to a specified JSON file.
+ *
+ * It is intentionally made abstract to prevent initializing a bare
+ * JSONDescription, which would be useless and confusing.
+ *
+ * @author Franklin Wei
+ */
+public abstract class JSONDescription {
     /**
      * Writes this GridDescription to a JSON file at the indicated filepath.
      *
