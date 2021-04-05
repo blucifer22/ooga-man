@@ -1,5 +1,6 @@
 package ooga.model;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ooga.util.Vec2;
 
@@ -28,10 +29,12 @@ public class TileCoordinates {
     this.y = 0;
   }
 
+  @JsonGetter
   public int getX() {
     return x;
   }
 
+  @JsonGetter
   public int getY() {
     return y;
   }
