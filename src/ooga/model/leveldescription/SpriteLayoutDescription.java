@@ -22,13 +22,9 @@ public class SpriteLayoutDescription extends JSONDescription {
   private final List<SpriteDescription> sprites;
 
   /**
-   * The general constructor for SpriteL. Takes in a width, a height, and a 2D array of Tiles with
-   * which to initially populate itself.
+   * The general constructor for SpriteLayoutDescription. Takes in a List of SpriteDescriptions.
    *
-   * @param gridName The name of the Grid that this GridDescription represents.
-   * @param width The width of the Grid that this GridDescription represents.
-   * @param height The height of the Grid that this GridDescription represents.
-   * @param tileList The List of Tiles that compose the Grid that this GridDescription represents.
+   * @param sprites A List of SpriteDescriptions to add to the layout.
    * @throws IllegalArgumentException If the wrong number of Tiles are provided
    */
   @JsonCreator
@@ -38,7 +34,7 @@ public class SpriteLayoutDescription extends JSONDescription {
   }
 
   /**
-   * Writes this GridDescription to a JSON file at the indicated filepath.
+   * Writes this SpriteLayoutDescription to a JSON file at the indicated filepath.
    *
    * @param filepath The filepath at which to write the JSON.
    * @throws IOException If the provided filepath is invalid.
