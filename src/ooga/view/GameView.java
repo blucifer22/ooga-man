@@ -1,10 +1,15 @@
 package ooga.view;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
 import ooga.model.SpriteExistenceObserver;
 
 /**
@@ -30,6 +35,9 @@ public class GameView implements Renderable {
     this.primaryView.getColumnConstraints().add(cc);
     this.primaryView.add(this.gridView.getRenderingNode(), 0, 0);
     this.primaryView.setAlignment(Pos.CENTER);
+    this.primaryView.setBackground(new Background(new BackgroundFill(Color.BLACK,
+        CornerRadii.EMPTY,
+        Insets.EMPTY)));
   }
 
   public SpriteExistenceObserver getSpriteExistenceObserver() {
