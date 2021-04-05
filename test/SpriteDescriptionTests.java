@@ -30,7 +30,7 @@ public class SpriteDescriptionTests {
 
   @Test
   public void testSpriteDescriptionJSON() {
-    String path = "data/levels/test_sprite.json";
+    String path = "data/levels/sprites/test_sprite.json";
 
     String spriteClassName = "ooga.model.sprites.Ghost";
     String inputSource = "GHOST_AI";
