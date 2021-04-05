@@ -43,17 +43,18 @@ public class GameView implements SpriteExistenceObserver, Renderable {
 
     RowConstraints fixedRow = new RowConstraints();
     fixedRow.setVgrow(Priority.NEVER);
-    fixedRow.prefHeightProperty().bind(this.primaryView.heightProperty());
+    fixedRow.setPercentHeight(80);
 
     ColumnConstraints flexCol = new ColumnConstraints();
     flexCol.setHgrow(Priority.ALWAYS);
 
     ColumnConstraints fixedCol = new ColumnConstraints();
     fixedCol.setHgrow(Priority.NEVER);
-    fixedCol.prefWidthProperty().bind(this.primaryView.widthProperty());
+    fixedCol.setPercentWidth(80);
 
     this.primaryView.getRowConstraints().addAll(flexRow, fixedRow, flexRow);
     this.primaryView.getColumnConstraints().addAll(flexCol, fixedCol, flexCol);
+    this.primaryView.setGridLinesVisible(true);
 
     GridPane.setConstraints(layeredView, 1, 1);
 
