@@ -1,13 +1,13 @@
 package ooga.controller;
 
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import ooga.model.PacmanGameState;
 import ooga.model.Sprite;
 import ooga.model.SpriteCoordinates;
 import ooga.model.TileCoordinates;
-import ooga.view.GameGridView;
+import ooga.util.Vec2;
 import ooga.view.GameView;
 
 public class Controller {
@@ -20,10 +20,15 @@ public class Controller {
   public void startGame() {
     PacmanGameState pgs = new PacmanGameState();
     GameView gv = new GameView(10, 10);
-    pgs.addSpriteExistenceObserver(gv);
-    primaryStage.setScene(new Scene((GridPane) (new GameGridView(10,10).getRenderingNode()), 400,
-        400));
-    gv.onSpriteCreation(new Sprite() {
+    pgs.addSpriteExistenceObserver(gv.getSpriteExistenceObserver());
+    primaryStage.setScene(new Scene((Pane) gv.getRenderingNode(), 400.0,
+        400.0));
+    gv.getSpriteExistenceObserver().onSpriteCreation(new Sprite() {
+
+      @Override
+      public boolean isVisible() {
+        return true;
+      }
 
       @Override
       public boolean isStationary() {
@@ -37,13 +42,7 @@ public class Controller {
 
       @Override
       public SpriteCoordinates getCenter() {
-        return new SpriteCoordinates() {
-
-          @Override
-          public TileCoordinates getTileCoordinates() {
-            return new TileCoordinates();
-          }
-        };
+        return new SpriteCoordinates(new Vec2(1.5, 3.5));
       }
 
       @Override

@@ -1,87 +1,77 @@
 package ooga.view;
 
+import java.util.HashMap;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
+import ooga.model.SpriteExistenceObserver;
+import ooga.model.SpriteObservable;
 
-public class GameGridView implements Renderable {
+/**
+ * GameGridView lays out the grid and the Sprites on the grid (a necessary combination because only
+ * the GameGridView knows where the grid is!).
+ */
+public class GameGridView implements Renderable, SpriteExistenceObserver {
 
-  private final GridPane tileGrid;
-  private final DoubleProperty tileSizeProperty;
+  private final Group tileGrid;
+  private final DoubleProperty tileSize;
+  private final HashMap<SpriteObservable, SpriteView> spriteViews;
+  private final Group spriteNodes;
+  private final Pane primaryView;
 
   public GameGridView(int rows, int cols) {
-    this.tileGrid = new GridPane();
+    this.primaryView = new Pane();
+    this.tileGrid = new Group();
+    this.tileSize = new SimpleDoubleProperty();
+    this.tileSize.bind(Bindings.min(primaryView.widthProperty().divide(cols),
+        primaryView.heightProperty().divide(rows)));
 
-    this.tileSizeProperty = new SimpleDoubleProperty(0);
-    this.tileSizeProperty.bind(Bindings.min(tileGrid.widthProperty().divide(cols),
-        tileGrid.heightProperty().divide(rows)));
+    this.spriteViews = new HashMap<>();
+    this.spriteNodes = new Group();
 
-    configureRowConstraints(rows);
-    configureColumnConstraints(cols);
+    this.primaryView.getChildren().addAll(tileGrid, spriteNodes);
+
     addGridTiles(rows, cols);
   }
 
-  private void configureColumnConstraints(int cols) {
-    ColumnConstraints flexCol = new ColumnConstraints();
-    flexCol.setHgrow(Priority.ALWAYS);
-    flexCol.setFillWidth(true);
-    ColumnConstraints cc = new ColumnConstraints();
-    cc.setHgrow(Priority.NEVER);
-    tileGrid.getColumnConstraints().add(flexCol);
-    for (int i = 0; i < cols; i++) {
-      tileGrid.getColumnConstraints().add(cc);
-    }
-    tileGrid.getColumnConstraints().add(flexCol);
-
-    cc.prefWidthProperty().bind(tileSizeProperty);
-  }
-
-  private void configureRowConstraints(int rows) {
-    RowConstraints flexRow = new RowConstraints();
-    flexRow.setVgrow(Priority.ALWAYS);
-    flexRow.setFillHeight(true);
-    RowConstraints rc = new RowConstraints();
-    rc.setVgrow(Priority.NEVER);
-    tileGrid.getRowConstraints().add(flexRow);
-    for (int i = 0; i < rows; i++) {
-      tileGrid.getRowConstraints().add(rc);
-    }
-    tileGrid.getRowConstraints().add(flexRow);
-
-    rc.prefHeightProperty().bind(tileSizeProperty());
-  }
-
   private void addGridTiles(int rows, int cols) {
-    for (int i = 1; i < rows+1; i++) {
-      for (int j = 1; j < cols+1; j++) {
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < cols; j++) {
         Rectangle r = new Rectangle(0, 0, 0, 0);
-        r.widthProperty().bind(tileSizeProperty);
-        r.heightProperty().bind(tileSizeProperty);
-        r.setFill(Color.PINK);
-        r.setStroke(Color.WHITE);
+        r.widthProperty().bind(tileSize);
+        r.heightProperty().bind(tileSize);
+        r.layoutXProperty().bind(tileSize.multiply(j));
+        r.layoutYProperty().bind(tileSize.multiply(i));
+        r.setFill(Color.TRANSPARENT);
+        r.setStroke(Color.PINK);
         r.setStrokeWidth(1.0);
         r.setStrokeType(StrokeType.INSIDE);
-        GridPane.setConstraints(r, j, i);
         tileGrid.getChildren().add(r);
       }
     }
   }
 
-  public ReadOnlyDoubleProperty tileSizeProperty() {
-    return this.tileSizeProperty;
+  @Override
+  public void onSpriteCreation(SpriteObservable so) {
+    SpriteView createdSpriteView = new SpriteView(so, tileSize);
+    spriteViews.put(so, createdSpriteView);
+    spriteNodes.getChildren().add(createdSpriteView.getRenderingNode());
+  }
+
+  @Override
+  public void onSpriteDestruction(SpriteObservable so) {
+    spriteNodes.getChildren().remove(spriteViews.get(so).getRenderingNode());
+    spriteViews.remove(so);
   }
 
   @Override
   public Node getRenderingNode() {
-    return tileGrid;
+    return primaryView;
   }
 }
