@@ -36,8 +36,7 @@ public class SpriteView implements SpriteObserver, ThemedObject, Renderable {
     this.viewGraphic.heightProperty().bind(size);
 
     // theme service
-    this.themeService = themeService;
-    this.themeService.addThemedObject(this);
+    setThemeService(themeService);
 
     // initial positioning
     updateType();
@@ -64,6 +63,7 @@ public class SpriteView implements SpriteObserver, ThemedObject, Renderable {
   @Override
   public void setThemeService(ThemeService themeService) {
     this.themeService = themeService;
+    this.themeService.addThemedObject(this);
   }
 
   private void updateType() {

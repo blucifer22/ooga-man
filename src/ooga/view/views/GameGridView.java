@@ -29,7 +29,7 @@ public class GameGridView implements Renderable, SpriteExistenceObserver, Themed
   private final Pane primaryView;
   private ThemeService themeService;
 
-  public GameGridView(int rows, int cols) {
+  public GameGridView(int rows, int cols, ThemeService themeService) {
     this.primaryView = new Pane();
     this.tileGrid = new Group();
     this.tileSize = new SimpleDoubleProperty();
@@ -41,16 +41,7 @@ public class GameGridView implements Renderable, SpriteExistenceObserver, Themed
 
     this.primaryView.getChildren().addAll(tileGrid, spriteNodes);
 
-    this.themeService = new ThemeService() {
-      @Override
-      public Paint getFillForObjectOfType(String type) {
-        return Color.BLUE;
-      }
-
-      @Override
-      public void addThemedObject(ThemedObject themedObject) {
-      }
-    };
+    setThemeService(themeService);
 
     addGridTiles(rows, cols);
   }
@@ -98,5 +89,6 @@ public class GameGridView implements Renderable, SpriteExistenceObserver, Themed
   @Override
   public void setThemeService(ThemeService themeService) {
     this.themeService = themeService;
+    this.themeService.addThemedObject(this);
   }
 }
