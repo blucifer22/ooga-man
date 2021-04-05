@@ -1,14 +1,14 @@
 package ooga.model;
 
-public class SpriteEvent {
+public class TileEvent {
   public enum EventType {
-    TYPE_CHANGE, VISIBILITY, TRANSLATE, ROTATE
+    TYPE_CHANGE
   }
 
   private final SpriteObservable sender;
   private final EventType type;
 
-  public SpriteEvent(SpriteObservable sender, EventType type) {
+  public TileEvent(SpriteObservable sender, EventType type) {
     this.sender = sender;
     this.type = type;
   }
