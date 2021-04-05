@@ -39,7 +39,7 @@ public class SpriteView implements SpriteObserver, ThemeChangeRefreshable, Rende
     // TODO: inject ThemeService instead of creating here
     this.themeService = new ThemeService() {
       @Override
-      public Paint fillForObjectOfType(String type) {
+      public Paint getFillForObjectOfType(String type) {
         return Color.BLUE;
       }
 
@@ -66,7 +66,7 @@ public class SpriteView implements SpriteObserver, ThemeChangeRefreshable, Rende
   }
 
   private void updateType() {
-    this.viewGraphic.setFill(themeService.fillForObjectOfType(dataSource.getType()));
+    this.viewGraphic.setFill(themeService.getFillForObjectOfType(dataSource.getType()));
   }
 
   private void updatePosition() {

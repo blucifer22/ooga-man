@@ -13,7 +13,7 @@ public class ConcreteThemeService implements ThemeService {
   }
 
   @Override
-  public Paint fillForObjectOfType(String type) {
+  public Paint getFillForObjectOfType(String type) {
     return Color.BLUE;
   }
 
