@@ -12,18 +12,21 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import ooga.model.SpriteExistenceObserver;
 import ooga.model.SpriteObservable;
+import ooga.view.theme.ThemeService;
+import ooga.view.theme.ThemedObject;
 
 /**
  * GameGridView lays out the grid and the Sprites on the grid (a necessary combination because only
  * the GameGridView knows where the grid is!).
  */
-public class GameGridView implements Renderable, SpriteExistenceObserver {
+public class GameGridView implements Renderable, SpriteExistenceObserver, ThemedObject {
 
   private final Group tileGrid;
   private final DoubleProperty tileSize;
   private final HashMap<SpriteObservable, SpriteView> spriteViews;
   private final Group spriteNodes;
   private final Pane primaryView;
+  private ThemeService themeService;
 
   public GameGridView(int rows, int cols) {
     this.primaryView = new Pane();
@@ -73,5 +76,15 @@ public class GameGridView implements Renderable, SpriteExistenceObserver {
   @Override
   public Node getRenderingNode() {
     return primaryView;
+  }
+
+  @Override
+  public void onThemeChange() {
+    // TODO: re-skin tiles!
+  }
+
+  @Override
+  public void setThemeService(ThemeService themeService) {
+    this.themeService = themeService;
   }
 }

@@ -6,7 +6,7 @@ import javafx.scene.paint.Paint;
 
 public class ConcreteThemeService implements ThemeService {
 
-  private final HashSet<ThemeChangeRefreshable> observers;
+  private final HashSet<ThemedObject> observers;
 
   public ConcreteThemeService() {
     observers = new HashSet<>();
@@ -20,13 +20,13 @@ public class ConcreteThemeService implements ThemeService {
   }
 
   @Override
-  public void addThemeChangeRefreshable(ThemeChangeRefreshable refreshable) {
-    this.observers.add(refreshable);
+  public void addThemedObject(ThemedObject themedObject) {
+    this.observers.add(themedObject);
   }
 
   public void setTheme() {
     // TODO: change state to reflect new theme
-    for(ThemeChangeRefreshable observer: observers) {
+    for(ThemedObject observer: observers) {
       observer.onThemeChange();
     }
   }

@@ -10,13 +10,13 @@ import ooga.model.SpriteEvent;
 import ooga.model.SpriteObservable;
 import ooga.model.SpriteObserver;
 import ooga.util.Vec2;
-import ooga.view.theme.ThemeChangeRefreshable;
+import ooga.view.theme.ThemedObject;
 import ooga.view.theme.ThemeService;
 
 /**
  * SpriteView handles the rendering of a single Sprite (SpriteObservable, technically).
  */
-public class SpriteView implements SpriteObserver, ThemeChangeRefreshable, Renderable {
+public class SpriteView implements SpriteObserver, ThemedObject, Renderable {
 
   private final Rectangle viewGraphic;
   private final SpriteObservable dataSource;
@@ -44,10 +44,10 @@ public class SpriteView implements SpriteObserver, ThemeChangeRefreshable, Rende
       }
 
       @Override
-      public void addThemeChangeRefreshable(ThemeChangeRefreshable refreshable) {
+      public void addThemedObject(ThemedObject refreshable) {
       }
     };
-    this.themeService.addThemeChangeRefreshable(this);
+    this.themeService.addThemedObject(this);
 
     // initial positioning
     updateType();
@@ -69,6 +69,11 @@ public class SpriteView implements SpriteObserver, ThemeChangeRefreshable, Rende
   @Override
   public void onThemeChange() {
     updateType();
+  }
+
+  @Override
+  public void setThemeService(ThemeService themeService) {
+    this.themeService = themeService;
   }
 
   private void updateType() {
