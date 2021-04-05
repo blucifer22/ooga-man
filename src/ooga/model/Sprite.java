@@ -2,8 +2,10 @@ package ooga.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import ooga.model.SpriteEvent.EventType;
 import ooga.util.Vec2;
 
@@ -17,20 +19,25 @@ public abstract class Sprite implements SpriteObservable {
 
   private final SpriteCoordinates position;
   private Vec2 direction;
-  private Map<SpriteEvent.EventType, List<SpriteObserver>> observers;
+  private Map<SpriteEvent.EventType, Set<SpriteObserver>> observers;
 
   public Sprite(SpriteCoordinates position, Vec2 direction) {
     this.position = position;
     this.direction = direction;
+    initializeObserverMap();
   }
 
   public Sprite() {
     // TODO: Verify that this is appropriate behavior for the no-arg constructor
     this.position = new SpriteCoordinates();
     this.direction = Vec2.ZERO;
+    initializeObserverMap();
+  }
+
+  private void initializeObserverMap() {
     observers = new HashMap<>();
     for (SpriteEvent.EventType eventType : SpriteEvent.EventType.values()) {
-      observers.put(eventType, new ArrayList<>());
+      observers.put(eventType, new HashSet<>());
     }
   }
 
@@ -85,7 +92,9 @@ public abstract class Sprite implements SpriteObservable {
    * @param observedEvents events that this observer listens for
    */
   public void addObserver(SpriteObserver so, SpriteEvent.EventType... observedEvents) {
-    for (SpriteEvent.EventType observedEvent : observedEvents) {
+    SpriteEvent.EventType[] eventsToRegister =
+        observedEvents.length == 0 ? SpriteEvent.EventType.values() : observedEvents;
+    for (SpriteEvent.EventType observedEvent : eventsToRegister) {
       observers.get(observedEvent).add(so);
     }
   }
@@ -97,8 +106,7 @@ public abstract class Sprite implements SpriteObservable {
    */
   public void removeObserver(SpriteObserver so) {
     for (SpriteEvent.EventType observedEvent : observers.keySet()) {
-      while (observers.get(observedEvent).remove(so)) {
-      }
+      observers.get(observedEvent).remove(so);
     }
   }
 
@@ -109,7 +117,9 @@ public abstract class Sprite implements SpriteObservable {
    * @param observedEvents collection of events to notify observers of.
    */
   protected void notifyObservers(SpriteEvent.EventType... observedEvents) {
-    for (SpriteEvent.EventType observedEvent : observedEvents) {
+    SpriteEvent.EventType[] eventsToRegister =
+        observedEvents.length == 0 ? SpriteEvent.EventType.values() : observedEvents;
+    for (SpriteEvent.EventType observedEvent : eventsToRegister) {
       for (SpriteObserver observer : observers.get(observedEvent)) {
         observer.onSpriteUpdate(new SpriteEvent(this, observedEvent));
       }

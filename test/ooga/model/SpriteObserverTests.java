@@ -17,6 +17,7 @@ public class SpriteObserverTests {
   public void setUpObserver() {
     observable = new TestSpriteObservable();
     observer = new TestObserver();
+    System.out.println(EventType.values());
   }
 
   @Test
@@ -33,7 +34,16 @@ public class SpriteObserverTests {
     assertEquals(EventType.TRANSLATE, observer.getLastEvent());
     assertEquals(TestSpriteObservable.SPRITE_TYPE, observer.getLastSender());
     assertEquals(new Vec2(0.5, 0), observer.getLastCoordinates().getExactCoordinates());
+  }
 
+  @Test
+  public void noArgumentsTest() {
+    // Subscribe to all events
+    observable.addObserver(observer);
+    observable.step(FRAME_RATE);
+    assertEquals(EventType.TRANSLATE, observer.getLastEvent());
+    assertEquals(TestSpriteObservable.SPRITE_TYPE, observer.getLastSender());
+    assertEquals(new Vec2(0.5, 0), observer.getLastCoordinates().getExactCoordinates());
   }
 }
 
