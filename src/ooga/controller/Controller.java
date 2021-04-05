@@ -6,9 +6,8 @@ import javafx.stage.Stage;
 import ooga.model.PacmanGameState;
 import ooga.model.Sprite;
 import ooga.model.SpriteCoordinates;
-import ooga.model.TileCoordinates;
 import ooga.util.Vec2;
-import ooga.view.GameView;
+import ooga.view.views.GameView;
 
 public class Controller {
   private final Stage primaryStage;

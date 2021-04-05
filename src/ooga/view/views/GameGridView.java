@@ -1,4 +1,4 @@
-package ooga.view;
+package ooga.view.views;
 
 import java.util.HashMap;
 import javafx.beans.binding.Bindings;

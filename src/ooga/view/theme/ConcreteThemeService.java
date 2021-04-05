@@ -14,6 +14,8 @@ public class ConcreteThemeService implements ThemeService {
 
   @Override
   public Paint getFillForObjectOfType(String type) {
+    // TODO: use Marc's JSON parsing to determine how themes should work
+    // TODO: implement asset loading
     return Color.BLUE;
   }
 
@@ -23,6 +25,7 @@ public class ConcreteThemeService implements ThemeService {
   }
 
   public void setTheme() {
+    // TODO: change state to reflect new theme
     for(ThemeChangeRefreshable observer: observers) {
       observer.onThemeChange();
     }
