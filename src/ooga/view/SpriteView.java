@@ -10,6 +10,9 @@ import ooga.model.SpriteObservable;
 import ooga.model.SpriteObserver;
 import ooga.util.Vec2;
 
+/**
+ * SpriteView handles the rendering of a single Sprite (SpriteObservable, technically).
+ */
 public class SpriteView implements SpriteObserver, Renderable {
 
   private final Rectangle viewGraphic;
@@ -46,7 +49,7 @@ public class SpriteView implements SpriteObserver, Renderable {
   }
 
   private void updateType() {
-
+    // TODO: sprite graphics as Rectangle fill
   }
 
   private void updatePosition() {
