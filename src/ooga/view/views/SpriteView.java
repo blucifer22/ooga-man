@@ -9,8 +9,8 @@ import ooga.model.SpriteEvent;
 import ooga.model.SpriteObservable;
 import ooga.model.SpriteObserver;
 import ooga.util.Vec2;
-import ooga.view.theme.ThemedObject;
 import ooga.view.theme.ThemeService;
+import ooga.view.theme.ThemedObject;
 
 /**
  * SpriteView handles the rendering of a single Sprite (SpriteObservable, technically).
@@ -79,7 +79,7 @@ public class SpriteView implements SpriteObserver, ThemedObject, Renderable {
 
   private void updateOrientation() {
     Vec2 direction = dataSource.getDirection();
-    viewGraphic.setRotate(Math.atan2(direction.getY(), direction.getX())*180.0/Math.PI);
+    viewGraphic.setRotate(Math.atan2(direction.getY(), direction.getX()) * 180.0 / Math.PI);
   }
 
   private void updateVisibility() {

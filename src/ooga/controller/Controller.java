@@ -12,6 +12,7 @@ import ooga.view.theme.ThemeService;
 import ooga.view.views.GameView;
 
 public class Controller {
+
   private final Stage primaryStage;
 
   public Controller(Stage primaryStage) {

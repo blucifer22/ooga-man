@@ -31,7 +31,7 @@ public class ConcreteThemeService implements ThemeService {
 
   public void setTheme() {
     // TODO: change state to reflect new theme
-    for(ThemedObject observer: observers) {
+    for (ThemedObject observer : observers) {
       observer.onThemeChange();
     }
   }
