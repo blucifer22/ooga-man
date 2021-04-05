@@ -20,7 +20,7 @@ public class ConcreteThemeService implements ThemeService {
     return switch (type) {
       case "pacman" -> Color.YELLOW;
       case "ghost" -> Color.RED;
-      case "tile" -> Color.GAINSBORO;
+      case "tile" -> Color.TRANSPARENT;
       default -> Color.BLUE;
     };
   }
