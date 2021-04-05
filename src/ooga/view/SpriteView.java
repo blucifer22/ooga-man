@@ -8,7 +8,11 @@ import ooga.model.SpriteCoordinates;
 import ooga.model.SpriteEvent;
 import ooga.model.SpriteObservable;
 import ooga.model.SpriteObserver;
+import ooga.util.Vec2;
 
+/**
+ * SpriteView handles the rendering of a single Sprite (SpriteObservable, technically).
+ */
 public class SpriteView implements SpriteObserver, Renderable {
 
   private final Rectangle viewGraphic;
@@ -34,6 +38,7 @@ public class SpriteView implements SpriteObserver, Renderable {
     updateVisibility();
   }
 
+  @Override
   public void onSpriteUpdate(SpriteEvent e) {
     switch (e.getEventType()) {
       case TYPE_CHANGE -> updateType();
@@ -44,19 +49,20 @@ public class SpriteView implements SpriteObserver, Renderable {
   }
 
   private void updateType() {
-
+    // TODO: sprite graphics as Rectangle fill
   }
 
   private void updatePosition() {
     SpriteCoordinates coordinates = dataSource.getCenter();
     this.viewGraphic.translateXProperty()
-        .bind(size.multiply(coordinates.getTileCoordinates().getX()));
+        .bind(size.multiply(coordinates.getExactCoordinates().getX()));
     this.viewGraphic.translateYProperty()
-        .bind(size.multiply(coordinates.getTileCoordinates().getY()));
+        .bind(size.multiply(coordinates.getExactCoordinates().getY()));
   }
 
   private void updateOrientation() {
-    //viewGraphic.setRotate(dataSource.getDirection());
+    Vec2 direction = dataSource.getDirection();
+    viewGraphic.setRotate(Math.atan2(direction.getY(), direction.getX())*180.0/Math.PI);
   }
 
   private void updateVisibility() {
