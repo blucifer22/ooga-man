@@ -48,16 +48,8 @@ public class GameGridView implements Renderable, SpriteExistenceObserver, Themed
   private void addGridTiles(int rows, int cols) {
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
-        Rectangle r = new Rectangle(0, 0, 0, 0);
-        r.widthProperty().bind(tileSize);
-        r.heightProperty().bind(tileSize);
-        r.layoutXProperty().bind(tileSize.multiply(j));
-        r.layoutYProperty().bind(tileSize.multiply(i));
-        r.setFill(Color.TRANSPARENT);
-        r.setStroke(Color.PINK);
-        r.setStrokeWidth(1.0);
-        r.setStrokeType(StrokeType.INSIDE);
-        tileGrid.getChildren().add(r);
+        TileView tv = new TileView(j, i, tileSize, this.themeService);
+        tileGrid.getChildren().add(tv.getRenderingNode());
       }
     }
   }
