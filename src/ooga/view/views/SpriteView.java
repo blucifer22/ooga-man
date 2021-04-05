@@ -3,7 +3,6 @@ package ooga.view.views;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import ooga.model.SpriteCoordinates;
 import ooga.model.SpriteEvent;

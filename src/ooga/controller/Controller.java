@@ -2,11 +2,15 @@ package ooga.controller;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import ooga.model.PacmanGameState;
 import ooga.model.Sprite;
 import ooga.model.SpriteCoordinates;
 import ooga.util.Vec2;
+import ooga.view.theme.ThemeService;
+import ooga.view.theme.ThemedObject;
 import ooga.view.views.GameView;
 
 public class Controller {
@@ -20,7 +24,21 @@ public class Controller {
 
   public void startGame() {
     PacmanGameState pgs = new PacmanGameState();
-    GameView gv = new GameView(10, 10);
+    ThemeService ts = new ThemeService() {
+      @Override
+      public Paint getFillForObjectOfType(String type) {
+        return switch (type) {
+          case "pacman" -> Color.YELLOW;
+          case "ghost" -> Color.RED;
+          default -> Color.BLUE;
+        };
+      }
+
+      @Override
+      public void addThemedObject(ThemedObject themedObject) {
+      }
+    };
+    GameView gv = new GameView(10, 10, ts);
     pgs.addSpriteExistenceObserver(gv.getSpriteExistenceObserver());
     primaryStage.setScene(new Scene((Pane) gv.getRenderingNode(), 400.0,
         400.0));
@@ -38,12 +56,45 @@ public class Controller {
 
       @Override
       public String getType() {
-        return null;
+        return "pacman";
       }
 
       @Override
       public SpriteCoordinates getCenter() {
         return new SpriteCoordinates(new Vec2(1.5, 3.5));
+      }
+
+      @Override
+      public void step(double dt) {
+
+      }
+
+      @Override
+      public boolean mustBeConsumed() {
+        return false;
+      }
+    });
+
+    gv.getSpriteExistenceObserver().onSpriteCreation(new Sprite() {
+
+      @Override
+      public boolean isVisible() {
+        return true;
+      }
+
+      @Override
+      public boolean isStationary() {
+        return false;
+      }
+
+      @Override
+      public String getType() {
+        return "ghost";
+      }
+
+      @Override
+      public SpriteCoordinates getCenter() {
+        return new SpriteCoordinates(new Vec2(1.5, 5.5));
       }
 
       @Override
