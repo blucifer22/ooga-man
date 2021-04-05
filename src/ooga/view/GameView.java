@@ -35,8 +35,7 @@ public class GameView implements Renderable {
     this.primaryView.getColumnConstraints().add(cc);
     this.primaryView.add(this.gridView.getRenderingNode(), 0, 0);
     this.primaryView.setAlignment(Pos.CENTER);
-    this.primaryView.setBackground(new Background(new BackgroundFill(Color.BLACK,
-        CornerRadii.EMPTY,
+    this.primaryView.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY,
         Insets.EMPTY)));
   }
 
