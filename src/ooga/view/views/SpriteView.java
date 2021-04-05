@@ -1,4 +1,4 @@
-package ooga.view;
+package ooga.view.views;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.Node;
@@ -9,27 +9,33 @@ import ooga.model.SpriteEvent;
 import ooga.model.SpriteObservable;
 import ooga.model.SpriteObserver;
 import ooga.util.Vec2;
+import ooga.view.theme.ThemeService;
+import ooga.view.theme.ThemedObject;
 
 /**
  * SpriteView handles the rendering of a single Sprite (SpriteObservable, technically).
  */
-public class SpriteView implements SpriteObserver, Renderable {
+public class SpriteView implements SpriteObserver, ThemedObject, Renderable {
 
   private final Rectangle viewGraphic;
   private final SpriteObservable dataSource;
   private final DoubleProperty size;
+  private ThemeService themeService;
 
-  public SpriteView(SpriteObservable so, DoubleProperty tileSize) {
+  public SpriteView(SpriteObservable so, ThemeService themeService, DoubleProperty size) {
     // configure data sourcing
     so.addObserver(this);
     this.dataSource = so;
-    this.size = tileSize;
+    this.size = size;
 
     // render
     this.viewGraphic = new Rectangle();
     this.viewGraphic.setFill(Color.BLUE);
     this.viewGraphic.widthProperty().bind(size);
     this.viewGraphic.heightProperty().bind(size);
+
+    // theme service
+    setThemeService(themeService);
 
     // initial positioning
     updateType();
@@ -48,8 +54,19 @@ public class SpriteView implements SpriteObserver, Renderable {
     }
   }
 
+  @Override
+  public void onThemeChange() {
+    updateType();
+  }
+
+  @Override
+  public void setThemeService(ThemeService themeService) {
+    this.themeService = themeService;
+    this.themeService.addThemedObject(this);
+  }
+
   private void updateType() {
-    // TODO: sprite graphics as Rectangle fill
+    this.viewGraphic.setFill(themeService.getFillForObjectOfType(dataSource.getType()));
   }
 
   private void updatePosition() {
@@ -62,7 +79,7 @@ public class SpriteView implements SpriteObserver, Renderable {
 
   private void updateOrientation() {
     Vec2 direction = dataSource.getDirection();
-    viewGraphic.setRotate(Math.atan2(direction.getY(), direction.getX())*180.0/Math.PI);
+    viewGraphic.setRotate(Math.atan2(direction.getY(), direction.getX()) * 180.0 / Math.PI);
   }
 
   private void updateVisibility() {
