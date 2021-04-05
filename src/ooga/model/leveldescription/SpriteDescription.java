@@ -7,26 +7,25 @@ import ooga.model.TileCoordinates;
 
 public class SpriteDescription extends JSONDescription {
   /**
-   * Fully qualified name of the class (which must extend
-   * ooga.model.Sprite) backing this sprite.
+   * Fully qualified name of the class (which must extend ooga.model.Sprite) backing this sprite.
    */
   private final String spriteClassName;
 
   /**
-   * String constant representing the source of this sprite's input
-   * commands (if any).
+   * String constant representing the source of this sprite's input commands (if any).
    *
-   * Allowed values: "HUMAN", "GHOST_AI", "PACMAN_AI", "NONE"
+   * <p>Allowed values: "HUMAN", "GHOST_AI", "PACMAN_AI", "NONE"
    */
   private final String inputSource;
 
   private final TileCoordinates coordinates;
 
   @JsonCreator
-  public SpriteDescription(@JsonProperty("class") String className,
-                           @JsonProperty("inputSource") String inputSource,
-                           @JsonProperty("startLocation") TileCoordinates coordinates)
-   throws IllegalArgumentException {
+  public SpriteDescription(
+      @JsonProperty("class") String className,
+      @JsonProperty("inputSource") String inputSource,
+      @JsonProperty("startLocation") TileCoordinates coordinates)
+      throws IllegalArgumentException {
     this.spriteClassName = className;
     this.inputSource = inputSource;
     this.coordinates = coordinates;
