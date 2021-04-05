@@ -1,78 +1,36 @@
 package ooga.view;
 
-import java.util.HashMap;
-import java.util.Map;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
 import ooga.model.SpriteExistenceObserver;
-import ooga.model.SpriteObservable;
 
-public class GameView implements SpriteExistenceObserver, Renderable {
+public class GameView implements Renderable {
 
-  private final Map<SpriteObservable, SpriteView> views;
   private final GridPane primaryView;
-  private final Group sprites;
-  private final DoubleProperty tileSize;
+  private final GameGridView gridView;
 
   public GameView(int rows, int cols) {
     // Track existing Sprites with Map; render them with Group
-    this.views = new HashMap<>();
-    this.sprites = new Group();
-    this.sprites.getChildren().add(new Rectangle(0,0,0,0));
-
-    // Lay out grid
-    GameGridView backgroundGrid = new GameGridView(rows, cols);
-    StackPane layeredView = new StackPane(backgroundGrid.getRenderingNode(), this.sprites);
-    layeredView.setAlignment(Pos.TOP_LEFT);
-    this.tileSize = new SimpleDoubleProperty(0);
-    this.tileSize.bind(backgroundGrid.tileSizeProperty());
-
     this.primaryView = new GridPane();
+    this.gridView = new GameGridView(rows, cols);
 
-    RowConstraints flexRow = new RowConstraints();
-    flexRow.setVgrow(Priority.ALWAYS);
+    ColumnConstraints cc = new ColumnConstraints();
+    cc.setPercentWidth(80);
 
-    RowConstraints fixedRow = new RowConstraints();
-    fixedRow.setVgrow(Priority.NEVER);
-    fixedRow.setPercentHeight(80);
+    RowConstraints rc = new RowConstraints();
+    rc.setPercentHeight(80);
 
-    ColumnConstraints flexCol = new ColumnConstraints();
-    flexCol.setHgrow(Priority.ALWAYS);
-
-    ColumnConstraints fixedCol = new ColumnConstraints();
-    fixedCol.setHgrow(Priority.NEVER);
-    fixedCol.setPercentWidth(80);
-
-    this.primaryView.getRowConstraints().addAll(flexRow, fixedRow, flexRow);
-    this.primaryView.getColumnConstraints().addAll(flexCol, fixedCol, flexCol);
-    this.primaryView.setGridLinesVisible(true);
-
-    GridPane.setConstraints(layeredView, 1, 1);
-
-    this.primaryView.getChildren().add(layeredView);
-
+    this.primaryView.getRowConstraints().add(rc);
+    this.primaryView.getColumnConstraints().add(cc);
+    this.primaryView.add(this.gridView.getRenderingNode(), 0, 0);
+    this.primaryView.setAlignment(Pos.CENTER);
   }
 
-  @Override
-  public void onSpriteCreation(SpriteObservable so) {
-    SpriteView createdSpriteView = new SpriteView(so, tileSize);
-    views.put(so, createdSpriteView);
-    sprites.getChildren().add(createdSpriteView.getRenderingNode());
-  }
-
-  @Override
-  public void onSpriteDestruction(SpriteObservable so) {
-    sprites.getChildren().remove(views.get(so).getRenderingNode());
-    views.remove(so);
+  public SpriteExistenceObserver getSpriteExistenceObserver() {
+    return this.gridView;
   }
 
   @Override

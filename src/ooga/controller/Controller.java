@@ -22,9 +22,10 @@ public class Controller {
   public void startGame() {
     PacmanGameState pgs = new PacmanGameState();
     GameView gv = new GameView(10, 10);
-    pgs.addSpriteExistenceObserver(gv);
-    primaryStage.setScene(new Scene((Pane) gv.getRenderingNode(), 400.0, 400.0));
-    gv.onSpriteCreation(new Sprite() {
+    pgs.addSpriteExistenceObserver(gv.getSpriteExistenceObserver());
+    primaryStage.setScene(new Scene((Pane) gv.getRenderingNode(), 400.0,
+        400.0));
+    gv.getSpriteExistenceObserver().onSpriteCreation(new Sprite() {
 
       @Override
       public boolean isStationary() {
