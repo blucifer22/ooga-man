@@ -55,9 +55,9 @@ public class SpriteView implements SpriteObserver, Renderable {
   private void updatePosition() {
     SpriteCoordinates coordinates = dataSource.getCenter();
     this.viewGraphic.translateXProperty()
-        .bind(size.multiply(coordinates.getTileCoordinates().getX()));
+        .bind(size.multiply(coordinates.getExactCoordinates().getX()));
     this.viewGraphic.translateYProperty()
-        .bind(size.multiply(coordinates.getTileCoordinates().getY()));
+        .bind(size.multiply(coordinates.getExactCoordinates().getY()));
   }
 
   private void updateOrientation() {

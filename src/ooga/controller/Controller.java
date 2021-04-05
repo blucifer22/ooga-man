@@ -7,6 +7,7 @@ import ooga.model.PacmanGameState;
 import ooga.model.Sprite;
 import ooga.model.SpriteCoordinates;
 import ooga.model.TileCoordinates;
+import ooga.util.Vec2;
 import ooga.view.GameView;
 
 public class Controller {
@@ -43,13 +44,7 @@ public class Controller {
 
       @Override
       public SpriteCoordinates getCenter() {
-        return new SpriteCoordinates() {
-
-          @Override
-          public TileCoordinates getTileCoordinates() {
-            return new TileCoordinates(1, 0);
-          }
-        };
+        return new SpriteCoordinates(new Vec2(1.5, 3.5));
       }
 
       @Override
