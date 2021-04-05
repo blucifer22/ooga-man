@@ -7,7 +7,6 @@ import ooga.model.PacmanGameState;
 import ooga.model.Sprite;
 import ooga.model.SpriteCoordinates;
 import ooga.model.TileCoordinates;
-import ooga.view.GameGridView;
 import ooga.view.GameView;
 
 public class Controller {
@@ -28,6 +27,11 @@ public class Controller {
     gv.getSpriteExistenceObserver().onSpriteCreation(new Sprite() {
 
       @Override
+      public boolean isVisible() {
+        return true;
+      }
+
+      @Override
       public boolean isStationary() {
         return false;
       }
@@ -43,7 +47,7 @@ public class Controller {
 
           @Override
           public TileCoordinates getTileCoordinates() {
-            return new TileCoordinates();
+            return new TileCoordinates(1, 0);
           }
         };
       }

@@ -26,6 +26,12 @@ public class SpriteView implements SpriteObserver, Renderable {
     this.viewGraphic.setFill(Color.BLUE);
     this.viewGraphic.widthProperty().bind(size);
     this.viewGraphic.heightProperty().bind(size);
+
+    // initial positioning
+    updateType();
+    updatePosition();
+    updateOrientation();
+    updateVisibility();
   }
 
   public void onSpriteUpdate(SpriteEvent e) {
