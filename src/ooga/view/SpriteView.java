@@ -8,6 +8,7 @@ import ooga.model.SpriteCoordinates;
 import ooga.model.SpriteEvent;
 import ooga.model.SpriteObservable;
 import ooga.model.SpriteObserver;
+import ooga.util.Vec2;
 
 public class SpriteView implements SpriteObserver, Renderable {
 
@@ -34,6 +35,7 @@ public class SpriteView implements SpriteObserver, Renderable {
     updateVisibility();
   }
 
+  @Override
   public void onSpriteUpdate(SpriteEvent e) {
     switch (e.getEventType()) {
       case TYPE_CHANGE -> updateType();
@@ -56,7 +58,8 @@ public class SpriteView implements SpriteObserver, Renderable {
   }
 
   private void updateOrientation() {
-    //viewGraphic.setRotate(dataSource.getDirection());
+    Vec2 direction = dataSource.getDirection();
+    viewGraphic.setRotate(Math.atan2(direction.getY(), direction.getX())*180.0/Math.PI);
   }
 
   private void updateVisibility() {
