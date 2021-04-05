@@ -7,13 +7,16 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import ooga.model.SpriteExistenceObserver;
 
+/**
+ * GameView lays out how a round appears (the GridView in the center, information about
+ * lives/round/score above and below).
+ */
 public class GameView implements Renderable {
 
   private final GridPane primaryView;
   private final GameGridView gridView;
 
   public GameView(int rows, int cols) {
-    // Track existing Sprites with Map; render them with Group
     this.primaryView = new GridPane();
     this.gridView = new GameGridView(rows, cols);
 

@@ -3,21 +3,20 @@ package ooga.view;
 import java.util.HashMap;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import ooga.model.SpriteExistenceObserver;
 import ooga.model.SpriteObservable;
 
+/**
+ * GameGridView lays out the grid and the Sprites on the grid (a necessary combination because only
+ * the GameGridView knows where the grid is!).
+ */
 public class GameGridView implements Renderable, SpriteExistenceObserver {
 
   private final Group tileGrid;

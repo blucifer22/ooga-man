@@ -5,9 +5,9 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import ooga.model.SpriteCoordinates;
-import ooga.model.SpriteObserver;
 import ooga.model.SpriteEvent;
 import ooga.model.SpriteObservable;
+import ooga.model.SpriteObserver;
 
 public class SpriteView implements SpriteObserver, Renderable {
 
@@ -43,8 +43,10 @@ public class SpriteView implements SpriteObserver, Renderable {
 
   private void updatePosition() {
     SpriteCoordinates coordinates = dataSource.getCenter();
-    this.viewGraphic.translateXProperty().bind(size.multiply(coordinates.getTileCoordinates().getX()));
-    this.viewGraphic.translateYProperty().bind(size.multiply(coordinates.getTileCoordinates().getY()));
+    this.viewGraphic.translateXProperty()
+        .bind(size.multiply(coordinates.getTileCoordinates().getX()));
+    this.viewGraphic.translateYProperty()
+        .bind(size.multiply(coordinates.getTileCoordinates().getY()));
   }
 
   private void updateOrientation() {
