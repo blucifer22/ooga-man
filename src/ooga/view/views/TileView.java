@@ -5,10 +5,12 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
+import ooga.model.TileEvent;
+import ooga.model.TileObserver;
 import ooga.view.theme.ThemeService;
 import ooga.view.theme.ThemedObject;
 
-public class TileView implements Renderable, ThemedObject {
+public class TileView implements Renderable, TileObserver, ThemedObject {
 
   private final Rectangle tileRect;
   private ThemeService themeService;
@@ -51,5 +53,11 @@ public class TileView implements Renderable, ThemedObject {
   @Override
   public Node getRenderingNode() {
     return this.tileRect;
+  }
+
+  @Override
+  public void onTileEvent(TileEvent e) {
+    this.onTypeChange();
+    // TODO: potentially add other types of tile event
   }
 }
