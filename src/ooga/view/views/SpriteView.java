@@ -23,11 +23,11 @@ public class SpriteView implements SpriteObserver, ThemeChangeRefreshable, Rende
   private final DoubleProperty size;
   private ThemeService themeService;
 
-  public SpriteView(SpriteObservable so, DoubleProperty tileSize) {
+  public SpriteView(SpriteObservable so, DoubleProperty size) {
     // configure data sourcing
     so.addObserver(this);
     this.dataSource = so;
-    this.size = tileSize;
+    this.size = size;
 
     // render
     this.viewGraphic = new Rectangle();
@@ -47,6 +47,7 @@ public class SpriteView implements SpriteObserver, ThemeChangeRefreshable, Rende
       public void addThemeChangeRefreshable(ThemeChangeRefreshable refreshable) {
       }
     };
+    this.themeService.addThemeChangeRefreshable(this);
 
     // initial positioning
     updateType();
@@ -63,6 +64,11 @@ public class SpriteView implements SpriteObserver, ThemeChangeRefreshable, Rende
       case ROTATE -> updateOrientation();
       case VISIBILITY -> updateVisibility();
     }
+  }
+
+  @Override
+  public void onThemeChange() {
+    updateType();
   }
 
   private void updateType() {
@@ -89,10 +95,5 @@ public class SpriteView implements SpriteObserver, ThemeChangeRefreshable, Rende
   @Override
   public Node getRenderingNode() {
     return this.viewGraphic;
-  }
-
-  @Override
-  public void onThemeChange() {
-    updateType();
   }
 }
