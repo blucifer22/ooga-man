@@ -4,5 +4,5 @@ import javafx.scene.paint.Paint;
 
 public interface ThemeService {
   Paint getFillForObjectOfType(String type);
-  void addThemedObject(ThemedObject refreshable);
+  void addThemedObject(ThemedObject themedObject);
 }

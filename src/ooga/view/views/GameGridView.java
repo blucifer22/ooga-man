@@ -8,6 +8,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import ooga.model.SpriteExistenceObserver;
@@ -40,6 +41,17 @@ public class GameGridView implements Renderable, SpriteExistenceObserver, Themed
 
     this.primaryView.getChildren().addAll(tileGrid, spriteNodes);
 
+    this.themeService = new ThemeService() {
+      @Override
+      public Paint getFillForObjectOfType(String type) {
+        return Color.BLUE;
+      }
+
+      @Override
+      public void addThemedObject(ThemedObject themedObject) {
+      }
+    };
+
     addGridTiles(rows, cols);
   }
 
@@ -62,7 +74,7 @@ public class GameGridView implements Renderable, SpriteExistenceObserver, Themed
 
   @Override
   public void onSpriteCreation(SpriteObservable so) {
-    SpriteView createdSpriteView = new SpriteView(so, tileSize);
+    SpriteView createdSpriteView = new SpriteView(so, this.themeService, tileSize);
     spriteViews.put(so, createdSpriteView);
     spriteNodes.getChildren().add(createdSpriteView.getRenderingNode());
   }

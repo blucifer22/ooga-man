@@ -23,7 +23,7 @@ public class SpriteView implements SpriteObserver, ThemedObject, Renderable {
   private final DoubleProperty size;
   private ThemeService themeService;
 
-  public SpriteView(SpriteObservable so, DoubleProperty size) {
+  public SpriteView(SpriteObservable so, ThemeService themeService, DoubleProperty size) {
     // configure data sourcing
     so.addObserver(this);
     this.dataSource = so;
@@ -36,17 +36,7 @@ public class SpriteView implements SpriteObserver, ThemedObject, Renderable {
     this.viewGraphic.heightProperty().bind(size);
 
     // theme service
-    // TODO: inject ThemeService instead of creating here
-    this.themeService = new ThemeService() {
-      @Override
-      public Paint getFillForObjectOfType(String type) {
-        return Color.BLUE;
-      }
-
-      @Override
-      public void addThemedObject(ThemedObject refreshable) {
-      }
-    };
+    this.themeService = themeService;
     this.themeService.addThemedObject(this);
 
     // initial positioning
