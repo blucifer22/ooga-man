@@ -22,7 +22,7 @@ public class SpriteDescription extends JSONDescription {
 
   @JsonCreator
   public SpriteDescription(
-      @JsonProperty("class") String className,
+      @JsonProperty("className") String className,
       @JsonProperty("inputSource") String inputSource,
       @JsonProperty("startLocation") TileCoordinates coordinates)
       throws IllegalArgumentException {
