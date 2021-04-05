@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author George Hong
  */
-public class Tile {
+public class Tile implements TileObservable {
 
   private final TileCoordinates tileCoordinates;
   private final String tileType;
