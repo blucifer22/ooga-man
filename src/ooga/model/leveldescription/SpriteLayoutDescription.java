@@ -5,18 +5,14 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import ooga.model.Tile;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 /**
- * SpriteLayoutDescription describes the initial layout of all sprites
- * in a LevelDescription.
+ * SpriteLayoutDescription describes the initial layout of all sprites in a Level.
  *
- * Specifically, a SpriteLayoutDescription is a collection of multiple
- * SpriteDescriptions.
+ * <p>Specifically, a SpriteLayoutDescription is a collection of multiple SpriteDescriptions.
  *
  * @author Marc Chmielewski
  * @author Franklin Wei
@@ -26,8 +22,8 @@ public class SpriteLayoutDescription extends JSONDescription {
   private final List<SpriteDescription> sprites;
 
   /**
-   * The general constructor for SpriteL. Takes in a width, a height, and a 2D array of
-   * Tiles with which to initially populate itself.
+   * The general constructor for SpriteL. Takes in a width, a height, and a 2D array of Tiles with
+   * which to initially populate itself.
    *
    * @param gridName The name of the Grid that this GridDescription represents.
    * @param width The width of the Grid that this GridDescription represents.
@@ -36,8 +32,7 @@ public class SpriteLayoutDescription extends JSONDescription {
    * @throws IllegalArgumentException If the wrong number of Tiles are provided
    */
   @JsonCreator
-  public SpriteLayoutDescription(
-      @JsonProperty("sprites") List<SpriteDescription> sprites)
+  public SpriteLayoutDescription(@JsonProperty("sprites") List<SpriteDescription> sprites)
       throws IllegalArgumentException {
     this.sprites = sprites;
   }

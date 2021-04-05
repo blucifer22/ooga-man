@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * JSONGridDescriptionFactory is a very basic "factory" class that allows for new GridDescriptions
+ * JSONDescriptionFactory is a very basic "factory" class that allows for new JSONDescriptions
  * to be easily deserialized from JSON and instantiated using Jackson.
  *
  * @author Marc Chmielewski
