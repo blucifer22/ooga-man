@@ -3,21 +3,25 @@ package ooga.view;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import ooga.model.SpriteCoordinates;
 import ooga.model.SpriteEvent;
 import ooga.model.SpriteObservable;
 import ooga.model.SpriteObserver;
 import ooga.util.Vec2;
+import ooga.view.theme.ThemeChangeRefreshable;
+import ooga.view.theme.ThemeService;
 
 /**
  * SpriteView handles the rendering of a single Sprite (SpriteObservable, technically).
  */
-public class SpriteView implements SpriteObserver, Renderable {
+public class SpriteView implements SpriteObserver, ThemeChangeRefreshable, Renderable {
 
   private final Rectangle viewGraphic;
   private final SpriteObservable dataSource;
   private final DoubleProperty size;
+  private ThemeService themeService;
 
   public SpriteView(SpriteObservable so, DoubleProperty tileSize) {
     // configure data sourcing
@@ -30,6 +34,19 @@ public class SpriteView implements SpriteObserver, Renderable {
     this.viewGraphic.setFill(Color.BLUE);
     this.viewGraphic.widthProperty().bind(size);
     this.viewGraphic.heightProperty().bind(size);
+
+    // theme service
+    // TODO: inject ThemeService instead of creating here
+    this.themeService = new ThemeService() {
+      @Override
+      public Paint fillForObjectOfType(String type) {
+        return Color.BLUE;
+      }
+
+      @Override
+      public void addThemeChangeRefreshable(ThemeChangeRefreshable refreshable) {
+      }
+    };
 
     // initial positioning
     updateType();
@@ -49,7 +66,7 @@ public class SpriteView implements SpriteObserver, Renderable {
   }
 
   private void updateType() {
-    // TODO: sprite graphics as Rectangle fill
+    this.viewGraphic.setFill(themeService.fillForObjectOfType(dataSource.getType()));
   }
 
   private void updatePosition() {
@@ -72,5 +89,10 @@ public class SpriteView implements SpriteObserver, Renderable {
   @Override
   public Node getRenderingNode() {
     return this.viewGraphic;
+  }
+
+  @Override
+  public void onThemeChange() {
+    updateType();
   }
 }
