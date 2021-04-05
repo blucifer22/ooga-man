@@ -2,15 +2,13 @@ package ooga.controller;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import ooga.model.PacmanGameState;
 import ooga.model.Sprite;
 import ooga.model.SpriteCoordinates;
 import ooga.util.Vec2;
+import ooga.view.theme.ConcreteThemeService;
 import ooga.view.theme.ThemeService;
-import ooga.view.theme.ThemedObject;
 import ooga.view.views.GameView;
 
 public class Controller {
@@ -24,20 +22,7 @@ public class Controller {
 
   public void startGame() {
     PacmanGameState pgs = new PacmanGameState();
-    ThemeService ts = new ThemeService() {
-      @Override
-      public Paint getFillForObjectOfType(String type) {
-        return switch (type) {
-          case "pacman" -> Color.YELLOW;
-          case "ghost" -> Color.RED;
-          default -> Color.BLUE;
-        };
-      }
-
-      @Override
-      public void addThemedObject(ThemedObject themedObject) {
-      }
-    };
+    ThemeService ts = new ConcreteThemeService();
     GameView gv = new GameView(10, 10, ts);
     pgs.addSpriteExistenceObserver(gv.getSpriteExistenceObserver());
     primaryStage.setScene(new Scene((Pane) gv.getRenderingNode(), 400.0,
