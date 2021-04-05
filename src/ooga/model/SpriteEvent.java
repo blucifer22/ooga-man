@@ -5,8 +5,8 @@ public class SpriteEvent {
     TYPE_CHANGE, VISIBILITY, TRANSLATE, ROTATE
   }
 
-  private final SpriteObservable sender;
-  private final EventType type;
+  private SpriteObservable sender;
+  private EventType type;
 
   public SpriteEvent(SpriteObservable sender, EventType type) {
     this.sender = sender;

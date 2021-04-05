@@ -1,10 +1,12 @@
-package ooga.model;
+package ooga.model.leveldescription;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import ooga.model.Tile;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -16,7 +18,7 @@ import java.util.List;
  * @author Marc Chmielewski
  * @author Franklin Wei
  */
-public class GridDescription {
+public class GridDescription extends JSONDescription {
 
   private final String gridName;
   private final int width;
@@ -51,18 +53,6 @@ public class GridDescription {
     }
 
     this.grid = tileList;
-  }
-
-  /**
-   * Writes this GridDescription to a JSON file at the indicated filepath.
-   *
-   * @param filepath The filepath at which to write the JSON.
-   * @throws IOException If the provided filepath is invalid.
-   */
-  public void toJSON(String filepath) throws IOException {
-    ObjectMapper mapper = new ObjectMapper();
-    mapper.enable(SerializationFeature.INDENT_OUTPUT);
-    mapper.writeValue(new File(filepath), this);
   }
 
   /**
