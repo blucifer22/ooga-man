@@ -1,6 +1,8 @@
-package ooga.model;
+package ooga.model.leveldescription;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import ooga.model.leveldescription.GridDescription;
+
 import java.io.File;
 import java.io.IOException;
 

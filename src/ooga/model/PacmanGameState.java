@@ -1,5 +1,7 @@
 package ooga.model;
 
+import ooga.model.leveldescription.GridDescription;
+
 import java.util.Collection;
 
 /**
