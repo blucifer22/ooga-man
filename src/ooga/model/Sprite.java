@@ -1,5 +1,7 @@
 package ooga.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -20,13 +22,21 @@ public abstract class Sprite implements ObservableSprite {
   private final SpriteCoordinates position;
   private Vec2 direction;
   private Map<SpriteEvent.EventType, Set<SpriteObserver>> observers;
+  private InputSource inputSource;
+  private double speed;
 
-  public Sprite(SpriteCoordinates position, Vec2 direction) {
+  @JsonCreator
+  public Sprite(
+      @JsonProperty("position") SpriteCoordinates position,
+      @JsonProperty("direction") Vec2 direction,
+      @JsonProperty("speed") double speed) {
     this.position = position;
     this.direction = direction;
+    this.speed = speed;
     initializeObserverMap();
   }
 
+  @JsonCreator
   public Sprite() {
     // TODO: Verify that this is appropriate behavior for the no-arg constructor
     this.position = new SpriteCoordinates();
@@ -42,13 +52,6 @@ public abstract class Sprite implements ObservableSprite {
   }
 
   /**
-   * Returns whether this Sprite moves over the course of the game
-   *
-   * @return
-   */
-  public abstract boolean isStationary();
-
-  /**
    * Returns the type of this Sprite
    *
    * @return
@@ -58,7 +61,7 @@ public abstract class Sprite implements ObservableSprite {
   // coordinates of the tile above which this sprite's center lies
 
   /**
-   * Coordinates of this Sprite.  Also provides the tile coordinates.
+   * Coordinates of this Sprite. Also provides the tile coordinates.
    *
    * @return
    */
@@ -88,7 +91,7 @@ public abstract class Sprite implements ObservableSprite {
   /**
    * Adds an observer that will be notified whenever any of the subset of observedEvents occurs
    *
-   * @param so             observer object to add
+   * @param so observer object to add
    * @param observedEvents events that this observer listens for
    */
   public void addObserver(SpriteObserver so, SpriteEvent.EventType... observedEvents) {
@@ -111,7 +114,7 @@ public abstract class Sprite implements ObservableSprite {
   }
 
   /**
-   * Notify each observer that the following sprite events have occurred.  If multiple events occur
+   * Notify each observer that the following sprite events have occurred. If multiple events occur
    * simultaneously, an observer set to receive multiple types of events receives each separately.
    *
    * @param observedEvents collection of events to notify observers of.
@@ -127,7 +130,23 @@ public abstract class Sprite implements ObservableSprite {
   }
 
   // advance state by dt seconds
-  public abstract void step(double dt);
+  public abstract void step(double dt, PacmanGrid grid);
 
   public abstract boolean mustBeConsumed();
+
+  public double getSpeed() {
+    return speed;
+  }
+
+  public void setSpeed(double speed) {
+    this.speed = speed;
+  }
+
+  protected InputSource getInputSource() {
+    return inputSource;
+  }
+
+  public void setInputSource(InputSource s) {
+    inputSource = s;
+  }
 }

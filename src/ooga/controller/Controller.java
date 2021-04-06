@@ -3,8 +3,12 @@ package ooga.controller;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ooga.model.PacmanGameState;
+import ooga.model.PacmanGrid;
 import ooga.model.Sprite;
 import ooga.model.SpriteCoordinates;
+import ooga.model.api.ObservableSprite;
+import ooga.model.api.SpriteEvent.EventType;
+import ooga.model.api.SpriteObserver;
 import ooga.util.Vec2;
 import ooga.view.theme.ConcreteThemeService;
 import ooga.view.theme.ThemeService;
@@ -16,6 +20,8 @@ public class Controller {
 
   public Controller(Stage primaryStage) {
     this.primaryStage = primaryStage;
+    this.primaryStage.show();
+    startGame();
   }
 
   public void startGame() {
@@ -25,16 +31,11 @@ public class Controller {
     pgs.addSpriteExistenceObserver(gv.getSpriteExistenceObserver());
     primaryStage.setScene(new Scene(gv.getRenderingNode(), 400.0,
         400.0));
-    gv.getSpriteExistenceObserver().onSpriteCreation(new Sprite() {
+    gv.getSpriteExistenceObserver().onSpriteCreation(new ObservableSprite() {
 
       @Override
       public boolean isVisible() {
         return true;
-      }
-
-      @Override
-      public boolean isStationary() {
-        return false;
       }
 
       @Override
@@ -48,26 +49,26 @@ public class Controller {
       }
 
       @Override
-      public void step(double dt) {
+      public Vec2 getDirection() {
+        return new Vec2(1, 0);
+      }
+
+      @Override
+      public void addObserver(SpriteObserver so, EventType... observedEvents) {
 
       }
 
       @Override
-      public boolean mustBeConsumed() {
-        return false;
+      public void removeObserver(SpriteObserver so) {
+
       }
     });
 
-    gv.getSpriteExistenceObserver().onSpriteCreation(new Sprite() {
+    gv.getSpriteExistenceObserver().onSpriteCreation(new ObservableSprite() {
 
       @Override
       public boolean isVisible() {
         return true;
-      }
-
-      @Override
-      public boolean isStationary() {
-        return false;
       }
 
       @Override
@@ -81,13 +82,18 @@ public class Controller {
       }
 
       @Override
-      public void step(double dt) {
+      public Vec2 getDirection() {
+        return new Vec2(1, 0);
+      }
+
+      @Override
+      public void addObserver(SpriteObserver so, EventType... observedEvents) {
 
       }
 
       @Override
-      public boolean mustBeConsumed() {
-        return false;
+      public void removeObserver(SpriteObserver so) {
+
       }
     });
   }

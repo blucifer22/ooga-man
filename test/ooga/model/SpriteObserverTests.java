@@ -24,7 +24,7 @@ public class SpriteObserverTests {
 
   @Test
   public void noObserversTest() {
-    observable.step(FRAME_RATE);
+    observable.step(FRAME_RATE, null);
     assertEquals(null, observer.getLastEvent());
     assertEquals(null, observer.getLastSender());
   }
@@ -32,7 +32,7 @@ public class SpriteObserverTests {
   @Test
   public void simpleTranslationObserver() {
     observable.addObserver(observer, EventType.TRANSLATE);
-    observable.step(FRAME_RATE);
+    observable.step(FRAME_RATE, null);
     assertEquals(EventType.TRANSLATE, observer.getLastEvent());
     assertEquals(TestObservableSprite.SPRITE_TYPE, observer.getLastSender());
     assertEquals(new Vec2(0.5, 0), observer.getLastCoordinates().getExactCoordinates());
@@ -42,7 +42,7 @@ public class SpriteObserverTests {
   public void noArgumentsTest() {
     // Subscribe to all events
     observable.addObserver(observer);
-    observable.step(FRAME_RATE);
+    observable.step(FRAME_RATE, null);
     assertEquals(EventType.TRANSLATE, observer.getLastEvent());
     assertEquals(TestObservableSprite.SPRITE_TYPE, observer.getLastSender());
     assertEquals(new Vec2(0.5, 0), observer.getLastCoordinates().getExactCoordinates());
@@ -82,11 +82,6 @@ class TestObservableSprite extends Sprite {
   public static final String SPRITE_TYPE = "TEST_SPRITE";
 
   @Override
-  public boolean isStationary() {
-    return false;
-  }
-
-  @Override
   public String getType() {
     return SPRITE_TYPE;
   }
@@ -97,7 +92,7 @@ class TestObservableSprite extends Sprite {
   }
 
   @Override
-  public void step(double dt) {
+  public void step(double dt, PacmanGrid grid) {
     getCoordinates().setPosition(new Vec2(0.5, 0));
     notifyObservers(EventType.TRANSLATE);
   }
