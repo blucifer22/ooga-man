@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import ooga.model.TileCoordinates;
+import ooga.model.api.GridRebuildObserver;
 import ooga.model.api.ObservableGrid;
 import ooga.model.api.ObservableTile;
 import ooga.model.api.SpriteExistenceObserver;
@@ -89,7 +90,7 @@ public class GameView implements View, ThemedObject {
     return this.gridView;
   }
 
-  public GameGridView getGridRebuildObserver() {
+  public GridRebuildObserver getGridRebuildObserver() {
     return this.gridView;
   }
 

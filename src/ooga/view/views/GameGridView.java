@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import ooga.model.TileCoordinates;
+import ooga.model.api.GridRebuildObserver;
 import ooga.model.api.ObservableGrid;
 import ooga.model.api.ObservableTile;
 import ooga.model.api.SpriteExistenceObserver;
@@ -21,7 +22,8 @@ import ooga.view.theme.ThemedObject;
  * GameGridView lays out the grid and the Sprites on the grid (a necessary combination because only
  * the GameGridView knows where the grid is!).
  */
-public class GameGridView implements View, SpriteExistenceObserver, ThemedObject {
+public class GameGridView implements View, GridRebuildObserver, SpriteExistenceObserver,
+    ThemedObject {
 
   private final Group tileGrid;
   private final DoubleProperty tileSize;
@@ -70,6 +72,7 @@ public class GameGridView implements View, SpriteExistenceObserver, ThemedObject
     spriteViews.remove(so);
   }
 
+  @Override
   public void onGridRebuild(ObservableGrid grid) {
     this.tileGrid.getChildren().clear();
     this.tileSize.bind(Bindings.min(primaryView.widthProperty().divide(grid.getWidth()),
