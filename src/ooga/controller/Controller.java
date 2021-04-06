@@ -46,7 +46,7 @@ public class Controller {
 
     }
 
-    PacMan pacman = new PacMan(new SpriteCoordinates(new Vec2(0.5, 1.5)), new Vec2(0,0), 1.0);
+    PacMan pacman = new PacMan(new SpriteCoordinates(new Vec2(2.5, 2.5)), new Vec2(0,0), 1.0);
 
     pacman.setInputSource(this.inputManager);
 
