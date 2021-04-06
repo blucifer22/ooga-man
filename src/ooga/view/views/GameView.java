@@ -10,7 +10,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
-import ooga.model.SpriteExistenceObserver;
+import ooga.model.api.SpriteExistenceObserver;
 import ooga.view.theme.ThemeService;
 import ooga.view.theme.ThemedObject;
 

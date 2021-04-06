@@ -1,12 +1,12 @@
 package ooga.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import ooga.model.SpriteEvent.EventType;
+import ooga.model.api.ObservableSprite;
+import ooga.model.api.SpriteEvent;
+import ooga.model.api.SpriteObserver;
 import ooga.util.Vec2;
 
 /**
@@ -15,7 +15,7 @@ import ooga.util.Vec2;
  *
  * @author George Hong
  */
-public abstract class Sprite implements SpriteObservable {
+public abstract class Sprite implements ObservableSprite {
 
   private final SpriteCoordinates position;
   private Vec2 direction;

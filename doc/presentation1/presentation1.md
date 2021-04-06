@@ -123,8 +123,8 @@ public class MarcUseCase {
 import ooga.controller.SpriteObserver;
 import ooga.model.Sprite;
 import ooga.model.SpriteCoordinates;
-import ooga.model.SpriteEvent;
-import ooga.model.SpriteObservable;
+import ooga.model.api.SpriteEvent;
+import ooga.model.api.ObservableSprite;
 
 /**
  * This use cases tests if pacman hits a cherry sprite using the current methods at the time of

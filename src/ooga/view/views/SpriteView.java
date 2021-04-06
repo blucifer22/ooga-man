@@ -5,9 +5,9 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import ooga.model.SpriteCoordinates;
-import ooga.model.SpriteEvent;
-import ooga.model.SpriteObservable;
-import ooga.model.SpriteObserver;
+import ooga.model.api.SpriteEvent;
+import ooga.model.api.ObservableSprite;
+import ooga.model.api.SpriteObserver;
 import ooga.util.Vec2;
 import ooga.view.theme.ThemeService;
 import ooga.view.theme.ThemedObject;
@@ -18,11 +18,11 @@ import ooga.view.theme.ThemedObject;
 public class SpriteView implements SpriteObserver, ThemedObject, Renderable {
 
   private final Rectangle viewGraphic;
-  private final SpriteObservable dataSource;
+  private final ObservableSprite dataSource;
   private final DoubleProperty size;
   private ThemeService themeService;
 
-  public SpriteView(SpriteObservable so, ThemeService themeService, DoubleProperty size) {
+  public SpriteView(ObservableSprite so, ThemeService themeService, DoubleProperty size) {
     // configure data sourcing
     so.addObserver(this);
     this.dataSource = so;

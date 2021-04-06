@@ -1,5 +1,6 @@
 package ooga.model;
 
+import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.leveldescription.GridDescription;
 
 import java.util.Collection;

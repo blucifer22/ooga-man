@@ -1,19 +1,19 @@
-package ooga.model;
+package ooga.model.api;
 
 public class SpriteEvent {
   public enum EventType {
     TYPE_CHANGE, VISIBILITY, TRANSLATE, ROTATE
   }
 
-  private SpriteObservable sender;
+  private ObservableSprite sender;
   private EventType type;
 
-  public SpriteEvent(SpriteObservable sender, EventType type) {
+  public SpriteEvent(ObservableSprite sender, EventType type) {
     this.sender = sender;
     this.type = type;
   }
 
-  public SpriteObservable getSender() {
+  public ObservableSprite getSender() {
     return sender;
   }
 

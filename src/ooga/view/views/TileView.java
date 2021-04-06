@@ -5,8 +5,8 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
-import ooga.model.TileEvent;
-import ooga.model.TileObserver;
+import ooga.model.api.TileEvent;
+import ooga.model.api.TileObserver;
 import ooga.view.theme.ThemeService;
 import ooga.view.theme.ThemedObject;
 

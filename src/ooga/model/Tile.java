@@ -4,11 +4,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import ooga.model.TileEvent.EventType;
-import ooga.util.Vec2;
+import ooga.model.api.TileEvent;
+import ooga.model.api.TileEvent.EventType;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import ooga.model.api.ObservableTile;
+import ooga.model.api.TileObserver;
 
 /**
  * Represents basic properties of a Tile such as whether they can be occupied
@@ -16,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author George Hong
  * @author David Coffman
  */
-public class Tile implements TileObservable {
+public class Tile implements ObservableTile {
 
   private final TileCoordinates tileCoordinates;
   // TODO: allow for tile types to change
