@@ -32,6 +32,7 @@ public class UIController {
         primaryStage.getHeight());
 
     this.primaryStage.setScene(gameViewScene);
+    redirectInput(gameViewScene);
   }
 
   public GameView getGameView() {
