@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import ooga.model.TileCoordinates;
+import ooga.model.api.GridRebuildObserver;
 import ooga.model.api.ObservableGrid;
 import ooga.model.api.ObservableTile;
 import ooga.model.api.SpriteExistenceObserver;
@@ -35,41 +36,7 @@ public class GameView implements View, ThemedObject {
 
     setThemeService(themeService);
 
-    ObservableGrid grid = new ObservableGrid() {
-
-      @Override
-      public int getWidth() {
-        return 10;
-      }
-
-      @Override
-      public int getHeight() {
-        return 10;
-      }
-
-      @Override
-      public ObservableTile getTile(TileCoordinates tileCoordinates) {
-        return new ObservableTile() {
-
-          @Override
-          public TileCoordinates getCoordinates() {
-            return tileCoordinates;
-          }
-
-          @Override
-          public String getType() {
-            return "tile";
-          }
-
-          @Override
-          public void addTileObserver(TileObserver observer, EventType... events) {
-          }
-        };
-      }
-    };
-
-    this.gridView = new GameGridView(grid, this.themeService);
-
+    this.gridView = new GameGridView(this.themeService);
 
     ColumnConstraints cc = new ColumnConstraints();
     cc.setPercentWidth(80);
@@ -89,7 +56,7 @@ public class GameView implements View, ThemedObject {
     return this.gridView;
   }
 
-  public GameGridView getGridRebuildObserver() {
+  public GridRebuildObserver getGridRebuildObserver() {
     return this.gridView;
   }
 
