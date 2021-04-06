@@ -36,42 +36,7 @@ public class GameView implements View, ThemedObject {
 
     setThemeService(themeService);
 
-    ObservableGrid grid = new ObservableGrid() {
-
-      @Override
-      public int getWidth() {
-        return 10;
-      }
-
-      @Override
-      public int getHeight() {
-        return 10;
-      }
-
-      @Override
-      public ObservableTile getTile(TileCoordinates tileCoordinates) {
-        return new ObservableTile() {
-
-          @Override
-          public TileCoordinates getCoordinates() {
-            return tileCoordinates;
-          }
-
-          @Override
-          public String getType() {
-            return "tile";
-          }
-
-          @Override
-          public void addTileObserver(TileObserver observer, EventType... events) {
-          }
-        };
-      }
-    };
-
     this.gridView = new GameGridView(this.themeService);
-    this.gridView.onGridRebuild(grid);
-
 
     ColumnConstraints cc = new ColumnConstraints();
     cc.setPercentWidth(80);

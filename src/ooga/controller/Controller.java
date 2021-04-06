@@ -5,6 +5,11 @@ import javafx.stage.Stage;
 import ooga.model.PacmanGameState;
 import ooga.model.Sprite;
 import ooga.model.SpriteCoordinates;
+import ooga.model.TileCoordinates;
+import ooga.model.api.ObservableGrid;
+import ooga.model.api.ObservableTile;
+import ooga.model.api.TileEvent.EventType;
+import ooga.model.api.TileObserver;
 import ooga.util.Vec2;
 import ooga.view.theme.ConcreteThemeService;
 import ooga.view.theme.ThemeService;
@@ -92,5 +97,40 @@ public class Controller {
         return false;
       }
     });
+
+    ObservableGrid grid = new ObservableGrid() {
+
+      @Override
+      public int getWidth() {
+        return 10;
+      }
+
+      @Override
+      public int getHeight() {
+        return 10;
+      }
+
+      @Override
+      public ObservableTile getTile(TileCoordinates tileCoordinates) {
+        return new ObservableTile() {
+
+          @Override
+          public TileCoordinates getCoordinates() {
+            return tileCoordinates;
+          }
+
+          @Override
+          public String getType() {
+            return "tile";
+          }
+
+          @Override
+          public void addTileObserver(TileObserver observer, EventType... events) {
+          }
+        };
+      }
+    };
+
+    gv.getGridRebuildObserver().onGridRebuild(grid);
   }
 }
