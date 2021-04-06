@@ -1,6 +1,5 @@
 package ooga.controller;
 
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ooga.model.PacmanGameState;
 import ooga.model.SpriteCoordinates;
@@ -13,26 +12,25 @@ import ooga.model.api.SpriteObserver;
 import ooga.model.api.TileEvent;
 import ooga.model.api.TileObserver;
 import ooga.util.Vec2;
-import ooga.view.theme.ConcreteThemeService;
-import ooga.view.theme.ThemeService;
+import ooga.view.UIController;
 import ooga.view.views.GameView;
 
 public class Controller {
 
-  private final Stage primaryStage;
+  private final UIController uiController;
+  private final HumanInputManager inputManager;
 
   public Controller(Stage primaryStage) {
-    this.primaryStage = primaryStage;
-    this.primaryStage.show();
+    this.inputManager = new HumanInputManager();
+    this.uiController = new UIController(primaryStage, this.inputManager);
     startGame();
   }
 
   public void startGame() {
     PacmanGameState pgs = new PacmanGameState();
-    ThemeService ts = new ConcreteThemeService();
-    GameView gv = new GameView(ts);
+    GameView gv = uiController.getGameView(); // TODO: abstract GameView to an interface here
+
     pgs.addSpriteExistenceObserver(gv.getSpriteExistenceObserver());
-    primaryStage.setScene(new Scene(gv.getRenderingNode(), 400.0, 400.0));
     gv.getSpriteExistenceObserver()
         .onSpriteCreation(
             new ObservableSprite() {
@@ -131,5 +129,7 @@ public class Controller {
     };
 
     gv.getGridRebuildObserver().onGridRebuild(grid);
+
+    uiController.showGameView();
   }
 }
