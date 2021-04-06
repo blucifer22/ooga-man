@@ -17,7 +17,7 @@ import ooga.view.theme.ThemedObject;
  * GameGridView lays out the grid and the Sprites on the grid (a necessary combination because only
  * the GameGridView knows where the grid is!).
  */
-public class GameGridView implements Renderable, SpriteExistenceObserver, ThemedObject {
+public class GameGridView implements View, SpriteExistenceObserver, ThemedObject {
 
   private final Group tileGrid;
   private final DoubleProperty tileSize;
@@ -70,7 +70,7 @@ public class GameGridView implements Renderable, SpriteExistenceObserver, Themed
   }
 
   @Override
-  public Node getRenderingNode() {
+  public Pane getRenderingNode() {
     return primaryView;
   }
 
