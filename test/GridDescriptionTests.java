@@ -93,7 +93,7 @@ public class GridDescriptionTests {
 
   @Test
   public void testGridDescriptionJSON() {
-    String path = "data/levels/grids/test_grid.json";
+    String path = "data/levels/grids/test_grid_description.json";
     String name = "testGrid";
     int width = 2;
     int height = 2;
