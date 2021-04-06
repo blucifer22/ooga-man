@@ -30,7 +30,7 @@ public class GameView implements View, ThemedObject {
   private final GameGridView gridView;
   private ThemeService themeService;
 
-  public GameView(int rows, int cols, ThemeService themeService) {
+  public GameView(ThemeService themeService) {
     this.primaryView = new GridPane();
 
     setThemeService(themeService);
