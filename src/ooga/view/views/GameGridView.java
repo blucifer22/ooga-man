@@ -32,8 +32,8 @@ public class GameGridView implements View, SpriteExistenceObserver, ThemedObject
 
   public GameGridView(ObservableGrid grid, ThemeService themeService) {
     this.primaryView = new Pane();
-    this.tileGrid = new Group();
     this.tileSize = new SimpleDoubleProperty();
+    this.tileGrid = new Group();
     this.tileSize.bind(Bindings.min(primaryView.widthProperty().divide(grid.getWidth()),
         primaryView.heightProperty().divide(grid.getHeight())));
 
@@ -68,6 +68,13 @@ public class GameGridView implements View, SpriteExistenceObserver, ThemedObject
   public void onSpriteDestruction(ObservableSprite so) {
     spriteNodes.getChildren().remove(spriteViews.get(so).getRenderingNode());
     spriteViews.remove(so);
+  }
+
+  public void onGridRebuild(ObservableGrid grid) {
+    this.tileGrid.getChildren().clear();
+    this.tileSize.bind(Bindings.min(primaryView.widthProperty().divide(grid.getWidth()),
+        primaryView.heightProperty().divide(grid.getHeight())));
+    createTileGraphics(grid);
   }
 
   @Override
