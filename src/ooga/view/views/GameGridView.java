@@ -7,11 +7,8 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeType;
-import ooga.model.SpriteExistenceObserver;
-import ooga.model.SpriteObservable;
+import ooga.model.api.SpriteExistenceObserver;
+import ooga.model.api.ObservableSprite;
 import ooga.view.theme.ThemeService;
 import ooga.view.theme.ThemedObject;
 
@@ -23,7 +20,7 @@ public class GameGridView implements Renderable, SpriteExistenceObserver, Themed
 
   private final Group tileGrid;
   private final DoubleProperty tileSize;
-  private final HashMap<SpriteObservable, SpriteView> spriteViews;
+  private final HashMap<ObservableSprite, SpriteView> spriteViews;
   private final Group spriteNodes;
   private final Pane primaryView;
   private ThemeService themeService;
@@ -55,14 +52,14 @@ public class GameGridView implements Renderable, SpriteExistenceObserver, Themed
   }
 
   @Override
-  public void onSpriteCreation(SpriteObservable so) {
+  public void onSpriteCreation(ObservableSprite so) {
     SpriteView createdSpriteView = new SpriteView(so, this.themeService, tileSize);
     spriteViews.put(so, createdSpriteView);
     spriteNodes.getChildren().add(createdSpriteView.getRenderingNode());
   }
 
   @Override
-  public void onSpriteDestruction(SpriteObservable so) {
+  public void onSpriteDestruction(ObservableSprite so) {
     spriteNodes.getChildren().remove(spriteViews.get(so).getRenderingNode());
     spriteViews.remove(so);
   }

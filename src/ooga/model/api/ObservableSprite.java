@@ -1,8 +1,9 @@
-package ooga.model;
+package ooga.model.api;
 
+import ooga.model.SpriteCoordinates;
 import ooga.util.Vec2;
 
-public interface SpriteObservable {
+public interface ObservableSprite {
 
   String getType();
 

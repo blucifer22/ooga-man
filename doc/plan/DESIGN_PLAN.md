@@ -68,6 +68,7 @@ Interactions not falling into one of these categories are by default _not_ allow
 package ooga.model;
 
 import java.util.Collection;
+import ooga.model.api.SpriteExistenceObserver;
 
 /**
  * This class contains all the state of a in-progress pacman game and serves as the top-level class
