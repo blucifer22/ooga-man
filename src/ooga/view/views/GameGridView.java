@@ -5,10 +5,15 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import ooga.model.TileCoordinates;
+import ooga.model.api.ObservableGrid;
+import ooga.model.api.ObservableTile;
 import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.api.ObservableSprite;
+import ooga.model.api.TileEvent.EventType;
+import ooga.model.api.TileObserver;
+import ooga.view.internal_api.View;
 import ooga.view.theme.ThemeService;
 import ooga.view.theme.ThemedObject;
 
@@ -16,7 +21,7 @@ import ooga.view.theme.ThemedObject;
  * GameGridView lays out the grid and the Sprites on the grid (a necessary combination because only
  * the GameGridView knows where the grid is!).
  */
-public class GameGridView implements Renderable, SpriteExistenceObserver, ThemedObject {
+public class GameGridView implements View, SpriteExistenceObserver, ThemedObject {
 
   private final Group tileGrid;
   private final DoubleProperty tileSize;
@@ -25,12 +30,12 @@ public class GameGridView implements Renderable, SpriteExistenceObserver, Themed
   private final Pane primaryView;
   private ThemeService themeService;
 
-  public GameGridView(int rows, int cols, ThemeService themeService) {
+  public GameGridView(ObservableGrid grid, ThemeService themeService) {
     this.primaryView = new Pane();
-    this.tileGrid = new Group();
     this.tileSize = new SimpleDoubleProperty();
-    this.tileSize.bind(Bindings.min(primaryView.widthProperty().divide(cols),
-        primaryView.heightProperty().divide(rows)));
+    this.tileGrid = new Group();
+    this.tileSize.bind(Bindings.min(primaryView.widthProperty().divide(grid.getWidth()),
+        primaryView.heightProperty().divide(grid.getHeight())));
 
     this.spriteViews = new HashMap<>();
     this.spriteNodes = new Group();
@@ -39,13 +44,14 @@ public class GameGridView implements Renderable, SpriteExistenceObserver, Themed
 
     setThemeService(themeService);
 
-    addGridTiles(rows, cols);
+    createTileGraphics(grid);
   }
 
-  private void addGridTiles(int rows, int cols) {
-    for (int i = 0; i < rows; i++) {
-      for (int j = 0; j < cols; j++) {
-        TileView tv = new TileView(j, i, tileSize, this.themeService);
+  private void createTileGraphics(ObservableGrid grid) {
+    for (int row = 0; row < grid.getHeight(); row++) {
+      for (int col = 0; col < grid.getWidth(); col++) {
+        TileView tv = new TileView(grid.getTile(new TileCoordinates(row, col)), tileSize,
+            themeService);
         tileGrid.getChildren().add(tv.getRenderingNode());
       }
     }
@@ -64,8 +70,15 @@ public class GameGridView implements Renderable, SpriteExistenceObserver, Themed
     spriteViews.remove(so);
   }
 
+  public void onGridRebuild(ObservableGrid grid) {
+    this.tileGrid.getChildren().clear();
+    this.tileSize.bind(Bindings.min(primaryView.widthProperty().divide(grid.getWidth()),
+        primaryView.heightProperty().divide(grid.getHeight())));
+    createTileGraphics(grid);
+  }
+
   @Override
-  public Node getRenderingNode() {
+  public Pane getRenderingNode() {
     return primaryView;
   }
 
