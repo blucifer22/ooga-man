@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
+import ooga.model.api.ObservableTile;
 import ooga.model.api.TileEvent;
 import ooga.model.api.TileObserver;
 import ooga.view.theme.ThemeService;
@@ -32,6 +33,10 @@ public class TileView implements Renderable, TileObserver, ThemedObject {
     // Initial render
     this.setThemeService(themeService);
     this.onTypeChange();
+  }
+
+  public TileView(ObservableTile tile, DoubleProperty tileSize, ThemeService themeService) {
+    this(tile.getCoordinates().getX(), tile.getCoordinates().getY(), tileSize, themeService);
   }
 
   private void onTypeChange() {
