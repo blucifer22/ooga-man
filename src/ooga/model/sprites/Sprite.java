@@ -93,7 +93,7 @@ public abstract class Sprite implements ObservableSprite {
   }
 
   public boolean isVisible() {
-    return false;
+    return true;
   }
 
   // Observation
