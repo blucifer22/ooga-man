@@ -1,6 +1,9 @@
 package ooga.controller;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import ooga.model.PacmanGameState;
 import ooga.model.SpriteCoordinates;
 import ooga.model.TileCoordinates;
@@ -17,6 +20,7 @@ import ooga.view.views.GameView;
 
 public class Controller {
 
+  private static final double TIMESTEP = 1.0/120.0;
   private final UIController uiController;
   private final HumanInputManager inputManager;
 
@@ -131,5 +135,12 @@ public class Controller {
     gv.getGridRebuildObserver().onGridRebuild(grid);
 
     uiController.showGameView();
+
+    KeyFrame frame = new KeyFrame(Duration.seconds(TIMESTEP), e -> pgs.step(TIMESTEP)); //
+    // TODO: remove grid from step parameter
+    Timeline animation = new Timeline();
+    animation.setCycleCount(Timeline.INDEFINITE);
+    animation.getKeyFrames().add(frame);
+    animation.play();
   }
 }
