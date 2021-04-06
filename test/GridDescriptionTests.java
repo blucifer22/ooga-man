@@ -137,4 +137,46 @@ public class GridDescriptionTests {
     assertEquals(pacmanGrid.getHeight(), 2);
     assertEquals(pacmanGrid.getTile(new TileCoordinates(0, 0)).getType(), "Tile 0");
   }
+  @Test
+  public void testGenerateLargeTestGridJSON() {
+    String path = "data/levels/grids/test_grid.json";
+    String name = "testGrid";
+    int[][] gridConfig = {
+        {0, 0, 0, 0, 0},
+        {0, 1, 0, 1, 0},
+        {0, 1, 0, 1, 0},
+        {0, 1, 1, 1, 0},
+        {0, 0, 0, 0, 0}
+    };
+    int width = 5;
+    int height = 5;
+    List<List<Tile>> tileList =
+        List.of(
+            List.of(
+                new Tile(new TileCoordinates(0, 0), "Tile 0", false, true),
+                new Tile(new TileCoordinates(0, 1), "Tile 1", true, false)),
+            List.of(
+                new Tile(new TileCoordinates(1, 0), "Tile 2", false, false),
+                new Tile(new TileCoordinates(1, 1), "Tile 3", false, true)));
+
+    GridDescription gridDescription = new GridDescription(name, width, height, tileList);
+
+    try {
+      gridDescription.toJSON(path);
+    } catch (IOException e) {
+      System.err.println(e.getMessage());
+      fail();
+    }
+
+    JSONDescriptionFactory JSONDescriptionFactory = new JSONDescriptionFactory();
+    GridDescription description = null;
+
+    try {
+      description = JSONDescriptionFactory.getGridDescriptionFromJSON(path);
+    } catch (IOException e) {
+      System.err.println(e.getMessage());
+      fail();
+    }
+  }
+
 }
