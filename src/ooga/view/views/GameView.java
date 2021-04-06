@@ -2,12 +2,12 @@ package ooga.view.views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import ooga.model.api.SpriteExistenceObserver;
@@ -18,7 +18,7 @@ import ooga.view.theme.ThemedObject;
  * GameView lays out how a round appears (the GridView in the center, information about
  * lives/round/score above and below).
  */
-public class GameView implements Renderable, ThemedObject {
+public class GameView implements View, ThemedObject {
 
   private final GridPane primaryView;
   private final GameGridView gridView;
@@ -50,7 +50,7 @@ public class GameView implements Renderable, ThemedObject {
   }
 
   @Override
-  public Node getRenderingNode() {
+  public Pane getRenderingNode() {
     return this.primaryView;
   }
 
