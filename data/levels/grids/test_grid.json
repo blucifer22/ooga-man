@@ -1,7 +1,7 @@
 {
   "gridName" : "testGrid",
-  "width" : 5,
-  "height" : 5,
+  "width" : 6,
+  "height" : 6,
   "grid" : [ [ {
     "coordinates" : {
       "x" : 0,
@@ -42,6 +42,14 @@
     "type" : "tile",
     "openToPacman" : false,
     "openToGhosts" : false
+  }, {
+    "coordinates" : {
+      "x" : 5,
+      "y" : 0
+    },
+    "type" : "tile",
+    "openToPacman" : false,
+    "openToGhosts" : false
   } ], [ {
     "coordinates" : {
       "x" : 0,
@@ -64,8 +72,8 @@
       "y" : 1
     },
     "type" : "tile",
-    "openToPacman" : false,
-    "openToGhosts" : false
+    "openToPacman" : true,
+    "openToGhosts" : true
   }, {
     "coordinates" : {
       "x" : 3,
@@ -80,6 +88,14 @@
       "y" : 1
     },
     "type" : "tile",
+    "openToPacman" : true,
+    "openToGhosts" : true
+  }, {
+    "coordinates" : {
+      "x" : 5,
+      "y" : 1
+    },
+    "type" : "tile",
     "openToPacman" : false,
     "openToGhosts" : false
   } ], [ {
@@ -120,6 +136,14 @@
       "y" : 2
     },
     "type" : "tile",
+    "openToPacman" : true,
+    "openToGhosts" : true
+  }, {
+    "coordinates" : {
+      "x" : 5,
+      "y" : 2
+    },
+    "type" : "tile",
     "openToPacman" : false,
     "openToGhosts" : false
   } ], [ {
@@ -144,8 +168,8 @@
       "y" : 3
     },
     "type" : "tile",
-    "openToPacman" : true,
-    "openToGhosts" : true
+    "openToPacman" : false,
+    "openToGhosts" : false
   }, {
     "coordinates" : {
       "x" : 3,
@@ -157,6 +181,14 @@
   }, {
     "coordinates" : {
       "x" : 4,
+      "y" : 3
+    },
+    "type" : "tile",
+    "openToPacman" : true,
+    "openToGhosts" : true
+  }, {
+    "coordinates" : {
+      "x" : 5,
       "y" : 3
     },
     "type" : "tile",
@@ -176,12 +208,60 @@
       "y" : 4
     },
     "type" : "tile",
+    "openToPacman" : true,
+    "openToGhosts" : true
+  }, {
+    "coordinates" : {
+      "x" : 2,
+      "y" : 4
+    },
+    "type" : "tile",
+    "openToPacman" : true,
+    "openToGhosts" : true
+  }, {
+    "coordinates" : {
+      "x" : 3,
+      "y" : 4
+    },
+    "type" : "tile",
+    "openToPacman" : true,
+    "openToGhosts" : true
+  }, {
+    "coordinates" : {
+      "x" : 4,
+      "y" : 4
+    },
+    "type" : "tile",
+    "openToPacman" : true,
+    "openToGhosts" : true
+  }, {
+    "coordinates" : {
+      "x" : 5,
+      "y" : 4
+    },
+    "type" : "tile",
+    "openToPacman" : false,
+    "openToGhosts" : false
+  } ], [ {
+    "coordinates" : {
+      "x" : 0,
+      "y" : 5
+    },
+    "type" : "tile",
+    "openToPacman" : false,
+    "openToGhosts" : false
+  }, {
+    "coordinates" : {
+      "x" : 1,
+      "y" : 5
+    },
+    "type" : "tile",
     "openToPacman" : false,
     "openToGhosts" : false
   }, {
     "coordinates" : {
       "x" : 2,
-      "y" : 4
+      "y" : 5
     },
     "type" : "tile",
     "openToPacman" : false,
@@ -189,7 +269,7 @@
   }, {
     "coordinates" : {
       "x" : 3,
-      "y" : 4
+      "y" : 5
     },
     "type" : "tile",
     "openToPacman" : false,
@@ -197,7 +277,15 @@
   }, {
     "coordinates" : {
       "x" : 4,
-      "y" : 4
+      "y" : 5
+    },
+    "type" : "tile",
+    "openToPacman" : false,
+    "openToGhosts" : false
+  }, {
+    "coordinates" : {
+      "x" : 5,
+      "y" : 5
     },
     "type" : "tile",
     "openToPacman" : false,

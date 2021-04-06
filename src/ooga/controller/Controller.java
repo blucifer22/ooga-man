@@ -23,7 +23,7 @@ import ooga.view.views.GameView;
 
 public class Controller {
 
-  private static final double TIMESTEP = 1.0; //1.0/120.0;
+  private static final double TIMESTEP = 1.0/60.0;
   private final UIController uiController;
   private final HumanInputManager inputManager;
 
@@ -46,7 +46,7 @@ public class Controller {
 
     }
 
-    PacMan pacman = new PacMan(new SpriteCoordinates(new Vec2(2.5, 2.5)), new Vec2(0,0), 1.0);
+    PacMan pacman = new PacMan(new SpriteCoordinates(new Vec2(1.5, 1.5)), new Vec2(0,0), 5.0);
 
     pacman.setInputSource(this.inputManager);
 

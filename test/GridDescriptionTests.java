@@ -143,11 +143,12 @@ public class GridDescriptionTests {
     String path = "data/levels/grids/test_grid.json";
     String name = "testGrid";
     int[][] gridConfig = {
-        {0, 0, 0, 0, 0},
-        {0, 1, 1, 1, 0},
-        {0, 1, 1, 1, 0},
-        {0, 1, 1, 1, 0},
-        {0, 0, 0, 0, 0}
+        {0, 0, 0, 0, 0, 0},
+        {0, 1, 1, 1, 1, 0},
+        {0, 1, 0, 1, 1, 0},
+        {0, 1, 0, 1, 1, 0},
+        {0, 1, 1, 1, 1, 0},
+        {0, 0, 0, 0, 0, 0},
     };
 
     int width = gridConfig[0].length;

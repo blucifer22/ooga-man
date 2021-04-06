@@ -73,6 +73,7 @@ public class PacMan extends Sprite {
     nextPosition =
         getCoordinates().getPosition().add(getDirection().scalarMult(getSpeed()).scalarMult(dt));
     getCoordinates().setPosition(nextPosition);
+    notifyObservers();
   }
 
   @Override
