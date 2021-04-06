@@ -14,6 +14,8 @@ import ooga.model.api.SpriteEvent.EventType;
 import ooga.model.api.SpriteObserver;
 import ooga.model.api.TileEvent;
 import ooga.model.api.TileObserver;
+import ooga.model.sprites.PacMan;
+import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 import ooga.view.UIController;
 import ooga.view.views.GameView;
@@ -35,68 +37,9 @@ public class Controller {
     GameView gv = uiController.getGameView(); // TODO: abstract GameView to an interface here
 
     pgs.addSpriteExistenceObserver(gv.getSpriteExistenceObserver());
-    gv.getSpriteExistenceObserver()
-        .onSpriteCreation(
-            new ObservableSprite() {
-
-              @Override
-              public boolean isVisible() {
-                return true;
-              }
-
-              @Override
-              public String getType() {
-                return "pacman";
-              }
-
-              @Override
-              public SpriteCoordinates getCenter() {
-                return new SpriteCoordinates(new Vec2(1.5, 3.5));
-              }
-
-              @Override
-              public Vec2 getDirection() {
-                return new Vec2(1, 0);
-              }
-
-              @Override
-              public void addObserver(SpriteObserver so, EventType... observedEvents) {}
-
-              @Override
-              public void removeObserver(SpriteObserver so) {}
-            });
-
-    gv.getSpriteExistenceObserver()
-        .onSpriteCreation(
-            new ObservableSprite() {
-
-              @Override
-              public boolean isVisible() {
-                return true;
-              }
-
-              @Override
-              public String getType() {
-                return "ghost";
-              }
-
-              @Override
-              public SpriteCoordinates getCenter() {
-                return new SpriteCoordinates(new Vec2(1.5, 5.5));
-              }
-
-              @Override
-              public Vec2 getDirection() {
-                return new Vec2(1, 0);
-              }
-
-              @Override
-              public void addObserver(SpriteObserver so, EventType... observedEvents) {}
-
-              @Override
-              public void removeObserver(SpriteObserver so) {}
-            });
     pgs.addGridRebuildObserver(gv.getGridRebuildObserver());
+
+    pgs.addSprite(new PacMan(new SpriteCoordinates(new Vec2(0.5, 0.5)), new Vec2(-1,0), 1.0));
 
     ObservableGrid grid = new ObservableGrid() {
 

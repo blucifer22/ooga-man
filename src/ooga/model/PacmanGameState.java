@@ -1,6 +1,7 @@
 package ooga.model;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 import ooga.model.api.GridRebuildObservable;
 import ooga.model.api.GridRebuildObserver;
@@ -27,7 +28,12 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
   public PacmanGameState() {
     spriteExistenceObservers = new HashSet<>();
     gridRebuildObservers = new HashSet<>();
+    sprites = new LinkedList<>();
     //this.grid = new PacmanGrid();
+  }
+
+  public void setDefaultInputSource() {
+
   }
 
   public void addSpriteExistenceObserver(SpriteExistenceObserver spriteExistenceObserver) {
@@ -74,6 +80,9 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
 
   public void addSprite(Sprite sprite){
     sprites.add(sprite);
+
+    for(SpriteExistenceObserver obs : spriteExistenceObservers)
+      obs.onSpriteCreation(sprite);
   }
 
   public Collection<Sprite> getSprites() {
