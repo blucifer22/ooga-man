@@ -21,6 +21,7 @@ public class TileView implements Renderable, TileObserver, ThemedObject {
   public TileView(ObservableTile tile, DoubleProperty tileSize, ThemeService themeService) {
     // Configure data source
     this.tile = tile;
+    this.tile.addTileObserver(this);
 
     // Configure tile geometry
     this.tileRect = new Rectangle(0, 0, 0, 0);
