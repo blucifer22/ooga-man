@@ -2,15 +2,21 @@ package ooga.view.views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
+import ooga.model.TileCoordinates;
+import ooga.model.api.ObservableGrid;
+import ooga.model.api.ObservableTile;
 import ooga.model.api.SpriteExistenceObserver;
+import ooga.model.api.TileEvent.EventType;
+import ooga.model.api.TileObserver;
+import ooga.view.internal_api.View;
 import ooga.view.theme.ThemeService;
 import ooga.view.theme.ThemedObject;
 
@@ -18,18 +24,52 @@ import ooga.view.theme.ThemedObject;
  * GameView lays out how a round appears (the GridView in the center, information about
  * lives/round/score above and below).
  */
-public class GameView implements Renderable, ThemedObject {
+public class GameView implements View, ThemedObject {
 
   private final GridPane primaryView;
   private final GameGridView gridView;
   private ThemeService themeService;
 
-  public GameView(int rows, int cols, ThemeService themeService) {
+  public GameView(ThemeService themeService) {
     this.primaryView = new GridPane();
 
     setThemeService(themeService);
 
-    this.gridView = new GameGridView(rows, cols, this.themeService);
+    ObservableGrid grid = new ObservableGrid() {
+
+      @Override
+      public int getWidth() {
+        return 10;
+      }
+
+      @Override
+      public int getHeight() {
+        return 10;
+      }
+
+      @Override
+      public ObservableTile getTile(TileCoordinates tileCoordinates) {
+        return new ObservableTile() {
+
+          @Override
+          public TileCoordinates getCoordinates() {
+            return tileCoordinates;
+          }
+
+          @Override
+          public String getType() {
+            return "tile";
+          }
+
+          @Override
+          public void addTileObserver(TileObserver observer, EventType... events) {
+          }
+        };
+      }
+    };
+
+    this.gridView = new GameGridView(grid, this.themeService);
+
 
     ColumnConstraints cc = new ColumnConstraints();
     cc.setPercentWidth(80);
@@ -49,8 +89,12 @@ public class GameView implements Renderable, ThemedObject {
     return this.gridView;
   }
 
+  public GameGridView getGridRebuildObserver() {
+    return this.gridView;
+  }
+
   @Override
-  public Node getRenderingNode() {
+  public Pane getRenderingNode() {
     return this.primaryView;
   }
 

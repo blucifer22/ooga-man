@@ -1,7 +1,6 @@
 package ooga.controller;
 
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import ooga.model.PacmanGameState;
 import ooga.model.Sprite;
@@ -24,9 +23,9 @@ public class Controller {
   public void startGame() {
     PacmanGameState pgs = new PacmanGameState();
     ThemeService ts = new ConcreteThemeService();
-    GameView gv = new GameView(10, 10, ts);
+    GameView gv = new GameView(ts);
     pgs.addSpriteExistenceObserver(gv.getSpriteExistenceObserver());
-    primaryStage.setScene(new Scene((Pane) gv.getRenderingNode(), 400.0,
+    primaryStage.setScene(new Scene(gv.getRenderingNode(), 400.0,
         400.0));
     gv.getSpriteExistenceObserver().onSpriteCreation(new Sprite() {
 
