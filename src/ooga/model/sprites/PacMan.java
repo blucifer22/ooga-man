@@ -9,12 +9,12 @@ import ooga.util.Vec2;
 /** @author George Hong */
 public class PacMan extends Sprite {
 
-  public static final String TYPE = "Pac-Man";
+  public static final String TYPE = "pacman";
   private Vec2 queuedDirection;
 
   public PacMan(SpriteCoordinates position, Vec2 direction, double speed) {
     super(position, direction, speed);
-    queuedDirection = new Vec2(-1, 0);
+    queuedDirection = new Vec2(0, 0);
   }
 
   public PacMan(SpriteDescription spriteDescription) {
