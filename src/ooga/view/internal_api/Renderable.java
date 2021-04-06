@@ -1,4 +1,4 @@
-package ooga.view.views;
+package ooga.view.internal_api;
 
 import javafx.scene.Node;
 

@@ -8,6 +8,7 @@ import javafx.scene.shape.StrokeType;
 import ooga.model.api.ObservableTile;
 import ooga.model.api.TileEvent;
 import ooga.model.api.TileObserver;
+import ooga.view.internal_api.Renderable;
 import ooga.view.theme.ThemeService;
 import ooga.view.theme.ThemedObject;
 

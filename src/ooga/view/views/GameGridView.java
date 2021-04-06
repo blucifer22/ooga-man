@@ -5,11 +5,11 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import ooga.model.api.ObservableGrid;
 import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.api.ObservableSprite;
+import ooga.view.internal_api.View;
 import ooga.view.theme.ThemeService;
 import ooga.view.theme.ThemedObject;
 

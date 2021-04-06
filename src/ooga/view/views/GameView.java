@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import ooga.model.api.SpriteExistenceObserver;
+import ooga.view.internal_api.View;
 import ooga.view.theme.ThemeService;
 import ooga.view.theme.ThemedObject;
 

@@ -9,6 +9,7 @@ import ooga.model.api.SpriteEvent;
 import ooga.model.api.ObservableSprite;
 import ooga.model.api.SpriteObserver;
 import ooga.util.Vec2;
+import ooga.view.internal_api.Renderable;
 import ooga.view.theme.ThemeService;
 import ooga.view.theme.ThemedObject;
 
