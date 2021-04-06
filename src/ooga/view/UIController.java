@@ -2,6 +2,7 @@ package ooga.view;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ooga.view.io.HumanInputConsumer;
 import ooga.view.theme.ConcreteThemeService;
 import ooga.view.theme.ThemeService;
 import ooga.view.views.GameView;
@@ -9,27 +10,36 @@ import ooga.view.views.GameView;
 public class UIController {
 
   private final Stage primaryStage;
-  private final Scene gameScene;
   private final GameView gameView;
-  private final ThemeService themeService;
+  private final HumanInputConsumer inputConsumer;
 
-  public UIController(Stage primaryStage) {
+  public UIController(Stage primaryStage, HumanInputConsumer inputConsumer) {
     this.primaryStage = primaryStage;
+    this.inputConsumer = inputConsumer;
 
-    this.themeService = new ConcreteThemeService();
-    this.gameView = new GameView(this.themeService);
-    this.gameScene = new Scene(this.gameView.getRenderingNode(), 400.0, 400.0);
+    ThemeService themeService = new ConcreteThemeService();
+    this.gameView = new GameView(themeService);
     
     this.primaryStage.show();
   }
 
   public void showMenu() {
-
+    // TODO: show menu
   }
 
   public void showGameView() {
-    this.primaryStage.setScene(this.gameScene);
+    Scene gameViewScene = new Scene(this.gameView.getRenderingNode(), primaryStage.getWidth(),
+        primaryStage.getHeight());
+
+    this.primaryStage.setScene(gameViewScene);
   }
 
+  public GameView getGameView() {
+    return this.gameView;
+  }
 
+  private void redirectInput(Scene s) {
+    s.setOnKeyPressed(e -> inputConsumer.onKeyPress(e.getCode()));
+    s.setOnKeyReleased(e -> inputConsumer.onKeyRelease(e.getCode()));
+  }
 }
