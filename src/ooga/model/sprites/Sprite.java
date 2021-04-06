@@ -9,6 +9,7 @@ import java.util.Set;
 import ooga.model.InputSource;
 import ooga.model.PacmanGrid;
 import ooga.model.SpriteCoordinates;
+import ooga.model.TileCoordinates;
 import ooga.model.api.ObservableSprite;
 import ooga.model.api.SpriteEvent;
 import ooga.model.api.SpriteObserver;
@@ -140,7 +141,48 @@ public abstract class Sprite implements ObservableSprite {
   }
 
   // advance state by dt seconds
-  public abstract void step(double dt, PacmanGrid grid);
+  public void step(double dt, PacmanGrid grid){
+    Vec2 userDirection = getInputSource().getRequestedDirection();
+    if (getDirection().parallelTo(userDirection)) {
+      setDirection(userDirection);
+      // queuedDirection = userDirection;
+    } else if (!userDirection.equals(Vec2.ZERO)) {
+      direction = userDirection;
+    }
+
+    Vec2 centerCoordinates = getCoordinates().getTileCenter();
+    Vec2 currentPosition = getCoordinates().getPosition();
+    Vec2 nextPosition = currentPosition.add(getDirection().scalarMult(getSpeed()).scalarMult(dt));
+
+    // Grid-snapping
+    if (centerCoordinates.isBetween(currentPosition, nextPosition)) {
+      getCoordinates().setPosition(centerCoordinates);
+      TileCoordinates currentTile = getCoordinates().getTileCoordinates();
+      // Tile target assuming use of queued direction
+      TileCoordinates newTargetTile =
+          direction == null
+              ? new TileCoordinates(0, 0)
+              : new TileCoordinates(
+                  currentTile.getX() + (int) direction.getX(),
+                  currentTile.getY() + (int) direction.getY());
+      // Tile target assuming continued use of current direction
+      TileCoordinates currentTargetTile =
+          new TileCoordinates(
+              currentTile.getX() + (int) getDirection().getX(),
+              currentTile.getY() + (int) getDirection().getY());
+
+      if (direction != null && grid.getTile(newTargetTile).isOpenToPacman()) {
+        setDirection(direction);
+        direction = null;
+      } else if (!grid.getTile(currentTargetTile).isOpenToPacman()) {
+        setDirection(Vec2.ZERO);
+      }
+    }
+
+    nextPosition =
+        getCoordinates().getPosition().add(getDirection().scalarMult(getSpeed()).scalarMult(dt));
+    getCoordinates().setPosition(nextPosition);
+  }
 
   public abstract boolean mustBeConsumed();
 
