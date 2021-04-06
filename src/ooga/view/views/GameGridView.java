@@ -7,12 +7,10 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import ooga.model.TileCoordinates;
+import ooga.model.api.GridRebuildObserver;
 import ooga.model.api.ObservableGrid;
-import ooga.model.api.ObservableTile;
 import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.api.ObservableSprite;
-import ooga.model.api.TileEvent.EventType;
-import ooga.model.api.TileObserver;
 import ooga.view.internal_api.View;
 import ooga.view.theme.ThemeService;
 import ooga.view.theme.ThemedObject;
@@ -21,7 +19,8 @@ import ooga.view.theme.ThemedObject;
  * GameGridView lays out the grid and the Sprites on the grid (a necessary combination because only
  * the GameGridView knows where the grid is!).
  */
-public class GameGridView implements View, SpriteExistenceObserver, ThemedObject {
+public class GameGridView implements View, GridRebuildObserver, SpriteExistenceObserver,
+    ThemedObject {
 
   private final Group tileGrid;
   private final DoubleProperty tileSize;
@@ -30,12 +29,11 @@ public class GameGridView implements View, SpriteExistenceObserver, ThemedObject
   private final Pane primaryView;
   private ThemeService themeService;
 
-  public GameGridView(ObservableGrid grid, ThemeService themeService) {
+  public GameGridView(ThemeService themeService) {
     this.primaryView = new Pane();
     this.tileSize = new SimpleDoubleProperty();
     this.tileGrid = new Group();
-    this.tileSize.bind(Bindings.min(primaryView.widthProperty().divide(grid.getWidth()),
-        primaryView.heightProperty().divide(grid.getHeight())));
+    this.tileSize.bind(Bindings.min(primaryView.widthProperty(), primaryView.heightProperty()));
 
     this.spriteViews = new HashMap<>();
     this.spriteNodes = new Group();
@@ -43,8 +41,6 @@ public class GameGridView implements View, SpriteExistenceObserver, ThemedObject
     this.primaryView.getChildren().addAll(tileGrid, spriteNodes);
 
     setThemeService(themeService);
-
-    createTileGraphics(grid);
   }
 
   private void createTileGraphics(ObservableGrid grid) {
@@ -70,6 +66,7 @@ public class GameGridView implements View, SpriteExistenceObserver, ThemedObject
     spriteViews.remove(so);
   }
 
+  @Override
   public void onGridRebuild(ObservableGrid grid) {
     this.tileGrid.getChildren().clear();
     this.tileSize.bind(Bindings.min(primaryView.widthProperty().divide(grid.getWidth()),

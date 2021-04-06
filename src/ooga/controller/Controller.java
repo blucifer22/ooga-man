@@ -29,6 +29,7 @@ public class Controller {
     ThemeService ts = new ConcreteThemeService();
     GameView gv = new GameView(ts);
     pgs.addSpriteExistenceObserver(gv.getSpriteExistenceObserver());
+    pgs.addGridRebuildObserver(gv.getGridRebuildObserver());
     primaryStage.setScene(new Scene(gv.getRenderingNode(), 400.0,
         400.0));
     gv.getSpriteExistenceObserver().onSpriteCreation(new ObservableSprite() {
@@ -96,5 +97,40 @@ public class Controller {
 
       }
     });
+
+    ObservableGrid grid = new ObservableGrid() {
+
+      @Override
+      public int getWidth() {
+        return 10;
+      }
+
+      @Override
+      public int getHeight() {
+        return 10;
+      }
+
+      @Override
+      public ObservableTile getTile(TileCoordinates tileCoordinates) {
+        return new ObservableTile() {
+
+          @Override
+          public TileCoordinates getCoordinates() {
+            return tileCoordinates;
+          }
+
+          @Override
+          public String getType() {
+            return "tile";
+          }
+
+          @Override
+          public void addTileObserver(TileObserver observer, EventType... events) {
+          }
+        };
+      }
+    };
+
+    gv.getGridRebuildObserver().onGridRebuild(grid);
   }
 }
