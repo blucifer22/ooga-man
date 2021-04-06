@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import ooga.model.PacmanGrid;
 import ooga.model.leveldescription.GridDescription;
@@ -143,21 +144,26 @@ public class GridDescriptionTests {
     String name = "testGrid";
     int[][] gridConfig = {
         {0, 0, 0, 0, 0},
-        {0, 1, 0, 1, 0},
-        {0, 1, 0, 1, 0},
+        {0, 1, 1, 1, 0},
+        {0, 1, 1, 1, 0},
         {0, 1, 1, 1, 0},
         {0, 0, 0, 0, 0}
     };
-    int width = 5;
-    int height = 5;
-    List<List<Tile>> tileList =
-        List.of(
-            List.of(
-                new Tile(new TileCoordinates(0, 0), "Tile 0", false, true),
-                new Tile(new TileCoordinates(0, 1), "Tile 1", true, false)),
-            List.of(
-                new Tile(new TileCoordinates(1, 0), "Tile 2", false, false),
-                new Tile(new TileCoordinates(1, 1), "Tile 3", false, true)));
+
+    int width = gridConfig[0].length;
+    int height = gridConfig.length;
+
+    List<List<Tile>> tileList = new ArrayList<>();
+
+    for(int y = 0; y < height; y++) {
+      List<Tile> outputRow = new ArrayList<>();
+
+      for(int x = 0; x < width; x++) {
+        boolean asBool = gridConfig[y][x] != 0;
+        outputRow.add(new Tile(new TileCoordinates(x, y), "tile", asBool, asBool));
+      }
+      tileList.add(outputRow);
+    }
 
     GridDescription gridDescription = new GridDescription(name, width, height, tileList);
 
