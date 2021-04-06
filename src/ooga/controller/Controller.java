@@ -14,6 +14,7 @@ import ooga.model.api.SpriteEvent.EventType;
 import ooga.model.api.SpriteObserver;
 import ooga.model.api.TileEvent;
 import ooga.model.api.TileObserver;
+import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
@@ -39,7 +40,17 @@ public class Controller {
     pgs.addSpriteExistenceObserver(gv.getSpriteExistenceObserver());
     pgs.addGridRebuildObserver(gv.getGridRebuildObserver());
 
-    pgs.addSprite(new PacMan(new SpriteCoordinates(new Vec2(0.5, 0.5)), new Vec2(-1,0), 1.0));
+    try {
+      pgs.loadGrid(new JSONDescriptionFactory().getGridDescriptionFromJSON("data/levels/grids/test_grid.json"));
+    } catch(Exception e) {
+
+    }
+
+    PacMan pacman = new PacMan(new SpriteCoordinates(new Vec2(5.5, 5.5)), new Vec2(-1,0), 1.0);
+
+    pacman.setInputSource(this.inputManager);
+
+    pgs.addSprite(pacman);
 
     ObservableGrid grid = new ObservableGrid() {
 

@@ -29,7 +29,6 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
     spriteExistenceObservers = new HashSet<>();
     gridRebuildObservers = new HashSet<>();
     sprites = new LinkedList<>();
-    //this.grid = new PacmanGrid();
   }
 
   public void setDefaultInputSource() {
@@ -40,8 +39,8 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
     spriteExistenceObservers.add(spriteExistenceObserver);
   }
 
-  public void startLevel(GridDescription level) {
-
+  public void loadGrid(GridDescription gridDescription) {
+    grid = new PacmanGrid(gridDescription);
   }
 
   // advance game state by `dt' seconds
