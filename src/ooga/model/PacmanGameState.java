@@ -39,7 +39,7 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
   }
 
   // advance game state by `dt' seconds
-  public void step(double dt, PacmanGrid grid) {
+  public void step(double dt) {
     for (Sprite sprite : getSprites()) {
       sprite.step(dt, grid);
     }
