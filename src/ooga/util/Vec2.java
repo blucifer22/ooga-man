@@ -1,5 +1,10 @@
 package ooga.util;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * This class implements a double-precision 2-vector over the reals.
  * <p>
@@ -16,12 +21,14 @@ public class Vec2 {
   private double x;
   private double y;
 
+  @JsonCreator
   public Vec2() {
     this.x = 0;
     this.y = 0;
   }
 
-  public Vec2(double x, double y) {
+  @JsonCreator
+  public Vec2(@JsonProperty("x") double x, @JsonProperty("y") double y) {
     this.x = x;
     this.y = y;
   }
@@ -65,14 +72,17 @@ public class Vec2 {
     return mult;
   }
 
+  @JsonIgnore
   public double getMagnitude() {
     return Math.sqrt(this.x * this.x + this.y * this.y);
   }
 
+  @JsonGetter
   public double getX() {
     return this.x;
   }
 
+  @JsonGetter
   public double getY() {
     return this.y;
   }

@@ -73,9 +73,9 @@ public class SpriteView implements SpriteObserver, ThemedObject, Renderable {
   private void updatePosition() {
     SpriteCoordinates coordinates = dataSource.getCenter();
     this.viewGraphic.translateXProperty()
-        .bind(size.multiply(coordinates.getExactCoordinates().getX()));
+        .bind(size.multiply(coordinates.getPosition().getX()));
     this.viewGraphic.translateYProperty()
-        .bind(size.multiply(coordinates.getExactCoordinates().getY()));
+        .bind(size.multiply(coordinates.getPosition().getY()));
   }
 
   private void updateOrientation() {

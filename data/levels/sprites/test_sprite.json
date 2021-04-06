@@ -1,8 +1,10 @@
 {
-  "className" : "ooga.model.sprites.Ghost",
-  "inputSource" : "GHOST_AI",
+  "className" : "ooga.model.PacMan",
+  "inputSource" : "HUMAN",
   "coordinates" : {
-    "x" : 5,
-    "y" : 5
+    "position" : {
+      "x" : 5.0,
+      "y" : 5.0
+    }
   }
 }

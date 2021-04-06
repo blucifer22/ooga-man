@@ -3,6 +3,9 @@ package ooga.model.leveldescription;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.lang.reflect.InvocationTargetException;
+import ooga.model.Sprite;
+import ooga.model.SpriteCoordinates;
 import ooga.model.TileCoordinates;
 
 public class SpriteDescription extends JSONDescription {
@@ -18,13 +21,13 @@ public class SpriteDescription extends JSONDescription {
    */
   private final String inputSource;
 
-  private final TileCoordinates coordinates;
+  private final SpriteCoordinates coordinates;
 
   @JsonCreator
   public SpriteDescription(
       @JsonProperty("className") String className,
       @JsonProperty("inputSource") String inputSource,
-      @JsonProperty("startLocation") TileCoordinates coordinates)
+      @JsonProperty("startLocation") SpriteCoordinates coordinates)
       throws IllegalArgumentException {
     this.spriteClassName = className;
     this.inputSource = inputSource;
@@ -42,7 +45,22 @@ public class SpriteDescription extends JSONDescription {
   }
 
   @JsonGetter
-  public TileCoordinates getCoordinates() {
+  public SpriteCoordinates getCoordinates() {
     return coordinates;
+  }
+
+  public Sprite toSprite() {
+    try {
+      Class<?> spriteClass = Class.forName(spriteClassName);
+      return (Sprite) spriteClass.getDeclaredConstructor(SpriteDescription.class).newInstance(this);
+    } catch (ClassNotFoundException
+        | NoSuchMethodException
+        | InstantiationException
+        | InvocationTargetException
+        | IllegalAccessException e) {
+      e.printStackTrace();
+      System.err.println(e.getMessage());
+    }
+    return null;
   }
 }

@@ -1,5 +1,9 @@
 package ooga.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ooga.util.Vec2;
 
 /**
@@ -9,10 +13,12 @@ public class SpriteCoordinates {
 
   private Vec2 position;
 
-  public SpriteCoordinates(Vec2 position) {
+  @JsonCreator
+  public SpriteCoordinates(@JsonProperty("position") Vec2 position) {
     this.position = position;
   }
 
+  @JsonCreator
   public SpriteCoordinates() {
     // TODO: Verify that this is appropriate behavior for the no-arg constructor
     this.position = Vec2.ZERO;
@@ -22,10 +28,12 @@ public class SpriteCoordinates {
     this.position = position;
   }
 
-  public Vec2 getExactCoordinates() {
+  @JsonGetter
+  public Vec2 getPosition() {
     return position;
   }
 
+  @JsonIgnore
   public TileCoordinates getTileCoordinates() {
     double x = position.getX();
     double y = position.getY();
@@ -38,12 +46,9 @@ public class SpriteCoordinates {
    *
    * @return Vec2 containing the center of the Tile
    */
+  @JsonIgnore
   public Vec2 getTileCenter() {
     TileCoordinates tileCoordinates = getTileCoordinates();
     return new Vec2(tileCoordinates.getX() + 0.5, tileCoordinates.getY() + 0.5);
   }
-
-//  public Vec2 getTileOffset() {
-//    return null;
-//  }
 }

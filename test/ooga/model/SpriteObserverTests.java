@@ -35,7 +35,7 @@ public class SpriteObserverTests {
     observable.step(FRAME_RATE, null);
     assertEquals(EventType.TRANSLATE, observer.getLastEvent());
     assertEquals(TestObservableSprite.SPRITE_TYPE, observer.getLastSender());
-    assertEquals(new Vec2(0.5, 0), observer.getLastCoordinates().getExactCoordinates());
+    assertEquals(new Vec2(0.5, 0), observer.getLastCoordinates().getPosition());
   }
 
   @Test
@@ -45,7 +45,7 @@ public class SpriteObserverTests {
     observable.step(FRAME_RATE, null);
     assertEquals(EventType.TRANSLATE, observer.getLastEvent());
     assertEquals(TestObservableSprite.SPRITE_TYPE, observer.getLastSender());
-    assertEquals(new Vec2(0.5, 0), observer.getLastCoordinates().getExactCoordinates());
+    assertEquals(new Vec2(0.5, 0), observer.getLastCoordinates().getPosition());
   }
 }
 

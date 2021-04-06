@@ -9,6 +9,7 @@ import java.util.Set;
 import ooga.model.api.ObservableSprite;
 import ooga.model.api.SpriteEvent;
 import ooga.model.api.SpriteObserver;
+import ooga.model.leveldescription.SpriteDescription;
 import ooga.util.Vec2;
 
 /**
@@ -34,6 +35,12 @@ public abstract class Sprite implements ObservableSprite {
     this.direction = direction;
     this.speed = speed;
     initializeObserverMap();
+  }
+
+  public Sprite(SpriteDescription description) {
+    this.position = description.getCoordinates();
+    this.direction = Vec2.ZERO;
+    this.speed = 0;
   }
 
   @JsonCreator
