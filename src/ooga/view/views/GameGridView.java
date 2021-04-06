@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import ooga.model.api.ObservableGrid;
 import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.api.ObservableSprite;
 import ooga.view.theme.ThemeService;
@@ -40,6 +41,10 @@ public class GameGridView implements Renderable, SpriteExistenceObserver, Themed
     setThemeService(themeService);
 
     addGridTiles(rows, cols);
+  }
+
+  public GameGridView(ObservableGrid grid, ThemeService themeService) {
+    this(grid.getHeight(), grid.getWidth(), themeService);
   }
 
   private void addGridTiles(int rows, int cols) {
