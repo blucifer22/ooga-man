@@ -3,12 +3,14 @@ package ooga.controller;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ooga.model.PacmanGameState;
-import ooga.model.Sprite;
 import ooga.model.SpriteCoordinates;
 import ooga.model.TileCoordinates;
 import ooga.model.api.ObservableGrid;
+import ooga.model.api.ObservableSprite;
 import ooga.model.api.ObservableTile;
-import ooga.model.api.TileEvent.EventType;
+import ooga.model.api.SpriteEvent.EventType;
+import ooga.model.api.SpriteObserver;
+import ooga.model.api.TileEvent;
 import ooga.model.api.TileObserver;
 import ooga.util.Vec2;
 import ooga.view.theme.ConcreteThemeService;
@@ -30,74 +32,69 @@ public class Controller {
     ThemeService ts = new ConcreteThemeService();
     GameView gv = new GameView(ts);
     pgs.addSpriteExistenceObserver(gv.getSpriteExistenceObserver());
+    primaryStage.setScene(new Scene(gv.getRenderingNode(), 400.0, 400.0));
+    gv.getSpriteExistenceObserver()
+        .onSpriteCreation(
+            new ObservableSprite() {
+
+              @Override
+              public boolean isVisible() {
+                return true;
+              }
+
+              @Override
+              public String getType() {
+                return "pacman";
+              }
+
+              @Override
+              public SpriteCoordinates getCenter() {
+                return new SpriteCoordinates(new Vec2(1.5, 3.5));
+              }
+
+              @Override
+              public Vec2 getDirection() {
+                return new Vec2(1, 0);
+              }
+
+              @Override
+              public void addObserver(SpriteObserver so, EventType... observedEvents) {}
+
+              @Override
+              public void removeObserver(SpriteObserver so) {}
+            });
+
+    gv.getSpriteExistenceObserver()
+        .onSpriteCreation(
+            new ObservableSprite() {
+
+              @Override
+              public boolean isVisible() {
+                return true;
+              }
+
+              @Override
+              public String getType() {
+                return "ghost";
+              }
+
+              @Override
+              public SpriteCoordinates getCenter() {
+                return new SpriteCoordinates(new Vec2(1.5, 5.5));
+              }
+
+              @Override
+              public Vec2 getDirection() {
+                return new Vec2(1, 0);
+              }
+
+              @Override
+              public void addObserver(SpriteObserver so, EventType... observedEvents) {}
+
+              @Override
+              public void removeObserver(SpriteObserver so) {}
+            });
     pgs.addGridRebuildObserver(gv.getGridRebuildObserver());
-    primaryStage.setScene(new Scene(gv.getRenderingNode(), 400.0,
-        400.0));
-    gv.getSpriteExistenceObserver().onSpriteCreation(new Sprite() {
-
-      @Override
-      public boolean isVisible() {
-        return true;
-      }
-
-      @Override
-      public boolean isStationary() {
-        return false;
-      }
-
-      @Override
-      public String getType() {
-        return "pacman";
-      }
-
-      @Override
-      public SpriteCoordinates getCenter() {
-        return new SpriteCoordinates(new Vec2(1.5, 3.5));
-      }
-
-      @Override
-      public void step(double dt) {
-
-      }
-
-      @Override
-      public boolean mustBeConsumed() {
-        return false;
-      }
-    });
-
-    gv.getSpriteExistenceObserver().onSpriteCreation(new Sprite() {
-
-      @Override
-      public boolean isVisible() {
-        return true;
-      }
-
-      @Override
-      public boolean isStationary() {
-        return false;
-      }
-
-      @Override
-      public String getType() {
-        return "ghost";
-      }
-
-      @Override
-      public SpriteCoordinates getCenter() {
-        return new SpriteCoordinates(new Vec2(1.5, 5.5));
-      }
-
-      @Override
-      public void step(double dt) {
-
-      }
-
-      @Override
-      public boolean mustBeConsumed() {
-        return false;
-      }
-    });
 
     ObservableGrid grid = new ObservableGrid() {
 
@@ -126,7 +123,8 @@ public class Controller {
           }
 
           @Override
-          public void addTileObserver(TileObserver observer, EventType... events) {
+          public void addTileObserver(TileObserver observer, TileEvent.EventType... events) {
+
           }
         };
       }

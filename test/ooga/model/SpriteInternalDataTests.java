@@ -33,7 +33,7 @@ public class SpriteInternalDataTests {
     Vec2 position = new Vec2(4.5, 2.5);
     Vec2 direction = new Vec2(-1, 0);
     SpriteCoordinates spriteCoordinates = new SpriteCoordinates(position);
-    pacMan = new PacMan(spriteCoordinates, direction, 11, grid);
+    pacMan = new PacMan(spriteCoordinates, direction, 11);
   }
 
   @Test
@@ -64,7 +64,7 @@ public class SpriteInternalDataTests {
     pacMan.setInputSource(input);
 
     for (int k = 0; k < 500; k++) {
-      pacMan.step(1.0 / 60);
+      pacMan.step(1.0 / 60, grid);
     }
 
     assertEquals(new Vec2(1.5, 2.5), pacMan.getCoordinates().getExactCoordinates());
@@ -103,13 +103,13 @@ public class SpriteInternalDataTests {
     pacMan.setInputSource(input);
 
     for (int k = 0; k < 4; k++) {
-      pacMan.step(1.0 / 60);
+      pacMan.step(1.0 / 60, grid);
     }
 
     assertEquals(new Vec2(4.5, 2.5), pacMan.getCoordinates().getExactCoordinates());
 
     for (int k = 0; k < 40; k++) {
-      pacMan.step(1.0 / 60);
+      pacMan.step(1.0 / 60, grid);
     }
 
     assertEquals(new Vec2(1.5, 2.5), pacMan.getCoordinates().getExactCoordinates());
@@ -147,7 +147,7 @@ public class SpriteInternalDataTests {
     pacMan.setInputSource(input);
 
     for (int k = 0; k < 100; k++) {
-      pacMan.step(1.0 / 60);
+      pacMan.step(1.0 / 60, grid);
     }
 
     assertEquals(new Vec2(1.5, 1.5), pacMan.getCoordinates().getExactCoordinates());
@@ -184,7 +184,7 @@ public class SpriteInternalDataTests {
     pacMan.setInputSource(input);
 
     for (int k = 0; k < 4; k++) {
-      pacMan.step(1.0 / 60);
+      pacMan.step(1.0 / 60, grid);
     }
 
     assertEquals(new Vec2(4.5, 2.5), pacMan.getCoordinates().getExactCoordinates());

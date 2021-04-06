@@ -19,9 +19,7 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
   private PacmanGrid grid;
-  //private Collection<Sprite> sprites;
-  private Collection<MovingSprite> movingSprites;
-  private Collection<StationarySprite> stationarySprites;
+  private Collection<Sprite> sprites;
 
   private int pacManScore;
 
@@ -40,18 +38,18 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
   }
 
   // advance game state by `dt' seconds
-  public void step(double dt) {
+  public void step(double dt, PacmanGrid grid) {
     for (Sprite sprite : getSprites()) {
-      sprite.step(dt);
+      sprite.step(dt, grid);
     }
     // TODO: Refactor into separate method
-    for (Sprite movingSprite : getMovingSprites()) {
+    for (Sprite sprite : sprites) {
       for (Sprite otherSprite : getSprites()) {
-        if (movingSprite != otherSprite) {
-          TileCoordinates sprite1Position = movingSprite.getCoordinates().getTileCoordinates();
+        if (sprite != otherSprite) {
+          TileCoordinates sprite1Position = sprite.getCoordinates().getTileCoordinates();
           TileCoordinates sprite2Position = otherSprite.getCoordinates().getTileCoordinates();
           if (sprite1Position.equals(sprite2Position)) {
-            handleCollision(movingSprite, otherSprite);
+            handleCollision(sprite, otherSprite);
           }
         }
       }
@@ -74,23 +72,11 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
   }
 
   public void addSprite(Sprite sprite){
-
-
+    sprites.add(sprite);
   }
 
   public Collection<Sprite> getSprites() {
-    Collection<Sprite> allSprites = new HashSet<>();
-    allSprites.addAll(movingSprites);
-    allSprites.addAll(stationarySprites);
-    return allSprites;
-  }
-
-  public Collection<MovingSprite> getMovingSprites() {
-    return movingSprites;
-  }
-
-  public Collection<StationarySprite> getStationarySprites() {
-    return stationarySprites;
+    return sprites;
   }
 
   public PacmanGrid getGrid() {

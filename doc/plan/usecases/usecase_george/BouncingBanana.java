@@ -1,6 +1,5 @@
 package ooga.usecase_george;
 
-import ooga.model.MovingSprite;
 import ooga.model.SpriteCoordinates;
 
 public class BouncingBanana extends MovingSprite {
