@@ -89,6 +89,10 @@ public class GameView implements View, ThemedObject {
     return this.gridView;
   }
 
+  public GameGridView getGridRebuildObserver() {
+    return this.gridView;
+  }
+
   @Override
   public Pane getRenderingNode() {
     return this.primaryView;
