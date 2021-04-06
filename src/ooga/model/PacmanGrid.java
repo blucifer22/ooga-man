@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import ooga.model.api.ObservableGrid;
+import ooga.model.leveldescription.GridDescription;
 
 /**
  * Object that represents the structure of the Grid and its contents, along with dimensional
@@ -19,6 +20,12 @@ public class PacmanGrid implements Iterable<Tile>, ObservableGrid {
     this.width = width;
     this.height = height;
     contents = initialize2DTileList(width, height);
+  }
+
+  public PacmanGrid(GridDescription gridDescription) {
+    this.width = gridDescription.getWidth();
+    this.height = gridDescription.getHeight();
+    this.contents = gridDescription.getGrid();
   }
 
   private List<List<Tile>> initialize2DTileList(int width, int height) {

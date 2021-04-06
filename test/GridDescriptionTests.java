@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.util.List;
+import ooga.model.PacmanGrid;
 import ooga.model.leveldescription.GridDescription;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.Tile;
@@ -130,5 +131,10 @@ public class GridDescriptionTests {
     assertEquals(grid.get(1).get(1).getCoordinates(), new TileCoordinates(1, 1));
     assertTrue(grid.get(0).get(1).isOpenToPacman());
     assertFalse(grid.get(0).get(1).isOpenToGhosts());
+
+    PacmanGrid pacmanGrid = gridDescription.toGrid();
+    assertEquals(pacmanGrid.getWidth(), 2);
+    assertEquals(pacmanGrid.getHeight(), 2);
+    assertEquals(pacmanGrid.getTile(new TileCoordinates(0, 0)).getType(), "Tile 0");
   }
 }
