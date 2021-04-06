@@ -1,4 +1,4 @@
-package ooga.model;
+package ooga.model.api;
 
 public interface TileObserver {
   void onTileEvent(TileEvent e);

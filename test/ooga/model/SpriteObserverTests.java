@@ -2,7 +2,9 @@ package ooga.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import ooga.model.SpriteEvent.EventType;
+import ooga.model.api.SpriteEvent;
+import ooga.model.api.SpriteEvent.EventType;
+import ooga.model.api.SpriteObserver;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,12 +12,12 @@ import org.junit.jupiter.api.Test;
 public class SpriteObserverTests {
 
   public static final double FRAME_RATE = 1.0 / 60;
-  private TestSpriteObservable observable;
+  private TestObservableSprite observable;
   private TestObserver observer;
 
   @BeforeEach
   public void setUpObserver() {
-    observable = new TestSpriteObservable();
+    observable = new TestObservableSprite();
     observer = new TestObserver();
     System.out.println(EventType.values());
   }
@@ -32,7 +34,7 @@ public class SpriteObserverTests {
     observable.addObserver(observer, EventType.TRANSLATE);
     observable.step(FRAME_RATE);
     assertEquals(EventType.TRANSLATE, observer.getLastEvent());
-    assertEquals(TestSpriteObservable.SPRITE_TYPE, observer.getLastSender());
+    assertEquals(TestObservableSprite.SPRITE_TYPE, observer.getLastSender());
     assertEquals(new Vec2(0.5, 0), observer.getLastCoordinates().getExactCoordinates());
   }
 
@@ -42,7 +44,7 @@ public class SpriteObserverTests {
     observable.addObserver(observer);
     observable.step(FRAME_RATE);
     assertEquals(EventType.TRANSLATE, observer.getLastEvent());
-    assertEquals(TestSpriteObservable.SPRITE_TYPE, observer.getLastSender());
+    assertEquals(TestObservableSprite.SPRITE_TYPE, observer.getLastSender());
     assertEquals(new Vec2(0.5, 0), observer.getLastCoordinates().getExactCoordinates());
   }
 }
@@ -75,7 +77,7 @@ class TestObserver implements SpriteObserver {
   }
 }
 
-class TestSpriteObservable extends Sprite {
+class TestObservableSprite extends Sprite {
 
   public static final String SPRITE_TYPE = "TEST_SPRITE";
 

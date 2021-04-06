@@ -3,6 +3,7 @@ package ooga.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import ooga.model.api.ObservableGrid;
 
 /**
  * Object that represents the structure of the Grid and its contents, along with dimensional

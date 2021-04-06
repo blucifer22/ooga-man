@@ -1,6 +1,4 @@
-package ooga.model;
-
-import ooga.model.SpriteEvent;
+package ooga.model.api;
 
 public interface SpriteObserver {
 

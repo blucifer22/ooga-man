@@ -1,19 +1,21 @@
-package ooga.model;
+package ooga.model.api;
+
+import ooga.model.api.ObservableSprite;
 
 public class TileEvent {
   public enum EventType {
     TYPE_CHANGE
   }
 
-  private final SpriteObservable sender;
+  private final ObservableSprite sender;
   private final EventType type;
 
-  public TileEvent(SpriteObservable sender, EventType type) {
+  public TileEvent(ObservableSprite sender, EventType type) {
     this.sender = sender;
     this.type = type;
   }
 
-  public SpriteObservable getSender() {
+  public ObservableSprite getSender() {
     return sender;
   }
 
