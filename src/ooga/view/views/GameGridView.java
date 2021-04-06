@@ -30,12 +30,12 @@ public class GameGridView implements View, SpriteExistenceObserver, ThemedObject
   private final Pane primaryView;
   private ThemeService themeService;
 
-  public GameGridView(int rows, int cols, ThemeService themeService) {
+  public GameGridView(ObservableGrid grid, ThemeService themeService) {
     this.primaryView = new Pane();
     this.tileGrid = new Group();
     this.tileSize = new SimpleDoubleProperty();
-    this.tileSize.bind(Bindings.min(primaryView.widthProperty().divide(cols),
-        primaryView.heightProperty().divide(rows)));
+    this.tileSize.bind(Bindings.min(primaryView.widthProperty().divide(grid.getWidth()),
+        primaryView.heightProperty().divide(grid.getHeight())));
 
     this.spriteViews = new HashMap<>();
     this.spriteNodes = new Group();
@@ -44,36 +44,14 @@ public class GameGridView implements View, SpriteExistenceObserver, ThemedObject
 
     setThemeService(themeService);
 
-    addGridTiles(rows, cols);
+    createTileGraphics(grid);
   }
 
-  public GameGridView(ObservableGrid grid, ThemeService themeService) {
-    this(grid.getHeight(), grid.getWidth(), themeService);
-  }
-
-  private void addGridTiles(int rows, int cols) {
-    for (int i = 0; i < rows; i++) {
-      for (int j = 0; j < cols; j++) {
-        //TileView tv = new TileView(j, i, tileSize, this.themeService);
-        int finalJ = j;
-        int finalI = i;
-        ObservableTile tile = new ObservableTile() {
-
-          @Override
-          public TileCoordinates getCoordinates() {
-            return new TileCoordinates(finalJ, finalI);
-          }
-
-          @Override
-          public String getType() {
-            return "tile";
-          }
-
-          @Override
-          public void addTileObserver(TileObserver observer, EventType... events) {
-          }
-        };
-        TileView tv = new TileView(tile, tileSize, themeService);
+  private void createTileGraphics(ObservableGrid grid) {
+    for (int row = 0; row < grid.getHeight(); row++) {
+      for (int col = 0; col < grid.getWidth(); col++) {
+        TileView tv = new TileView(grid.getTile(new TileCoordinates(row, col)), tileSize,
+            themeService);
         tileGrid.getChildren().add(tv.getRenderingNode());
       }
     }
