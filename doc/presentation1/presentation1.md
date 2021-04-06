@@ -121,7 +121,7 @@ public class MarcUseCase {
   * Usecase 2
 ```java=
 import ooga.controller.SpriteObserver;
-import ooga.model.Sprite;
+import ooga.model.sprites.Sprite;
 import ooga.model.SpriteCoordinates;
 import ooga.model.api.SpriteEvent;
 import ooga.model.api.ObservableSprite;

@@ -2,9 +2,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
-import ooga.model.TileCoordinates;
+import ooga.model.sprites.Sprite;
+import ooga.model.SpriteCoordinates;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.SpriteDescription;
+import ooga.util.Vec2;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -16,30 +18,30 @@ public class SpriteDescriptionTests {
 
   @Test
   public void testSpriteDescriptionConstructor() {
-    String spriteClassName = "ooga.model.sprites.Ghost";
+    String spriteClassName = "Ghost";
     String inputSource = "GHOST_AI";
-    TileCoordinates startingCoordinates = new TileCoordinates(5, 5);
+    SpriteCoordinates startingCoordinates = new SpriteCoordinates(new Vec2(5, 5));
     SpriteDescription ghostDescription =
         new SpriteDescription(spriteClassName, inputSource, startingCoordinates);
 
     assertEquals(ghostDescription.getClassName(), spriteClassName);
     assertEquals(ghostDescription.getInputSource(), inputSource);
-    assertEquals(ghostDescription.getCoordinates().getX(), 5);
-    assertEquals(ghostDescription.getCoordinates().getY(), 5);
+    assertEquals(ghostDescription.getCoordinates().getPosition().getX(), 5);
+    assertEquals(ghostDescription.getCoordinates().getPosition().getY(), 5);
   }
 
   @Test
   public void testSpriteDescriptionJSON() {
     String path = "data/levels/sprites/test_sprite.json";
 
-    String spriteClassName = "ooga.model.sprites.Ghost";
-    String inputSource = "GHOST_AI";
-    TileCoordinates startingCoordinates = new TileCoordinates(5, 5);
-    SpriteDescription ghostDescription =
+    String spriteClassName = "PacMan";
+    String inputSource = "HUMAN";
+    SpriteCoordinates startingCoordinates = new SpriteCoordinates(new Vec2(5, 5));
+    SpriteDescription pacmanDescription =
         new SpriteDescription(spriteClassName, inputSource, startingCoordinates);
 
     try {
-      ghostDescription.toJSON(path);
+      pacmanDescription.toJSON(path);
     }
     catch (IOException e) {
       System.err.println(e.getMessage());
@@ -58,7 +60,11 @@ public class SpriteDescriptionTests {
 
     assertEquals(description.getClassName(), spriteClassName);
     assertEquals(description.getInputSource(), inputSource);
-    assertEquals(description.getCoordinates().getX(), 5);
-    assertEquals(description.getCoordinates().getY(), 5);
+    assertEquals(description.getCoordinates().getPosition().getX(), 5);
+    assertEquals(description.getCoordinates().getPosition().getY(), 5);
+
+    Sprite pacmanSprite = pacmanDescription.toSprite();
+    assertEquals(pacmanSprite.getCoordinates().getTileCoordinates().getX(), 5);
+    assertEquals(pacmanSprite.getCoordinates().getTileCoordinates().getY(), 5);
   }
 }

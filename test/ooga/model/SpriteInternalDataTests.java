@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import ooga.model.sprites.PacMan;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -67,7 +68,7 @@ public class SpriteInternalDataTests {
       pacMan.step(1.0 / 60, grid);
     }
 
-    assertEquals(new Vec2(1.5, 2.5), pacMan.getCoordinates().getExactCoordinates());
+    assertEquals(new Vec2(1.5, 2.5), pacMan.getCoordinates().getPosition());
   }
 
   @Test
@@ -106,13 +107,13 @@ public class SpriteInternalDataTests {
       pacMan.step(1.0 / 60, grid);
     }
 
-    assertEquals(new Vec2(4.5, 2.5), pacMan.getCoordinates().getExactCoordinates());
+    assertEquals(new Vec2(4.5, 2.5), pacMan.getCoordinates().getPosition());
 
     for (int k = 0; k < 40; k++) {
       pacMan.step(1.0 / 60, grid);
     }
 
-    assertEquals(new Vec2(1.5, 2.5), pacMan.getCoordinates().getExactCoordinates());
+    assertEquals(new Vec2(1.5, 2.5), pacMan.getCoordinates().getPosition());
   }
 
   @Test
@@ -150,7 +151,7 @@ public class SpriteInternalDataTests {
       pacMan.step(1.0 / 60, grid);
     }
 
-    assertEquals(new Vec2(1.5, 1.5), pacMan.getCoordinates().getExactCoordinates());
+    assertEquals(new Vec2(1.5, 1.5), pacMan.getCoordinates().getPosition());
   }
 
   @Test
@@ -187,7 +188,7 @@ public class SpriteInternalDataTests {
       pacMan.step(1.0 / 60, grid);
     }
 
-    assertEquals(new Vec2(4.5, 2.5), pacMan.getCoordinates().getExactCoordinates());
+    assertEquals(new Vec2(4.5, 2.5), pacMan.getCoordinates().getPosition());
   }
 
   @Test
@@ -312,7 +313,7 @@ public class SpriteInternalDataTests {
   @Test
   public void initialStatesSavedTest() {
     Vec2 actualDirection = pacMan.getDirection();
-    Vec2 actualPosition = pacMan.getCoordinates().getExactCoordinates();
+    Vec2 actualPosition = pacMan.getCoordinates().getPosition();
     assertEquals(new Vec2(-1, 0), actualDirection);
     assertEquals(new Vec2(4.5, 2.5), actualPosition);
     assertEquals(11, pacMan.getSpeed());
