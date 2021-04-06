@@ -1,4 +1,4 @@
-package ooga.view;
+package ooga.view.io;
 
 import javafx.scene.input.KeyCode;
 

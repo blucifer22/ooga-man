@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.util.List;
-import ooga.model.GridDescription;
-import ooga.model.JSONGridDescriptionFactory;
+import ooga.model.leveldescription.GridDescription;
+import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.Tile;
 import ooga.model.TileCoordinates;
 import org.junit.jupiter.api.Test;
@@ -113,11 +113,11 @@ public class GridDescriptionTests {
       fail();
     }
 
-    JSONGridDescriptionFactory JSONGridDescriptionFactory = new JSONGridDescriptionFactory();
+    JSONDescriptionFactory JSONDescriptionFactory = new JSONDescriptionFactory();
     GridDescription description = null;
 
     try {
-      description = JSONGridDescriptionFactory.getGridDescriptionFromJSON(path);
+      description = JSONDescriptionFactory.getGridDescriptionFromJSON(path);
     } catch (IOException e) {
       System.err.println(e.getMessage());
       fail();

@@ -5,7 +5,7 @@ import java.util.Set;
 import javafx.scene.input.KeyCode;
 import ooga.model.InputSource;
 import ooga.util.Vec2;
-import ooga.view.HumanInputConsumer;
+import ooga.view.io.HumanInputConsumer;
 
 /**
  * HumanInputManager handles the interpretation of the currently pressed keys on the keyboard and

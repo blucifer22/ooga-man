@@ -1,0 +1,8 @@
+{
+  "className" : "ooga.model.sprites.Ghost",
+  "inputSource" : "GHOST_AI",
+  "coordinates" : {
+    "x" : 5,
+    "y" : 5
+  }
+}

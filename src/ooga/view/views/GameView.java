@@ -1,4 +1,4 @@
-package ooga.view;
+package ooga.view.views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,19 +11,25 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import ooga.model.SpriteExistenceObserver;
+import ooga.view.theme.ThemeService;
+import ooga.view.theme.ThemedObject;
 
 /**
  * GameView lays out how a round appears (the GridView in the center, information about
  * lives/round/score above and below).
  */
-public class GameView implements Renderable {
+public class GameView implements Renderable, ThemedObject {
 
   private final GridPane primaryView;
   private final GameGridView gridView;
+  private ThemeService themeService;
 
-  public GameView(int rows, int cols) {
+  public GameView(int rows, int cols, ThemeService themeService) {
     this.primaryView = new GridPane();
-    this.gridView = new GameGridView(rows, cols);
+
+    setThemeService(themeService);
+
+    this.gridView = new GameGridView(rows, cols, this.themeService);
 
     ColumnConstraints cc = new ColumnConstraints();
     cc.setPercentWidth(80);
@@ -46,5 +52,16 @@ public class GameView implements Renderable {
   @Override
   public Node getRenderingNode() {
     return this.primaryView;
+  }
+
+  @Override
+  public void onThemeChange() {
+    // TODO: figure out if anything needs to change on a theme change
+  }
+
+  @Override
+  public void setThemeService(ThemeService themeService) {
+    this.themeService = themeService;
+    this.themeService.addThemedObject(this);
   }
 }
