@@ -30,6 +30,7 @@ public class Controller {
     ThemeService ts = new ConcreteThemeService();
     GameView gv = new GameView(ts);
     pgs.addSpriteExistenceObserver(gv.getSpriteExistenceObserver());
+    pgs.addGridRebuildObserver(gv.getGridRebuildObserver());
     primaryStage.setScene(new Scene(gv.getRenderingNode(), 400.0,
         400.0));
     gv.getSpriteExistenceObserver().onSpriteCreation(new Sprite() {
