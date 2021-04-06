@@ -6,9 +6,13 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
+import ooga.model.TileCoordinates;
 import ooga.model.api.ObservableGrid;
+import ooga.model.api.ObservableTile;
 import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.api.ObservableSprite;
+import ooga.model.api.TileEvent.EventType;
+import ooga.model.api.TileObserver;
 import ooga.view.internal_api.View;
 import ooga.view.theme.ThemeService;
 import ooga.view.theme.ThemedObject;
@@ -50,7 +54,26 @@ public class GameGridView implements View, SpriteExistenceObserver, ThemedObject
   private void addGridTiles(int rows, int cols) {
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
-        TileView tv = new TileView(j, i, tileSize, this.themeService);
+        //TileView tv = new TileView(j, i, tileSize, this.themeService);
+        int finalJ = j;
+        int finalI = i;
+        ObservableTile tile = new ObservableTile() {
+
+          @Override
+          public TileCoordinates getCoordinates() {
+            return new TileCoordinates(finalJ, finalI);
+          }
+
+          @Override
+          public String getType() {
+            return "tile";
+          }
+
+          @Override
+          public void addTileObserver(TileObserver observer, EventType... events) {
+          }
+        };
+        TileView tv = new TileView(tile, tileSize, themeService);
         tileGrid.getChildren().add(tv.getRenderingNode());
       }
     }

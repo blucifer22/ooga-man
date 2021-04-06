@@ -15,15 +15,19 @@ import ooga.view.theme.ThemedObject;
 public class TileView implements Renderable, TileObserver, ThemedObject {
 
   private final Rectangle tileRect;
+  private final ObservableTile tile;
   private ThemeService themeService;
 
-  public TileView(int gridX, int gridY, DoubleProperty tileSize, ThemeService themeService) {
+  public TileView(ObservableTile tile, DoubleProperty tileSize, ThemeService themeService) {
+    // Configure data source
+    this.tile = tile;
+
     // Configure tile geometry
     this.tileRect = new Rectangle(0, 0, 0, 0);
     this.tileRect.widthProperty().bind(tileSize);
     this.tileRect.heightProperty().bind(tileSize);
-    this.tileRect.layoutXProperty().bind(tileSize.multiply(gridX));
-    this.tileRect.layoutYProperty().bind(tileSize.multiply(gridY));
+    this.tileRect.layoutXProperty().bind(tileSize.multiply(tile.getCoordinates().getX()));
+    this.tileRect.layoutYProperty().bind(tileSize.multiply(tile.getCoordinates().getY()));
 
     // DEBUG ONLY
     this.tileRect.setStroke(Color.PINK);
@@ -36,13 +40,8 @@ public class TileView implements Renderable, TileObserver, ThemedObject {
     this.onTypeChange();
   }
 
-  public TileView(ObservableTile tile, DoubleProperty tileSize, ThemeService themeService) {
-    this(tile.getCoordinates().getX(), tile.getCoordinates().getY(), tileSize, themeService);
-  }
-
   private void onTypeChange() {
-    this.tileRect.setFill(themeService.getFillForObjectOfType("tile"));
-    // TODO: implement variable tile types
+    this.tileRect.setFill(themeService.getFillForObjectOfType(this.tile.getType()));
   }
 
   @Override
