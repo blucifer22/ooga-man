@@ -69,7 +69,8 @@ public class GameView implements View, ThemedObject {
       }
     };
 
-    this.gridView = new GameGridView(grid, this.themeService);
+    this.gridView = new GameGridView(this.themeService);
+    this.gridView.onGridRebuild(grid);
 
 
     ColumnConstraints cc = new ColumnConstraints();
