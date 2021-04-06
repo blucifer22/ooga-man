@@ -1,4 +1,4 @@
-package ooga.model;
+package ooga.model.sprites;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import ooga.model.InputSource;
+import ooga.model.PacmanGrid;
+import ooga.model.SpriteCoordinates;
 import ooga.model.api.ObservableSprite;
 import ooga.model.api.SpriteEvent;
 import ooga.model.api.SpriteObserver;

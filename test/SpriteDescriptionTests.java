@@ -2,7 +2,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
-import ooga.model.Sprite;
+import ooga.model.sprites.Sprite;
 import ooga.model.SpriteCoordinates;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.SpriteDescription;
@@ -18,7 +18,7 @@ public class SpriteDescriptionTests {
 
   @Test
   public void testSpriteDescriptionConstructor() {
-    String spriteClassName = "ooga.model.sprites.Ghost";
+    String spriteClassName = "Ghost";
     String inputSource = "GHOST_AI";
     SpriteCoordinates startingCoordinates = new SpriteCoordinates(new Vec2(5, 5));
     SpriteDescription ghostDescription =
@@ -34,7 +34,7 @@ public class SpriteDescriptionTests {
   public void testSpriteDescriptionJSON() {
     String path = "data/levels/sprites/test_sprite.json";
 
-    String spriteClassName = "ooga.model.PacMan";
+    String spriteClassName = "PacMan";
     String inputSource = "HUMAN";
     SpriteCoordinates startingCoordinates = new SpriteCoordinates(new Vec2(5, 5));
     SpriteDescription pacmanDescription =

@@ -1,5 +1,5 @@
 {
-  "className" : "ooga.model.PacMan",
+  "className" : "PacMan",
   "inputSource" : "HUMAN",
   "coordinates" : {
     "position" : {

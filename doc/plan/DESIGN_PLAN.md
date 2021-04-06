@@ -69,6 +69,7 @@ package ooga.model;
 
 import java.util.Collection;
 import ooga.model.api.SpriteExistenceObserver;
+import ooga.model.sprites.Sprite;
 
 /**
  * This class contains all the state of a in-progress pacman game and serves as the top-level class

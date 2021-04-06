@@ -1,5 +1,6 @@
 package ooga.model;
 
+import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 
 /**

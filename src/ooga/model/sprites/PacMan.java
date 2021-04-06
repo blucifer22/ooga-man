@@ -1,5 +1,8 @@
-package ooga.model;
+package ooga.model.sprites;
 
+import ooga.model.PacmanGrid;
+import ooga.model.SpriteCoordinates;
+import ooga.model.TileCoordinates;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.util.Vec2;
 

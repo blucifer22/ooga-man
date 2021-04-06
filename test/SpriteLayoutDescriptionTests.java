@@ -16,15 +16,15 @@ public class SpriteLayoutDescriptionTests {
 
   @BeforeEach
   public void setLayoutDescription() {
-    String spriteClassName = "ooga.model.sprites.Ghost";
+    String spriteClassName = "Ghost";
     String inputSource = "GHOST_AI";
     SpriteCoordinates startingCoordinates = new SpriteCoordinates(new Vec2(5, 5));
     SpriteDescription ghostDescription =
         new SpriteDescription(spriteClassName, inputSource, startingCoordinates);
 
-    spriteClassName = "ooga.model.sprites.Pacman";
+    spriteClassName = "Pacman";
     inputSource = "HUMAN";
-    startingCoordinates = new SpriteCoordinates(new Vec2(5, 5));
+    startingCoordinates = new SpriteCoordinates(new Vec2(10, 10));
     SpriteDescription pacmanDescription =
         new SpriteDescription(spriteClassName, inputSource, startingCoordinates);
 
@@ -35,12 +35,12 @@ public class SpriteLayoutDescriptionTests {
 
   @Test
   public void testSpriteLayoutDescriptionConstructor() {
-    assertEquals(layoutDescription.getSprites().get(0).getClassName(), "ooga.model.sprites.Ghost");
+    assertEquals(layoutDescription.getSprites().get(0).getClassName(), "Ghost");
     assertEquals(layoutDescription.getSprites().get(0).getInputSource(), "GHOST_AI");
     assertEquals(layoutDescription.getSprites().get(0).getCoordinates().getPosition().getX(), 5);
     assertEquals(layoutDescription.getSprites().get(0).getCoordinates().getPosition().getY(), 5);
 
-    assertEquals(layoutDescription.getSprites().get(1).getClassName(), "ooga.model.sprites.Pacman");
+    assertEquals(layoutDescription.getSprites().get(1).getClassName(), "Pacman");
     assertEquals(layoutDescription.getSprites().get(1).getInputSource(), "HUMAN");
     assertEquals(layoutDescription.getSprites().get(1).getCoordinates().getPosition().getX(), 10);
     assertEquals(layoutDescription.getSprites().get(1).getCoordinates().getPosition().getY(), 10);
@@ -68,12 +68,12 @@ public class SpriteLayoutDescriptionTests {
       fail();
     }
 
-    assertEquals(layoutDescription.getSprites().get(0).getClassName(), "ooga.model.sprites.Ghost");
+    assertEquals(layoutDescription.getSprites().get(0).getClassName(), "Ghost");
     assertEquals(layoutDescription.getSprites().get(0).getInputSource(), "GHOST_AI");
     assertEquals(layoutDescription.getSprites().get(0).getCoordinates().getPosition().getX(), 5);
     assertEquals(layoutDescription.getSprites().get(0).getCoordinates().getPosition().getY(), 5);
 
-    assertEquals(layoutDescription.getSprites().get(1).getClassName(), "ooga.model.sprites.Pacman");
+    assertEquals(layoutDescription.getSprites().get(1).getClassName(), "Pacman");
     assertEquals(layoutDescription.getSprites().get(1).getInputSource(), "HUMAN");
     assertEquals(layoutDescription.getSprites().get(1).getCoordinates().getPosition().getX(), 10);
     assertEquals(layoutDescription.getSprites().get(1).getCoordinates().getPosition().getY(), 10);

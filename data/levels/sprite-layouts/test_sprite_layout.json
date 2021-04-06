@@ -1,17 +1,21 @@
 {
   "sprites" : [ {
-    "className" : "ooga.model.sprites.Ghost",
+    "className" : "Ghost",
     "inputSource" : "GHOST_AI",
     "coordinates" : {
-      "x" : 5,
-      "y" : 5
+      "position" : {
+        "x" : 5.0,
+        "y" : 5.0
+      }
     }
   }, {
-    "className" : "ooga.model.sprites.Pacman",
+    "className" : "Pacman",
     "inputSource" : "HUMAN",
     "coordinates" : {
-      "x" : 10,
-      "y" : 10
+      "position" : {
+        "x" : 10.0,
+        "y" : 10.0
+      }
     }
   } ]
 }
