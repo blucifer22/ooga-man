@@ -33,7 +33,7 @@ public class PacMan extends MoveableSprite {
   }
 
   @Override
-  public ImmutableSpriteCoordinates getCenter() {
+  public SpriteCoordinates getCenter() {
     return getCoordinates();
   }
 

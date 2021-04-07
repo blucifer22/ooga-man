@@ -9,9 +9,9 @@ import ooga.util.Vec2;
 /**
  * @author George Hong
  */
-public class SpriteCoordinates implements ImmutableSpriteCoordinates {
+public class SpriteCoordinates {
 
-  private Vec2 position;
+  private final Vec2 position;
 
   @JsonCreator
   public SpriteCoordinates(@JsonProperty("position") Vec2 position) {
@@ -24,22 +24,11 @@ public class SpriteCoordinates implements ImmutableSpriteCoordinates {
     this.position = Vec2.ZERO;
   }
 
-  @JsonCreator
-  public SpriteCoordinates(ImmutableSpriteCoordinates c) {
-    this(c.getPosition());
-  }
-
-  public void setPosition(Vec2 position) {
-    this.position = position;
-  }
-
-  @Override
   @JsonGetter
   public Vec2 getPosition() {
     return position;
   }
 
-  @Override
   @JsonIgnore
   public TileCoordinates getTileCoordinates() {
     double x = position.getX();
@@ -53,7 +42,6 @@ public class SpriteCoordinates implements ImmutableSpriteCoordinates {
    *
    * @return Vec2 containing the center of the Tile
    */
-  @Override
   @JsonIgnore
   public Vec2 getTileCenter() {
     TileCoordinates tileCoordinates = getTileCoordinates();

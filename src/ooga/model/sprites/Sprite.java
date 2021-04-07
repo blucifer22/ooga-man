@@ -25,7 +25,7 @@ import static ooga.model.api.SpriteEvent.EventType.TRANSLATE;
  */
 public abstract class Sprite implements ObservableSprite {
 
-  private final SpriteCoordinates position;
+  private SpriteCoordinates position;
   private Vec2 direction;
   private Map<SpriteEvent.EventType, Set<SpriteObserver>> observers;
 
@@ -72,7 +72,7 @@ public abstract class Sprite implements ObservableSprite {
    *
    * @return
    */
-  public ImmutableSpriteCoordinates getCoordinates() {
+  public SpriteCoordinates getCoordinates() {
     return position;
   }
 
@@ -83,7 +83,7 @@ public abstract class Sprite implements ObservableSprite {
    *
    * @param v New position.
    */
-  protected void setCoordinates(ImmutableSpriteCoordinates c) {
+  protected void setCoordinates(SpriteCoordinates c) {
     setPosition(c.getPosition());
   }
 
@@ -94,7 +94,7 @@ public abstract class Sprite implements ObservableSprite {
    * @param v New position.
    */
   protected void setPosition(Vec2 v) {
-    position.setPosition(v);
+    position = new SpriteCoordinates(v);
 
     notifyObservers(TRANSLATE);
   }

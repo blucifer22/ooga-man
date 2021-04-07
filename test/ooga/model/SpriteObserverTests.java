@@ -54,7 +54,7 @@ class TestObserver implements SpriteObserver {
 
   private EventType lastEventType;
   private String lastSender;
-  private ImmutableSpriteCoordinates lastCoordinates;
+  private SpriteCoordinates lastCoordinates;
 
   @Override
   public void onSpriteUpdate(SpriteEvent e) {
@@ -65,7 +65,7 @@ class TestObserver implements SpriteObserver {
     lastCoordinates = e.getSender().getCenter();
   }
 
-  public ImmutableSpriteCoordinates getLastCoordinates() {
+  public SpriteCoordinates getLastCoordinates() {
     return lastCoordinates;
   }
 
@@ -88,7 +88,7 @@ class TestObservableSprite extends Sprite {
   }
 
   @Override
-  public ImmutableSpriteCoordinates getCenter() {
+  public SpriteCoordinates getCenter() {
     return getCoordinates();
   }
 
