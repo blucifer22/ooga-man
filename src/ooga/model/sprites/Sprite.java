@@ -167,7 +167,7 @@ public abstract class Sprite implements ObservableSprite {
   }
 
   // advance state by dt seconds
-  public abstract void step(double dt, PacmanGrid grid);
+  public abstract void step(double dt, PacmanGrid grid, PacmanGameState pacmanGameState);
 
   public abstract boolean mustBeConsumed();
 }

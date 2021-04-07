@@ -15,6 +15,7 @@ public class SpriteObserverTests {
   public static final double FRAME_RATE = 1.0 / 60;
   private TestObservableSprite observable;
   private TestObserver observer;
+  private PacmanGameState state;
 
   @BeforeEach
   public void setUpObserver() {
@@ -25,7 +26,7 @@ public class SpriteObserverTests {
 
   @Test
   public void noObserversTest() {
-    observable.step(FRAME_RATE, null);
+    observable.step(FRAME_RATE, null, state);
     assertEquals(null, observer.getLastEvent());
     assertEquals(null, observer.getLastSender());
   }
@@ -33,7 +34,7 @@ public class SpriteObserverTests {
   @Test
   public void simpleTranslationObserver() {
     observable.addObserver(observer, EventType.TRANSLATE);
-    observable.step(FRAME_RATE, null);
+    observable.step(FRAME_RATE, null, state);
     assertEquals(EventType.TRANSLATE, observer.getLastEvent());
     assertEquals(TestObservableSprite.SPRITE_TYPE, observer.getLastSender());
     assertEquals(new Vec2(0.5, 0), observer.getLastCoordinates().getPosition());
@@ -43,7 +44,7 @@ public class SpriteObserverTests {
   public void noArgumentsTest() {
     // Subscribe to all events
     observable.addObserver(observer);
-    observable.step(FRAME_RATE, null);
+    observable.step(FRAME_RATE, null, state);
     assertEquals(EventType.TRANSLATE, observer.getLastEvent());
     assertEquals(TestObservableSprite.SPRITE_TYPE, observer.getLastSender());
     assertEquals(new Vec2(0.5, 0), observer.getLastCoordinates().getPosition());
@@ -93,7 +94,7 @@ class TestObservableSprite extends Sprite {
   }
 
   @Override
-  public void step(double dt, PacmanGrid grid) {
+  public void step(double dt, PacmanGrid grid, PacmanGameState pacmanGameState) {
     setPosition(new Vec2(0.5, 0));
     notifyObservers(EventType.TRANSLATE);
   }

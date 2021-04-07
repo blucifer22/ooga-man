@@ -1,7 +1,9 @@
 package ooga.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 import ooga.model.api.GridRebuildObservable;
 import ooga.model.api.GridRebuildObserver;
@@ -48,7 +50,7 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
   // advance game state by `dt' seconds
   public void step(double dt) {
     for (Sprite sprite : getSprites()) {
-      sprite.step(dt, grid);
+      sprite.step(dt, grid, this);
     }
     // TODO: Refactor into separate method
     for (Sprite sprite : sprites) {
@@ -75,6 +77,23 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
       // TODO: add some consumables and implement round progression logic
     }
 
+  }
+
+  /**
+   * Gets the list of other Sprites that resides in the same list as this sprite
+   *
+   * @param sprite
+   * @return
+   */
+  public List<Sprite> getCollidingWith(Sprite sprite) {
+    TileCoordinates tc = sprite.getCoordinates().getTileCoordinates();
+    List<Sprite> collidingSprites = new ArrayList<>();
+    for (Sprite otherSprite : sprites) {
+      if (sprite != otherSprite && sprite.getCoordinates().getTileCoordinates().equals(tc)) {
+        collidingSprites.add(sprite);
+      }
+    }
+    return collidingSprites;
   }
 
   private void handleCollision(Sprite movingSprite, Sprite otherSprite) {
