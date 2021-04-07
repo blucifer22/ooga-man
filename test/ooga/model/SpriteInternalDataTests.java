@@ -79,11 +79,11 @@ public class SpriteInternalDataTests {
       private int dex = 0;
 
       public TestInputSource() {
-        prepopulatedActions.add(new Vec2(1, 0));
-        prepopulatedActions.add(new Vec2(0, -1));
-        prepopulatedActions.add(new Vec2(1, 0));
-        prepopulatedActions.add(new Vec2(0, 1));
-        prepopulatedActions.add(new Vec2(-1, 0));
+        prepopulatedActions.add(new Vec2(1, 0));  // RIGHT
+        prepopulatedActions.add(new Vec2(0, -1)); // UP
+        prepopulatedActions.add(new Vec2(1, 0));  // RIGHT
+        prepopulatedActions.add(new Vec2(0, 1));  // DOWN
+        prepopulatedActions.add(new Vec2(-1, 0)); // LEFT
         for (int k = 0; k < 50; k++){
           prepopulatedActions.add(Vec2.ZERO);
         }
@@ -316,7 +316,7 @@ public class SpriteInternalDataTests {
     Vec2 actualPosition = pacMan.getCoordinates().getPosition();
     assertEquals(new Vec2(-1, 0), actualDirection);
     assertEquals(new Vec2(4.5, 2.5), actualPosition);
-    assertEquals(11, pacMan.getSpeed());
+    assertEquals(11, pacMan.getMovemmentSpeed());
   }
 
 }

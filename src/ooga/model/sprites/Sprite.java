@@ -27,24 +27,19 @@ public abstract class Sprite implements ObservableSprite {
   private final SpriteCoordinates position;
   private Vec2 direction;
   private Map<SpriteEvent.EventType, Set<SpriteObserver>> observers;
-  private InputSource inputSource;
-  private double speed;
 
   @JsonCreator
   public Sprite(
       @JsonProperty("position") SpriteCoordinates position,
-      @JsonProperty("direction") Vec2 direction,
-      @JsonProperty("speed") double speed) {
+      @JsonProperty("direction") Vec2 direction) {
     this.position = position;
     this.direction = direction;
-    this.speed = speed;
     initializeObserverMap();
   }
 
   public Sprite(SpriteDescription description) {
     this.position = description.getCoordinates();
     this.direction = Vec2.ZERO;
-    this.speed = 0;
   }
 
   @JsonCreator
@@ -141,64 +136,7 @@ public abstract class Sprite implements ObservableSprite {
   }
 
   // advance state by dt seconds
-  public void step(double dt, PacmanGrid grid){
-    Vec2 userDirection = getInputSource().getRequestedDirection();
-    if (getDirection().parallelTo(userDirection)) {
-      setDirection(userDirection);
-      // queuedDirection = userDirection;
-    } else if (!userDirection.equals(Vec2.ZERO)) {
-      direction = userDirection;
-    }
-
-    Vec2 centerCoordinates = getCoordinates().getTileCenter();
-    Vec2 currentPosition = getCoordinates().getPosition();
-    Vec2 nextPosition = currentPosition.add(getDirection().scalarMult(getSpeed()).scalarMult(dt));
-
-    // Grid-snapping
-    if (centerCoordinates.isBetween(currentPosition, nextPosition)) {
-      getCoordinates().setPosition(centerCoordinates);
-      TileCoordinates currentTile = getCoordinates().getTileCoordinates();
-      // Tile target assuming use of queued direction
-      TileCoordinates newTargetTile =
-          direction == null
-              ? new TileCoordinates(0, 0)
-              : new TileCoordinates(
-                  currentTile.getX() + (int) direction.getX(),
-                  currentTile.getY() + (int) direction.getY());
-      // Tile target assuming continued use of current direction
-      TileCoordinates currentTargetTile =
-          new TileCoordinates(
-              currentTile.getX() + (int) getDirection().getX(),
-              currentTile.getY() + (int) getDirection().getY());
-
-      if (direction != null && grid.getTile(newTargetTile).isOpenToPacman()) {
-        setDirection(direction);
-        direction = null;
-      } else if (!grid.getTile(currentTargetTile).isOpenToPacman()) {
-        setDirection(Vec2.ZERO);
-      }
-    }
-
-    nextPosition =
-        getCoordinates().getPosition().add(getDirection().scalarMult(getSpeed()).scalarMult(dt));
-    getCoordinates().setPosition(nextPosition);
-  }
+  public abstract void step(double dt, PacmanGrid grid);
 
   public abstract boolean mustBeConsumed();
-
-  public double getSpeed() {
-    return speed;
-  }
-
-  public void setSpeed(double speed) {
-    this.speed = speed;
-  }
-
-  protected InputSource getInputSource() {
-    return inputSource;
-  }
-
-  public void setInputSource(InputSource s) {
-    inputSource = s;
-  }
 }

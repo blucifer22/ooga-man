@@ -137,4 +137,9 @@ public class Vec2 {
   public int hashCode() {
     return (int) (this.x + this.y);
   }
+
+  @Override
+  public String toString(){
+    return "( " + getX() + ", " + getY() + " )";
+  }
 }

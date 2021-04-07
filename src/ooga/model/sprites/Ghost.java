@@ -2,12 +2,13 @@ package ooga.model.sprites;
 
 import ooga.model.PacmanGrid;
 import ooga.model.SpriteCoordinates;
+import ooga.model.Tile;
 import ooga.model.TileCoordinates;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.util.Vec2;
 
 /** @author Matthew Belissary */
-public class Ghost extends Sprite {
+public class Ghost extends MoveableSprite {
 
   public static final String TYPE = "ghost";
   private Vec2 queuedDirection;
@@ -22,8 +23,18 @@ public class Ghost extends Sprite {
   }
 
   @Override
+  protected boolean canMoveTo(Tile tile) {
+    return tile.isOpenToGhosts();
+  }
+
+  @Override
   public String getType() {
     return TYPE;
+  }
+
+  @Override
+  public void step(double dt, PacmanGrid grid) {
+    move(dt, grid);
   }
 
   @Override
