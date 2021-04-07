@@ -28,7 +28,7 @@ public class SpriteInternalDataTests {
       for (int k = 0; k < protoGrid[0].length; k++) {
         Tile tile = protoGrid[j][k] == 0 ? new Tile(new TileCoordinates(k, j), null, true, false)
             : new Tile(new TileCoordinates(k, j), null, false, false);
-        grid.setTile(j, k, tile);
+        grid.setTile(k, j, tile);
       }
     }
     Vec2 position = new Vec2(4.5, 2.5);
