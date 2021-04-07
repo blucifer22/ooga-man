@@ -63,7 +63,7 @@ public abstract class Sprite implements ObservableSprite {
    * Removes the Sprite from the game
    */
   public void delete(PacmanGameState state) {
-    // TODO: implement existence observable and deletion
+    state.prepareRemove(this);
   }
 
   /**

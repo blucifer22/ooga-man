@@ -22,19 +22,33 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
 
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
-  private PacmanGrid grid;
   private final Collection<Sprite> sprites;
-
+  private final Set<Sprite> toDelete;
+  private PacmanGrid grid;
   private int pacManScore;
 
   public PacmanGameState() {
     spriteExistenceObservers = new HashSet<>();
     gridRebuildObservers = new HashSet<>();
+    toDelete = new HashSet<>();
     sprites = new LinkedList<>();
   }
 
   public void setDefaultInputSource() {
 
+  }
+
+
+  /**
+   * @param score
+   */
+  public void incrementScore(int score) {
+    pacManScore += score;
+  }
+
+  public void prepareRemove(Sprite sprite) {
+    toDelete.add(sprite);
+    notifySpriteDestruction(sprite);
   }
 
   public void addSpriteExistenceObserver(SpriteExistenceObserver spriteExistenceObserver) {
@@ -43,14 +57,21 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
 
   public void loadGrid(GridDescription gridDescription) {
     grid = new PacmanGrid(gridDescription);
-
     notifyGridRebuildObservers();
   }
 
   // advance game state by `dt' seconds
   public void step(double dt) {
+    toDelete.clear();
     for (Sprite sprite : getSprites()) {
+      if (toDelete.contains(sprite)) {
+        continue;
+      }
       sprite.step(dt, grid, this);
+    }
+
+    for (Sprite sprite : toDelete) {
+      sprites.remove(sprite);
     }
 
     // Next level, all consumables eaten
@@ -88,15 +109,9 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
     return collidingSprites;
   }
 
-  private void handleCollision(Sprite movingSprite, Sprite otherSprite) {
-  }
-
   public void addSprite(Sprite sprite) {
     sprites.add(sprite);
-
-    for (SpriteExistenceObserver obs : spriteExistenceObservers) {
-      obs.onSpriteCreation(sprite);
-    }
+    notifySpriteCreation(sprite);
   }
 
   public Collection<Sprite> getSprites() {
@@ -110,6 +125,18 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
   public void advanceLevel() {
   }
 
+
+  private void notifySpriteDestruction(Sprite sprite) {
+    for (SpriteExistenceObserver observer : spriteExistenceObservers) {
+      observer.onSpriteDestruction(sprite);
+    }
+  }
+
+  private void notifySpriteCreation(Sprite sprite) {
+    for (SpriteExistenceObserver observer : spriteExistenceObservers) {
+      observer.onSpriteCreation(sprite);
+    }
+  }
 
   private void notifyGridRebuildObservers() {
     for (GridRebuildObserver observers : gridRebuildObservers) {
