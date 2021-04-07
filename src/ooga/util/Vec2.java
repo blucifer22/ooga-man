@@ -18,8 +18,8 @@ public class Vec2 {
 
   public static final Vec2 ZERO = new Vec2(0, 0);
   public static final double EPSILON = 1E-6;
-  private double x;
-  private double y;
+  private final double x;
+  private final double y;
 
   @JsonCreator
   public Vec2() {
@@ -39,17 +39,13 @@ public class Vec2 {
   }
 
   public Vec2 add(Vec2 other) {
-    Vec2 sum = new Vec2();
-    sum.x = this.x + other.x;
-    sum.y = this.y + other.y;
-    return sum;
+    return new Vec2(this.x + other.x,
+                    this.y + other.y);
   }
 
   public Vec2 subtract(Vec2 other) {
-    Vec2 diff = new Vec2();
-    diff.x = this.x - other.x;
-    diff.y = this.y - other.y;
-    return diff;
+    return new Vec2(this.x - other.x,
+                    this.y - other.y);
   }
 
   public double dot(Vec2 other) {
@@ -66,10 +62,8 @@ public class Vec2 {
   }
 
   public Vec2 scalarMult(double scalar) {
-    Vec2 mult = new Vec2();
-    mult.x = this.x * scalar;
-    mult.y = this.y * scalar;
-    return mult;
+    return new Vec2(this.x * scalar,
+                    this.y * scalar);
   }
 
   @JsonIgnore
@@ -136,5 +130,10 @@ public class Vec2 {
   @Override
   public int hashCode() {
     return (int) (this.x + this.y);
+  }
+
+  @Override
+  public String toString(){
+    return "( " + getX() + ", " + getY() + " )";
   }
 }

@@ -52,8 +52,8 @@ public class PacmanGrid implements Iterable<Tile>, ObservableGrid {
     return contents.get(tileCoordinates.getY()).get(tileCoordinates.getX());
   }
 
-  public void setTile(int row, int col, Tile tile) {
-    contents.get(row).set(col, tile);
+  public void setTile(int x, int y, Tile tile) {
+    contents.get(y).set(x, tile);
   }
 
   @Override

@@ -1,13 +1,13 @@
 package ooga.model.api;
 
-import ooga.model.SpriteCoordinates;
+import ooga.model.ImmutableSpriteCoordinates;
 import ooga.util.Vec2;
 
 public interface ObservableSprite {
 
   String getType();
 
-  SpriteCoordinates getCenter();
+  ImmutableSpriteCoordinates getCenter();
 
   Vec2 getDirection();
 

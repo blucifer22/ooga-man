@@ -4,6 +4,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import ooga.model.ImmutableSpriteCoordinates;
 import ooga.model.SpriteCoordinates;
 import ooga.model.api.SpriteEvent;
 import ooga.model.api.ObservableSprite;
@@ -71,7 +72,7 @@ public class SpriteView implements SpriteObserver, ThemedObject, Renderable {
   }
 
   private void updatePosition() {
-    SpriteCoordinates coordinates = dataSource.getCenter();
+    ImmutableSpriteCoordinates coordinates = dataSource.getCenter();
     this.viewGraphic.translateXProperty()
         .bind(size.multiply(coordinates.getPosition().getX()-0.5));
     this.viewGraphic.translateYProperty()

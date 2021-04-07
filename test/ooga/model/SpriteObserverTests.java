@@ -54,7 +54,7 @@ class TestObserver implements SpriteObserver {
 
   private EventType lastEventType;
   private String lastSender;
-  private SpriteCoordinates lastCoordinates;
+  private ImmutableSpriteCoordinates lastCoordinates;
 
   @Override
   public void onSpriteUpdate(SpriteEvent e) {
@@ -65,7 +65,7 @@ class TestObserver implements SpriteObserver {
     lastCoordinates = e.getSender().getCenter();
   }
 
-  public SpriteCoordinates getLastCoordinates() {
+  public ImmutableSpriteCoordinates getLastCoordinates() {
     return lastCoordinates;
   }
 
@@ -88,13 +88,13 @@ class TestObservableSprite extends Sprite {
   }
 
   @Override
-  public SpriteCoordinates getCenter() {
+  public ImmutableSpriteCoordinates getCenter() {
     return getCoordinates();
   }
 
   @Override
   public void step(double dt, PacmanGrid grid) {
-    getCoordinates().setPosition(new Vec2(0.5, 0));
+    setPosition(new Vec2(0.5, 0));
     notifyObservers(EventType.TRANSLATE);
   }
 
