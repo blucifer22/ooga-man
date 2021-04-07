@@ -41,6 +41,8 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
 
   public void loadGrid(GridDescription gridDescription) {
     grid = new PacmanGrid(gridDescription);
+
+    notifyGridRebuildObservers();
   }
 
   // advance game state by `dt' seconds
