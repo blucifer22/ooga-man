@@ -11,7 +11,7 @@ import ooga.util.Vec2;
  */
 public class SpriteCoordinates {
 
-  private Vec2 position;
+  private final Vec2 position;
 
   @JsonCreator
   public SpriteCoordinates(@JsonProperty("position") Vec2 position) {
@@ -22,10 +22,6 @@ public class SpriteCoordinates {
   public SpriteCoordinates() {
     // TODO: Verify that this is appropriate behavior for the no-arg constructor
     this.position = Vec2.ZERO;
-  }
-
-  public void setPosition(Vec2 position) {
-    this.position = position;
   }
 
   @JsonGetter
@@ -50,5 +46,10 @@ public class SpriteCoordinates {
   public Vec2 getTileCenter() {
     TileCoordinates tileCoordinates = getTileCoordinates();
     return new Vec2(tileCoordinates.getX() + 0.5, tileCoordinates.getY() + 0.5);
+  }
+
+  @Override
+  public String toString() {
+    return position.toString();
   }
 }

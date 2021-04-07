@@ -28,7 +28,7 @@ public class SpriteInternalDataTests {
       for (int k = 0; k < protoGrid[0].length; k++) {
         Tile tile = protoGrid[j][k] == 0 ? new Tile(new TileCoordinates(k, j), null, true, false)
             : new Tile(new TileCoordinates(k, j), null, false, false);
-        grid.setTile(j, k, tile);
+        grid.setTile(k, j, tile);
       }
     }
     Vec2 position = new Vec2(4.5, 2.5);
@@ -79,11 +79,11 @@ public class SpriteInternalDataTests {
       private int dex = 0;
 
       public TestInputSource() {
-        prepopulatedActions.add(new Vec2(1, 0));
-        prepopulatedActions.add(new Vec2(0, -1));
-        prepopulatedActions.add(new Vec2(1, 0));
-        prepopulatedActions.add(new Vec2(0, 1));
-        prepopulatedActions.add(new Vec2(-1, 0));
+        prepopulatedActions.add(new Vec2(1, 0));  // RIGHT
+        prepopulatedActions.add(new Vec2(0, -1)); // UP
+        prepopulatedActions.add(new Vec2(1, 0));  // RIGHT
+        prepopulatedActions.add(new Vec2(0, 1));  // DOWN
+        prepopulatedActions.add(new Vec2(-1, 0)); // LEFT
         for (int k = 0; k < 50; k++){
           prepopulatedActions.add(Vec2.ZERO);
         }
@@ -316,7 +316,7 @@ public class SpriteInternalDataTests {
     Vec2 actualPosition = pacMan.getCoordinates().getPosition();
     assertEquals(new Vec2(-1, 0), actualDirection);
     assertEquals(new Vec2(4.5, 2.5), actualPosition);
-    assertEquals(11, pacMan.getSpeed());
+    assertEquals(11, pacMan.getMovementSpeed());
   }
 
 }

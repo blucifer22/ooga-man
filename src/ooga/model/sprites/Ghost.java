@@ -4,22 +4,24 @@ import ooga.model.*;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.util.Vec2;
 
-/** @author George Hong */
-public class PacMan extends MoveableSprite {
+/** @author Matthew Belissary */
+public class Ghost extends MoveableSprite {
 
-  public static final String TYPE = "pacman";
+  public static final String TYPE = "ghost";
+  private Vec2 queuedDirection;
 
-  public PacMan(SpriteCoordinates position, Vec2 direction, double speed) {
+  public Ghost(SpriteCoordinates position, Vec2 direction, double speed) {
     super(position, direction, speed);
+    queuedDirection = new Vec2(-1, 0);
   }
 
-  public PacMan(SpriteDescription spriteDescription) {
+  public Ghost(SpriteDescription spriteDescription) {
     super(spriteDescription);
   }
 
   @Override
   protected boolean canMoveTo(Tile tile) {
-    return tile.isOpenToPacman();
+    return tile.isOpenToGhosts();
   }
 
   @Override

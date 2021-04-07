@@ -6,14 +6,16 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import ooga.model.InputSource;
-import ooga.model.PacmanGrid;
-import ooga.model.SpriteCoordinates;
+
+import ooga.model.*;
 import ooga.model.api.ObservableSprite;
 import ooga.model.api.SpriteEvent;
 import ooga.model.api.SpriteObserver;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.util.Vec2;
+
+import static ooga.model.api.SpriteEvent.EventType.ROTATE;
+import static ooga.model.api.SpriteEvent.EventType.TRANSLATE;
 
 /**
  * Sprites are things that exist on top of the grid, but are not pure UI elements such as score
@@ -23,27 +25,22 @@ import ooga.util.Vec2;
  */
 public abstract class Sprite implements ObservableSprite {
 
-  private final SpriteCoordinates position;
+  private SpriteCoordinates position;
   private Vec2 direction;
   private Map<SpriteEvent.EventType, Set<SpriteObserver>> observers;
-  private InputSource inputSource;
-  private double speed;
 
   @JsonCreator
   public Sprite(
       @JsonProperty("position") SpriteCoordinates position,
-      @JsonProperty("direction") Vec2 direction,
-      @JsonProperty("speed") double speed) {
+      @JsonProperty("direction") Vec2 direction) {
     this.position = position;
     this.direction = direction;
-    this.speed = speed;
     initializeObserverMap();
   }
 
   public Sprite(SpriteDescription description) {
     this.position = description.getCoordinates();
     this.direction = Vec2.ZERO;
-    this.speed = 0;
   }
 
   @JsonCreator
@@ -80,6 +77,29 @@ public abstract class Sprite implements ObservableSprite {
   }
 
   /**
+   * Translate this sprite to a new set of coordinates.
+   *
+   * Notifies observers.
+   *
+   * @param v New position.
+   */
+  protected void setCoordinates(SpriteCoordinates c) {
+    setPosition(c.getPosition());
+  }
+
+  /**
+   * Translate this sprite to a new position (passed as a
+   * vector). Notifies obserrs with a TRANSLATE event.
+   *
+   * @param v New position.
+   */
+  protected void setPosition(Vec2 v) {
+    position = new SpriteCoordinates(v);
+
+    notifyObservers(TRANSLATE);
+  }
+
+  /**
    * Direction that the Sprite is facing
    *
    * @return
@@ -88,8 +108,15 @@ public abstract class Sprite implements ObservableSprite {
     return direction;
   }
 
-  public void setDirection(Vec2 direction) {
+  /**
+   * Change the orientation of this Sprite. Notifies observers
+   *
+   * @param
+   */
+  protected void setDirection(Vec2 direction) {
     this.direction = direction;
+
+    notifyObservers(ROTATE);
   }
 
   public boolean isVisible() {
@@ -143,20 +170,4 @@ public abstract class Sprite implements ObservableSprite {
   public abstract void step(double dt, PacmanGrid grid);
 
   public abstract boolean mustBeConsumed();
-
-  public double getSpeed() {
-    return speed;
-  }
-
-  public void setSpeed(double speed) {
-    this.speed = speed;
-  }
-
-  protected InputSource getInputSource() {
-    return inputSource;
-  }
-
-  public void setInputSource(InputSource s) {
-    inputSource = s;
-  }
 }

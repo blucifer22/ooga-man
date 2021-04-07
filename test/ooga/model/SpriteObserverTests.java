@@ -94,7 +94,7 @@ class TestObservableSprite extends Sprite {
 
   @Override
   public void step(double dt, PacmanGrid grid) {
-    getCoordinates().setPosition(new Vec2(0.5, 0));
+    setPosition(new Vec2(0.5, 0));
     notifyObservers(EventType.TRANSLATE);
   }
 

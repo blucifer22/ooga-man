@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import ooga.model.PacmanGrid;
 import ooga.model.leveldescription.GridDescription;
@@ -92,7 +93,7 @@ public class GridDescriptionTests {
 
   @Test
   public void testGridDescriptionJSON() {
-    String path = "data/levels/grids/test_grid.json";
+    String path = "data/levels/grids/test_grid_description.json";
     String name = "testGrid";
     int width = 2;
     int height = 2;
@@ -137,4 +138,52 @@ public class GridDescriptionTests {
     assertEquals(pacmanGrid.getHeight(), 2);
     assertEquals(pacmanGrid.getTile(new TileCoordinates(0, 0)).getType(), "Tile 0");
   }
+  @Test
+  public void testGenerateLargeTestGridJSON() {
+    String path = "data/levels/grids/test_grid.json";
+    String name = "testGrid";
+    int[][] gridConfig = {
+        {0, 0, 0, 0, 0, 0},
+        {0, 1, 1, 1, 1, 0},
+        {0, 1, 0, 1, 1, 0},
+        {0, 1, 0, 1, 1, 0},
+        {0, 1, 1, 1, 1, 0},
+        {0, 0, 0, 0, 0, 0},
+    };
+
+    int width = gridConfig[0].length;
+    int height = gridConfig.length;
+
+    List<List<Tile>> tileList = new ArrayList<>();
+
+    for(int y = 0; y < height; y++) {
+      List<Tile> outputRow = new ArrayList<>();
+
+      for(int x = 0; x < width; x++) {
+        boolean asBool = gridConfig[y][x] != 0;
+        outputRow.add(new Tile(new TileCoordinates(x, y), "tile", asBool, asBool));
+      }
+      tileList.add(outputRow);
+    }
+
+    GridDescription gridDescription = new GridDescription(name, width, height, tileList);
+
+    try {
+      gridDescription.toJSON(path);
+    } catch (IOException e) {
+      System.err.println(e.getMessage());
+      fail();
+    }
+
+    JSONDescriptionFactory JSONDescriptionFactory = new JSONDescriptionFactory();
+    GridDescription description = null;
+
+    try {
+      description = JSONDescriptionFactory.getGridDescriptionFromJSON(path);
+    } catch (IOException e) {
+      System.err.println(e.getMessage());
+      fail();
+    }
+  }
+
 }

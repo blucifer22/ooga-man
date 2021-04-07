@@ -14,6 +14,7 @@ import ooga.model.api.SpriteEvent.EventType;
 import ooga.model.api.SpriteObserver;
 import ooga.model.api.TileEvent;
 import ooga.model.api.TileObserver;
+import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
@@ -22,7 +23,7 @@ import ooga.view.views.GameView;
 
 public class Controller {
 
-  private static final double TIMESTEP = 1.0/120.0;
+  private static final double TIMESTEP = 1.0/60.0;
   private final UIController uiController;
   private final HumanInputManager inputManager;
 
@@ -39,45 +40,22 @@ public class Controller {
     pgs.addSpriteExistenceObserver(gv.getSpriteExistenceObserver());
     pgs.addGridRebuildObserver(gv.getGridRebuildObserver());
 
-    pgs.addSprite(new PacMan(new SpriteCoordinates(new Vec2(0.5, 0.5)), new Vec2(-1,0), 1.0));
+    try {
+      pgs.loadGrid(new JSONDescriptionFactory().getGridDescriptionFromJSON("data/levels/grids/test_grid.json"));
+    } catch(Exception e) {
 
-    ObservableGrid grid = new ObservableGrid() {
+    }
 
-      @Override
-      public int getWidth() {
-        return 10;
-      }
+    PacMan pacman = new PacMan(new SpriteCoordinates(new Vec2(1.5, 1.5)), new Vec2(0,0), 5.0);
 
-      @Override
-      public int getHeight() {
-        return 10;
-      }
+    pacman.setInputSource(this.inputManager);
 
-      @Override
-      public ObservableTile getTile(TileCoordinates tileCoordinates) {
-        return new ObservableTile() {
-
-          @Override
-          public TileCoordinates getCoordinates() {
-            return tileCoordinates;
-          }
-
-          @Override
-          public String getType() {
-            return "tile";
-          }
-
-          @Override
-          public void addTileObserver(TileObserver observer, TileEvent.EventType... events) {
-
-          }
-        };
-      }
-    };
-
-    gv.getGridRebuildObserver().onGridRebuild(grid);
+    pgs.addSprite(pacman);
 
     uiController.showGameView();
+
+//    pgs.step(TIMESTEP);
+//    pgs.step(TIMESTEP);
 
     KeyFrame frame = new KeyFrame(Duration.seconds(TIMESTEP), e -> pgs.step(TIMESTEP)); //
     // TODO: remove grid from step parameter

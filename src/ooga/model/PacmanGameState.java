@@ -29,7 +29,6 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
     spriteExistenceObservers = new HashSet<>();
     gridRebuildObservers = new HashSet<>();
     sprites = new LinkedList<>();
-    //this.grid = new PacmanGrid();
   }
 
   public void setDefaultInputSource() {
@@ -40,8 +39,10 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
     spriteExistenceObservers.add(spriteExistenceObserver);
   }
 
-  public void startLevel(GridDescription level) {
+  public void loadGrid(GridDescription gridDescription) {
+    grid = new PacmanGrid(gridDescription);
 
+    notifyGridRebuildObservers();
   }
 
   // advance game state by `dt' seconds
@@ -70,7 +71,8 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
     }
     // Next level, all consumables eaten
     if (count == 0) {
-      notifyGridRebuildObservers();
+      //notifyGridRebuildObservers();
+      // TODO: add some consumables and implement round progression logic
     }
 
   }
