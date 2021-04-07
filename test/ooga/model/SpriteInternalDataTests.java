@@ -316,7 +316,7 @@ public class SpriteInternalDataTests {
     Vec2 actualPosition = pacMan.getCoordinates().getPosition();
     assertEquals(new Vec2(-1, 0), actualDirection);
     assertEquals(new Vec2(4.5, 2.5), actualPosition);
-    assertEquals(11, pacMan.getMovemmentSpeed());
+    assertEquals(11, pacMan.getMovementSpeed());
   }
 
 }

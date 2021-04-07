@@ -14,7 +14,7 @@ public abstract class MoveableSprite extends Sprite {
 
   private InputSource inputSource;
   private double currentSpeed;
-  private double movemmentSpeed;
+  private double movementSpeed;
   private Vec2 queuedDirection;
 
   @JsonCreator
@@ -24,7 +24,7 @@ public abstract class MoveableSprite extends Sprite {
       @JsonProperty("speed") double speed) {
     super(position, direction);
     this.currentSpeed = 0;
-    this.movemmentSpeed = speed;
+    this.movementSpeed = speed;
     queuedDirection = new Vec2(-1, 0);
   }
 
@@ -32,16 +32,16 @@ public abstract class MoveableSprite extends Sprite {
     super(description);
   }
 
-  public double getMovemmentSpeed() {
-    return movemmentSpeed;
+  public double getMovementSpeed() {
+    return movementSpeed;
   }
 
   public double getCurrentSpeed() {
     return currentSpeed;
   }
 
-  public void setMovemmentSpeed(double speed) {
-    this.movemmentSpeed = speed;
+  public void setMovementSpeed(double speed) {
+    this.movementSpeed = speed;
   }
 
   protected InputSource getInputSource() {
@@ -88,7 +88,7 @@ public abstract class MoveableSprite extends Sprite {
       if (queuedDirection != null && isTargetOpen) {
         setDirection(queuedDirection);
         queuedDirection = null;
-        currentSpeed = movemmentSpeed;
+        currentSpeed = movementSpeed;
       } else if (!isCurrentOpen) {
         currentSpeed = 0;
       }
@@ -96,6 +96,7 @@ public abstract class MoveableSprite extends Sprite {
 
     nextPosition =
         getCoordinates().getPosition().add(getDirection().scalarMult(getCurrentSpeed()).scalarMult(dt));
+
     getCoordinates().setPosition(nextPosition);
   }
 }
