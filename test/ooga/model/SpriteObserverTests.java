@@ -89,6 +89,11 @@ class TestObservableSprite extends Sprite {
   }
 
   @Override
+  public void uponHitBy(Sprite other, PacmanGameState state) {
+
+  }
+
+  @Override
   public SpriteCoordinates getCenter() {
     return getCoordinates();
   }

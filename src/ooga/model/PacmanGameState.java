@@ -23,7 +23,7 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
   private PacmanGrid grid;
-  private Collection<Sprite> sprites;
+  private final Collection<Sprite> sprites;
 
   private int pacManScore;
 
@@ -52,31 +52,23 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
     for (Sprite sprite : getSprites()) {
       sprite.step(dt, grid, this);
     }
-    // TODO: Refactor into separate method
-    for (Sprite sprite : sprites) {
-      for (Sprite otherSprite : getSprites()) {
-        if (sprite != otherSprite) {
-          TileCoordinates sprite1Position = sprite.getCoordinates().getTileCoordinates();
-          TileCoordinates sprite2Position = otherSprite.getCoordinates().getTileCoordinates();
-          if (sprite1Position.equals(sprite2Position)) {
-            handleCollision(sprite, otherSprite);
-          }
-        }
-      }
+
+    // Next level, all consumables eaten
+    if (getRemainingConsumablesCount() == 0) {
+      //notifyGridRebuildObservers();
+      // TODO: add some consumables and implement round progression logic
     }
 
+  }
+
+  private int getRemainingConsumablesCount() {
     int count = 0;
     for (Sprite sprite : getSprites()) {
       if (sprite.mustBeConsumed()) {
         count++;
       }
     }
-    // Next level, all consumables eaten
-    if (count == 0) {
-      //notifyGridRebuildObservers();
-      // TODO: add some consumables and implement round progression logic
-    }
-
+    return count;
   }
 
   /**
@@ -99,11 +91,12 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
   private void handleCollision(Sprite movingSprite, Sprite otherSprite) {
   }
 
-  public void addSprite(Sprite sprite){
+  public void addSprite(Sprite sprite) {
     sprites.add(sprite);
 
-    for(SpriteExistenceObserver obs : spriteExistenceObservers)
+    for (SpriteExistenceObserver obs : spriteExistenceObservers) {
       obs.onSpriteCreation(sprite);
+    }
   }
 
   public Collection<Sprite> getSprites() {

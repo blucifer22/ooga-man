@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -59,6 +60,13 @@ public abstract class Sprite implements ObservableSprite {
   }
 
   /**
+   * Removes the Sprite from the game
+   */
+  public void delete(PacmanGameState state) {
+    // TODO: implement existence observable and deletion
+  }
+
+  /**
    * Returns the type of this Sprite
    *
    * @return
@@ -78,18 +86,18 @@ public abstract class Sprite implements ObservableSprite {
 
   /**
    * Translate this sprite to a new set of coordinates.
-   *
+   * <p>
    * Notifies observers.
    *
-   * @param v New position.
+   * @param c New position.
    */
   protected void setCoordinates(SpriteCoordinates c) {
     setPosition(c.getPosition());
   }
 
   /**
-   * Translate this sprite to a new position (passed as a
-   * vector). Notifies obserrs with a TRANSLATE event.
+   * Translate this sprite to a new position (passed as a vector). Notifies obserrs with a TRANSLATE
+   * event.
    *
    * @param v New position.
    */
@@ -123,12 +131,34 @@ public abstract class Sprite implements ObservableSprite {
     return true;
   }
 
-  // Observation
+  /**
+   * Allows a Sprite to detect all objects that reside in the same tile as it does.  Each of these
+   * other Sprites is given the opportunity to respond to coming into contact with this Sprite.
+   *
+   * @param state
+   */
+  public void handleCollisions(PacmanGameState state) {
+    List<Sprite> sprites = state.getCollidingWith(this);
+    for (Sprite other : sprites) {
+      this.uponHitBy(other, state);
+      other.uponHitBy(this, state);
+    }
+  }
+
+  /**
+   * Sprites override this method to define game state changes or changes to the sprite upon coming
+   * into contact with another Sprite.
+   *
+   * @param other other Sprite that this sprite collides with
+   * @param state current state of the game, allowing Sprites to perform actions such as remove
+   *              themselves from the game or adjust the score
+   */
+  public abstract void uponHitBy(Sprite other, PacmanGameState state);
 
   /**
    * Adds an observer that will be notified whenever any of the subset of observedEvents occurs
    *
-   * @param so observer object to add
+   * @param so             observer object to add
    * @param observedEvents events that this observer listens for
    */
   public void addObserver(SpriteObserver so, SpriteEvent.EventType... observedEvents) {
