@@ -69,7 +69,8 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
     }
     // Next level, all consumables eaten
     if (count == 0) {
-      notifyGridRebuildObservers();
+      //notifyGridRebuildObservers();
+      // TODO: add some consumables and implement round progression logic
     }
 
   }
