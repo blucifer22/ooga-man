@@ -46,6 +46,10 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
     pacManScore += score;
   }
 
+  public int getScore() {
+    return pacManScore;
+  }
+
   public void prepareRemove(Sprite sprite) {
     toDelete.add(sprite);
     notifySpriteDestruction(sprite);
@@ -102,8 +106,8 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
     TileCoordinates tc = sprite.getCoordinates().getTileCoordinates();
     List<Sprite> collidingSprites = new ArrayList<>();
     for (Sprite otherSprite : sprites) {
-      if (sprite != otherSprite && sprite.getCoordinates().getTileCoordinates().equals(tc)) {
-        collidingSprites.add(sprite);
+      if (sprite != otherSprite && otherSprite.getCoordinates().getTileCoordinates().equals(tc)) {
+        collidingSprites.add(otherSprite);
       }
     }
     return collidingSprites;
