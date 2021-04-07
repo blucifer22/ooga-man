@@ -52,42 +52,6 @@ public class Controller {
 
     pgs.addSprite(pacman);
 
-    ObservableGrid grid = new ObservableGrid() {
-
-      @Override
-      public int getWidth() {
-        return 10;
-      }
-
-      @Override
-      public int getHeight() {
-        return 10;
-      }
-
-      @Override
-      public ObservableTile getTile(TileCoordinates tileCoordinates) {
-        return new ObservableTile() {
-
-          @Override
-          public TileCoordinates getCoordinates() {
-            return tileCoordinates;
-          }
-
-          @Override
-          public String getType() {
-            return "tile";
-          }
-
-          @Override
-          public void addTileObserver(TileObserver observer, TileEvent.EventType... events) {
-
-          }
-        };
-      }
-    };
-
-    gv.getGridRebuildObserver().onGridRebuild(grid);
-
     uiController.showGameView();
 
 //    pgs.step(TIMESTEP);
