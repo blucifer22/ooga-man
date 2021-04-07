@@ -25,7 +25,7 @@ public abstract class MoveableSprite extends Sprite {
     super(position, direction);
     this.currentSpeed = 0;
     this.movementSpeed = speed;
-    queuedDirection = new Vec2(-1, 0);
+    queuedDirection = null;
   }
 
   public MoveableSprite(SpriteDescription description) {
@@ -56,15 +56,19 @@ public abstract class MoveableSprite extends Sprite {
 
   public void move(double dt, PacmanGrid grid){
     Vec2 userDirection = getInputSource().getRequestedDirection();
+
+    System.out.println(userDirection.toString());
+
     if (getDirection().parallelTo(userDirection)) {
       setDirection(userDirection);
+      currentSpeed = movementSpeed;
     } else if (!userDirection.equals(Vec2.ZERO)) {
       queuedDirection = userDirection;
     }
 
     Vec2 centerCoordinates = getCoordinates().getTileCenter();
     Vec2 currentPosition = getCoordinates().getPosition();
-    Vec2 nextPosition = currentPosition.add(getDirection().scalarMult(getMovemmentSpeed()).scalarMult(dt));
+    Vec2 nextPosition = currentPosition.add(getDirection().scalarMult(getCurrentSpeed()).scalarMult(dt));
 
     // Grid-snapping
     if (centerCoordinates.isBetween(currentPosition, nextPosition)) {
