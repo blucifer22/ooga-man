@@ -1,7 +1,9 @@
 package ooga.view.theme;
 
 import java.util.HashSet;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 
 public class ConcreteThemeService implements ThemeService {
@@ -18,7 +20,7 @@ public class ConcreteThemeService implements ThemeService {
     // TODO: implement asset loading
     // TODO: change switch statement to a map <String, Paint> with assetType -> background
     return switch (type) {
-      case "pacman" -> Color.YELLOW;
+      case "pacman" -> new ImagePattern(new Image("resources/themes/classic/images/pacman.png"));
       case "ghost" -> Color.RED;
       case "tile" -> Color.NAVY;
       default -> Color.BLUE;
