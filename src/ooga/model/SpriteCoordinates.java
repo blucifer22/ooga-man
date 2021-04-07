@@ -51,4 +51,9 @@ public class SpriteCoordinates {
     TileCoordinates tileCoordinates = getTileCoordinates();
     return new Vec2(tileCoordinates.getX() + 0.5, tileCoordinates.getY() + 0.5);
   }
+
+  @Override
+  public String toString() {
+    return position.toString();
+  }
 }
