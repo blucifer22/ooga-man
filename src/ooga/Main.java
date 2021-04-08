@@ -21,6 +21,6 @@ public class Main extends Application {
   @Override
   public void start(Stage primaryStage) {
     //new Controller(primaryStage);
-    new DemoController(primaryStage);
+    new Controller(primaryStage);
   }
 }
