@@ -6,7 +6,6 @@ import java.util.HashSet;
 import ooga.view.theme.api.Theme;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.api.ThemedObject;
-import ooga.view.theme.serialized.ThemeDescription;
 
 public class SerializedThemeService implements ThemeService {
 
