@@ -50,7 +50,7 @@ public class GridDescription extends JSONDescription {
     this.width = width;
     this.height = height;
 
-    if (tileList.size() != width || tileList.get(0).size() != height) {
+    if (tileList.get(0).size() != width || tileList.size() != height) {
       throw new IllegalArgumentException(
           "ILLEGAL ARGUMENT EXCEPTION:\nWRONG NUMBER OF TILES FOR INDICATED DIMENSIONS!");
     }

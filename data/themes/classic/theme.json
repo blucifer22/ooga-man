@@ -48,6 +48,13 @@
       "scale" : 1.0,
       "bottomHeavy" : true,
       "rotates": true
+    },
+    "dot" : {
+      "fill" : "themes/classic/images/consumables/dot.png",
+      "imageFill" : true,
+      "scale" : 0.25,
+      "bottomHeavy" : false,
+      "rotates": false
     }
   }
 }
