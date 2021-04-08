@@ -70,16 +70,21 @@ public class SpriteView implements SpriteObserver, ThemedObject, Renderable {
 
   private void updateType() {
     this.costume = themeService.getTheme().getCostumeForObjectOfType(dataSource.getType());
+
     this.viewGraphic.setFill(this.costume.getFill());
+    this.viewGraphic.widthProperty().bind(size.multiply(this.costume.getScale()));
+    this.viewGraphic.heightProperty().bind(size.multiply(this.costume.getScale()));
+
     this.updateOrientation();
+    this.updatePosition();
   }
 
   private void updatePosition() {
     SpriteCoordinates coordinates = dataSource.getCenter();
     this.viewGraphic.translateXProperty()
-        .bind(size.multiply(coordinates.getPosition().getX()-0.5));
+        .bind(size.multiply(coordinates.getPosition().getX()-0.5*this.costume.getScale()));
     this.viewGraphic.translateYProperty()
-        .bind(size.multiply(coordinates.getPosition().getY()-0.5));
+        .bind(size.multiply(coordinates.getPosition().getY()-0.5*this.costume.getScale()));
   }
 
   private void updateOrientation() {

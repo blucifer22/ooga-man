@@ -31,6 +31,7 @@ public class CostumeDescription extends JSONDescription {
     this.fillIsImage = description.fillIsImage;
     this.scale = description.scale;
     this.bottomHeavy = description.bottomHeavy;
+    this.rotatable = description.rotatable;
   }
 
   @JsonGetter("fill")
@@ -55,19 +56,6 @@ public class CostumeDescription extends JSONDescription {
 
   @JsonGetter("rotates")
   public boolean isRotatable() { return this.rotatable; }
-
-  public void setFill(String fill, boolean fillIsImage) {
-    this.fill = fill;
-    this.fillIsImage = fillIsImage;
-  }
-
-  public void setScale(double scale) {
-    this.scale = scale;
-  }
-
-  public void setBottomHeavy(boolean bottomHeavy) {
-    this.bottomHeavy = bottomHeavy;
-  }
 
   public Costume toCostume() {
     return new SerializedCostume(this);
