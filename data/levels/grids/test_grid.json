@@ -7,7 +7,7 @@
       "x" : 0,
       "y" : 0
     },
-    "type" : "tile",
+    "type" : "tileclosed",
     "openToPacman" : false,
     "openToGhosts" : false
   }, {
@@ -15,7 +15,7 @@
       "x" : 1,
       "y" : 0
     },
-    "type" : "tile",
+    "type" : "tileclosed",
     "openToPacman" : false,
     "openToGhosts" : false
   }, {
@@ -23,7 +23,7 @@
       "x" : 2,
       "y" : 0
     },
-    "type" : "tile",
+    "type" : "tileclosed",
     "openToPacman" : false,
     "openToGhosts" : false
   }, {
@@ -31,7 +31,7 @@
       "x" : 3,
       "y" : 0
     },
-    "type" : "tile",
+    "type" : "tileclosed",
     "openToPacman" : false,
     "openToGhosts" : false
   }, {
@@ -39,7 +39,7 @@
       "x" : 4,
       "y" : 0
     },
-    "type" : "tile",
+    "type" : "tileclosed",
     "openToPacman" : false,
     "openToGhosts" : false
   }, {
@@ -47,7 +47,7 @@
       "x" : 5,
       "y" : 0
     },
-    "type" : "tile",
+    "type" : "tileclosed",
     "openToPacman" : false,
     "openToGhosts" : false
   } ], [ {
@@ -55,7 +55,7 @@
       "x" : 0,
       "y" : 1
     },
-    "type" : "tile",
+    "type" : "tileclosed",
     "openToPacman" : false,
     "openToGhosts" : false
   }, {
@@ -95,7 +95,7 @@
       "x" : 5,
       "y" : 1
     },
-    "type" : "tile",
+    "type" : "tileclosed",
     "openToPacman" : false,
     "openToGhosts" : false
   } ], [ {
@@ -103,7 +103,7 @@
       "x" : 0,
       "y" : 2
     },
-    "type" : "tile",
+    "type" : "tileclosed",
     "openToPacman" : false,
     "openToGhosts" : false
   }, {
@@ -119,7 +119,7 @@
       "x" : 2,
       "y" : 2
     },
-    "type" : "tile",
+    "type" : "tileclosed",
     "openToPacman" : false,
     "openToGhosts" : false
   }, {
@@ -143,7 +143,7 @@
       "x" : 5,
       "y" : 2
     },
-    "type" : "tile",
+    "type" : "tileclosed",
     "openToPacman" : false,
     "openToGhosts" : false
   } ], [ {
@@ -151,7 +151,7 @@
       "x" : 0,
       "y" : 3
     },
-    "type" : "tile",
+    "type" : "tileclosed",
     "openToPacman" : false,
     "openToGhosts" : false
   }, {
@@ -167,7 +167,7 @@
       "x" : 2,
       "y" : 3
     },
-    "type" : "tile",
+    "type" : "tileclosed",
     "openToPacman" : false,
     "openToGhosts" : false
   }, {
@@ -191,7 +191,7 @@
       "x" : 5,
       "y" : 3
     },
-    "type" : "tile",
+    "type" : "tileclosed",
     "openToPacman" : false,
     "openToGhosts" : false
   } ], [ {
@@ -199,7 +199,7 @@
       "x" : 0,
       "y" : 4
     },
-    "type" : "tile",
+    "type" : "tileclosed",
     "openToPacman" : false,
     "openToGhosts" : false
   }, {
@@ -239,7 +239,7 @@
       "x" : 5,
       "y" : 4
     },
-    "type" : "tile",
+    "type" : "tileclosed",
     "openToPacman" : false,
     "openToGhosts" : false
   } ], [ {
@@ -247,7 +247,7 @@
       "x" : 0,
       "y" : 5
     },
-    "type" : "tile",
+    "type" : "tileclosed",
     "openToPacman" : false,
     "openToGhosts" : false
   }, {
@@ -255,7 +255,7 @@
       "x" : 1,
       "y" : 5
     },
-    "type" : "tile",
+    "type" : "tileclosed",
     "openToPacman" : false,
     "openToGhosts" : false
   }, {
@@ -263,7 +263,7 @@
       "x" : 2,
       "y" : 5
     },
-    "type" : "tile",
+    "type" : "tileclosed",
     "openToPacman" : false,
     "openToGhosts" : false
   }, {
@@ -271,7 +271,7 @@
       "x" : 3,
       "y" : 5
     },
-    "type" : "tile",
+    "type" : "tileclosed",
     "openToPacman" : false,
     "openToGhosts" : false
   }, {
@@ -279,7 +279,7 @@
       "x" : 4,
       "y" : 5
     },
-    "type" : "tile",
+    "type" : "tileclosed",
     "openToPacman" : false,
     "openToGhosts" : false
   }, {
@@ -287,7 +287,7 @@
       "x" : 5,
       "y" : 5
     },
-    "type" : "tile",
+    "type" : "tileclosed",
     "openToPacman" : false,
     "openToGhosts" : false
   } ] ]
