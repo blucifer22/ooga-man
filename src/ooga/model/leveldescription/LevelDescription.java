@@ -3,7 +3,6 @@ package ooga.model.leveldescription;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ooga.model.PacmanGameState;
-import ooga.model.PacmanGrid;
 
 public class LevelDescription extends JSONDescription {
   private GridDescription gridDescription;
