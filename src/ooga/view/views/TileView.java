@@ -9,8 +9,8 @@ import ooga.model.api.ObservableTile;
 import ooga.model.api.TileEvent;
 import ooga.model.api.TileObserver;
 import ooga.view.internal_api.Renderable;
-import ooga.view.theme.ThemeService;
-import ooga.view.theme.ThemedObject;
+import ooga.view.theme.api.ThemeService;
+import ooga.view.theme.api.ThemedObject;
 
 public class TileView implements Renderable, TileObserver, ThemedObject {
 
@@ -42,7 +42,7 @@ public class TileView implements Renderable, TileObserver, ThemedObject {
   }
 
   private void onTypeChange() {
-    this.tileRect.setFill(themeService.getCostumeForObjectOfType(this.tile.getType()).getFill());
+    this.tileRect.setFill(themeService.getTheme().getCostumeForObjectOfType(this.tile.getType()).getFill());
   }
 
   @Override

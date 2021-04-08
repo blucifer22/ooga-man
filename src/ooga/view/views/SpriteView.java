@@ -10,8 +10,9 @@ import ooga.model.api.ObservableSprite;
 import ooga.model.api.SpriteObserver;
 import ooga.util.Vec2;
 import ooga.view.internal_api.Renderable;
-import ooga.view.theme.ThemeService;
-import ooga.view.theme.ThemedObject;
+import ooga.view.theme.api.Costume;
+import ooga.view.theme.api.ThemeService;
+import ooga.view.theme.api.ThemedObject;
 
 /**
  * SpriteView handles the rendering of a single Sprite (SpriteObservable, technically).
@@ -22,6 +23,7 @@ public class SpriteView implements SpriteObserver, ThemedObject, Renderable {
   private final ObservableSprite dataSource;
   private final DoubleProperty size;
   private ThemeService themeService;
+  private Costume costume;
 
   public SpriteView(ObservableSprite so, ThemeService themeService, DoubleProperty size) {
     // configure data sourcing
@@ -67,27 +69,39 @@ public class SpriteView implements SpriteObserver, ThemedObject, Renderable {
   }
 
   private void updateType() {
-    this.viewGraphic.setFill(themeService.getCostumeForObjectOfType(dataSource.getType()).getFill());
+    this.costume = themeService.getTheme().getCostumeForObjectOfType(dataSource.getType());
+
+    this.viewGraphic.setFill(this.costume.getFill());
+    this.viewGraphic.widthProperty().bind(size.multiply(this.costume.getScale()));
+    this.viewGraphic.heightProperty().bind(size.multiply(this.costume.getScale()));
+
+    this.updateOrientation();
+    this.updatePosition();
   }
 
   private void updatePosition() {
     SpriteCoordinates coordinates = dataSource.getCenter();
     this.viewGraphic.translateXProperty()
-        .bind(size.multiply(coordinates.getPosition().getX()-0.5));
+        .bind(size.multiply(coordinates.getPosition().getX()-0.5*this.costume.getScale()));
     this.viewGraphic.translateYProperty()
-        .bind(size.multiply(coordinates.getPosition().getY()-0.5));
+        .bind(size.multiply(coordinates.getPosition().getY()-0.5*this.costume.getScale()));
   }
 
   private void updateOrientation() {
-    Vec2 direction = dataSource.getDirection();
-    double rotation = Math.atan2(direction.getY(), direction.getX()) * 180.0 / Math.PI;
-    if (rotation > 90 && rotation < 270) {
-      this.viewGraphic.setScaleX(-1);
-      rotation = ((rotation - 180) + 180) % 180;
-    } else {
-      this.viewGraphic.setScaleX(1);
+    double rotation = 0;
+    double scaleX = 1;
+
+    if (this.costume.isRotatable()) {
+      Vec2 direction = dataSource.getDirection();
+      rotation = Math.atan2(direction.getY(), direction.getX()) * 180.0 / Math.PI;
+      if (rotation > 90 && rotation <= 270) {
+        scaleX = -1;
+        rotation = ((rotation - 180) + 180) % 180;
+      }
     }
-    viewGraphic.setRotate(rotation);
+
+    this.viewGraphic.setScaleX(scaleX);
+    this.viewGraphic.setRotate(rotation);
   }
 
   private void updateVisibility() {

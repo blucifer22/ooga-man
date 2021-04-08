@@ -1,0 +1,47 @@
+{
+  "costumes" : {
+    "blinky" : {
+      "fill" : "themes/classic/images/ghosts/blinky.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "clyde" : {
+      "fill" : "themes/classic/images/ghosts/clyde.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "inky" : {
+      "fill" : "themes/classic/images/ghosts/inky.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pinky" : {
+      "fill" : "themes/classic/images/ghosts/pinky.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "ghost" : {
+      "fill" : "themes/classic/images/ghosts/blinky.png",
+      "imageFill" : true,
+      "scale" : 2.0,
+      "bottomHeavy" : true
+    },
+    "tile" : {
+      "fill" : "BLACK",
+      "imageFill" : false,
+      "scale" : 1.0,
+      "bottomHeavy" : false
+    },
+    "pacman" : {
+      "fill" : "themes/classic/images/pacman/pacman.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true,
+      "rotates": true
+    }
+  }
+}

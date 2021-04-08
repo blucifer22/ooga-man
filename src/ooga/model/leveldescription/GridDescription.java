@@ -105,6 +105,7 @@ public class GridDescription extends JSONDescription {
    * @return A PacmanGrid that possesses the properties of this GridDescription.
    */
   public PacmanGrid toGrid() {
+    // why would `return new PacmanGrid(this);` not work here?
     try {
       Class<?> spriteClass = Class.forName("ooga.model.PacmanGrid");
       return (PacmanGrid) spriteClass.getDeclaredConstructor(GridDescription.class).newInstance(this);
