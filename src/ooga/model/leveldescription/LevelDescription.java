@@ -6,13 +6,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import ooga.model.PacmanGameState;
 
 public class LevelDescription extends JSONDescription {
+  private final String levelName;
   private final GridDescription gridDescription;
   private final SpriteLayoutDescription spriteLayoutDescription;
 
   @JsonCreator
   public LevelDescription(
+      @JsonProperty("levelName") String levelName,
       @JsonProperty("gridDescription") GridDescription gridDescription,
       @JsonProperty("spriteLayoutDescription") SpriteLayoutDescription spriteLayoutDescription) {
+    this.levelName = levelName;
     this.gridDescription = gridDescription;
     this.spriteLayoutDescription = spriteLayoutDescription;
   }
@@ -25,6 +28,11 @@ public class LevelDescription extends JSONDescription {
   @JsonGetter
   public SpriteLayoutDescription getSpriteLayoutDescription() {
     return spriteLayoutDescription;
+  }
+
+  @JsonGetter
+  public String getLevelName() {
+    return levelName;
   }
 
   public PacmanGameState toPacmanGameState() {

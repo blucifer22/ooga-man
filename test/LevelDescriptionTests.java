@@ -27,6 +27,7 @@ public class LevelDescriptionTests {
   public void testLevelDescriptionConstructor() {
     String gridDescriptionPath = "data/levels/grids/test_grid.json";
     String spriteLayoutDescriptionPath = "data/levels/sprite-layouts/test_sprite_layout.json";
+    String levelName = "Test Level";
     GridDescription gridDescription = null;
     SpriteLayoutDescription spriteLayoutDescription = null;
 
@@ -40,8 +41,9 @@ public class LevelDescriptionTests {
     }
 
     LevelDescription levelDescription =
-        new LevelDescription(gridDescription, spriteLayoutDescription);
+        new LevelDescription(levelName, gridDescription, spriteLayoutDescription);
 
+    assertEquals(levelDescription.getLevelName(), levelName);
     assertEquals(levelDescription.getGridDescription().getGridName(), "testGrid");
     assertEquals(spriteLayoutDescription.getSprites().get(0).getClassName(), "Ghost");
   }
@@ -50,6 +52,7 @@ public class LevelDescriptionTests {
   public void testLevelDescriptionJSON() {
     String gridDescriptionPath = "data/levels/grids/test_grid.json";
     String spriteLayoutDescriptionPath = "data/levels/sprite-layouts/test_sprite_layout.json";
+    String levelName = "Test Level";
     GridDescription gridDescription = null;
     SpriteLayoutDescription spriteLayoutDescription = null;
 
@@ -63,8 +66,9 @@ public class LevelDescriptionTests {
     }
 
     LevelDescription levelDescription =
-        new LevelDescription(gridDescription, spriteLayoutDescription);
+        new LevelDescription(levelName, gridDescription, spriteLayoutDescription);
 
+    assertEquals(levelDescription.getLevelName(), levelName);
     assertEquals(levelDescription.getGridDescription().getGridName(), "testGrid");
     assertEquals(spriteLayoutDescription.getSprites().get(0).getClassName(), "Ghost");
 
@@ -79,6 +83,7 @@ public class LevelDescriptionTests {
       fail();
     }
 
+    assertEquals(levelDescriptionFromJSON.getLevelName(), levelName);
     assertEquals(
         levelDescriptionFromJSON.getGridDescription().getHeight(), gridDescription.getHeight());
     assertEquals(
