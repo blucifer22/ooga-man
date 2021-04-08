@@ -56,6 +56,7 @@ public abstract class MoveableSprite extends Sprite {
 
   public void move(double dt, PacmanGrid grid){
     Vec2 userDirection = getInputSource().getRequestedDirection();
+    userDirection = userDirection.getMagnitude() == 1 ? userDirection : Vec2.ZERO;
 
     if (getDirection().parallelTo(userDirection)) {
       setDirection(userDirection);
