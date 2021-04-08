@@ -42,7 +42,7 @@ public class TileView implements Renderable, TileObserver, ThemedObject {
   }
 
   private void onTypeChange() {
-    this.tileRect.setFill(themeService.getCostumeForObjectOfType(this.tile.getType()).getFill());
+    this.tileRect.setFill(themeService.getTheme().getCostumeForObjectOfType(this.tile.getType()).getFill());
   }
 
   @Override

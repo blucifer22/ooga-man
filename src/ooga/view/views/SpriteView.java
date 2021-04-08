@@ -67,7 +67,7 @@ public class SpriteView implements SpriteObserver, ThemedObject, Renderable {
   }
 
   private void updateType() {
-    this.viewGraphic.setFill(themeService.getCostumeForObjectOfType(dataSource.getType()).getFill());
+    this.viewGraphic.setFill(themeService.getTheme().getCostumeForObjectOfType(dataSource.getType()).getFill());
   }
 
   private void updatePosition() {

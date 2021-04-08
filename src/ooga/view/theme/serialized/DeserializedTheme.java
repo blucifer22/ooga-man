@@ -2,6 +2,8 @@ package ooga.view.theme.serialized;
 
 import java.util.HashMap;
 import java.util.Map;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import ooga.view.theme.api.Costume;
 import ooga.view.theme.api.Theme;
 
@@ -18,6 +20,27 @@ public class DeserializedTheme implements Theme {
 
   @Override
   public Costume getCostumeForObjectOfType(String type) {
-    return costumes.get(type);
+    Costume ret = costumes.get(type);
+
+    if (ret == null) {
+      return new Costume() {
+        @Override
+        public Paint getFill() {
+          return Color.NAVY;
+        }
+
+        @Override
+        public double getScale() {
+          return 1;
+        }
+
+        @Override
+        public boolean isBottomHeavy() {
+          return true;
+        }
+      };
+    } else {
+      return ret;
+    }
   }
 }
