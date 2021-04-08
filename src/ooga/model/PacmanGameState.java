@@ -1,7 +1,9 @@
 package ooga.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 import ooga.model.api.GridRebuildObservable;
 import ooga.model.api.GridRebuildObserver;
@@ -20,19 +22,37 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
 
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
+  private final Collection<Sprite> sprites;
+  private final Set<Sprite> toDelete;
   private PacmanGrid grid;
-  private Collection<Sprite> sprites;
-
   private int pacManScore;
 
   public PacmanGameState() {
     spriteExistenceObservers = new HashSet<>();
     gridRebuildObservers = new HashSet<>();
+    toDelete = new HashSet<>();
     sprites = new LinkedList<>();
   }
 
   public void setDefaultInputSource() {
 
+  }
+
+
+  /**
+   * @param score
+   */
+  public void incrementScore(int score) {
+    pacManScore += score;
+  }
+
+  public int getScore() {
+    return pacManScore;
+  }
+
+  public void prepareRemove(Sprite sprite) {
+    toDelete.add(sprite);
+    notifySpriteDestruction(sprite);
   }
 
   public void addSpriteExistenceObserver(SpriteExistenceObserver spriteExistenceObserver) {
@@ -41,50 +61,61 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
 
   public void loadGrid(GridDescription gridDescription) {
     grid = new PacmanGrid(gridDescription);
-
     notifyGridRebuildObservers();
   }
 
   // advance game state by `dt' seconds
   public void step(double dt) {
+    toDelete.clear();
     for (Sprite sprite : getSprites()) {
-      sprite.step(dt, grid);
-    }
-    // TODO: Refactor into separate method
-    for (Sprite sprite : sprites) {
-      for (Sprite otherSprite : getSprites()) {
-        if (sprite != otherSprite) {
-          TileCoordinates sprite1Position = sprite.getCoordinates().getTileCoordinates();
-          TileCoordinates sprite2Position = otherSprite.getCoordinates().getTileCoordinates();
-          if (sprite1Position.equals(sprite2Position)) {
-            handleCollision(sprite, otherSprite);
-          }
-        }
+      if (toDelete.contains(sprite)) {
+        continue;
       }
+      sprite.step(dt, grid, this);
     }
 
-    int count = 0;
-    for (Sprite sprite : getSprites()) {
-      if (sprite.mustBeConsumed()) {
-        count++;
-      }
+    for (Sprite sprite : toDelete) {
+      sprites.remove(sprite);
     }
+
     // Next level, all consumables eaten
-    if (count == 0) {
+    if (getRemainingConsumablesCount() == 0) {
       //notifyGridRebuildObservers();
       // TODO: add some consumables and implement round progression logic
     }
 
   }
 
-  private void handleCollision(Sprite movingSprite, Sprite otherSprite) {
+  private int getRemainingConsumablesCount() {
+    int count = 0;
+    for (Sprite sprite : getSprites()) {
+      if (sprite.mustBeConsumed()) {
+        count++;
+      }
+    }
+    return count;
   }
 
-  public void addSprite(Sprite sprite){
-    sprites.add(sprite);
+  /**
+   * Gets the list of other Sprites that resides in the same list as this sprite
+   *
+   * @param sprite
+   * @return
+   */
+  public List<Sprite> getCollidingWith(Sprite sprite) {
+    TileCoordinates tc = sprite.getCoordinates().getTileCoordinates();
+    List<Sprite> collidingSprites = new ArrayList<>();
+    for (Sprite otherSprite : sprites) {
+      if (sprite != otherSprite && otherSprite.getCoordinates().getTileCoordinates().equals(tc)) {
+        collidingSprites.add(otherSprite);
+      }
+    }
+    return collidingSprites;
+  }
 
-    for(SpriteExistenceObserver obs : spriteExistenceObservers)
-      obs.onSpriteCreation(sprite);
+  public void addSprite(Sprite sprite) {
+    sprites.add(sprite);
+    notifySpriteCreation(sprite);
   }
 
   public Collection<Sprite> getSprites() {
@@ -98,6 +129,18 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
   public void advanceLevel() {
   }
 
+
+  private void notifySpriteDestruction(Sprite sprite) {
+    for (SpriteExistenceObserver observer : spriteExistenceObservers) {
+      observer.onSpriteDestruction(sprite);
+    }
+  }
+
+  private void notifySpriteCreation(Sprite sprite) {
+    for (SpriteExistenceObserver observer : spriteExistenceObservers) {
+      observer.onSpriteCreation(sprite);
+    }
+  }
 
   private void notifyGridRebuildObservers() {
     for (GridRebuildObserver observers : gridRebuildObservers) {

@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 public class SpriteInternalDataTests {
 
   private PacMan pacMan;
+  private PacmanGameState state;
   private PacmanGrid grid;
 
   @BeforeEach
@@ -22,7 +23,6 @@ public class SpriteInternalDataTests {
         {1, 0, 0, 0, 0, 1},
         {1, 1, 1, 1, 1, 1},
     };
-
     grid = new PacmanGrid(6, 4);
     for (int j = 0; j < protoGrid.length; j++) {
       for (int k = 0; k < protoGrid[0].length; k++) {
@@ -31,6 +31,7 @@ public class SpriteInternalDataTests {
         grid.setTile(k, j, tile);
       }
     }
+    state = new PacmanGameState();
     Vec2 position = new Vec2(4.5, 2.5);
     Vec2 direction = new Vec2(-1, 0);
     SpriteCoordinates spriteCoordinates = new SpriteCoordinates(position);
@@ -65,7 +66,7 @@ public class SpriteInternalDataTests {
     pacMan.setInputSource(input);
 
     for (int k = 0; k < 500; k++) {
-      pacMan.step(1.0 / 60, grid);
+      pacMan.step(1.0 / 60, grid, state);
     }
 
     assertEquals(new Vec2(1.5, 2.5), pacMan.getCoordinates().getPosition());
@@ -104,13 +105,13 @@ public class SpriteInternalDataTests {
     pacMan.setInputSource(input);
 
     for (int k = 0; k < 4; k++) {
-      pacMan.step(1.0 / 60, grid);
+      pacMan.step(1.0 / 60, grid, state);
     }
 
     assertEquals(new Vec2(4.5, 2.5), pacMan.getCoordinates().getPosition());
 
     for (int k = 0; k < 40; k++) {
-      pacMan.step(1.0 / 60, grid);
+      pacMan.step(1.0 / 60, grid, state);
     }
 
     assertEquals(new Vec2(1.5, 2.5), pacMan.getCoordinates().getPosition());
@@ -148,7 +149,7 @@ public class SpriteInternalDataTests {
     pacMan.setInputSource(input);
 
     for (int k = 0; k < 100; k++) {
-      pacMan.step(1.0 / 60, grid);
+      pacMan.step(1.0 / 60, grid, state);
     }
 
     assertEquals(new Vec2(1.5, 1.5), pacMan.getCoordinates().getPosition());
@@ -185,7 +186,7 @@ public class SpriteInternalDataTests {
     pacMan.setInputSource(input);
 
     for (int k = 0; k < 4; k++) {
-      pacMan.step(1.0 / 60, grid);
+      pacMan.step(1.0 / 60, grid, state);
     }
 
     assertEquals(new Vec2(4.5, 2.5), pacMan.getCoordinates().getPosition());

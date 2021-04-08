@@ -161,7 +161,8 @@ public class GridDescriptionTests {
 
       for(int x = 0; x < width; x++) {
         boolean asBool = gridConfig[y][x] != 0;
-        outputRow.add(new Tile(new TileCoordinates(x, y), "tile", asBool, asBool));
+        String mazeTile = gridConfig[y][x] != 0 ? "tile" : "tileclosed";
+        outputRow.add(new Tile(new TileCoordinates(x, y), mazeTile, asBool, asBool));
       }
       tileList.add(outputRow);
     }

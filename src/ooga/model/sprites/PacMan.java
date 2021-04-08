@@ -28,8 +28,14 @@ public class PacMan extends MoveableSprite {
   }
 
   @Override
-  public void step(double dt, PacmanGrid grid) {
+  public void uponHitBy(Sprite other, PacmanGameState state) {
+
+  }
+
+  @Override
+  public void step(double dt, PacmanGrid grid, PacmanGameState pacmanGameState) {
     move(dt, grid);
+    handleCollisions(pacmanGameState);
   }
 
   @Override
