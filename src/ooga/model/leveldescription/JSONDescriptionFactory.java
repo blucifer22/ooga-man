@@ -5,8 +5,8 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * JSONDescriptionFactory is a very basic "factory" class that allows for new JSONDescriptions
- * to be easily deserialized from JSON and instantiated using Jackson.
+ * JSONDescriptionFactory is a very basic "factory" class that allows for new JSONDescriptions to be
+ * easily deserialized from JSON and instantiated using Jackson.
  *
  * @author Marc Chmielewski
  */
@@ -52,5 +52,16 @@ public class JSONDescriptionFactory {
   public SpriteLayoutDescription getSpriteLayoutDescriptionFromJSON(String filepath)
       throws IOException {
     return mapper.readValue(new File(filepath), SpriteLayoutDescription.class);
+  }
+
+  /**
+   * This method instantiates a new LevelDescription from a serialized JSON file.
+   *
+   * @param filepath The filepath of the JSON that represents the LevelDescription.
+   * @return A freshly-minted LevelDescription that has been deserialized from the provided JSON
+   * @throws IOException If the filepath is invalid.
+   */
+  public LevelDescription getLevelDescriptionFromJSON(String filepath) throws IOException {
+    return mapper.readValue(new File(filepath), LevelDescription.class);
   }
 }
