@@ -39,6 +39,7 @@ public class CollisionTest {
     SpriteCoordinates spriteCoordinates = new SpriteCoordinates(position);
     pacMan = new PacMan(spriteCoordinates, direction, 11);
     dot = new Dot(new SpriteCoordinates(new Vec2(1.5, 1.5)), Vec2.ZERO);
+    state.loadGrid(grid);
     state.addSprite(pacMan);
     state.addSprite(dot);
   }
@@ -71,9 +72,11 @@ public class CollisionTest {
     };
     pacMan.setInputSource(input);
 
-    for (int k = 0; k < 1000; k++){
-      pacMan.step(1 / 60., grid, state);
+    for (int k = 0; k < 1000; k++) {
+      //pacMan.step(1 / 60., state);
+      state.step(1 / 60.);
     }
     assertTrue(state.getScore() > 0);
+    assertTrue(state.getSprites().size() == 1);
   }
 }

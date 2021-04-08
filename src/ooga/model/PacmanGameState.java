@@ -64,6 +64,11 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
     notifyGridRebuildObservers();
   }
 
+  public void loadGrid(PacmanGrid grid) {
+    this.grid = grid;
+    notifyGridRebuildObservers();
+  }
+
   // advance game state by `dt' seconds
   public void step(double dt) {
     toDelete.clear();
@@ -71,7 +76,7 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
       if (toDelete.contains(sprite)) {
         continue;
       }
-      sprite.step(dt, grid, this);
+      sprite.step(dt, this);
     }
 
     for (Sprite sprite : toDelete) {
