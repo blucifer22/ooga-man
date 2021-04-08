@@ -4,7 +4,7 @@ import javafx.scene.paint.Paint;
 
 public interface ThemeService {
 
-  Paint getFillForObjectOfType(String type);
+  Costume getCostumeForObjectOfType(String type);
 
   void addThemedObject(ThemedObject themedObject);
 }

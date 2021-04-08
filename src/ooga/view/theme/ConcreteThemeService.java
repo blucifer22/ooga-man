@@ -1,7 +1,9 @@
 package ooga.view.theme;
 
 import java.util.HashSet;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 
 public class ConcreteThemeService implements ThemeService {
@@ -13,17 +15,73 @@ public class ConcreteThemeService implements ThemeService {
   }
 
   @Override
-  public Paint getFillForObjectOfType(String type) {
-    // TODO: use Marc's JSON parsing to determine how themes should work
-    // TODO: implement asset loading
-    // TODO: change switch statement to a map <String, Paint> with assetType -> background
+  public Costume getCostumeForObjectOfType(String type) {
     return switch (type) {
-      case "pacman" -> Color.YELLOW;
-      case "ghost" -> Color.RED;
-      case "dot" -> Color.PURPLE;
-      case "tile" -> Color.BLACK;
-      case "tileclosed" -> Color.NAVY;
-      default -> Color.BLUE;
+      case "pacman" -> new Costume() {
+
+        @Override
+        public Paint getFill() {
+          return new ImagePattern(new Image("resources/themes/classic/images/pacman.png"));
+        }
+
+        @Override
+        public double getScale() {
+          return 1;
+        }
+
+        @Override
+        public boolean isBottomHeavy() {
+          return true;
+        }
+      };
+      case "ghost" -> new Costume() {
+        @Override
+        public Paint getFill() {
+          return Color.RED;
+        }
+
+        @Override
+        public double getScale() {
+          return 1;
+        }
+
+        @Override
+        public boolean isBottomHeavy() {
+          return true;
+        }
+      };
+      case "tile" -> new Costume() {
+        @Override
+        public Paint getFill() {
+          return Color.NAVY;
+        }
+
+        @Override
+        public double getScale() {
+          return 1;
+        }
+
+        @Override
+        public boolean isBottomHeavy() {
+          return true;
+        }
+      };
+      default -> new Costume() {
+        @Override
+        public Paint getFill() {
+          return Color.BLUE;
+        }
+
+        @Override
+        public double getScale() {
+          return 1;
+        }
+
+        @Override
+        public boolean isBottomHeavy() {
+          return true;
+        }
+      };
     };
   }
 

@@ -67,7 +67,7 @@ public class SpriteView implements SpriteObserver, ThemedObject, Renderable {
   }
 
   private void updateType() {
-    this.viewGraphic.setFill(themeService.getFillForObjectOfType(dataSource.getType()));
+    this.viewGraphic.setFill(themeService.getCostumeForObjectOfType(dataSource.getType()).getFill());
   }
 
   private void updatePosition() {
@@ -80,7 +80,14 @@ public class SpriteView implements SpriteObserver, ThemedObject, Renderable {
 
   private void updateOrientation() {
     Vec2 direction = dataSource.getDirection();
-    viewGraphic.setRotate(Math.atan2(direction.getY(), direction.getX()) * 180.0 / Math.PI);
+    double rotation = Math.atan2(direction.getY(), direction.getX()) * 180.0 / Math.PI;
+    if (rotation > 90 && rotation < 270) {
+      this.viewGraphic.setScaleX(-1);
+      rotation = ((rotation - 180) + 180) % 180;
+    } else {
+      this.viewGraphic.setScaleX(1);
+    }
+    viewGraphic.setRotate(rotation);
   }
 
   private void updateVisibility() {
