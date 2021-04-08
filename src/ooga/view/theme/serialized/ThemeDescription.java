@@ -14,9 +14,9 @@ public class ThemeDescription extends JSONDescription {
   public ThemeDescription() {
     this.costumes = new HashMap<>();
     costumes.put("pacman", new CostumeDescription("themes/classic/images/pacman.png",
-        true, 1.0, true));
-    costumes.put("ghost", new CostumeDescription("RED", false, 1.0, false));
-    costumes.put("tile", new CostumeDescription("BLACK", false, 1.0, false));
+        true, 1.0, true, true));
+    costumes.put("ghost", new CostumeDescription("RED", false, 1.0, false, true));
+    costumes.put("tile", new CostumeDescription("BLACK", false, 1.0, false, true));
   }
 
   public ThemeDescription(

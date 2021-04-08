@@ -10,17 +10,20 @@ public class CostumeDescription extends JSONDescription {
   private boolean fillIsImage;
   private double scale;
   private boolean bottomHeavy;
+  private boolean rotatable;
 
   public CostumeDescription(
       @JsonProperty("fill") String fill,
       @JsonProperty("imageFill") boolean fillIsImage,
       @JsonProperty("scale") double scale,
-      @JsonProperty("bottomHeavy") boolean bottomHeavy
+      @JsonProperty("bottomHeavy") boolean bottomHeavy,
+      @JsonProperty("rotates") boolean rotatable
   ) {
     this.scale = scale;
     this.bottomHeavy = bottomHeavy;
     this.fillIsImage = fillIsImage;
     this.fill = fill;
+    this.rotatable = rotatable;
   }
 
   public CostumeDescription(CostumeDescription description) {
@@ -49,6 +52,9 @@ public class CostumeDescription extends JSONDescription {
   public boolean isBottomHeavy() {
     return this.bottomHeavy;
   }
+
+  @JsonGetter("rotates")
+  public boolean isRotatable() { return this.rotatable; }
 
   public void setFill(String fill, boolean fillIsImage) {
     this.fill = fill;

@@ -38,6 +38,9 @@ public class SerializedTheme implements Theme {
         public boolean isBottomHeavy() {
           return true;
         }
+
+        @Override
+        public boolean isRotatable() { return true; }
       };
     } else {
       return ret;

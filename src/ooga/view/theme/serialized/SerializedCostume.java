@@ -11,10 +11,12 @@ public class SerializedCostume implements Costume {
   private final Paint fill;
   private final double scale;
   private final boolean bottomHeavy;
+  private final boolean rotatable;
 
   protected SerializedCostume(CostumeDescription description) {
     this.scale = description.getScale();
     this.bottomHeavy = description.isBottomHeavy();
+    this.rotatable = description.isRotatable();
 
     if (description.isImage()) {
       System.out.println(description.getFill());
@@ -37,5 +39,10 @@ public class SerializedCostume implements Costume {
   @Override
   public boolean isBottomHeavy() {
     return this.bottomHeavy;
+  }
+
+  @Override
+  public boolean isRotatable() {
+    return this.rotatable;
   }
 }

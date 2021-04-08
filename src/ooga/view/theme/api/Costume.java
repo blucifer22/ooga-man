@@ -6,4 +6,5 @@ public interface Costume {
   Paint getFill();
   double getScale();
   boolean isBottomHeavy();
+  boolean isRotatable();
 }
