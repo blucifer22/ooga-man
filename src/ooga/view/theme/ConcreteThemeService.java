@@ -53,7 +53,7 @@ public class ConcreteThemeService implements ThemeService {
       case "tile" -> new Costume() {
         @Override
         public Paint getFill() {
-          return Color.NAVY;
+          return Color.BLACK;
         }
 
         @Override
@@ -69,7 +69,7 @@ public class ConcreteThemeService implements ThemeService {
       default -> new Costume() {
         @Override
         public Paint getFill() {
-          return Color.BLUE;
+          return Color.NAVY;
         }
 
         @Override

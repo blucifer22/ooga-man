@@ -108,4 +108,7 @@ class TestObservableSprite extends Sprite {
   public boolean mustBeConsumed() {
     return false;
   }
+
+  @Override
+  public boolean isDeadlyToPacMan() { return false; }
 }

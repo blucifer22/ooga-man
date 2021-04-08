@@ -200,4 +200,6 @@ public abstract class Sprite implements ObservableSprite {
   public abstract void step(double dt, PacmanGameState pacmanGameState);
 
   public abstract boolean mustBeConsumed();
+
+  public abstract boolean isDeadlyToPacMan();
 }
