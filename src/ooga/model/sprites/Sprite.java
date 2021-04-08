@@ -15,8 +15,7 @@ import ooga.model.api.SpriteObserver;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.util.Vec2;
 
-import static ooga.model.api.SpriteEvent.EventType.ROTATE;
-import static ooga.model.api.SpriteEvent.EventType.TRANSLATE;
+import static ooga.model.api.SpriteEvent.EventType.*;
 
 /**
  * Sprites are things that exist on top of the grid, but are not pure UI elements such as score
@@ -29,6 +28,7 @@ public abstract class Sprite implements ObservableSprite {
   private SpriteCoordinates position;
   private Vec2 direction;
   private Map<SpriteEvent.EventType, Set<SpriteObserver>> observers;
+  private String type;
 
   @JsonCreator
   public Sprite(
@@ -71,7 +71,14 @@ public abstract class Sprite implements ObservableSprite {
    *
    * @return
    */
-  public abstract String getType();
+  public String getType() {
+    return type;
+  }
+
+  protected String setType(String newType) {
+    type = newType;
+    notifyObservers(TYPE_CHANGE);
+  }
 
   // coordinates of the tile above which this sprite's center lies
 

@@ -9,7 +9,7 @@ import ooga.util.Vec2;
  */
 public class PacMan extends MoveableSprite {
 
-  public static final String TYPE = "pacman";
+  public static final String TYPE = "pacman_halfopen";
 
   public PacMan(SpriteCoordinates position, Vec2 direction, double speed) {
     super(position, direction, speed);
