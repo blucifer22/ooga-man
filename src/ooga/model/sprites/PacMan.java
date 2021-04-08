@@ -31,7 +31,10 @@ public class PacMan extends MoveableSprite {
 
   @Override
   public void uponHitBy(Sprite other, PacmanGameState state) {
-
+    if (other.isDeadlyToPacMan()){
+      state.prepareRemove(this);
+      System.out.println("GAMEOVER");
+    }
   }
 
   @Override
@@ -49,4 +52,7 @@ public class PacMan extends MoveableSprite {
   public boolean mustBeConsumed() {
     return false;
   }
+
+  @Override
+  public boolean isDeadlyToPacMan() { return false; }
 }

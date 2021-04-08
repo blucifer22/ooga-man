@@ -16,7 +16,7 @@ import ooga.model.sprites.Sprite;
 
 /**
  * GridDescription contains all of the information required to construct an ObservableGrid (AKA: A
- * Pac-Man level) including width, height, and Sprites.
+ * Pac-Man grid) including width, height, and Sprites.
  *
  * @author Marc Chmielewski
  * @author Franklin Wei
@@ -98,6 +98,12 @@ public class GridDescription extends JSONDescription {
     return grid;
   }
 
+  /**
+   * This method allows for this GridDescription to be converted into a PacmanGrid by utilizing
+   * reflection.
+   *
+   * @return A PacmanGrid that possesses the properties of this GridDescription.
+   */
   public PacmanGrid toGrid() {
     try {
       Class<?> spriteClass = Class.forName("ooga.model.PacmanGrid");

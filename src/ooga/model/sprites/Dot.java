@@ -39,4 +39,7 @@ public class Dot extends Sprite {
   public boolean mustBeConsumed() {
     return true;
   }
+
+  @Override
+  public boolean isDeadlyToPacMan() { return false; }
 }

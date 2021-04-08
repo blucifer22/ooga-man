@@ -48,4 +48,7 @@ public class Ghost extends MoveableSprite {
   public boolean mustBeConsumed() {
     return false;
   }
+
+  @Override
+  public boolean isDeadlyToPacMan() { return true; }
 }

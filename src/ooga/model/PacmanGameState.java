@@ -12,6 +12,7 @@ import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.leveldescription.GridDescription;
 
 import java.util.Collection;
+import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.Sprite;
 
 /**
@@ -67,6 +68,10 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
   public void loadGrid(PacmanGrid grid) {
     this.grid = grid;
     notifyGridRebuildObservers();
+  }
+
+  public void loadSprites(List<SpriteDescription> spriteDescriptions) {
+    spriteDescriptions.forEach(spriteDescription -> addSprite(spriteDescription.toSprite()));
   }
 
   // advance game state by `dt' seconds
