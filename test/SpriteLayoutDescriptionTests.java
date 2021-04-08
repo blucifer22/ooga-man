@@ -22,7 +22,7 @@ public class SpriteLayoutDescriptionTests {
     SpriteDescription ghostDescription =
         new SpriteDescription(spriteClassName, inputSource, startingCoordinates);
 
-    spriteClassName = "Pacman";
+    spriteClassName = "PacMan";
     inputSource = "HUMAN";
     startingCoordinates = new SpriteCoordinates(new Vec2(10, 10));
     SpriteDescription pacmanDescription =
@@ -40,7 +40,7 @@ public class SpriteLayoutDescriptionTests {
     assertEquals(layoutDescription.getSprites().get(0).getCoordinates().getPosition().getX(), 5);
     assertEquals(layoutDescription.getSprites().get(0).getCoordinates().getPosition().getY(), 5);
 
-    assertEquals(layoutDescription.getSprites().get(1).getClassName(), "Pacman");
+    assertEquals(layoutDescription.getSprites().get(1).getClassName(), "PacMan");
     assertEquals(layoutDescription.getSprites().get(1).getInputSource(), "HUMAN");
     assertEquals(layoutDescription.getSprites().get(1).getCoordinates().getPosition().getX(), 10);
     assertEquals(layoutDescription.getSprites().get(1).getCoordinates().getPosition().getY(), 10);
@@ -73,7 +73,7 @@ public class SpriteLayoutDescriptionTests {
     assertEquals(layoutDescription.getSprites().get(0).getCoordinates().getPosition().getX(), 5);
     assertEquals(layoutDescription.getSprites().get(0).getCoordinates().getPosition().getY(), 5);
 
-    assertEquals(layoutDescription.getSprites().get(1).getClassName(), "Pacman");
+    assertEquals(layoutDescription.getSprites().get(1).getClassName(), "PacMan");
     assertEquals(layoutDescription.getSprites().get(1).getInputSource(), "HUMAN");
     assertEquals(layoutDescription.getSprites().get(1).getCoordinates().getPosition().getX(), 10);
     assertEquals(layoutDescription.getSprites().get(1).getCoordinates().getPosition().getY(), 10);

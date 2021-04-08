@@ -305,7 +305,7 @@
         }
       }
     }, {
-      "className" : "Pacman",
+      "className" : "PacMan",
       "inputSource" : "HUMAN",
       "coordinates" : {
         "position" : {
