@@ -1,5 +1,6 @@
 package ooga.model;
 
+import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 
@@ -9,6 +10,11 @@ import ooga.util.Vec2;
  * @author Franklin Wei
  */
 public class GhostAI implements InputSource {
+  private Ghost ghost;
+  private PacmanGrid pacmanGrid;
+  private Sprite target;
+  private double intelligence;
+
   /* TODO: perhaps refactor? */
   public enum GhostBehavior {
     SCATTER,
@@ -16,7 +22,11 @@ public class GhostAI implements InputSource {
     FRIGHTENED
   }
 
-  public GhostAI(PacmanGrid grid, Sprite ghost, Sprite target) {
+  public GhostAI(PacmanGrid grid, Ghost ghost, Sprite target, double intelligence) {
+    this.pacmanGrid = grid;
+    this.ghost = ghost;
+    this.target = target;
+    this.intelligence = intelligence;
   }
 
   @Override

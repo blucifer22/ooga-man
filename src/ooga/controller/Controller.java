@@ -15,6 +15,7 @@ import ooga.model.api.SpriteObserver;
 import ooga.model.api.TileEvent;
 import ooga.model.api.TileObserver;
 import ooga.model.leveldescription.JSONDescriptionFactory;
+import ooga.model.sprites.Ghost;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
@@ -47,10 +48,13 @@ public class Controller {
     }
 
     PacMan pacman = new PacMan(new SpriteCoordinates(new Vec2(1.5, 1.5)), new Vec2(0,0), 5.0);
+    Ghost blinky = new Ghost(new SpriteCoordinates(new Vec2(1.5, 4.5)), new Vec2(0,0), 5.0);
 
     pacman.setInputSource(this.inputManager);
+    blinky.setInputSource(this.inputManager);
 
     pgs.addSprite(pacman);
+    pgs.addSprite(blinky);
 
     uiController.showGameView();
 
