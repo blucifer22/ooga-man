@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import ooga.model.PacmanGameState;
 
 public class LevelDescription extends JSONDescription {
-  private GridDescription gridDescription;
-  private SpriteLayoutDescription spriteLayoutDescription;
+  private final GridDescription gridDescription;
+  private final SpriteLayoutDescription spriteLayoutDescription;
 
   @JsonCreator
   public LevelDescription(

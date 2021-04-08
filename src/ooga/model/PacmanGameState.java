@@ -71,9 +71,7 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
   }
 
   public void loadSprites(List<SpriteDescription> spriteDescriptions) {
-    spriteDescriptions.forEach(spriteDescription -> {
-      sprites.add(spriteDescription.toSprite());
-    });
+    spriteDescriptions.forEach(spriteDescription -> sprites.add(spriteDescription.toSprite()));
   }
 
   // advance game state by `dt' seconds
