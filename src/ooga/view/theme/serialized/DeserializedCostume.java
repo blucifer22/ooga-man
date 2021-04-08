@@ -17,9 +17,10 @@ public class DeserializedCostume implements Costume {
     this.bottomHeavy = description.isBottomHeavy();
 
     if (description.isImage()) {
-      this.fill = Color.valueOf(description.getFill().toUpperCase());
-    } else {
+      System.out.println(description.getFill());
       this.fill = new ImagePattern(new Image(description.getFill()));
+    } else {
+      this.fill = Color.valueOf(description.getFill().toUpperCase());
     }
   }
 

@@ -11,13 +11,6 @@ public class CostumeDescription extends JSONDescription {
   private double scale;
   private boolean bottomHeavy;
 
-  public CostumeDescription(CostumeDescription description) {
-    this.fill = description.fill;
-    this.fillIsImage = description.fillIsImage;
-    this.scale = description.scale;
-    this.bottomHeavy = description.bottomHeavy;
-  }
-
   public CostumeDescription(
       @JsonProperty("fill") String fill,
       @JsonProperty("imageFill") boolean fillIsImage,
@@ -28,6 +21,13 @@ public class CostumeDescription extends JSONDescription {
     this.bottomHeavy = bottomHeavy;
     this.fillIsImage = fillIsImage;
     this.fill = fill;
+  }
+
+  public CostumeDescription(CostumeDescription description) {
+    this.fill = description.fill;
+    this.fillIsImage = description.fillIsImage;
+    this.scale = description.scale;
+    this.bottomHeavy = description.bottomHeavy;
   }
 
   @JsonGetter("fill")

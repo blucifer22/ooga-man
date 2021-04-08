@@ -1,0 +1,22 @@
+{
+  "costumes" : {
+    "ghost" : {
+      "fill" : "RED",
+      "imageFill" : false,
+      "scale" : 1.0,
+      "bottomHeavy" : false
+    },
+    "tile" : {
+      "fill" : "BLACK",
+      "imageFill" : false,
+      "scale" : 1.0,
+      "bottomHeavy" : false
+    },
+    "pacman" : {
+      "fill" : "themes/classic/images/pacman.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    }
+  }
+}
