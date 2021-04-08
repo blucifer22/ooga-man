@@ -1,6 +1,7 @@
 package ooga.model.leveldescription;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ooga.model.PacmanGameState;
 
@@ -16,10 +17,12 @@ public class LevelDescription extends JSONDescription {
     this.spriteLayoutDescription = spriteLayoutDescription;
   }
 
+  @JsonGetter
   public GridDescription getGridDescription() {
     return gridDescription;
   }
 
+  @JsonGetter
   public SpriteLayoutDescription getSpriteLayoutDescription() {
     return spriteLayoutDescription;
   }
