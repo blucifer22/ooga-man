@@ -1,7 +1,6 @@
 package ooga.model.sprites;
 
 import ooga.model.PacmanGameState;
-import ooga.model.PacmanGrid;
 import ooga.model.SpriteCoordinates;
 import ooga.util.Vec2;
 
@@ -28,10 +27,11 @@ public class Dot extends Sprite {
   public void uponHitBy(Sprite other, PacmanGameState state) {
     state.incrementScore(1);
     state.prepareRemove(this);
+    System.out.println("SCORE: " + state.getScore());
   }
 
   @Override
-  public void step(double dt, PacmanGrid grid, PacmanGameState pacmanGameState) {
+  public void step(double dt, PacmanGameState pacmanGameState) {
 
   }
 

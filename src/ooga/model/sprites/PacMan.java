@@ -4,7 +4,9 @@ import ooga.model.*;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.util.Vec2;
 
-/** @author George Hong */
+/**
+ * @author George Hong
+ */
 public class PacMan extends MoveableSprite {
 
   public static final String TYPE = "pacman";
@@ -33,8 +35,8 @@ public class PacMan extends MoveableSprite {
   }
 
   @Override
-  public void step(double dt, PacmanGrid grid, PacmanGameState pacmanGameState) {
-    move(dt, grid);
+  public void step(double dt, PacmanGameState pacmanGameState) {
+    move(dt, pacmanGameState.getGrid());
     handleCollisions(pacmanGameState);
   }
 

@@ -35,8 +35,8 @@ public class Ghost extends MoveableSprite {
   }
 
   @Override
-  public void step(double dt, PacmanGrid grid, PacmanGameState pacmanGameState) {
-    move(dt, grid);
+  public void step(double dt, PacmanGameState pacmanGameState) {
+    move(dt, pacmanGameState.getGrid());
   }
 
   @Override
