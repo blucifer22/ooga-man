@@ -4,6 +4,7 @@ import ooga.model.SpriteCoordinates;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.util.Vec2;
 
+/** @author Matthew Belissary */
 public class Pinky extends Ghost{
 
   public static final String TYPE = "pinky";
