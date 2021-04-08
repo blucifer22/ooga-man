@@ -4,7 +4,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ooga.view.io.HumanInputConsumer;
 import ooga.view.theme.ConcreteThemeService;
-import ooga.view.theme.ThemeService;
+import ooga.view.theme.api.ThemeService;
 import ooga.view.views.GameView;
 
 public class UIController {

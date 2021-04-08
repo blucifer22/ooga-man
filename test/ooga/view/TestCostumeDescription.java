@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
-import ooga.view.theme.CostumeDescription;
+import ooga.view.theme.serialized.CostumeDescription;
 import org.junit.jupiter.api.Test;
 
 public class TestCostumeDescription {

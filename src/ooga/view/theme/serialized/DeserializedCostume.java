@@ -1,17 +1,18 @@
-package ooga.view.theme;
+package ooga.view.theme.serialized;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
+import ooga.view.theme.api.Costume;
 
-public class SerializedCostume implements Costume {
+public class DeserializedCostume implements Costume {
 
-  private Paint fill;
-  private double scale;
-  private boolean bottomHeavy;
+  private final Paint fill;
+  private final double scale;
+  private final boolean bottomHeavy;
 
-  public SerializedCostume(CostumeDescription description) {
+  protected DeserializedCostume(CostumeDescription description) {
     this.scale = description.getScale();
     this.bottomHeavy = description.isBottomHeavy();
 
@@ -24,16 +25,16 @@ public class SerializedCostume implements Costume {
 
   @Override
   public Paint getFill() {
-    return null;
+    return this.fill;
   }
 
   @Override
   public double getScale() {
-    return 0;
+    return this.scale;
   }
 
   @Override
   public boolean isBottomHeavy() {
-    return false;
+    return this.bottomHeavy;
   }
 }

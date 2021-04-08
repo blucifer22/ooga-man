@@ -10,8 +10,8 @@ import ooga.model.api.ObservableSprite;
 import ooga.model.api.SpriteObserver;
 import ooga.util.Vec2;
 import ooga.view.internal_api.Renderable;
-import ooga.view.theme.ThemeService;
-import ooga.view.theme.ThemedObject;
+import ooga.view.theme.api.ThemeService;
+import ooga.view.theme.api.ThemedObject;
 
 /**
  * SpriteView handles the rendering of a single Sprite (SpriteObservable, technically).

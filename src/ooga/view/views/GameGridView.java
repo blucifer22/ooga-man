@@ -12,8 +12,8 @@ import ooga.model.api.ObservableGrid;
 import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.api.ObservableSprite;
 import ooga.view.internal_api.View;
-import ooga.view.theme.ThemeService;
-import ooga.view.theme.ThemedObject;
+import ooga.view.theme.api.ThemeService;
+import ooga.view.theme.api.ThemedObject;
 
 /**
  * GameGridView lays out the grid and the Sprites on the grid (a necessary combination because only

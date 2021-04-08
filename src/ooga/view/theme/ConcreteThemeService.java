@@ -5,6 +5,9 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
+import ooga.view.theme.api.Costume;
+import ooga.view.theme.api.ThemeService;
+import ooga.view.theme.api.ThemedObject;
 
 public class ConcreteThemeService implements ThemeService {
 

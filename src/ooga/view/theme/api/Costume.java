@@ -1,4 +1,4 @@
-package ooga.view.theme;
+package ooga.view.theme.api;
 
 import javafx.scene.paint.Paint;
 

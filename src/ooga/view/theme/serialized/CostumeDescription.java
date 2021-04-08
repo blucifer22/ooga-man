@@ -1,8 +1,9 @@
-package ooga.view.theme;
+package ooga.view.theme.serialized;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ooga.model.leveldescription.JSONDescription;
+import ooga.view.theme.api.Costume;
 
 public class CostumeDescription extends JSONDescription {
   private String fill;
@@ -59,5 +60,9 @@ public class CostumeDescription extends JSONDescription {
 
   public void setBottomHeavy(boolean bottomHeavy) {
     this.bottomHeavy = bottomHeavy;
+  }
+
+  public Costume getCostume() {
+    return new DeserializedCostume(this);
   }
 }

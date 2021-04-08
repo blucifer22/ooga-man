@@ -10,16 +10,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
-import ooga.model.TileCoordinates;
 import ooga.model.api.GridRebuildObserver;
-import ooga.model.api.ObservableGrid;
-import ooga.model.api.ObservableTile;
 import ooga.model.api.SpriteExistenceObserver;
-import ooga.model.api.TileEvent.EventType;
-import ooga.model.api.TileObserver;
 import ooga.view.internal_api.View;
-import ooga.view.theme.ThemeService;
-import ooga.view.theme.ThemedObject;
+import ooga.view.theme.api.ThemeService;
+import ooga.view.theme.api.ThemedObject;
 
 /**
  * GameView lays out how a round appears (the GridView in the center, information about

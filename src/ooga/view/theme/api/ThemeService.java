@@ -1,6 +1,4 @@
-package ooga.view.theme;
-
-import javafx.scene.paint.Paint;
+package ooga.view.theme.api;
 
 public interface ThemeService {
 

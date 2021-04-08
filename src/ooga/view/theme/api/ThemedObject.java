@@ -1,4 +1,4 @@
-package ooga.view.theme;
+package ooga.view.theme.api;
 
 public interface ThemedObject {
 
