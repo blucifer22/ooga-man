@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 public class TestCostumeDescription {
   @Test
   public void simpleTest() throws IOException {
-    CostumeDescription desc = new CostumeDescription("TRANSPARENT", false, 1.0, true);
+    CostumeDescription desc = new CostumeDescription("TRANSPARENT", false, 1.2, true);
     desc.toJSON("data/test.json");
     CostumeDescription cd2 = (new ObjectMapper()).readValue(new File("data/test.json"),
         CostumeDescription.class);

@@ -27,6 +27,7 @@ public class CostumeDescription extends JSONDescription {
     this.scale = scale;
     this.bottomHeavy = bottomHeavy;
     this.fillIsImage = fillIsImage;
+    this.fill = fill;
   }
 
   @JsonGetter("fill")
