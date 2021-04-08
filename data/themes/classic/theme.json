@@ -27,11 +27,17 @@
     "ghost" : {
       "fill" : "themes/classic/images/ghosts/blinky.png",
       "imageFill" : true,
-      "scale" : 2.0,
+      "scale" : 1.5,
       "bottomHeavy" : true
     },
     "tile" : {
       "fill" : "BLACK",
+      "imageFill" : false,
+      "scale" : 1.0,
+      "bottomHeavy" : false
+    },
+    "tileclosed" : {
+      "fill" : "NAVY",
       "imageFill" : false,
       "scale" : 1.0,
       "bottomHeavy" : false

@@ -26,12 +26,12 @@ public class SerializedTheme implements Theme {
       return new Costume() {
         @Override
         public Paint getFill() {
-          return Color.NAVY;
+          return Color.ORANGE;
         }
 
         @Override
         public double getScale() {
-          return 1;
+          return 0.5;
         }
 
         @Override
