@@ -64,6 +64,6 @@ public class CostumeDescription extends JSONDescription {
   }
 
   public Costume toCostume() {
-    return new DeserializedCostume(this);
+    return new SerializedCostume(this);
   }
 }

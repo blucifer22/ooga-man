@@ -6,13 +6,13 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import ooga.view.theme.api.Costume;
 
-public class DeserializedCostume implements Costume {
+public class SerializedCostume implements Costume {
 
   private final Paint fill;
   private final double scale;
   private final boolean bottomHeavy;
 
-  protected DeserializedCostume(CostumeDescription description) {
+  protected SerializedCostume(CostumeDescription description) {
     this.scale = description.getScale();
     this.bottomHeavy = description.isBottomHeavy();
 

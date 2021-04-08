@@ -7,10 +7,10 @@ import javafx.scene.paint.Paint;
 import ooga.view.theme.api.Costume;
 import ooga.view.theme.api.Theme;
 
-public class DeserializedTheme implements Theme {
+public class SerializedTheme implements Theme {
   private Map<String, Costume> costumes;
 
-  protected DeserializedTheme(ThemeDescription description) {
+  protected SerializedTheme(ThemeDescription description) {
     this.costumes = new HashMap<>();
 
     for (String key: description.getCostumes().keySet()) {

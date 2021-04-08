@@ -31,6 +31,6 @@ public class ThemeDescription extends JSONDescription {
   }
 
   public Theme toTheme() {
-    return new DeserializedTheme(this);
+    return new SerializedTheme(this);
   }
 }
