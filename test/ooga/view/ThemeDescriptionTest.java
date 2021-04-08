@@ -9,7 +9,7 @@ import ooga.view.theme.serialized.CostumeDescription;
 import ooga.view.theme.serialized.ThemeDescription;
 import org.junit.jupiter.api.Test;
 
-public class TestThemeDescriptions {
+public class ThemeDescriptionTest {
   @Test
   public void testCostumeDescription() throws IOException {
     CostumeDescription desc = new CostumeDescription("TRANSPARENT", false, 1.2, true, true);
