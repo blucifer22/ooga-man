@@ -3,7 +3,7 @@ package ooga.view;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ooga.view.io.HumanInputConsumer;
-import ooga.view.theme.ConcreteThemeService;
+import ooga.view.theme.serialized.SerializedThemeService;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.views.GameView;
 
@@ -17,7 +17,7 @@ public class UIController {
     this.primaryStage = primaryStage;
     this.inputConsumer = inputConsumer;
 
-    ThemeService themeService = new ConcreteThemeService();
+    ThemeService themeService = new SerializedThemeService();
     this.gameView = new GameView(themeService);
     
     this.primaryStage.show();

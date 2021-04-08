@@ -1,4 +1,4 @@
-package ooga.view.theme;
+package ooga.view.theme.serialized;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
@@ -8,7 +8,7 @@ import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.api.ThemedObject;
 import ooga.view.theme.serialized.ThemeDescription;
 
-public class ConcreteThemeService implements ThemeService {
+public class SerializedThemeService implements ThemeService {
 
   private static final String THEME_PATH = "data/themes/";
   private static final String THEME_MANIFEST_NAME = "/theme.json";
@@ -16,7 +16,7 @@ public class ConcreteThemeService implements ThemeService {
   private final HashSet<ThemedObject> observers;
   private Theme theme;
 
-  public ConcreteThemeService() {
+  public SerializedThemeService() {
     observers = new HashSet<>();
     setTheme(DEFAULT_THEME_NAME);
   }
