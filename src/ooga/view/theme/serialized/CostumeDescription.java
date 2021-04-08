@@ -62,7 +62,7 @@ public class CostumeDescription extends JSONDescription {
     this.bottomHeavy = bottomHeavy;
   }
 
-  public Costume getCostume() {
+  public Costume toCostume() {
     return new DeserializedCostume(this);
   }
 }
