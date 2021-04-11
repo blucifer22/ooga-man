@@ -5,24 +5,14 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import ooga.model.BlinkyAI;
-import ooga.model.GhostAI;
+import ooga.model.ChaseAI;
 import ooga.model.InputSource;
 import ooga.model.PacmanGameState;
 import ooga.model.SpriteCoordinates;
-import ooga.model.TileCoordinates;
-import ooga.model.api.ObservableGrid;
-import ooga.model.api.ObservableSprite;
-import ooga.model.api.ObservableTile;
-import ooga.model.api.SpriteEvent.EventType;
-import ooga.model.api.SpriteObserver;
-import ooga.model.api.TileEvent;
-import ooga.model.api.TileObserver;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Dot;
 import ooga.model.sprites.PacMan;
-import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 import ooga.view.UIController;
 import ooga.view.views.GameView;
@@ -60,7 +50,7 @@ public class DemoController {
 
     pacman.setInputSource(this.inputManager);
     //this.ghostAI = new GhostAI(pgs.getGrid(), blinky, pacman, 0.9);
-    InputSource in = new BlinkyAI(pgs.getGrid(), blinky, pacman, 0.9);
+    InputSource in = new ChaseAI(pgs.getGrid(), blinky, pacman, 0.9);
     blinky.setInputSource(in);
 
     pgs.addSprite(pacman);

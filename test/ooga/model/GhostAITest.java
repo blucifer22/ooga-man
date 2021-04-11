@@ -3,7 +3,6 @@ package ooga.model;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -36,7 +35,7 @@ public class GhostAITest {
   @Test
   public void testBlinkyDecisionUpwards() {
     blinky = new Blinky(new SpriteCoordinates(new Vec2(1.5, 1.9)), new Vec2(0, -1), 4);
-    InputSource in = new BlinkyAI(grid, blinky, pacMan, -1);
+    InputSource in = new ChaseAI(grid, blinky, pacMan, -1);
     blinky.setInputSource(in);
     Vec2 req = in.getRequestedDirection();
     assertEquals(new Vec2(1, 0), req);

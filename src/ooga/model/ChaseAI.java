@@ -1,38 +1,53 @@
 package ooga.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.PacMan;
 import ooga.util.Vec2;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * An aggressive AI analog to the classic Blinky Ghost
+ * AI implementation for a Ghost to track a target
  *
  * @author George Hong
  */
-public class BlinkyAI extends GhostAI {
+public class ChaseAI extends GhostAI {
 
-  public BlinkyAI(PacmanGrid grid, Ghost ghost, PacMan target,
+  public ChaseAI(PacmanGrid grid, Ghost ghost, PacMan target,
       double intelligence) {
     super(grid, ghost, target, intelligence);
   }
 
+  /**
+   * The ChaseAI algorithm retrieves the currentTilePosition of its targets.  At any point in
+   * time, it considers all 4 possible options.  It attempts to choose the options resulting in the
+   * smallest distance between it and its target.  If walls obstruct an option, it will attempt to
+   * choose the next best option.  The ChaseAI will not select a direction opposite of its current
+   * direction, consistent with the rules of classic Pac-Man.
+   *
+   * @return direction to move the ghost
+   */
   @Override
   public Vec2 getRequestedDirection() {
     Vec2 targetTilePos = getTarget().getCoordinates().getTileCoordinates().toVec2();
     Vec2 currentTilePos = getSelf().getCoordinates().getTileCoordinates().toVec2();
 
-    List<Vec2> directions = new ArrayList<>();
-    directions.add(new Vec2(-1.0, 0));
-    directions.add(new Vec2(1.0, 0));
-    directions.add(new Vec2(0.0, 1.0));
-    directions.add(new Vec2(0.0, -1.0));
+    return reduceDistance(targetTilePos, currentTilePos);
+  }
+
+  @NotNull
+  protected Vec2 reduceDistance(Vec2 targetTilePos, Vec2 currentTilePos) {
+    Vec2[] directionsArray = {
+        new Vec2(-1, 0),
+        new Vec2(1, 0),
+        new Vec2(0, 1),
+        new Vec2(0, -1)
+    };
+    Vec2[] directions = directionsArray;
 
     List<DirectionDistanceWrapper> distances = new ArrayList<>();
     for (Vec2 direction : directions) {
@@ -40,10 +55,11 @@ public class BlinkyAI extends GhostAI {
       distances.add(new DirectionDistanceWrapper(direction, nextPos.distance(targetTilePos)));
     }
     Collections.sort(distances);
-    //Collections.sort(directions, Comparator.comparing(item -> distances.indexOf(item)));
     Vec2 currentReverseDirection = getSelf().getDirection().scalarMult(-1);
-    while (directions.size() > 0) {
-      Vec2 cand = distances.remove(0).getVec();
+    Queue<DirectionDistanceWrapper> queue = new LinkedList<>(distances);
+
+    while (!queue.isEmpty()) {
+      Vec2 cand = queue.remove().getVec();
       Vec2 target = currentTilePos.add(cand);
       if (!isOpenToGhosts(target) || cand.equals(currentReverseDirection)) {
         continue;
@@ -73,7 +89,7 @@ public class BlinkyAI extends GhostAI {
     }
 
     @Override
-    public int compareTo(@NotNull BlinkyAI.DirectionDistanceWrapper o) {
+    public int compareTo(@NotNull ChaseAI.DirectionDistanceWrapper o) {
       return Double.compare(this.dis, o.dis);
     }
   }
