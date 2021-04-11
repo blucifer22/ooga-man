@@ -5,22 +5,14 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import ooga.model.GhostAI;
+import ooga.model.ChaseAI;
+import ooga.model.InputSource;
 import ooga.model.PacmanGameState;
 import ooga.model.SpriteCoordinates;
-import ooga.model.TileCoordinates;
-import ooga.model.api.ObservableGrid;
-import ooga.model.api.ObservableSprite;
-import ooga.model.api.ObservableTile;
-import ooga.model.api.SpriteEvent.EventType;
-import ooga.model.api.SpriteObserver;
-import ooga.model.api.TileEvent;
-import ooga.model.api.TileObserver;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Dot;
 import ooga.model.sprites.PacMan;
-import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 import ooga.view.UIController;
 import ooga.view.views.GameView;
@@ -30,7 +22,6 @@ public class DemoController {
   private static final double TIMESTEP = 1.0 / 60.0;
   private final UIController uiController;
   private final HumanInputManager inputManager;
-  private GhostAI ghostAI;
 
   public DemoController(Stage primaryStage) {
     this.inputManager = new HumanInputManager();
@@ -58,8 +49,9 @@ public class DemoController {
     Dot dot2 = new Dot(new SpriteCoordinates(new Vec2(1.5, 3.5)), new Vec2(0, 0));
 
     pacman.setInputSource(this.inputManager);
-    this.ghostAI = new GhostAI(pgs.getGrid(), blinky, pacman, 0.9);
-    blinky.setInputSource(this.ghostAI);
+    //this.ghostAI = new GhostAI(pgs.getGrid(), blinky, pacman, 0.9);
+    InputSource in = new ChaseAI(pgs.getGrid(), blinky, pacman, 0.9);
+    blinky.setInputSource(in);
 
     pgs.addSprite(pacman);
     pgs.addSprite(blinky);
