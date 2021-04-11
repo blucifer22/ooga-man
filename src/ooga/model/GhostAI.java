@@ -27,6 +27,18 @@ public class GhostAI implements InputSource {
     this.intelligence = intelligence;
   }
 
+  protected Sprite getTarget() {
+    return target;
+  }
+
+  protected Sprite getSelf() {
+    return ghost;
+  }
+
+  protected PacmanGrid getPacmanGrid() {
+    return pacmanGrid;
+  }
+
   @Override
   public Vec2 getRequestedDirection() {
     // TODO: Implement this!
@@ -60,4 +72,5 @@ public class GhostAI implements InputSource {
     CHASE,
     FRIGHTENED
   }
+
 }

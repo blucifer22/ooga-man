@@ -5,7 +5,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import ooga.model.BlinkyAI;
 import ooga.model.GhostAI;
+import ooga.model.InputSource;
 import ooga.model.PacmanGameState;
 import ooga.model.SpriteCoordinates;
 import ooga.model.TileCoordinates;
@@ -30,7 +32,6 @@ public class DemoController {
   private static final double TIMESTEP = 1.0 / 60.0;
   private final UIController uiController;
   private final HumanInputManager inputManager;
-  private GhostAI ghostAI;
 
   public DemoController(Stage primaryStage) {
     this.inputManager = new HumanInputManager();
@@ -58,8 +59,9 @@ public class DemoController {
     Dot dot2 = new Dot(new SpriteCoordinates(new Vec2(1.5, 3.5)), new Vec2(0, 0));
 
     pacman.setInputSource(this.inputManager);
-    this.ghostAI = new GhostAI(pgs.getGrid(), blinky, pacman, 0.9);
-    blinky.setInputSource(this.ghostAI);
+    //this.ghostAI = new GhostAI(pgs.getGrid(), blinky, pacman, 0.9);
+    InputSource in = new BlinkyAI(pgs.getGrid(), blinky, pacman, 0.9);
+    blinky.setInputSource(in);
 
     pgs.addSprite(pacman);
     pgs.addSprite(blinky);
