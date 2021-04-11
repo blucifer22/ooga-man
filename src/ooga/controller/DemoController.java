@@ -5,9 +5,11 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import ooga.model.BlinkyAI;
 import ooga.model.ChaseAI;
 import ooga.model.InputSource;
 import ooga.model.PacmanGameState;
+import ooga.model.PinkyAI;
 import ooga.model.SpriteCoordinates;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.sprites.Ghost;
@@ -44,13 +46,13 @@ public class DemoController {
     }
 
     PacMan pacman = new PacMan(new SpriteCoordinates(new Vec2(1.5, 1.5)), new Vec2(0, 0), 5.0);
-    Ghost blinky = new Ghost(new SpriteCoordinates(new Vec2(13.5, 13.5)), new Vec2(0, 0), 5.0);
+    Ghost blinky = new Ghost(new SpriteCoordinates(new Vec2(13.5, 13.5)), new Vec2(0, 0), 4.5);
     Dot dot1 = new Dot(new SpriteCoordinates(new Vec2(4.5, 4.5)), new Vec2(0, 0));
     Dot dot2 = new Dot(new SpriteCoordinates(new Vec2(1.5, 3.5)), new Vec2(0, 0));
 
     pacman.setInputSource(this.inputManager);
     //this.ghostAI = new GhostAI(pgs.getGrid(), blinky, pacman, 0.9);
-    InputSource in = new ChaseAI(pgs.getGrid(), blinky, pacman, 0.9);
+    InputSource in = new PinkyAI(pgs.getGrid(), blinky, pacman, 0.9);
     blinky.setInputSource(in);
 
     pgs.addSprite(pacman);
