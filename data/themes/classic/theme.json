@@ -55,6 +55,13 @@
       "scale" : 0.25,
       "bottomHeavy" : false,
       "rotates": false
+    },
+    "powerpill" : {
+      "fill" : "themes/classic/images/consumables/powerpill.png",
+      "imageFill" : true,
+      "scale" : 0.5,
+      "bottomHeavy" : false,
+      "rotates": false
     }
   }
 }
