@@ -1,5 +1,6 @@
 package ooga.model.sprites;
 
+import ooga.model.MutableGameState;
 import ooga.model.PacmanGameState;
 import ooga.model.SpriteCoordinates;
 import ooga.util.Vec2;
@@ -21,15 +22,16 @@ public class PowerPill extends Sprite {
   }
 
   @Override
-  public void uponHitBy(Sprite other, PacmanGameState state) {
+  public void uponHitBy(Sprite other, MutableGameState state) {
     state.prepareRemove(this);
     System.out.println("Powerup Consumed");
   }
 
   @Override
-  public void step(double dt, PacmanGameState pacmanGameState) {
+  public void step(double dt, MutableGameState pacmanGameState) {
 
   }
+
 
   @Override
   public boolean mustBeConsumed() {
