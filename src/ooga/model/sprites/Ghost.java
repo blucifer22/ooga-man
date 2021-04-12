@@ -30,12 +30,12 @@ public class Ghost extends MoveableSprite {
   }
 
   @Override
-  public void uponHitBy(Sprite other, PacmanGameState state) {
+  public void uponHitBy(Sprite other, MutableGameState state) {
 
   }
 
   @Override
-  public void step(double dt, PacmanGameState pacmanGameState) {
+  public void step(double dt, MutableGameState pacmanGameState) {
     move(dt, pacmanGameState.getGrid());
   }
 

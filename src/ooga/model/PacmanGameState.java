@@ -19,7 +19,7 @@ import ooga.model.sprites.Sprite;
  * This class contains all the state of a in-progress pacman game and serves as the top-level class
  * in the model.
  */
-public class PacmanGameState implements SpriteExistenceObservable, GridRebuildObservable {
+public class PacmanGameState implements SpriteExistenceObservable, GridRebuildObservable, MutableGameState {
 
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
@@ -43,14 +43,17 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
   /**
    * @param score
    */
+  @Override
   public void incrementScore(int score) {
     pacManScore += score;
   }
 
+  @Override
   public int getScore() {
     return pacManScore;
   }
 
+  @Override
   public void prepareRemove(Sprite sprite) {
     toDelete.add(sprite);
     notifySpriteDestruction(sprite);
@@ -112,6 +115,7 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
    * @param sprite
    * @return
    */
+  @Override
   public List<Sprite> getCollidingWith(Sprite sprite) {
     TileCoordinates tc = sprite.getCoordinates().getTileCoordinates();
     List<Sprite> collidingSprites = new ArrayList<>();
@@ -123,6 +127,7 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
     return collidingSprites;
   }
 
+  @Override
   public void addSprite(Sprite sprite) {
     sprites.add(sprite);
     notifySpriteCreation(sprite);
@@ -132,6 +137,7 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
     return sprites;
   }
 
+  @Override
   public PacmanGrid getGrid() {
     return grid;
   }
@@ -162,5 +168,10 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
   @Override
   public void addGridRebuildObserver(GridRebuildObserver observer) {
     gridRebuildObservers.add(observer);
+  }
+
+  @Override
+  public void registerEventListener(PacmanEventType type, Sprite listener) {
+    // TODO
   }
 }

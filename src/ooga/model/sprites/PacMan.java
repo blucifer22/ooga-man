@@ -30,7 +30,7 @@ public class PacMan extends MoveableSprite {
   }
 
   @Override
-  public void uponHitBy(Sprite other, PacmanGameState state) {
+  public void uponHitBy(Sprite other, MutableGameState state) {
     if (other.isDeadlyToPacMan()) {
       state.prepareRemove(this);
       System.out.println("GAMEOVER");
@@ -38,7 +38,7 @@ public class PacMan extends MoveableSprite {
   }
 
   @Override
-  public void step(double dt, PacmanGameState pacmanGameState) {
+  public void step(double dt, MutableGameState pacmanGameState) {
     move(dt, pacmanGameState.getGrid());
     handleCollisions(pacmanGameState);
   }

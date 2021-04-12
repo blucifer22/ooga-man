@@ -75,7 +75,7 @@ public abstract class Sprite implements ObservableSprite {
     return type;
   }
 
-  protected String setType(String newType) {
+  protected void setType(String newType) {
     type = newType;
     notifyObservers(TYPE_CHANGE);
   }
@@ -144,7 +144,7 @@ public abstract class Sprite implements ObservableSprite {
    *
    * @param state
    */
-  public void handleCollisions(PacmanGameState state) {
+  public void handleCollisions(MutableGameState state) {
     List<Sprite> sprites = state.getCollidingWith(this);
     for (Sprite other : sprites) {
       this.uponHitBy(other, state);
@@ -160,7 +160,7 @@ public abstract class Sprite implements ObservableSprite {
    * @param state current state of the game, allowing Sprites to perform actions such as remove
    *              themselves from the game or adjust the score
    */
-  public abstract void uponHitBy(Sprite other, PacmanGameState state);
+  public abstract void uponHitBy(Sprite other, MutableGameState state);
 
   /**
    * Adds an observer that will be notified whenever any of the subset of observedEvents occurs
@@ -204,9 +204,13 @@ public abstract class Sprite implements ObservableSprite {
   }
 
   // advance state by dt seconds
-  public abstract void step(double dt, PacmanGameState pacmanGameState);
+  public abstract void step(double dt, MutableGameState pacmanGameState);
 
   public abstract boolean mustBeConsumed();
 
   public abstract boolean isDeadlyToPacMan();
+
+  public void uponEvent(PacmanEventType event) {
+    // todo: make abstract
+  }
 }
