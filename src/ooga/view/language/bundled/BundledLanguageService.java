@@ -2,6 +2,7 @@ package ooga.view.language.bundled;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -39,13 +40,18 @@ public class BundledLanguageService implements LanguageService {
       keysToUpdate.removeAll(newLang.keySet());
 
       if (!keysToUpdate.isEmpty()) {
-        throw new IllegalArgumentException(String.format(newLang.getString("langvalerror"),
-            languageName, keysToUpdate));
+        try {
+          throw new IllegalArgumentException(String.format(newLang.getString("missingvalerror"),
+              languageName, keysToUpdate));
+        } catch (MissingResourceException e) {
+          // THIS VALUE MUST BE HARD-CODED: the EXCEPTION here is that resource bundle error
+          // messages are are missing
+          throw new IllegalArgumentException(String.format("Corrupted or incomplete resource bundle: %s.",
+              languageName));
+        }
       }
     }
   }
-
-
 
   @Override
   public ReadOnlyStringProperty getLocalizedString(String s) {
