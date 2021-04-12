@@ -63,7 +63,7 @@ class TestObserver implements SpriteObserver {
 //    System.out.println(e.getEventType());
     lastEventType = e.getEventType();
     lastSender = e.getSender().getType();
-    lastCoordinates = e.getSender().getCenter();
+    lastCoordinates = e.getSender().getCoordinates();
   }
 
   public SpriteCoordinates getLastCoordinates() {
@@ -94,7 +94,7 @@ class TestObservableSprite extends Sprite {
   }
 
   @Override
-  public SpriteCoordinates getCenter() {
+  public SpriteCoordinates getCoordinates() {
     return getCoordinates();
   }
 

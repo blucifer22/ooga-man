@@ -14,7 +14,7 @@ public class Dot extends Sprite {
   }
 
   @Override
-  public SpriteCoordinates getCenter() {
+  public SpriteCoordinates getCoordinates() {
     return getCoordinates();
   }
 

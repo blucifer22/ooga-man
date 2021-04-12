@@ -38,7 +38,7 @@ public class Ghost extends MoveableSprite {
   }
 
   @Override
-  public SpriteCoordinates getCenter() {
+  public SpriteCoordinates getCoordinates() {
     return getCoordinates();
   }
 
