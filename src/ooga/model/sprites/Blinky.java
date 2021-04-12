@@ -4,6 +4,7 @@ import ooga.model.SpriteCoordinates;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.util.Vec2;
 
+/** @author Matthew Belissary */
 public class Blinky extends Ghost{
 
   public static final String TYPE = "blinky";

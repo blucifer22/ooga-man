@@ -83,7 +83,7 @@ public class SpriteViewTest extends ApplicationTest {
     }
 
     @Override
-    public SpriteCoordinates getCenter() {
+    public SpriteCoordinates getCoordinates() {
       return this.sc;
     }
 

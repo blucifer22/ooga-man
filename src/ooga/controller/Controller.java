@@ -23,6 +23,7 @@ import ooga.model.sprites.Dot;
 import ooga.model.sprites.Inky;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Pinky;
+import ooga.model.sprites.PowerPill;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 import ooga.view.UIController;
@@ -66,6 +67,9 @@ public class Controller {
 
     Dot dot1 = new Dot(new SpriteCoordinates(new Vec2(4.5, 4.5)), new Vec2(0, 0));
     Dot dot2 = new Dot(new SpriteCoordinates(new Vec2(1.5, 3.5)), new Vec2(0, 0));
+    Dot dot3 = new Dot(new SpriteCoordinates(new Vec2(1.5, 8.5)), new Vec2(0, 0));
+
+    PowerPill powerPill = new PowerPill(new SpriteCoordinates(new Vec2(1.5, 6.5)), new Vec2(0, 0));
 
     pacman.setInputSource(this.inputManager);
 
@@ -85,6 +89,8 @@ public class Controller {
     pgs.addSprite(clyde);
     pgs.addSprite(dot1);
     pgs.addSprite(dot2);
+    pgs.addSprite(dot3);
+    pgs.addSprite(powerPill);
 
     uiController.showGameView();
 
