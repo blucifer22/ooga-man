@@ -14,11 +14,6 @@ public class Dot extends Sprite {
   }
 
   @Override
-  public SpriteCoordinates getCoordinates() {
-    return getCoordinates();
-  }
-
-  @Override
   public String getType() {
     return "dot";
   }
@@ -41,5 +36,7 @@ public class Dot extends Sprite {
   }
 
   @Override
-  public boolean isDeadlyToPacMan() { return false; }
+  public boolean isDeadlyToPacMan() {
+    return false;
+  }
 }

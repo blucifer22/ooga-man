@@ -94,11 +94,6 @@ class TestObservableSprite extends Sprite {
   }
 
   @Override
-  public SpriteCoordinates getCoordinates() {
-    return getCoordinates();
-  }
-
-  @Override
   public void step(double dt, PacmanGameState pacmanGameState) {
     setPosition(new Vec2(0.5, 0));
     notifyObservers(EventType.TRANSLATE);
@@ -110,5 +105,7 @@ class TestObservableSprite extends Sprite {
   }
 
   @Override
-  public boolean isDeadlyToPacMan() { return false; }
+  public boolean isDeadlyToPacMan() {
+    return false;
+  }
 }
