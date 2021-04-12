@@ -5,7 +5,6 @@ import javafx.stage.Stage;
 import ooga.view.io.HumanInputConsumer;
 import ooga.view.language.bundled.BundledLanguageService;
 import ooga.view.theme.serialized.SerializedThemeService;
-import ooga.view.theme.api.ThemeService;
 import ooga.view.views.GameView;
 
 public class UIController {
@@ -45,6 +44,7 @@ public class UIController {
     redirectInput(gameViewScene);
   }
 
+  // TODO: abstract GameView to an interface here
   public GameView getGameView() {
     return this.gameView;
   }
