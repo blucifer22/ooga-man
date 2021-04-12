@@ -41,7 +41,8 @@ public class Controller {
   public Controller(Stage primaryStage) {
     this.inputManager = new HumanInputManager();
     this.uiController = new UIController(primaryStage, this.inputManager);
-    startGame();
+    uiController.showMenu();
+    //startGame();
   }
 
   public void startGame() {

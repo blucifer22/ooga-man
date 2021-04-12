@@ -6,6 +6,7 @@ import ooga.view.io.HumanInputConsumer;
 import ooga.view.language.bundled.BundledLanguageService;
 import ooga.view.theme.serialized.SerializedThemeService;
 import ooga.view.views.GameView;
+import ooga.view.views.MenuView;
 
 public class UIController {
 
@@ -33,7 +34,8 @@ public class UIController {
   }
 
   public void showMenu() {
-    // TODO: show menu
+    this.primaryStage.setScene(new Scene(new MenuView(this.themeService, this.languageService).getRenderingNode(),
+        400, 400));
   }
 
   public void showGameView() {
