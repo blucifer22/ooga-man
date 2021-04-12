@@ -41,6 +41,10 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
     pacmanPowerUpObservers = new HashMap<>();
   }
 
+  private void initializeEventObserverMap(){
+    // TODO: implement
+  }
+
   public void setDefaultInputSource() {
 
   }
