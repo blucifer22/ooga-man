@@ -11,12 +11,21 @@ import ooga.view.language.api.LanguageService;
 
 public class BundledLanguageService implements LanguageService {
 
-  private static final String LANGUAGE_ROOT = "resources.languages";
+  private static final String DEFAULT_LANGUAGE_ROOT = "resources.languages";
   private static final String DEFAULT_LANGUAGE = "english";
+
+  private final String languageRoot;
   private final HashMap<String, StringProperty> strings;
 
   public BundledLanguageService() {
     this.strings = new HashMap<>();
+    this.languageRoot = DEFAULT_LANGUAGE_ROOT;
+    this.loadDefaultLanguage();
+  }
+
+  public BundledLanguageService(String languageRoot) {
+    this.strings = new HashMap<>();
+    this.languageRoot = languageRoot;
     this.loadDefaultLanguage();
   }
 
@@ -29,7 +38,7 @@ public class BundledLanguageService implements LanguageService {
   }
 
   private void updatePropertyValues(String languageName, boolean initial) {
-    ResourceBundle newLang = ResourceBundle.getBundle(LANGUAGE_ROOT+"/"+languageName);
+    ResourceBundle newLang = ResourceBundle.getBundle(languageRoot +"/"+languageName);
 
     for (String key: newLang.keySet()) {
       strings.putIfAbsent(key, new SimpleStringProperty());
