@@ -41,13 +41,12 @@ public class ChaseAI extends GhostAI {
 
   @NotNull
   protected Vec2 reduceDistance(Vec2 targetTilePos, Vec2 currentTilePos) {
-    Vec2[] directionsArray = {
+    Vec2[] directions = {
         new Vec2(-1, 0),
         new Vec2(1, 0),
         new Vec2(0, 1),
         new Vec2(0, -1)
     };
-    Vec2[] directions = directionsArray;
 
     List<DirectionDistanceWrapper> distances = new ArrayList<>();
     for (Vec2 direction : directions) {

@@ -7,7 +7,7 @@ public interface ObservableSprite {
 
   String getType();
 
-  SpriteCoordinates getCenter();
+  SpriteCoordinates getCoordinates();
 
   Vec2 getDirection();
 

@@ -4,7 +4,9 @@ import ooga.model.*;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.util.Vec2;
 
-/** @author Matthew Belissary */
+/**
+ * @author Matthew Belissary
+ */
 public class Ghost extends MoveableSprite {
 
   public static final String TYPE = "ghost";
@@ -38,15 +40,12 @@ public class Ghost extends MoveableSprite {
   }
 
   @Override
-  public SpriteCoordinates getCenter() {
-    return getCoordinates();
-  }
-
-  @Override
   public boolean mustBeConsumed() {
     return false;
   }
 
   @Override
-  public boolean isDeadlyToPacMan() { return true; }
+  public boolean isDeadlyToPacMan() {
+    return true;
+  }
 }
