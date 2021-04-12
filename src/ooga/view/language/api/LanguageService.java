@@ -1,4 +1,4 @@
-package ooga.view.language;
+package ooga.view.language.api;
 
 import javafx.beans.property.ReadOnlyStringProperty;
 

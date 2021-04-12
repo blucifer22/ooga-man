@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import ooga.view.language.LanguageService;
+import ooga.view.language.api.LanguageService;
 
 public class BundledLanguageService implements LanguageService {
 
