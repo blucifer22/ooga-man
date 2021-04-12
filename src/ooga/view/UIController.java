@@ -3,6 +3,7 @@ package ooga.view;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ooga.view.io.HumanInputConsumer;
+import ooga.view.language.bundled.BundledLanguageService;
 import ooga.view.theme.serialized.SerializedThemeService;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.views.GameView;
@@ -11,15 +12,24 @@ public class UIController {
 
   private final Stage primaryStage;
   private final GameView gameView;
+  private final BundledLanguageService languageService;
+  private final SerializedThemeService themeService;
   private final HumanInputConsumer inputConsumer;
 
   public UIController(Stage primaryStage, HumanInputConsumer inputConsumer) {
+    // Configure Data Sources & Displays
     this.primaryStage = primaryStage;
     this.inputConsumer = inputConsumer;
+    this.languageService = new BundledLanguageService();
+    this.themeService = new SerializedThemeService();
 
-    ThemeService themeService = new SerializedThemeService();
-    this.gameView = new GameView(themeService);
-    
+    // Stage Prep
+    this.primaryStage.titleProperty().bind(this.languageService.getLocalizedString("pacman"));
+
+    // Prep Game View
+    this.gameView = new GameView(this.themeService);
+
+    // Allow user interaction
     this.primaryStage.show();
   }
 
