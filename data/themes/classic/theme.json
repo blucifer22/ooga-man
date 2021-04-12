@@ -76,6 +76,13 @@
       "scale" : 0.5,
       "bottomHeavy" : false,
       "rotates": false
+    },
+    "cherry" : {
+      "fill" : "themes/classic/images/consumables/cherries.png",
+      "imageFill" : true,
+      "scale" : 0.5,
+      "bottomHeavy" : false,
+      "rotates": false
     }
   }
 }
