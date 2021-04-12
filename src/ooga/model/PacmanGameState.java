@@ -1,12 +1,15 @@
 package ooga.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import ooga.model.api.GridRebuildObservable;
 import ooga.model.api.GridRebuildObserver;
+import ooga.model.api.PacmanPowerupEventObserver;
 import ooga.model.api.SpriteExistenceObservable;
 import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.leveldescription.GridDescription;
@@ -23,6 +26,8 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
 
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
+  private final Map<PacmanPowerupEvent, Set<PacmanPowerupEventObserver>> pacmanPowerUpObservers;
+
   private final Collection<Sprite> sprites;
   private final Set<Sprite> toDelete;
   private PacmanGrid grid;
@@ -33,6 +38,7 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
     gridRebuildObservers = new HashSet<>();
     toDelete = new HashSet<>();
     sprites = new LinkedList<>();
+    pacmanPowerUpObservers = new HashMap<>();
   }
 
   public void setDefaultInputSource() {
@@ -171,7 +177,7 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
   }
 
   @Override
-  public void registerEventListener(PacmanEventType type, Sprite listener) {
+  public void registerEventListener(PacmanPowerupEvent type, Sprite listener) {
     // TODO
   }
 }

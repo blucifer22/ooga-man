@@ -210,7 +210,7 @@ public abstract class Sprite implements ObservableSprite {
 
   public abstract boolean isDeadlyToPacMan();
 
-  public void uponEvent(PacmanEventType event) {
+  public void uponEvent(PacmanPowerupEvent event) {
     // todo: make abstract
   }
 }

@@ -26,5 +26,5 @@ public interface MutableGameState {
 
     PacmanGrid getGrid();
 
-    void registerEventListener(PacmanEventType type, Sprite listener);
+    void registerEventListener(PacmanPowerupEvent type, Sprite listener);
 }

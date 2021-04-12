@@ -1,10 +1,10 @@
 package ooga.model;
 
 /**
- * PacmanEventTypes correspond to Power-pill abilities that affect multiple Sprites and have limited
- * duration.
+ * PacmanPowerupEvent correspond to Power-pill abilities that affect multiple Sprites and have limited
+ * duration.  They include both activate and deactivate corresponding to when an effect ends.
  */
-public enum PacmanEventType {
+public enum PacmanPowerupEvent {
   //    POWER_PILL_ACTIVATED,
 //    POWER_PILL_DEACTIVATED,
   SPEED_UP_ACTIVATED,
