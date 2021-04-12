@@ -17,6 +17,7 @@ import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Dot;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Pinky;
+import ooga.model.sprites.PowerPill;
 import ooga.util.Vec2;
 import ooga.view.UIController;
 import ooga.view.views.GameView;
@@ -52,6 +53,7 @@ public class DemoController {
     Ghost pinky = new Pinky(new SpriteCoordinates(new Vec2(1.5, 13.5)), new Vec2(0, 0), 4);
     Dot dot1 = new Dot(new SpriteCoordinates(new Vec2(4.5, 4.5)), new Vec2(0, 0));
     Dot dot2 = new Dot(new SpriteCoordinates(new Vec2(1.5, 3.5)), new Vec2(0, 0));
+    PowerPill powerPill = new PowerPill(new SpriteCoordinates(new Vec2(1.5, 6.5)), new Vec2(0, 0));
 
     pacman.setInputSource(this.inputManager);
     InputSource inBlinky = new BlinkyAI(pgs.getGrid(), blinky, pacman, 0.9);
@@ -64,6 +66,7 @@ public class DemoController {
     pgs.addSprite(pinky);
     pgs.addSprite(dot1);
     pgs.addSprite(dot2);
+    pgs.addSprite(powerPill);
 
     uiController.showGameView();
 
