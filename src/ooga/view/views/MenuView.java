@@ -9,7 +9,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import ooga.view.MainMenuResponder;
 import ooga.view.internal_api.View;
 import ooga.view.language.api.LanguageService;

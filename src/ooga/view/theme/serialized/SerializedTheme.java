@@ -8,7 +8,7 @@ import ooga.view.theme.api.Costume;
 import ooga.view.theme.api.Theme;
 
 public class SerializedTheme implements Theme {
-  private Map<String, Costume> costumes;
+  private final Map<String, Costume> costumes;
 
   protected SerializedTheme(ThemeDescription description) {
     this.costumes = new HashMap<>();
