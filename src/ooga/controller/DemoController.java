@@ -54,7 +54,10 @@ public class DemoController implements GameStateController {
     Ghost pinky = new Pinky(new SpriteCoordinates(new Vec2(1.5, 13.5)), new Vec2(0, 0), 4);
     Dot dot1 = new Dot(new SpriteCoordinates(new Vec2(4.5, 4.5)), new Vec2(0, 0));
     Dot dot2 = new Dot(new SpriteCoordinates(new Vec2(1.5, 3.5)), new Vec2(0, 0));
-    PowerPill powerPill = new PowerPill(new SpriteCoordinates(new Vec2(1.5, 6.5)), new Vec2(0, 0));
+    PowerPill powerPill1 = new PowerPill(new SpriteCoordinates(new Vec2(1.5, 6.5)), new Vec2(0, 0));
+    PowerPill powerPill2 = new PowerPill(new SpriteCoordinates(new Vec2(1.5, 9.5)), new Vec2(0, 0));
+    PowerPill powerPill3 = new PowerPill(new SpriteCoordinates(new Vec2(4.5, 15.5)), new Vec2(0, 0));
+    PowerPill powerPill4 = new PowerPill(new SpriteCoordinates(new Vec2(6.5, 6.5)), new Vec2(0, 0));
     Cherry cherry = new Cherry(new SpriteCoordinates(new Vec2(1.5, 9.5)), new Vec2(0, 0));
 
     pacman.setInputSource(this.inputManager);
@@ -64,11 +67,14 @@ public class DemoController implements GameStateController {
     pinky.setInputSource(inPinky);
 
     pgs.addSprite(pacman);
-    pgs.addSprite(blinky);
-    pgs.addSprite(pinky);
+//    pgs.addSprite(blinky);
+//    pgs.addSprite(pinky);
     pgs.addSprite(dot1);
     pgs.addSprite(dot2);
-    pgs.addSprite(powerPill);
+    pgs.addSprite(powerPill1);
+    pgs.addSprite(powerPill2);
+    pgs.addSprite(powerPill3);
+    pgs.addSprite(powerPill4);
     pgs.addSprite(cherry);
 
     uiController.showGameView();
