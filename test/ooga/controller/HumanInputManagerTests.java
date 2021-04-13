@@ -4,27 +4,27 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.security.Key;
 import javafx.scene.input.KeyCode;
-import ooga.controller.HumanInputManager;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class HumanInputManagerTests {
 
-  HumanInputManager inputManager;
+  HumanInputManager player1InputManager;
+  HumanInputManager player2InputManager;
 
   @BeforeEach
   public void setupHumanInputManager() {
-    inputManager = new HumanInputManager(KeybindingType.PLAYER_1);
+    player1InputManager = new HumanInputManager(KeybindingType.PLAYER_1);
+    player2InputManager = new HumanInputManager(KeybindingType.PLAYER_2);
   }
 
   @Test
   public void testUpOnKeyPress() {
     // Add a key press
-    inputManager.onKeyPress(KeyCode.UP);
-    Vec2 ret = inputManager.getRequestedDirection();
+    player1InputManager.onKeyPress(KeyCode.UP);
+    Vec2 ret = player1InputManager.getRequestedDirection();
     assertEquals(ret.getX(), 0);
     assertEquals(ret.getY(), -1);
   }
@@ -32,10 +32,10 @@ public class HumanInputManagerTests {
   @Test
   public void testMultipleOnKeyPress() {
     // Add some key presses
-    inputManager.onKeyPress(KeyCode.UP);
-    inputManager.onKeyPress(KeyCode.DOWN);
-    inputManager.onKeyPress(KeyCode.RIGHT);
-    Vec2 ret = inputManager.getRequestedDirection();
+    player1InputManager.onKeyPress(KeyCode.UP);
+    player1InputManager.onKeyPress(KeyCode.DOWN);
+    player1InputManager.onKeyPress(KeyCode.RIGHT);
+    Vec2 ret = player1InputManager.getRequestedDirection();
     assertEquals(ret.getX(), 1);
     assertEquals(ret.getY(), 0);
   }
@@ -43,47 +43,47 @@ public class HumanInputManagerTests {
   @Test
   public void testAdditionAndRemoval() {
     // Add and then remove some key presses
-    inputManager.onKeyPress(KeyCode.UP);
-    inputManager.onKeyRelease(KeyCode.UP);
-    inputManager.onKeyPress(KeyCode.DOWN);
-    Vec2 ret = inputManager.getRequestedDirection();
+    player1InputManager.onKeyPress(KeyCode.UP);
+    player1InputManager.onKeyRelease(KeyCode.UP);
+    player1InputManager.onKeyPress(KeyCode.DOWN);
+    Vec2 ret = player1InputManager.getRequestedDirection();
     assertEquals(ret.getX(), 0);
     assertEquals(ret.getY(), 1);
   }
 
   @Test
   public void testPressAndHoldAction() {
-    // Press space, query isActionPressed() a few times, and then release
-    inputManager.onKeyPress(KeyCode.SPACE);
-    assertTrue(inputManager.isActionPressed());
-    assertTrue(inputManager.isActionPressed());
-    inputManager.onKeyRelease(KeyCode.SPACE);
-    assertFalse(inputManager.isActionPressed());
+    // Press control, query isActionPressed() a few times, and then release
+    player1InputManager.onKeyPress(KeyCode.CONTROL);
+    assertTrue(player1InputManager.isActionPressed());
+    assertTrue(player1InputManager.isActionPressed());
+    player1InputManager.onKeyRelease(KeyCode.CONTROL);
+    assertFalse(player1InputManager.isActionPressed());
   }
 
   @Test
   public void testConcurrentMoveAndAction() {
-    // Press space and the arrow keys
-    inputManager.onKeyPress(KeyCode.SPACE);
-    inputManager.onKeyPress(KeyCode.RIGHT);
-    Vec2 ret = inputManager.getRequestedDirection();
+    // Press control and the arrow keys
+    player1InputManager.onKeyPress(KeyCode.CONTROL);
+    player1InputManager.onKeyPress(KeyCode.RIGHT);
+    Vec2 ret = player1InputManager.getRequestedDirection();
     assertEquals(ret.getX(), 1);
-    assertTrue(inputManager.isActionPressed());
+    assertTrue(player1InputManager.isActionPressed());
   }
 
   @Test
   public void testWASDKeybinding() {
-    inputManager.onKeyPress(KeyCode.W);
-    assertEquals(inputManager.getRequestedDirection().getX(), 0);
-    inputManager.onKeyRelease(KeyCode.W);
-    inputManager.onKeyPress(KeyCode.A);
-    assertEquals(inputManager.getRequestedDirection().getX(), -1);
-    inputManager.onKeyRelease(KeyCode.A);
-    inputManager.onKeyPress(KeyCode.S);
-    assertEquals(inputManager.getRequestedDirection().getX(), 0);
-    inputManager.onKeyPress(KeyCode.S);
-    inputManager.onKeyPress(KeyCode.D);
-    assertEquals(inputManager.getRequestedDirection().getX(), 1);
-    inputManager.onKeyRelease(KeyCode.D);
+    player2InputManager.onKeyPress(KeyCode.W);
+    assertEquals(player2InputManager.getRequestedDirection().getX(), 0);
+    player2InputManager.onKeyRelease(KeyCode.W);
+    player2InputManager.onKeyPress(KeyCode.A);
+    assertEquals(player2InputManager.getRequestedDirection().getX(), -1);
+    player2InputManager.onKeyRelease(KeyCode.A);
+    player2InputManager.onKeyPress(KeyCode.S);
+    assertEquals(player2InputManager.getRequestedDirection().getX(), 0);
+    player2InputManager.onKeyPress(KeyCode.S);
+    player2InputManager.onKeyPress(KeyCode.D);
+    assertEquals(player2InputManager.getRequestedDirection().getX(), 1);
+    player2InputManager.onKeyRelease(KeyCode.D);
   }
 }

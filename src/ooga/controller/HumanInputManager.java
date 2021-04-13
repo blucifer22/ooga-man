@@ -112,6 +112,6 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
    */
   @Override
   public boolean isActionPressed() {
-    return pressedKeys.contains(KeyCode.SPACE);
+    return pressedKeys.contains(keybinding.get("ACTION"));
   }
 }
