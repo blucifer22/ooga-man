@@ -28,7 +28,7 @@ import ooga.util.Vec2;
 import ooga.view.UIController;
 import ooga.view.views.GameView;
 
-public class Controller {
+public class Controller implements GameStateController {
 
   private static final double TIMESTEP = 1.0/60.0;
   private final UIController uiController;
@@ -40,7 +40,7 @@ public class Controller {
 
   public Controller(Stage primaryStage) {
     this.inputManager = new HumanInputManager();
-    this.uiController = new UIController(primaryStage, this.inputManager);
+    this.uiController = new UIController(primaryStage, this, this.inputManager);
     uiController.showMenu();
     //startGame();
   }

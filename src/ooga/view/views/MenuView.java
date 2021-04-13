@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
+import ooga.view.MainMenuResponder;
 import ooga.view.internal_api.View;
 import ooga.view.language.api.LanguageService;
 import ooga.view.theme.api.ThemeService;
@@ -16,8 +17,11 @@ public class MenuView implements View {
   private final GridPane primaryView;
   private final ThemeService themeService;
   private final LanguageService languageService;
+  private final MainMenuResponder menuResponder;
 
-  public MenuView(ThemeService themeService, LanguageService languageService) {
+  public MenuView(MainMenuResponder menuResponder, ThemeService themeService,
+      LanguageService languageService) {
+    this.menuResponder = menuResponder;
     this.themeService = themeService;
     this.languageService = languageService;
     this.primaryView = new GridPane();
@@ -35,8 +39,9 @@ public class MenuView implements View {
     this.primaryView.add(title, 1, 1);
 
     Button start = new Button();
-    start.textProperty().bind(languageService.getLocalizedString("pacman"));
     start.setFont(Font.font("Monospaced", 30));
+    start.textProperty().bind(languageService.getLocalizedString("pacman"));
+    start.setOnMouseClicked(e -> this.menuResponder.startGame());
     GridPane.setHalignment(start, HPos.CENTER);
     this.primaryView.add(start, 1, 2);
   }
