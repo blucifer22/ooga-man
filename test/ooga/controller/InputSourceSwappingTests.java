@@ -42,7 +42,7 @@ public class InputSourceSwappingTests {
     Ghost inky = new Inky(new SpriteCoordinates(new Vec2(11.5, 11.5)), new Vec2(0, 0), 5.0);
     Ghost clyde = new Clyde(new SpriteCoordinates(new Vec2(11.5, 11.5)), new Vec2(0, 0), 5.0);
 
-    InputSource pacmanInput = new HumanInputManager();
+    InputSource pacmanInput = new HumanInputManager(KeybindingType.PLAYER_1);
     InputSource blinkyInput = new BlinkyAI(pgs.getGrid(), blinky, pacman, 0.9);
     InputSource pinkyInput = new PinkyAI(pgs.getGrid(), pinky, pacman, 0.9);
     InputSource inkyInput = new GhostAI(pgs.getGrid(), inky, pacman, 0.5);
@@ -74,7 +74,7 @@ public class InputSourceSwappingTests {
     assertEquals(pinky.getDefaultInputSource(), pinkyInput);
 
     // Assign Blinky the "ghostHIM" and make sure that the his default persists!
-    HumanInputManager ghostHIM = new HumanInputManager();
+    HumanInputManager ghostHIM = new HumanInputManager(KeybindingType.PLAYER_2);
     blinky.setInputSource(ghostHIM);
     assertEquals(blinky.getInputSource(), ghostHIM);
     assertEquals(blinky.getDefaultInputSource(), blinkyInput);

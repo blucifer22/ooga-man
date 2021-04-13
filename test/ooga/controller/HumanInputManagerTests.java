@@ -17,7 +17,7 @@ public class HumanInputManagerTests {
 
   @BeforeEach
   public void setupHumanInputManager() {
-    inputManager = new HumanInputManager();
+    inputManager = new HumanInputManager(KeybindingType.PLAYER_1);
   }
 
   @Test
