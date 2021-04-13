@@ -32,7 +32,8 @@ public class DemoController implements GameStateController {
   public DemoController(Stage primaryStage) {
     this.inputManager = new HumanInputManager(KeybindingType.PLAYER_1);
     this.uiController = new UIController(primaryStage, this, this.inputManager);
-    startGame();
+    uiController.showMenu();
+    //startGame();
   }
 
   public void startGame() {

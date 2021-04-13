@@ -12,7 +12,7 @@ import ooga.view.language.api.LanguageService;
 public class BundledLanguageService implements LanguageService {
 
   private static final String DEFAULT_LANGUAGE_ROOT = "resources.languages";
-  private static final String DEFAULT_LANGUAGE = "english";
+  private static final String DEFAULT_LANGUAGE = "spanish";
 
   private final String languageRoot;
   private String languageName;
