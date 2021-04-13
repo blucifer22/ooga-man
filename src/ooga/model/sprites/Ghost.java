@@ -55,8 +55,8 @@ public class Ghost extends MoveableSprite {
   @Override
   public void respondToPowerEvent(PacmanPowerupEvent event) {
     switch (event){
-      case GHOST_SLOWDOWN_ACTIVATED -> setMovementSpeed(getMovementSpeed() * 0.5);
-      case GHOST_SLOWDOWN_DEACTIVATED -> setMovementSpeed(getMovementSpeed() * 2);
+//      case GHOST_SLOWDOWN_ACTIVATED -> setMovementSpeed(getMovementSpeed() * 0.5);
+//      case GHOST_SLOWDOWN_DEACTIVATED -> setMovementSpeed(getMovementSpeed() * 2);
 //      case FRIGHTEN_ACTIVATED -> System.out.println("SPOOK TIME");
 //      case FRIGHTEN_DEACTIVATED -> System.out.println("BACK TO NORMAL");
     }

@@ -12,6 +12,8 @@ import java.lang.management.MemoryUsage;
  */
 public class Dot extends Sprite {
 
+  private int dotScoreIncrement = 1;
+
   public Dot(SpriteCoordinates position, Vec2 direction) {
     super(position, direction);
   }
@@ -23,7 +25,7 @@ public class Dot extends Sprite {
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    state.incrementScore(1);
+    state.incrementScore(dotScoreIncrement);
     state.prepareRemove(this);
     System.out.println("SCORE: " + state.getScore());
   }
@@ -45,6 +47,9 @@ public class Dot extends Sprite {
 
   @Override
   public void respondToPowerEvent(PacmanPowerupEvent event) {
-
+    switch (event){
+      case POINT_BONUS_ACTIVATED -> dotScoreIncrement *= 2;
+      case POINT_BONUS_DEACTIVATED -> dotScoreIncrement *= 0.5;
+    }
   }
 }

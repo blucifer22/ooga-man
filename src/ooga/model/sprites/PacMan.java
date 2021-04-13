@@ -57,10 +57,9 @@ public class PacMan extends MoveableSprite {
 
   @Override
   public void respondToPowerEvent(PacmanPowerupEvent event) {
-    System.out.println("hey queen");
     switch (event){
-      case SPEED_UP_ACTIVATED -> setMovementSpeed(getMovementSpeed() * 2);
-      case SPEED_UP_DEACTIVATED -> setMovementSpeed(getMovementSpeed() * 0.5);
+//      case SPEED_UP_ACTIVATED -> setMovementSpeed(getMovementSpeed() * 2);
+//      case SPEED_UP_DEACTIVATED -> setMovementSpeed(getMovementSpeed() * 0.5);
     }
   }
 }

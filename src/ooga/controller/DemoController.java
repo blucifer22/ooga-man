@@ -55,7 +55,7 @@ public class DemoController implements GameStateController {
     Dot dot1 = new Dot(new SpriteCoordinates(new Vec2(4.5, 4.5)), new Vec2(0, 0));
     Dot dot2 = new Dot(new SpriteCoordinates(new Vec2(1.5, 3.5)), new Vec2(0, 0));
     PowerPill powerPill1 = new PowerPill(new SpriteCoordinates(new Vec2(1.5, 6.5)), new Vec2(0, 0));
-    PowerPill powerPill2 = new PowerPill(new SpriteCoordinates(new Vec2(1.5, 9.5)), new Vec2(0, 0));
+    PowerPill powerPill2 = new PowerPill(new SpriteCoordinates(new Vec2(6.5, 9.5)), new Vec2(0, 0));
     PowerPill powerPill3 = new PowerPill(new SpriteCoordinates(new Vec2(4.5, 15.5)), new Vec2(0, 0));
     PowerPill powerPill4 = new PowerPill(new SpriteCoordinates(new Vec2(6.5, 6.5)), new Vec2(0, 0));
     Cherry cherry = new Cherry(new SpriteCoordinates(new Vec2(1.5, 9.5)), new Vec2(0, 0));
@@ -69,10 +69,10 @@ public class DemoController implements GameStateController {
     pgs.addSprite(pacman);
     pgs.registerEventListener(pacman);
 
-    pgs.addSprite(blinky);
-    pgs.registerEventListener(blinky);
-    pgs.addSprite(pinky);
-    pgs.registerEventListener(pinky);
+//    pgs.addSprite(blinky);
+//    pgs.registerEventListener(blinky);
+//    pgs.addSprite(pinky);
+//    pgs.registerEventListener(pinky);
 
     pgs.addSprite(dot1);
     pgs.registerEventListener(dot1);
