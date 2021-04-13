@@ -211,4 +211,10 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
       observer.respondToPowerEvent(type);
     }
   }
+
+  public void handleSwaps() {
+    for(Sprite sprite : sprites) {
+
+    }
+  }
 }

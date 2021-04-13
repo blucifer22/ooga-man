@@ -26,6 +26,8 @@ import static ooga.model.api.SpriteEvent.EventType.*;
  */
 public abstract class Sprite implements ObservableSprite, PowerupEventObserver {
 
+  protected SwapClass swapClass;
+  protected InputSource defaultInputSource;
   private SpriteCoordinates position;
   private Vec2 direction;
   private Map<SpriteEvent.EventType, Set<SpriteObserver>> observers;
@@ -38,6 +40,7 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver {
     this.position = position;
     this.direction = direction;
     initializeObserverMap();
+    defaultInputSource = null;
   }
 
   public Sprite(SpriteDescription description) {
@@ -213,4 +216,12 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver {
 
   @Override
   public abstract void respondToPowerEvent(PacmanPowerupEvent event);
+
+  public SwapClass getSwapClass() {
+    return swapClass;
+  }
+
+  public InputSource getDefaultInputSource() {
+    return defaultInputSource;
+  }
 }
