@@ -17,6 +17,7 @@ public abstract class MoveableSprite extends Sprite {
   private double movementSpeed;
   private Vec2 queuedDirection;
   protected String swapClass;
+  private InputSource defaultInputSource;
 
   @JsonCreator
   public MoveableSprite(
@@ -27,6 +28,7 @@ public abstract class MoveableSprite extends Sprite {
     this.currentSpeed = 0;
     this.movementSpeed = speed;
     queuedDirection = null;
+    defaultInputSource = null;
   }
 
   public MoveableSprite(SpriteDescription description) {
@@ -106,5 +108,13 @@ public abstract class MoveableSprite extends Sprite {
 
   public String getSwapClass() {
     return swapClass;
+  }
+
+  public InputSource getDefaultInputSource() {
+    return defaultInputSource;
+  }
+
+  public boolean needsSwap() {
+    return inputSource.isActionPressed();
   }
 }
