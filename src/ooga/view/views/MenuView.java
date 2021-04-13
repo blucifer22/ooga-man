@@ -1,11 +1,14 @@
 package ooga.view.views;
 
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import ooga.view.MainMenuResponder;
 import ooga.view.internal_api.View;
@@ -33,17 +36,26 @@ public class MenuView implements View {
 
   private void buildScene() {
     Label title = new Label();
-    title.setFont(Font.font("Monospaced", 30));
+    title.getStyleClass().add("menu-title");
     title.textProperty().bind(languageService.getLocalizedString("pacman"));
     GridPane.setHalignment(title, HPos.CENTER);
     this.primaryView.add(title, 1, 1);
 
+    VBox menuButtons = new VBox(
+        menuButton("startGame", e -> this.menuResponder.startGame()),
+        menuButton("openLevelBuilder", e -> this.menuResponder.openLevelBuilder()),
+        menuButton("openPreferences", e -> this.menuResponder.openPreferences())
+    );
+    menuButtons.setAlignment(Pos.CENTER);
+    this.primaryView.add(menuButtons, 1, 2);
+  }
+
+  private Button menuButton(String labelKey, EventHandler<MouseEvent> onClickHandler) {
     Button start = new Button();
-    start.setFont(Font.font("Monospaced", 30));
-    start.textProperty().bind(languageService.getLocalizedString("pacman"));
+    start.getStyleClass().add("menu-button");
+    start.textProperty().bind(languageService.getLocalizedString(labelKey));
     start.setOnMouseClicked(e -> this.menuResponder.startGame());
-    GridPane.setHalignment(start, HPos.CENTER);
-    this.primaryView.add(start, 1, 2);
+    return start;
   }
 
   @Override
