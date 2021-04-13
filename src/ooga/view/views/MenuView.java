@@ -26,6 +26,7 @@ public class MenuView implements View, ThemedObject {
       LanguageService languageService) {
     this.menuResponder = menuResponder;
     this.themeService = themeService;
+    this.themeService.addThemedObject(this);
     this.languageService = languageService;
     this.primaryView = new GridPane();
     this.primaryView.setGridLinesVisible(true);
