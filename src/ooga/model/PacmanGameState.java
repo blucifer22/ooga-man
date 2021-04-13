@@ -19,6 +19,10 @@ import ooga.util.GameClock;
 /**
  * This class contains all the state of a in-progress pacman game and serves as the top-level class
  * in the model.
+ *
+ * @author George Hong
+ * @author Marc Chmielewski
+ * @author Franklin Wei
  */
 public class PacmanGameState
     implements SpriteExistenceObservable, GridRebuildObservable, MutableGameState {
@@ -201,6 +205,16 @@ public class PacmanGameState
     }
   }
 
+  /**
+   * This method implements the ability for the PacmanGameState to handle action-key instigated
+   * InputSource swaps.
+   *
+   * <p>This method scans the list of sprites to see if any are requesting swaps, and if so, will
+   * move the target of the HumanInputManager to the next Sprite of the proper SwapClass in order in
+   * the List. The Sprite that has just been relieved of the HumanInputManager will fall back onto
+   * its defaultInputSource. This will implement the "cyclical" swapping behavior that is to be
+   * expected in the adversarial Pac-Man game mode.
+   */
   public void handleSwaps() {
     Sprite spriteToSwapOut = null;
     for (Sprite sprite : sprites) {
