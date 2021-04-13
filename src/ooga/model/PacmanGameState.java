@@ -14,7 +14,6 @@ import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.leveldescription.GridDescription;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.Sprite;
-import ooga.model.sprites.SwapClass;
 import ooga.util.GameClock;
 
 /**
@@ -28,7 +27,7 @@ public class PacmanGameState
   private final Set<GridRebuildObserver> gridRebuildObservers;
   private final Set<PowerupEventObserver> pacmanPowerupObservers;
 
-  private final Collection<Sprite> sprites;
+  private final List<Sprite> sprites;
   private final Set<Sprite> toDelete;
   private final GameClock clock;
   private PacmanGrid grid;
@@ -213,15 +212,26 @@ public class PacmanGameState
     if (spriteToSwapOut == null) {
       return;
     }
-    for (Sprite sprite : sprites) {
+
+    List<Sprite> frontList = sprites.subList(0, sprites.indexOf(spriteToSwapOut));
+    List<Sprite> backList = sprites.subList(sprites.indexOf(spriteToSwapOut), sprites.size());
+
+    if (!attemptSwapExecution(spriteToSwapOut, backList)) {
+      attemptSwapExecution(spriteToSwapOut, frontList);
+    }
+  }
+
+  private boolean attemptSwapExecution(Sprite spriteToSwapOut, List<Sprite> spriteList) {
+    for (Sprite sprite : spriteList) {
       if (spriteToSwapOut.equals(sprite)) {
         continue;
       }
       if (spriteToSwapOut.getSwapClass().equals(sprite.getSwapClass())) {
         sprite.setInputSource(spriteToSwapOut.getInputSource());
         spriteToSwapOut.setInputSource(spriteToSwapOut.getDefaultInputSource());
-        break;
+        return true;
       }
     }
+    return false;
   }
 }

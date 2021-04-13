@@ -4,13 +4,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import javafx.scene.input.KeyCode;
 import ooga.model.BlinkyAI;
+import ooga.model.GhostAI;
 import ooga.model.InputSource;
 import ooga.model.PacmanGameState;
 import ooga.model.PinkyAI;
 import ooga.model.SpriteCoordinates;
 import ooga.model.sprites.Blinky;
+import ooga.model.sprites.Clyde;
 import ooga.model.sprites.Dot;
 import ooga.model.sprites.Ghost;
+import ooga.model.sprites.Inky;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Pinky;
 import ooga.util.Vec2;
@@ -36,13 +39,20 @@ public class InputSourceSwappingTests {
     PacMan pacman = new PacMan(new SpriteCoordinates(new Vec2(1.5, 1.5)), new Vec2(0, 0), 5.0);
     Ghost blinky = new Blinky(new SpriteCoordinates(new Vec2(13.5, 13.5)), new Vec2(0, 0), 3.9);
     Ghost pinky = new Pinky(new SpriteCoordinates(new Vec2(1.5, 13.5)), new Vec2(0, 0), 4);
+    Ghost inky = new Inky(new SpriteCoordinates(new Vec2(11.5, 11.5)), new Vec2(0, 0), 5.0);
+    Ghost clyde = new Clyde(new SpriteCoordinates(new Vec2(11.5, 11.5)), new Vec2(0, 0), 5.0);
 
     InputSource pacmanInput = new HumanInputManager();
     InputSource blinkyInput = new BlinkyAI(pgs.getGrid(), blinky, pacman, 0.9);
     InputSource pinkyInput = new PinkyAI(pgs.getGrid(), pinky, pacman, 0.9);
+    InputSource inkyInput = new GhostAI(pgs.getGrid(), inky, pacman, 0.5);
+    InputSource clydeInput = new GhostAI(pgs.getGrid(), inky, pacman, 0.3);
+
     pacman.setInputSource(pacmanInput);
     blinky.setInputSource(blinkyInput);
     pinky.setInputSource(pinkyInput);
+    inky.setInputSource(inkyInput);
+    clyde.setInputSource(clydeInput);
 
     pgs.addSprite(dot1);
     pgs.addSprite(dot2);
@@ -50,6 +60,8 @@ public class InputSourceSwappingTests {
     pgs.addSprite(pacman);
     pgs.addSprite(blinky);
     pgs.addSprite(pinky);
+    pgs.addSprite(inky);
+    pgs.addSprite(clyde);
 
     // Make sure that our input sources have been correctly assigned
     assertEquals(pacman.getInputSource(), pacmanInput);
@@ -72,6 +84,26 @@ public class InputSourceSwappingTests {
     pgs.handleSwaps();
     assertEquals(blinky.getInputSource(), blinkyInput);
     assertEquals(pinky.getInputSource(), ghostHIM);
+    ghostHIM.onKeyRelease(KeyCode.SPACE);
+
+    // Make sure that we "cycle" through the ghosts on subsequent presses
+    ghostHIM.onKeyPress(KeyCode.SPACE);
+    pgs.handleSwaps();
+    assertEquals(pinky.getInputSource(), pinkyInput);
+    assertEquals(inky.getInputSource(), ghostHIM);
+    ghostHIM.onKeyRelease(KeyCode.SPACE);
+
+    ghostHIM.onKeyPress(KeyCode.SPACE);
+    pgs.handleSwaps();
+    assertEquals(inky.getInputSource(), inkyInput);
+    assertEquals(clyde.getInputSource(), ghostHIM);
+    ghostHIM.onKeyRelease(KeyCode.SPACE);
+
+    // Wraparound edge case!
+    ghostHIM.onKeyPress(KeyCode.SPACE);
+    pgs.handleSwaps();
+    assertEquals(clyde.getInputSource(), clydeInput);
+    assertEquals(blinky.getInputSource(), ghostHIM);
     ghostHIM.onKeyRelease(KeyCode.SPACE);
   }
 }
