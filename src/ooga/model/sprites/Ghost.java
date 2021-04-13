@@ -11,7 +11,7 @@ import ooga.util.Vec2;
 public class Ghost extends MoveableSprite {
 
   public static final String TYPE = "ghost";
-  private final boolean isDeadly = true;
+  private boolean isDeadly = true;
   private GhostBehavior ghostBehavior;
 
   public Ghost(SpriteCoordinates position, Vec2 direction, double speed) {
@@ -44,7 +44,9 @@ public class Ghost extends MoveableSprite {
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-
+    if (!isDeadly){
+      state.prepareRemove(this);
+    }
   }
 
   @Override
@@ -73,10 +75,12 @@ public class Ghost extends MoveableSprite {
       case GHOST_SLOWDOWN_DEACTIVATED -> setMovementSpeed(getMovementSpeed() * 2);
       case FRIGHTEN_ACTIVATED -> {
         changeBehavior(GhostBehavior.FRIGHTENED);
+        isDeadly = false;
         setDirection(getDirection().scalarMult(-1));
       }
       case FRIGHTEN_DEACTIVATED -> {
         changeBehavior(GhostBehavior.CHASE);
+        isDeadly = true;
         setDirection(getDirection().scalarMult(-1));
       }
     }
