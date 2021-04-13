@@ -12,6 +12,7 @@ import ooga.view.views.MenuView;
 
 public class UIController implements MainMenuResponder {
 
+  private static final double DEFAULT_STAGE_SIZE = 600;
   private final Stage primaryStage;
   private final GameView gameView;
   private final BundledLanguageService languageService;
@@ -23,6 +24,8 @@ public class UIController implements MainMenuResponder {
       HumanInputConsumer inputConsumer) {
     // Configure Data Sources & Displays
     this.primaryStage = primaryStage;
+    this.primaryStage.setWidth(DEFAULT_STAGE_SIZE);
+    this.primaryStage.setHeight(DEFAULT_STAGE_SIZE);
     this.inputConsumer = inputConsumer;
     this.gameController = gameController;
     this.languageService = new BundledLanguageService();
@@ -40,15 +43,15 @@ public class UIController implements MainMenuResponder {
 
   public void showMenu() {
     this.primaryStage.setScene(new Scene(new MenuView(this, this.themeService,
-        this.languageService).getRenderingNode(),
-        400, 400));
+        this.languageService).getRenderingNode(), primaryStage.getWidth(), primaryStage.getHeight()));
   }
 
   public void showGameView() {
     Scene gameViewScene = this.gameView.getRenderingNode().getScene();
 
     if (gameViewScene == null) {
-      gameViewScene = new Scene(this.gameView.getRenderingNode(), 600, 600);
+      gameViewScene = new Scene(this.gameView.getRenderingNode(), primaryStage.getWidth(),
+          primaryStage.getHeight());
     }
 
     this.primaryStage.setScene(gameViewScene);
