@@ -2,6 +2,7 @@ package ooga.util;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
+import ooga.model.MutableGameState;
 
 /**
  * The Game Clock is designed for use with a game loop update system to keep track of the current
@@ -9,9 +10,9 @@ import java.util.PriorityQueue;
  */
 public class GameClock {
 
+  private final PriorityQueue<Timer> activeTimers;
   private double seconds;
   private double dt;
-  private final PriorityQueue<Timer> activeTimers;
 
   /**
    * Initializes a game clock where each tick increments the time by dt
@@ -26,6 +27,16 @@ public class GameClock {
     this.dt = frameRate;
     this.seconds = startingTime;
     this.activeTimers = new PriorityQueue<>();
+  }
+
+  /**
+   * Adds a timer for execution
+   *
+   * @param timer
+   */
+  public void addTimer(Timer timer) {
+    timer.setInstantiationTimeStamp(seconds);
+    activeTimers.add(timer);
   }
 
   /**
@@ -47,9 +58,25 @@ public class GameClock {
   }
 
   /**
+   *
+   * @param gameState state of the game that may need to be modified.
+   */
+  public void checkTimerStatus(MutableGameState gameState) {
+    for (Timer timer : activeTimers) {
+      if (seconds >= timer.getExpirationTime()) {
+        activeTimers.remove(timer);
+        timer.execute(gameState);
+      } else {
+        break;
+      }
+    }
+  }
+
+  /**
    * Increment this clock by a time step
    */
-  public void tick() {
+  public void tick(MutableGameState gameState) {
     seconds += dt;
+    checkTimerStatus(gameState);
   }
 }

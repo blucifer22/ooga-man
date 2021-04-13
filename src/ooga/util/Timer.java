@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Timer object that depends on the GameClock to determine when the passed code should execute.
  */
-public class Timer implements Comparable<Timer>{
+public class Timer implements Comparable<Timer> {
 
   private final Consumer<MutableGameState> executable;
   private final double delay;
@@ -22,6 +22,14 @@ public class Timer implements Comparable<Timer>{
   public Timer(double delay, Consumer<MutableGameState> executable) {
     this.delay = delay;
     this.executable = executable;
+  }
+
+  public double getDelay() {
+    return delay;
+  }
+
+  public double getInstantiationTimeStamp() {
+    return instantiationTimeStamp;
   }
 
   /**
@@ -42,13 +50,20 @@ public class Timer implements Comparable<Timer>{
     executable.accept(gameState);
   }
 
+  public double getExpirationTime() {
+    return instantiationTimeStamp + delay;
+  }
+
   /**
-   * Optimization for timers
-   * @param o
-   * @return
+   * Optimization for timers.  Timers that have the lowest expected execution time are sorted prior
+   * to later timers.
+   *
+   * @param o other Timer to compare to
+   * @return int for comparison
    */
   @Override
   public int compareTo(@NotNull Timer o) {
-    return Double.compare(this.delay, o.delay);
+    return Double
+        .compare(this.getExpirationTime(), o.getExpirationTime());
   }
 }
