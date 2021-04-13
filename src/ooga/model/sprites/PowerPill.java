@@ -28,7 +28,6 @@ public class PowerPill extends Sprite {
   public void uponHitBy(Sprite other, MutableGameState state) {
     state.prepareRemove(this);
     int evenIndex = new Random().nextInt(PacmanPowerupEvent.values().length / 2) * 2;
-    System.out.println(evenIndex);
     state.notifyPowerupListeners(PacmanPowerupEvent.values()[evenIndex]);
     System.out.println(PacmanPowerupEvent.values()[evenIndex]);
     state.getClock().addTimer(new Timer(9, mutableGameState -> {

@@ -67,15 +67,27 @@ public class DemoController implements GameStateController {
     pinky.setInputSource(inPinky);
 
     pgs.addSprite(pacman);
+    pgs.registerEventListener(pacman);
+
 //    pgs.addSprite(blinky);
+//    pgs.registerEventListener(blinky);
 //    pgs.addSprite(pinky);
+//    pgs.registerEventListener(pinky);
+
     pgs.addSprite(dot1);
+    pgs.registerEventListener(dot1);
     pgs.addSprite(dot2);
+    pgs.registerEventListener(dot1);
+    pgs.addSprite(cherry);
+    pgs.registerEventListener(cherry);
+
     pgs.addSprite(powerPill1);
     pgs.addSprite(powerPill2);
     pgs.addSprite(powerPill3);
     pgs.addSprite(powerPill4);
-    pgs.addSprite(cherry);
+
+
+    pgs.registerEventListener(pacman);
 
     uiController.showGameView();
 
