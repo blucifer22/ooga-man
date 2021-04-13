@@ -2,12 +2,14 @@ package ooga.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import javafx.scene.input.KeyCode;
 import ooga.model.BlinkyAI;
 import ooga.model.InputSource;
 import ooga.model.PacmanGameState;
 import ooga.model.PinkyAI;
 import ooga.model.SpriteCoordinates;
 import ooga.model.sprites.Blinky;
+import ooga.model.sprites.Dot;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Pinky;
@@ -25,6 +27,12 @@ public class InputSourceSwappingTests {
   @Test
   public void testSwap() {
     PacmanGameState pgs = new PacmanGameState();
+
+    // Add some non-movable sprites to make sure they get ignored
+    Dot dot1 = new Dot(new SpriteCoordinates(new Vec2(4.5, 4.5)), new Vec2(0, 0));
+    Dot dot2 = new Dot(new SpriteCoordinates(new Vec2(1.5, 3.5)), new Vec2(0, 0));
+
+    // Add the actual Sprites
     PacMan pacman = new PacMan(new SpriteCoordinates(new Vec2(1.5, 1.5)), new Vec2(0, 0), 5.0);
     Ghost blinky = new Blinky(new SpriteCoordinates(new Vec2(13.5, 13.5)), new Vec2(0, 0), 3.9);
     Ghost pinky = new Pinky(new SpriteCoordinates(new Vec2(1.5, 13.5)), new Vec2(0, 0), 4);
@@ -35,6 +43,13 @@ public class InputSourceSwappingTests {
     pacman.setInputSource(pacmanInput);
     blinky.setInputSource(blinkyInput);
     pinky.setInputSource(pinkyInput);
+
+    pgs.addSprite(dot1);
+    pgs.addSprite(dot2);
+
+    pgs.addSprite(pacman);
+    pgs.addSprite(blinky);
+    pgs.addSprite(pinky);
 
     // Make sure that our input sources have been correctly assigned
     assertEquals(pacman.getInputSource(), pacmanInput);
@@ -47,9 +62,16 @@ public class InputSourceSwappingTests {
     assertEquals(pinky.getDefaultInputSource(), pinkyInput);
 
     // Assign Blinky the "ghostHIM" and make sure that the his default persists!
-    InputSource ghostHIM = new HumanInputManager();
+    HumanInputManager ghostHIM = new HumanInputManager();
     blinky.setInputSource(ghostHIM);
     assertEquals(blinky.getInputSource(), ghostHIM);
     assertEquals(blinky.getDefaultInputSource(), blinkyInput);
+
+    // Spoof a press of the "action button" to force a swap!
+    ghostHIM.onKeyPress(KeyCode.SPACE);
+    pgs.handleSwaps();
+    assertEquals(blinky.getInputSource(), blinkyInput);
+    assertEquals(pinky.getInputSource(), ghostHIM);
+    ghostHIM.onKeyRelease(KeyCode.SPACE);
   }
 }
