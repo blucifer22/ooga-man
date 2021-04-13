@@ -51,6 +51,8 @@ public class PreferenceView implements ThemedObject, View {
       langDropdown.getItems().add(key);
     }
 
+    langDropdown.setOnAction(e -> this.preferenceResponder.setLanguage(langDropdown.getValue()));
+
     VBox labeledLangDropdown = new VBox(
         langDropdownLabel,
         langDropdown

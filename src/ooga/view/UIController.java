@@ -86,4 +86,9 @@ public class UIController implements MainMenuResponder, PreferenceResponder {
     this.primaryStage.setScene(new Scene((new PreferenceView(this, themeService, languageService).getRenderingNode()), primaryStage.getWidth(),
         primaryStage.getHeight()));
   }
+
+  @Override
+  public void setLanguage(String language) {
+    this.languageService.setLanguage(language);
+  }
 }
