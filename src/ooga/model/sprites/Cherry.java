@@ -50,8 +50,8 @@ public class Cherry extends Sprite {
   @Override
   public void respondToPowerEvent(PacmanPowerupEvent event) {
     switch (event){
-//      case POINT_BONUS_ACTIVATED -> cherryScoreIncrement *= 2;
-//      case POINT_BONUS_DEACTIVATED -> cherryScoreIncrement *= 0.5;
+      case POINT_BONUS_ACTIVATED -> cherryScoreIncrement *= 2;
+      case POINT_BONUS_DEACTIVATED -> cherryScoreIncrement *= 0.5;
     }
   }
 }

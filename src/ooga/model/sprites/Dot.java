@@ -48,8 +48,8 @@ public class Dot extends Sprite {
   @Override
   public void respondToPowerEvent(PacmanPowerupEvent event) {
     switch (event){
-//      case POINT_BONUS_ACTIVATED -> dotScoreIncrement *= 2;
-//      case POINT_BONUS_DEACTIVATED -> dotScoreIncrement *= 0.5;
+      case POINT_BONUS_ACTIVATED -> dotScoreIncrement *= 2;
+      case POINT_BONUS_DEACTIVATED -> dotScoreIncrement *= 0.5;
     }
   }
 }
