@@ -14,6 +14,12 @@ import ooga.model.sprites.Pinky;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.Test;
 
+/**
+ * This is a simple test suite that verifies that the "swapping" behavior of the HumanInputManager
+ * is maintained.
+ *
+ * @author Marc Chmielewski
+ */
 public class InputSourceSwappingTests {
 
   @Test
