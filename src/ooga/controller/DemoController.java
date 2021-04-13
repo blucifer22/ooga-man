@@ -13,6 +13,7 @@ import ooga.model.PinkyAI;
 import ooga.model.SpriteCoordinates;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.sprites.Blinky;
+import ooga.model.sprites.Cherry;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Dot;
 import ooga.model.sprites.PacMan;
@@ -54,6 +55,7 @@ public class DemoController {
     Dot dot1 = new Dot(new SpriteCoordinates(new Vec2(4.5, 4.5)), new Vec2(0, 0));
     Dot dot2 = new Dot(new SpriteCoordinates(new Vec2(1.5, 3.5)), new Vec2(0, 0));
     PowerPill powerPill = new PowerPill(new SpriteCoordinates(new Vec2(1.5, 6.5)), new Vec2(0, 0));
+    Cherry cherry = new Cherry(new SpriteCoordinates(new Vec2(1.5, 9.5)), new Vec2(0, 0));
 
     pacman.setInputSource(this.inputManager);
     InputSource inBlinky = new BlinkyAI(pgs.getGrid(), blinky, pacman, 0.9);
@@ -67,6 +69,7 @@ public class DemoController {
     pgs.addSprite(dot1);
     pgs.addSprite(dot2);
     pgs.addSprite(powerPill);
+    pgs.addSprite(cherry);
 
     uiController.showGameView();
 

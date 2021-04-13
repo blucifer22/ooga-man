@@ -42,8 +42,22 @@
       "scale" : 1.0,
       "bottomHeavy" : false
     },
-    "pacman" : {
-      "fill" : "themes/classic/images/pacman/pacman.png",
+    "pacman_closed" : {
+      "fill" : "themes/classic/images/pacman/pacman_closed.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true,
+      "rotates": true
+    },
+    "pacman_halfopen" : {
+      "fill" : "themes/classic/images/pacman/pacman_halfopen.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true,
+      "rotates": true
+    },
+    "pacman_open" : {
+      "fill" : "themes/classic/images/pacman/pacman_open.png",
       "imageFill" : true,
       "scale" : 1.0,
       "bottomHeavy" : true,
@@ -58,6 +72,13 @@
     },
     "powerpill" : {
       "fill" : "themes/classic/images/consumables/powerpill.png",
+      "imageFill" : true,
+      "scale" : 0.5,
+      "bottomHeavy" : false,
+      "rotates": false
+    },
+    "cherry" : {
+      "fill" : "themes/classic/images/consumables/cherries.png",
       "imageFill" : true,
       "scale" : 0.5,
       "bottomHeavy" : false,
