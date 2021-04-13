@@ -12,19 +12,15 @@ public class GameClock {
 
   private final PriorityQueue<Timer> activeTimers;
   private double seconds;
-  private double dt;
 
   /**
    * Initializes a game clock where each tick increments the time by dt
-   *
-   * @param dt 1 / (frame rate)
    */
-  public GameClock(double dt) {
-    this(0, dt);
+  public GameClock() {
+    this(0);
   }
 
-  public GameClock(double startingTime, double frameRate) {
-    this.dt = frameRate;
+  public GameClock(double startingTime) {
     this.seconds = startingTime;
     this.activeTimers = new PriorityQueue<>();
   }
@@ -39,14 +35,6 @@ public class GameClock {
     activeTimers.add(timer);
   }
 
-  /**
-   * Sets the timestep to a new value
-   *
-   * @param dt time step
-   */
-  public void setTimeStep(double dt) {
-    this.dt = dt;
-  }
 
   /**
    * Returns the number of seconds that have elapsed
@@ -58,6 +46,7 @@ public class GameClock {
   }
 
   /**
+   * Checks to see Timers that should be executed.
    *
    * @param gameState state of the game that may need to be modified.
    */
@@ -73,9 +62,10 @@ public class GameClock {
   }
 
   /**
-   * Increment this clock by a time step
+   * @param dt        time step
+   * @param gameState
    */
-  public void tick(MutableGameState gameState) {
+  public void step(double dt, MutableGameState gameState) {
     seconds += dt;
     checkTimerStatus(gameState);
   }

@@ -24,14 +24,6 @@ public class Timer implements Comparable<Timer> {
     this.executable = executable;
   }
 
-  public double getDelay() {
-    return delay;
-  }
-
-  public double getInstantiationTimeStamp() {
-    return instantiationTimeStamp;
-  }
-
   /**
    * Sets the time that this Timer was created
    *
