@@ -1,7 +1,5 @@
 package ooga.view.views;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
