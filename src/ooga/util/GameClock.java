@@ -51,9 +51,10 @@ public class GameClock {
    * @param gameState state of the game that may need to be modified.
    */
   public void checkTimerStatus(MutableGameState gameState) {
-    for (Timer timer : activeTimers) {
+    while (!activeTimers.isEmpty()){
+      Timer timer = activeTimers.peek();
       if (seconds >= timer.getExpirationTime()) {
-        activeTimers.remove(timer);
+        activeTimers.remove();
         timer.execute(gameState);
       } else {
         break;
