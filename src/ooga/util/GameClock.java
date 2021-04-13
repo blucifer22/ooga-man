@@ -1,5 +1,8 @@
 package ooga.util;
 
+import java.util.ArrayList;
+import java.util.PriorityQueue;
+
 /**
  * The Game Clock is designed for use with a game loop update system to keep track of the current
  * time and provides utility for events
@@ -8,6 +11,7 @@ public class GameClock {
 
   private double seconds;
   private double dt;
+  private final PriorityQueue<Timer> activeTimers;
 
   /**
    * Initializes a game clock where each tick increments the time by dt
@@ -21,6 +25,7 @@ public class GameClock {
   public GameClock(double startingTime, double frameRate) {
     this.dt = frameRate;
     this.seconds = startingTime;
+    this.activeTimers = new PriorityQueue<>();
   }
 
   /**
