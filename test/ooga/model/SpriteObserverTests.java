@@ -108,4 +108,9 @@ class TestObservableSprite extends Sprite {
   public boolean isDeadlyToPacMan() {
     return false;
   }
+
+  @Override
+  public void respondToPowerEvent(PacmanPowerupEvent event) {
+
+  }
 }

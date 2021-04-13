@@ -10,6 +10,7 @@ import java.util.Set;
 
 import ooga.model.*;
 import ooga.model.api.ObservableSprite;
+import ooga.model.api.PowerupEventObserver;
 import ooga.model.api.SpriteEvent;
 import ooga.model.api.SpriteObserver;
 import ooga.model.leveldescription.SpriteDescription;
@@ -23,7 +24,7 @@ import static ooga.model.api.SpriteEvent.EventType.*;
  *
  * @author George Hong
  */
-public abstract class Sprite implements ObservableSprite {
+public abstract class Sprite implements ObservableSprite, PowerupEventObserver {
 
   private SpriteCoordinates position;
   private Vec2 direction;
@@ -210,7 +211,6 @@ public abstract class Sprite implements ObservableSprite {
 
   public abstract boolean isDeadlyToPacMan();
 
-  public void uponEvent(PacmanEventType event) {
-    // todo: make abstract
-  }
+  @Override
+  public abstract void respondToPowerEvent(PacmanPowerupEvent event);
 }

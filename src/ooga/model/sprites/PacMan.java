@@ -1,6 +1,7 @@
 package ooga.model.sprites;
 
 import ooga.model.*;
+import ooga.model.api.PowerupEventObserver;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.util.Vec2;
 
@@ -51,5 +52,13 @@ public class PacMan extends MoveableSprite {
   @Override
   public boolean isDeadlyToPacMan() {
     return false;
+  }
+
+  @Override
+  public void respondToPowerEvent(PacmanPowerupEvent event) {
+    switch (event){
+      case SPEED_UP_ACTIVATED -> setMovementSpeed(getMovementSpeed() * 2);
+      case SPEED_UP_DEACTIVATED -> setMovementSpeed(getMovementSpeed() * 0.5);
+    }
   }
 }
