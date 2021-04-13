@@ -84,9 +84,10 @@ public class Ghost extends MoveableSprite {
 
   /* TODO: perhaps refactor? */
   public enum GhostBehavior {
+    FRIGHTENED,
     SCATTER,
     CHASE,
-    FRIGHTENED,
+    EATEN,
     WAIT
   }
 }

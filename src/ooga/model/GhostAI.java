@@ -42,21 +42,48 @@ public class GhostAI implements InputSource {
 
   @Override
   public Vec2 getRequestedDirection() {
-    // TODO: Implement this!
-    switch (getGhost().getGhostBehavior()){
+    switch (getGhost().getGhostBehavior()) {
       case CHASE:
-        chaseBehavior();
+        return chaseBehavior();
       case FRIGHTENED:
-
+        return frightenedBehavior();
+      case EATEN:
+        return eatenBehavior();
       case WAIT:
-
+        return Vec2.ZERO;
       case SCATTER:
-
+        return scatterBehavior();
     }
     return Vec2.ZERO;
   }
 
-  protected Vec2 chaseBehavior() {
+  /**
+   * This mode corresponds to the ghost seeking home
+   * @return
+   */
+  protected Vec2 eatenBehavior() {
+    // TODO: Implement
+    return Vec2.ZERO;
+  }
+
+  /**
+   * This mode coincides with the ghost reaction to upon the Power-pill's consumption.
+   *
+   * @return
+   */
+  protected Vec2 frightenedBehavior() {
+    // TODO: Implement
+    return Vec2.ZERO;
+  }
+
+  /**
+   * This mode coincides with classic Pac-Man where ghosts periodically give up the chase and choose
+   * to wander around for a few seconds.  This is emulated by default by using a random direction
+   * generator.
+   *
+   * @return direction to queue for ghost to move to
+   */
+  protected Vec2 scatterBehavior() {
     Vec2 ret = Vec2.ZERO;
     ArrayList<Vec2> randomVectorOptions = new ArrayList<>();
     randomVectorOptions.add(new Vec2(-1.0, 0));
@@ -72,15 +99,21 @@ public class GhostAI implements InputSource {
     return ret.equals(currentReverseDirection) ? Vec2.ZERO : ret;
   }
 
+  /**
+   * This behavior can be overridden to define the most aggressive modes for Pac-Man.  Targeting can
+   * be used here to follow a tracked Sprite, such as Pac-Man.  The default GhostAI defaults to
+   * random behavior to "track" Pac-Man.
+   *
+   * @return direction to queue for ghost to move to
+   */
+  protected Vec2 chaseBehavior() {
+    return scatterBehavior();
+  }
+
   @Override
   public boolean isActionPressed() {
     // TODO: Implement this!
     return false;
   }
-
-  protected void changeBehavior(GhostBehavior newBehavior) {
-  }
-
-
 
 }
