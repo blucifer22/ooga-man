@@ -22,7 +22,7 @@ public class PinkyAI extends ChaseAI {
     Vec2 targetOrientation = getTarget().getDirection();
     Vec2 targetTilePos = getTarget().getCoordinates().getTileCoordinates().toVec2()
         .add(targetOrientation.scalarMult(4));
-    Vec2 currentTilePos = getSelf().getCoordinates().getTileCoordinates().toVec2();
+    Vec2 currentTilePos = getGhost().getCoordinates().getTileCoordinates().toVec2();
 
     return reduceDistance(targetTilePos, currentTilePos);
   }
