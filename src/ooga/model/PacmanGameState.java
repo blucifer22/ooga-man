@@ -22,11 +22,12 @@ import ooga.model.sprites.Sprite;
  * This class contains all the state of a in-progress pacman game and serves as the top-level class
  * in the model.
  */
-public class PacmanGameState implements SpriteExistenceObservable, GridRebuildObservable, MutableGameState {
+public class PacmanGameState implements SpriteExistenceObservable, GridRebuildObservable,
+    MutableGameState {
 
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
-  private final Map<PacmanPowerupEvent, Set<PowerupEventObserver>> pacmanPowerUpObservers;
+  private final Set<PowerupEventObserver> pacmanPowerupObservers;
 
   private final Collection<Sprite> sprites;
   private final Set<Sprite> toDelete;
@@ -38,17 +39,12 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
     gridRebuildObservers = new HashSet<>();
     toDelete = new HashSet<>();
     sprites = new LinkedList<>();
-    pacmanPowerUpObservers = new HashMap<>();
-  }
-
-  private void initializeEventObserverMap(){
-    // TODO: implement
+    pacmanPowerupObservers = new HashSet<>();
   }
 
   public void setDefaultInputSource() {
 
   }
-
 
   /**
    * @param score
@@ -180,8 +176,26 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
     gridRebuildObservers.add(observer);
   }
 
+  /**
+   * Register Sprite to be notified when powerup effects begin and end, allowing the Sprites to
+   * change their behavior as required.
+   *
+   * @param listener
+   */
   @Override
-  public void registerEventListener(PacmanPowerupEvent type, Sprite listener) {
-    // TODO
+  public void registerEventListener(Sprite listener) {
+    pacmanPowerupObservers.add(listener);
+  }
+
+  /**
+   * Can be used by Powerup Pills to introduce an effect
+   *
+   * @param type
+   */
+  @Override
+  public void notifyPowerupListeners(PacmanPowerupEvent type) {
+    for (PowerupEventObserver observer : pacmanPowerupObservers) {
+      observer.respondToPowerEvent(type);
+    }
   }
 }
