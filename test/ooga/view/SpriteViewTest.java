@@ -79,7 +79,7 @@ public class SpriteViewTest extends ApplicationTest {
 
     @Override
     public String getType() {
-      return "pacman";
+      return "pacman_halfopen";
     }
 
     @Override
