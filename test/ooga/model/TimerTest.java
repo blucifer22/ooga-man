@@ -20,7 +20,7 @@ public class TimerTest {
   }
 
   @Test
-  public void afterOneSecond() {
+  public void afterOneSecondTest() {
     clock.addTimer(new Timer(1, x -> {
       x.incrementScore(1);
     }));
@@ -36,6 +36,20 @@ public class TimerTest {
       clock.step(DT, state);
     }
     assertEquals(6, state.getScore());
+  }
+
+  @Test
+  public void orderTest() {
+    clock.addTimer(new Timer(1, x -> {
+      x.incrementScore(1);
+    }));
+    clock.addTimer(new Timer(0.75, x -> {
+      x.incrementScore(5);
+    }));
+    for (int k = 0; k < 46; k++) {
+      clock.step(DT, state);
+    }
+    assertEquals(5, state.getScore());
   }
 
 }
