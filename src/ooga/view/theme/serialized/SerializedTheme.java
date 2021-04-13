@@ -8,9 +8,11 @@ import ooga.view.theme.api.Costume;
 import ooga.view.theme.api.Theme;
 
 public class SerializedTheme implements Theme {
-  private Map<String, Costume> costumes;
+  private final Map<String, Costume> costumes;
+  private final String stylesheet;
 
   protected SerializedTheme(ThemeDescription description) {
+    this.stylesheet = description.getStylesheet();
     this.costumes = new HashMap<>();
 
     for (String key: description.getCostumes().keySet()) {
@@ -45,5 +47,10 @@ public class SerializedTheme implements Theme {
     } else {
       return ret;
     }
+  }
+
+  @Override
+  public String getStylesheet() {
+    return this.stylesheet;
   }
 }
