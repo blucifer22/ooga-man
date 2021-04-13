@@ -16,6 +16,7 @@ public abstract class MoveableSprite extends Sprite {
   private double currentSpeed;
   private double movementSpeed;
   private Vec2 queuedDirection;
+  protected String swapClass;
 
   @JsonCreator
   public MoveableSprite(
@@ -101,5 +102,9 @@ public abstract class MoveableSprite extends Sprite {
         getCoordinates().getPosition().add(getDirection().scalarMult(getCurrentSpeed()).scalarMult(dt));
 
     setPosition(nextPosition);
+  }
+
+  public String getSwapClass() {
+    return swapClass;
   }
 }

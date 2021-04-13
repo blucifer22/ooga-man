@@ -14,6 +14,7 @@ public class PacMan extends MoveableSprite {
 
   public PacMan(SpriteCoordinates position, Vec2 direction, double speed) {
     super(position, direction, speed);
+    swapClass = "PACMAN";
   }
 
   public PacMan(SpriteDescription spriteDescription) {
