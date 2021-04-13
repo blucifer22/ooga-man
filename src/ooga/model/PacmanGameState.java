@@ -17,6 +17,7 @@ import ooga.model.leveldescription.GridDescription;
 import java.util.Collection;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.Sprite;
+import ooga.util.GameClock;
 
 /**
  * This class contains all the state of a in-progress pacman game and serves as the top-level class
@@ -33,6 +34,7 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
   private final Set<Sprite> toDelete;
   private PacmanGrid grid;
   private int pacManScore;
+  private final GameClock clock;
 
   public PacmanGameState() {
     spriteExistenceObservers = new HashSet<>();
@@ -40,10 +42,20 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
     toDelete = new HashSet<>();
     sprites = new LinkedList<>();
     pacmanPowerupObservers = new HashSet<>();
+    clock = new GameClock();
   }
 
   public void setDefaultInputSource() {
 
+  }
+
+  /**
+   * Returns the GameClock that keeps track of the elapsed time of the Pac-Man game
+   *
+   * @return game clock
+   */
+  public GameClock getClock() {
+    return clock;
   }
 
   /**
@@ -85,6 +97,7 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
 
   // advance game state by `dt' seconds
   public void step(double dt) {
+    clock.step(dt, this);
     toDelete.clear();
     for (Sprite sprite : getSprites()) {
       if (toDelete.contains(sprite)) {
