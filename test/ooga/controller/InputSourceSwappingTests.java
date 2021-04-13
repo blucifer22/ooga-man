@@ -36,15 +36,20 @@ public class InputSourceSwappingTests {
     blinky.setInputSource(blinkyInput);
     pinky.setInputSource(pinkyInput);
 
+    // Make sure that our input sources have been correctly assigned
     assertEquals(pacman.getInputSource(), pacmanInput);
     assertEquals(blinky.getInputSource(), blinkyInput);
     assertEquals(pinky.getInputSource(), pinkyInput);
 
+    // Make sure that the *default* input sources have been correctly assigned
     assertEquals(pacman.getDefaultInputSource(), pacmanInput);
     assertEquals(blinky.getDefaultInputSource(), blinkyInput);
     assertEquals(pinky.getDefaultInputSource(), pinkyInput);
 
-
+    // Assign Blinky the "ghostHIM" and make sure that the his default persists!
     InputSource ghostHIM = new HumanInputManager();
+    blinky.setInputSource(ghostHIM);
+    assertEquals(blinky.getInputSource(), ghostHIM);
+    assertEquals(blinky.getDefaultInputSource(), blinkyInput);
   }
 }
