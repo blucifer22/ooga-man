@@ -17,7 +17,7 @@ public abstract class MoveableSprite extends Sprite {
   private double movementSpeed;
   private Vec2 queuedDirection;
   protected String swapClass;
-  private InputSource defaultInputSource;
+  protected InputSource defaultInputSource;
 
   @JsonCreator
   public MoveableSprite(
@@ -52,6 +52,9 @@ public abstract class MoveableSprite extends Sprite {
   }
 
   public void setInputSource(InputSource s) {
+    if(defaultInputSource == null) {
+      defaultInputSource = s;
+    }
     inputSource = s;
   }
 
