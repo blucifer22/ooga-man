@@ -30,6 +30,7 @@ public class MenuView implements View, ThemedObject {
     this.primaryView = new GridPane();
     this.primaryView.setGridLinesVisible(true);
     this.primaryView.setAlignment(Pos.CENTER);
+    this.primaryView.getStyleClass().add("view");
     this.onThemeChange();
 
     buildScene();
@@ -48,6 +49,7 @@ public class MenuView implements View, ThemedObject {
         menuButton("openPreferences", e -> this.menuResponder.openPreferences())
     );
     menuButtons.setAlignment(Pos.CENTER);
+    menuButtons.getStyleClass().add("menu-button-box");
     this.primaryView.add(menuButtons, 1, 2);
   }
 
