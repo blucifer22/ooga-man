@@ -1,11 +1,10 @@
 package ooga.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import ooga.model.api.GridRebuildObservable;
 import ooga.model.api.GridRebuildObserver;
@@ -13,18 +12,17 @@ import ooga.model.api.PowerupEventObserver;
 import ooga.model.api.SpriteExistenceObservable;
 import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.leveldescription.GridDescription;
-
-import java.util.Collection;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.Sprite;
+import ooga.model.sprites.SwapClass;
 import ooga.util.GameClock;
 
 /**
  * This class contains all the state of a in-progress pacman game and serves as the top-level class
  * in the model.
  */
-public class PacmanGameState implements SpriteExistenceObservable, GridRebuildObservable,
-    MutableGameState {
+public class PacmanGameState
+    implements SpriteExistenceObservable, GridRebuildObservable, MutableGameState {
 
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
@@ -32,9 +30,9 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
 
   private final Collection<Sprite> sprites;
   private final Set<Sprite> toDelete;
+  private final GameClock clock;
   private PacmanGrid grid;
   private int pacManScore;
-  private final GameClock clock;
 
   public PacmanGameState() {
     spriteExistenceObservers = new HashSet<>();
@@ -45,9 +43,7 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
     clock = new GameClock();
   }
 
-  public void setDefaultInputSource() {
-
-  }
+  public void setDefaultInputSource() {}
 
   /**
    * Returns the GameClock that keeps track of the elapsed time of the Pac-Man game
@@ -58,9 +54,7 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
     return clock;
   }
 
-  /**
-   * @param score
-   */
+  /** @param score */
   @Override
   public void incrementScore(int score) {
     pacManScore += score;
@@ -112,10 +106,9 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
 
     // Next level, all consumables eaten
     if (getRemainingConsumablesCount() == 0) {
-      //notifyGridRebuildObservers();
+      // notifyGridRebuildObservers();
       // TODO: add some consumables and implement round progression logic
     }
-
   }
 
   private int getRemainingConsumablesCount() {
@@ -161,9 +154,7 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
     return grid;
   }
 
-  public void advanceLevel() {
-  }
-
+  public void advanceLevel() {}
 
   private void notifySpriteDestruction(Sprite sprite) {
     for (SpriteExistenceObserver observer : spriteExistenceObservers) {
@@ -182,7 +173,6 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
       observers.onGridRebuild(grid);
     }
   }
-
 
   @Override
   public void addGridRebuildObserver(GridRebuildObserver observer) {
@@ -213,8 +203,25 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
   }
 
   public void handleSwaps() {
-    for(Sprite sprite : sprites) {
-
+    Sprite spriteToSwapOut = null;
+    for (Sprite sprite : sprites) {
+      if (sprite.needsSwap()) {
+        spriteToSwapOut = sprite;
+        break;
+      }
+    }
+    if (spriteToSwapOut == null) {
+      return;
+    }
+    for (Sprite sprite : sprites) {
+      if (spriteToSwapOut.equals(sprite)) {
+        continue;
+      }
+      if (spriteToSwapOut.getSwapClass().equals(sprite.getSwapClass())) {
+        sprite.setInputSource(spriteToSwapOut.getInputSource());
+        spriteToSwapOut.setInputSource(spriteToSwapOut.getDefaultInputSource());
+        break;
+      }
     }
   }
 }

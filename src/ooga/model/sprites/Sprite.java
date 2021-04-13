@@ -27,6 +27,7 @@ import static ooga.model.api.SpriteEvent.EventType.*;
 public abstract class Sprite implements ObservableSprite, PowerupEventObserver {
 
   protected SwapClass swapClass;
+  protected InputSource inputSource;
   protected InputSource defaultInputSource;
   private SpriteCoordinates position;
   private Vec2 direction;
@@ -224,4 +225,16 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver {
   public InputSource getDefaultInputSource() {
     return defaultInputSource;
   }
+
+  public boolean needsSwap() {
+    return false;
+  }
+
+  public InputSource getInputSource() {
+    return null;
+  }
+
+  public void setInputSource(InputSource s) {
+  }
+
 }
