@@ -1023,9 +1023,9 @@
       "x" : 8,
       "y" : 7
     },
-    "type" : "tileclosed",
-    "openToPacman" : false,
-    "openToGhosts" : false
+    "type" : "tile",
+    "openToPacman" : true,
+    "openToGhosts" : true
   }, {
     "coordinates" : {
       "x" : 9,
@@ -1159,9 +1159,9 @@
       "x" : 8,
       "y" : 8
     },
-    "type" : "tileclosed",
-    "openToPacman" : false,
-    "openToGhosts" : false
+    "type" : "tile",
+    "openToPacman" : true,
+    "openToGhosts" : true
   }, {
     "coordinates" : {
       "x" : 9,

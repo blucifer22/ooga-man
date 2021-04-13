@@ -46,6 +46,7 @@ public class Ghost extends MoveableSprite {
   public void uponHitBy(Sprite other, MutableGameState state) {
     if (!isDeadly){
       state.prepareRemove(this);
+      changeBehavior(GhostBehavior.EATEN);
     }
   }
 
