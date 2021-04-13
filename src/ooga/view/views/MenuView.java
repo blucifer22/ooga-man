@@ -13,8 +13,9 @@ import ooga.view.MainMenuResponder;
 import ooga.view.internal_api.View;
 import ooga.view.language.api.LanguageService;
 import ooga.view.theme.api.ThemeService;
+import ooga.view.theme.api.ThemedObject;
 
-public class MenuView implements View {
+public class MenuView implements View, ThemedObject {
 
   private final GridPane primaryView;
   private final ThemeService themeService;
@@ -29,6 +30,7 @@ public class MenuView implements View {
     this.primaryView = new GridPane();
     this.primaryView.setGridLinesVisible(true);
     this.primaryView.setAlignment(Pos.CENTER);
+    this.onThemeChange();
 
     buildScene();
   }
@@ -60,5 +62,11 @@ public class MenuView implements View {
   @Override
   public Pane getRenderingNode() {
     return this.primaryView;
+  }
+
+  @Override
+  public void onThemeChange() {
+    this.primaryView.getStylesheets().clear();
+    this.primaryView.getStylesheets().add(themeService.getTheme().getStylesheet());
   }
 }

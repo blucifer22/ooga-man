@@ -37,7 +37,8 @@ public class TileView implements Renderable, TileObserver, ThemedObject {
     // END DEBUG ONLY
 
     // Initial render
-    this.setThemeService(themeService);
+    this.themeService = themeService;
+    this.themeService.addThemedObject(this);
     this.onTypeChange();
   }
 
@@ -48,12 +49,6 @@ public class TileView implements Renderable, TileObserver, ThemedObject {
   @Override
   public void onThemeChange() {
     this.onTypeChange();
-  }
-
-  @Override
-  public void setThemeService(ThemeService themeService) {
-    this.themeService = themeService;
-    this.themeService.addThemedObject(this);
   }
 
   @Override

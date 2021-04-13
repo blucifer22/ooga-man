@@ -40,7 +40,8 @@ public class GameGridView implements View, GridRebuildObserver, SpriteExistenceO
 
     this.primaryView.getChildren().addAll(tileGrid, spriteNodes);
 
-    setThemeService(themeService);
+    this.themeService = themeService;
+    this.themeService.addThemedObject(this);
   }
 
   private void createTileGraphics(ObservableGrid grid) {
@@ -84,9 +85,4 @@ public class GameGridView implements View, GridRebuildObserver, SpriteExistenceO
     // TODO: re-skin tiles!
   }
 
-  @Override
-  public void setThemeService(ThemeService themeService) {
-    this.themeService = themeService;
-    this.themeService.addThemedObject(this);
-  }
 }
