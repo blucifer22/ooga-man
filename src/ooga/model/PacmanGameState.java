@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import ooga.model.api.GridRebuildObservable;
 import ooga.model.api.GridRebuildObserver;
-import ooga.model.api.PacmanPowerupEventObserver;
+import ooga.model.api.PowerupEventObserver;
 import ooga.model.api.SpriteExistenceObservable;
 import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.leveldescription.GridDescription;
@@ -26,7 +26,7 @@ public class PacmanGameState implements SpriteExistenceObservable, GridRebuildOb
 
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
-  private final Map<PacmanPowerupEvent, Set<PacmanPowerupEventObserver>> pacmanPowerUpObservers;
+  private final Map<PacmanPowerupEvent, Set<PowerupEventObserver>> pacmanPowerUpObservers;
 
   private final Collection<Sprite> sprites;
   private final Set<Sprite> toDelete;

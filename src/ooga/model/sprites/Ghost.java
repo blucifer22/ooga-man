@@ -1,13 +1,14 @@
 package ooga.model.sprites;
 
 import ooga.model.*;
+import ooga.model.api.PowerupEventObserver;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.util.Vec2;
 
 /**
  * @author Matthew Belissary
  */
-public class Ghost extends MoveableSprite {
+public class Ghost extends MoveableSprite implements PowerupEventObserver {
 
   public static final String TYPE = "ghost";
 
@@ -47,5 +48,10 @@ public class Ghost extends MoveableSprite {
   @Override
   public boolean isDeadlyToPacMan() {
     return true;
+  }
+
+  @Override
+  public void respondToPowerEvent(PacmanPowerupEvent event) {
+
   }
 }
