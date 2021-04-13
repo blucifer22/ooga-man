@@ -44,11 +44,16 @@ public abstract class MoveableSprite extends Sprite {
     this.movementSpeed = speed;
   }
 
-  protected InputSource getInputSource() {
+  @Override
+  public InputSource getInputSource() {
     return inputSource;
   }
 
+  @Override
   public void setInputSource(InputSource s) {
+    if(defaultInputSource == null) {
+      defaultInputSource = s;
+    }
     inputSource = s;
   }
 
@@ -101,5 +106,10 @@ public abstract class MoveableSprite extends Sprite {
         getCoordinates().getPosition().add(getDirection().scalarMult(getCurrentSpeed()).scalarMult(dt));
 
     setPosition(nextPosition);
+  }
+
+  @Override
+  public boolean needsSwap() {
+    return inputSource.isActionPressed();
   }
 }

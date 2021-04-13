@@ -15,6 +15,7 @@ public class Ghost extends MoveableSprite {
 
   public Ghost(SpriteCoordinates position, Vec2 direction, double speed) {
     super(position, direction, speed);
+    swapClass = SwapClass.GHOST;
   }
 
   public Ghost(SpriteDescription spriteDescription) {

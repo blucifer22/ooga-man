@@ -1,7 +1,10 @@
+package ooga.controller;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.security.Key;
 import javafx.scene.input.KeyCode;
 import ooga.controller.HumanInputManager;
 import ooga.util.Vec2;
@@ -24,7 +27,6 @@ public class HumanInputManagerTests {
     Vec2 ret = inputManager.getRequestedDirection();
     assertEquals(ret.getX(), 0);
     assertEquals(ret.getY(), -1);
-    ;
   }
 
   @Test
@@ -67,5 +69,21 @@ public class HumanInputManagerTests {
     Vec2 ret = inputManager.getRequestedDirection();
     assertEquals(ret.getX(), 1);
     assertTrue(inputManager.isActionPressed());
+  }
+
+  @Test
+  public void testWASDKeybinding() {
+    inputManager.onKeyPress(KeyCode.W);
+    assertEquals(inputManager.getRequestedDirection().getX(), 0);
+    inputManager.onKeyRelease(KeyCode.W);
+    inputManager.onKeyPress(KeyCode.A);
+    assertEquals(inputManager.getRequestedDirection().getX(), -1);
+    inputManager.onKeyRelease(KeyCode.A);
+    inputManager.onKeyPress(KeyCode.S);
+    assertEquals(inputManager.getRequestedDirection().getX(), 0);
+    inputManager.onKeyPress(KeyCode.S);
+    inputManager.onKeyPress(KeyCode.D);
+    assertEquals(inputManager.getRequestedDirection().getX(), 1);
+    inputManager.onKeyRelease(KeyCode.D);
   }
 }
