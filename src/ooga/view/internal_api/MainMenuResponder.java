@@ -1,4 +1,4 @@
-package ooga.view;
+package ooga.view.internal_api;
 
 public interface MainMenuResponder {
   void startGame();

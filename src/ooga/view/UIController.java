@@ -3,6 +3,7 @@ package ooga.view;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ooga.controller.GameStateController;
+import ooga.view.internal_api.MainMenuResponder;
 import ooga.view.io.HumanInputConsumer;
 import ooga.view.language.bundled.BundledLanguageService;
 import ooga.view.theme.serialized.SerializedThemeService;
