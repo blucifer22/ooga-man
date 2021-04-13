@@ -34,7 +34,7 @@ public class ChaseAI extends GhostAI {
   @Override
   public Vec2 getRequestedDirection() {
     Vec2 targetTilePos = getTarget().getCoordinates().getTileCoordinates().toVec2();
-    Vec2 currentTilePos = getSelf().getCoordinates().getTileCoordinates().toVec2();
+    Vec2 currentTilePos = getGhost().getCoordinates().getTileCoordinates().toVec2();
 
     return reduceDistance(targetTilePos, currentTilePos);
   }
@@ -54,7 +54,7 @@ public class ChaseAI extends GhostAI {
       distances.add(new DirectionDistanceWrapper(direction, nextPos.distance(targetTilePos)));
     }
     Collections.sort(distances);
-    Vec2 currentReverseDirection = getSelf().getDirection().scalarMult(-1);
+    Vec2 currentReverseDirection = getGhost().getDirection().scalarMult(-1);
     Queue<DirectionDistanceWrapper> queue = new LinkedList<>(distances);
 
     while (!queue.isEmpty()) {

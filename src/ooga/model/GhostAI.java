@@ -31,7 +31,7 @@ public class GhostAI implements InputSource {
     return target;
   }
 
-  protected Sprite getSelf() {
+  protected Ghost getGhost() {
     return ghost;
   }
 
