@@ -1,6 +1,7 @@
 package ooga.model.sprites;
 
 import ooga.model.MutableGameState;
+import ooga.model.PacmanPowerupEvent;
 import ooga.model.SpriteCoordinates;
 import ooga.util.Vec2;
 
@@ -42,5 +43,10 @@ public class Cherry extends Sprite {
   @Override
   public boolean isDeadlyToPacMan() {
     return false;
+  }
+
+  @Override
+  public void respondToPowerEvent(PacmanPowerupEvent event) {
+
   }
 }

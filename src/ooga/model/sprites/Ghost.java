@@ -8,9 +8,10 @@ import ooga.util.Vec2;
 /**
  * @author Matthew Belissary
  */
-public class Ghost extends MoveableSprite implements PowerupEventObserver {
+public class Ghost extends MoveableSprite {
 
   public static final String TYPE = "ghost";
+  private boolean isDeadly = true;
 
   public Ghost(SpriteCoordinates position, Vec2 direction, double speed) {
     super(position, direction, speed);
@@ -47,11 +48,16 @@ public class Ghost extends MoveableSprite implements PowerupEventObserver {
 
   @Override
   public boolean isDeadlyToPacMan() {
-    return true;
+    return isDeadly;
   }
 
   @Override
   public void respondToPowerEvent(PacmanPowerupEvent event) {
-
+    switch (event){
+      case GHOST_SLOWDOWN_ACTIVATED -> setMovementSpeed(getMovementSpeed() * 0.5);
+      case GHOST_SLOWDOWN_DEACTIVATED -> setMovementSpeed(getMovementSpeed() * 2);
+      case FRIGHTEN_ACTIVATED -> System.out.println("SPOOK TIME");
+      case FRIGHTEN_DEACTIVATED -> System.out.println("BACK TO NORMAL");
+    }
   }
 }

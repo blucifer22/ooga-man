@@ -2,6 +2,7 @@ package ooga.model.sprites;
 
 import ooga.model.MutableGameState;
 import ooga.model.PacmanGameState;
+import ooga.model.PacmanPowerupEvent;
 import ooga.model.SpriteCoordinates;
 import ooga.util.Vec2;
 
@@ -41,5 +42,10 @@ public class PowerPill extends Sprite {
   @Override
   public boolean isDeadlyToPacMan() {
     return false;
+  }
+
+  @Override
+  public void respondToPowerEvent(PacmanPowerupEvent event) {
+
   }
 }
