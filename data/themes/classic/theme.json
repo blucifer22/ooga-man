@@ -1,4 +1,5 @@
 {
+  "stylesheet": "themes/classic/theme.css",
   "costumes" : {
     "blinky" : {
       "fill" : "themes/classic/images/ghosts/blinky.png",
