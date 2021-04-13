@@ -11,6 +11,7 @@ import ooga.util.Vec2;
 public class PacMan extends MoveableSprite {
 
   public static final String TYPE = "pacman_halfopen";
+  private int ghostsEaten;
 
   public PacMan(SpriteCoordinates position, Vec2 direction, double speed) {
     super(position, direction, speed);
@@ -36,6 +37,13 @@ public class PacMan extends MoveableSprite {
     if (other.isDeadlyToPacMan()) {
       state.prepareRemove(this);
       System.out.println("GAMEOVER");
+    } else if (other.hasMultiplicativeScoring()) {
+      ghostsEaten++;
+      state.incrementScore(other.getScore() * ghostsEaten);
+      System.out.println("SCORE: " + state.getScore());
+    } else if (other.isConsumable()){
+      state.incrementScore(other.getScore());
+      System.out.println("SCORE: " + state.getScore());
     }
   }
 
@@ -53,6 +61,26 @@ public class PacMan extends MoveableSprite {
   @Override
   public boolean isDeadlyToPacMan() {
     return false;
+  }
+
+  @Override
+  public boolean eatsGhosts() {
+    return true;
+  }
+
+  @Override
+  public boolean isConsumable() {
+    return false;
+  }
+
+  @Override
+  public boolean hasMultiplicativeScoring() {
+    return false;
+  }
+
+  @Override
+  public int getScore() {
+    return 0;
   }
 
   @Override

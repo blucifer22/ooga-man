@@ -25,9 +25,7 @@ public class Dot extends Sprite {
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    state.incrementScore(dotScoreIncrement);
     state.prepareRemove(this);
-    System.out.println("SCORE: " + state.getScore());
   }
 
   @Override
@@ -43,6 +41,26 @@ public class Dot extends Sprite {
   @Override
   public boolean isDeadlyToPacMan() {
     return false;
+  }
+
+  @Override
+  public boolean eatsGhosts() {
+    return false;
+  }
+
+  @Override
+  public boolean isConsumable() {
+    return true;
+  }
+
+  @Override
+  public boolean hasMultiplicativeScoring() {
+    return false;
+  }
+
+  @Override
+  public int getScore() {
+    return dotScoreIncrement;
   }
 
   @Override

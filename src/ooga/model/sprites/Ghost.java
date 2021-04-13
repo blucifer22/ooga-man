@@ -12,6 +12,7 @@ public class Ghost extends MoveableSprite {
 
   public static final String TYPE = "ghost";
   private boolean isDeadly = true;
+  private int baseGhostScore = 200;
   private GhostBehavior ghostBehavior;
 
   public Ghost(SpriteCoordinates position, Vec2 direction, double speed) {
@@ -44,7 +45,7 @@ public class Ghost extends MoveableSprite {
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    if (!isDeadly){
+    if (!isDeadly && other.eatsGhosts()){
       state.prepareRemove(this);
       changeBehavior(GhostBehavior.EATEN);
     }
@@ -63,6 +64,26 @@ public class Ghost extends MoveableSprite {
   @Override
   public boolean isDeadlyToPacMan() {
     return isDeadly;
+  }
+
+  @Override
+  public boolean eatsGhosts() {
+    return false;
+  }
+
+  @Override
+  public boolean isConsumable() {
+    return !isDeadly;
+  }
+
+  @Override
+  public boolean hasMultiplicativeScoring() {
+    return false;
+  }
+
+  @Override
+  public int getScore() {
+    return baseGhostScore;
   }
 
   private void changeBehavior(GhostBehavior behavior) {
@@ -84,6 +105,8 @@ public class Ghost extends MoveableSprite {
         isDeadly = true;
         setDirection(getDirection().scalarMult(-1));
       }
+      case POINT_BONUS_ACTIVATED -> baseGhostScore *= 2;
+      case POINT_BONUS_DEACTIVATED -> baseGhostScore *= 0.5;
     }
   }
 

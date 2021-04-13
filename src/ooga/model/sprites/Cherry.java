@@ -27,9 +27,7 @@ public class Cherry extends Sprite {
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    state.incrementScore(cherryScoreIncrement);
     state.prepareRemove(this);
-    System.out.println("SCORE: " + state.getScore());
   }
 
   @Override
@@ -45,6 +43,26 @@ public class Cherry extends Sprite {
   @Override
   public boolean isDeadlyToPacMan() {
     return false;
+  }
+
+  @Override
+  public boolean eatsGhosts() {
+    return false;
+  }
+
+  @Override
+  public boolean isConsumable() {
+    return true;
+  }
+
+  @Override
+  public boolean hasMultiplicativeScoring() {
+    return false;
+  }
+
+  @Override
+  public int getScore() {
+    return cherryScoreIncrement;
   }
 
   @Override

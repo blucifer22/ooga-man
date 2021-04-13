@@ -37,10 +37,7 @@ public class PowerPill extends Sprite {
   }
 
   @Override
-  public void step(double dt, MutableGameState pacmanGameState) {
-
-  }
-
+  public void step(double dt, MutableGameState pacmanGameState) {}
 
   @Override
   public boolean mustBeConsumed() {
@@ -50,6 +47,26 @@ public class PowerPill extends Sprite {
   @Override
   public boolean isDeadlyToPacMan() {
     return false;
+  }
+
+  @Override
+  public boolean eatsGhosts() {
+    return false;
+  }
+
+  @Override
+  public boolean isConsumable() {
+    return true;
+  }
+
+  @Override
+  public boolean hasMultiplicativeScoring() {
+    return false;
+  }
+
+  @Override
+  public int getScore() {
+    return 0;
   }
 
   @Override

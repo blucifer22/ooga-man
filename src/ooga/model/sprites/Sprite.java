@@ -215,6 +215,14 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver {
 
   public abstract boolean isDeadlyToPacMan();
 
+  public abstract boolean eatsGhosts();
+
+  public abstract boolean isConsumable();
+
+  public abstract boolean hasMultiplicativeScoring();
+
+  public abstract int getScore();
+
   @Override
   public abstract void respondToPowerEvent(PacmanPowerupEvent event);
 
