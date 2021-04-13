@@ -1,9 +1,11 @@
 package ooga.model.sprites;
 
+import java.util.Random;
 import ooga.model.MutableGameState;
 import ooga.model.PacmanGameState;
 import ooga.model.PacmanPowerupEvent;
 import ooga.model.SpriteCoordinates;
+import ooga.util.Timer;
 import ooga.util.Vec2;
 
 /**
@@ -25,7 +27,13 @@ public class PowerPill extends Sprite {
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
     state.prepareRemove(this);
-    System.out.println("Powerup Consumed");
+    int evenIndex = new Random().nextInt(PacmanPowerupEvent.values().length / 2) * 2;
+    state.notifyPowerupListeners(PacmanPowerupEvent.values()[evenIndex]);
+    System.out.println(PacmanPowerupEvent.values()[evenIndex]);
+    state.getClock().addTimer(new Timer(9, mutableGameState -> {
+      state.notifyPowerupListeners(PacmanPowerupEvent.values()[evenIndex + 1]);
+      System.out.println(PacmanPowerupEvent.values()[evenIndex + 1]);
+    }));
   }
 
   @Override

@@ -12,14 +12,24 @@ public class Ghost extends MoveableSprite {
 
   public static final String TYPE = "ghost";
   private boolean isDeadly = true;
+  private GhostBehavior ghostBehavior;
 
   public Ghost(SpriteCoordinates position, Vec2 direction, double speed) {
     super(position, direction, speed);
     swapClass = SwapClass.GHOST;
+    ghostBehavior = GhostBehavior.CHASE;
   }
 
   public Ghost(SpriteDescription spriteDescription) {
     super(spriteDescription);
+  }
+
+  /**
+   * Gets the current state of the ghost
+   * @return
+   */
+  public GhostBehavior getGhostBehavior() {
+    return ghostBehavior;
   }
 
   @Override
@@ -34,7 +44,10 @@ public class Ghost extends MoveableSprite {
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-
+    if (!isDeadly){
+      state.prepareRemove(this);
+      changeBehavior(GhostBehavior.EATEN);
+    }
   }
 
   @Override
@@ -52,13 +65,34 @@ public class Ghost extends MoveableSprite {
     return isDeadly;
   }
 
+  private void changeBehavior(GhostBehavior behavior) {
+    ghostBehavior = behavior;
+  }
+
   @Override
   public void respondToPowerEvent(PacmanPowerupEvent event) {
-    switch (event){
+    switch (event) {
       case GHOST_SLOWDOWN_ACTIVATED -> setMovementSpeed(getMovementSpeed() * 0.5);
       case GHOST_SLOWDOWN_DEACTIVATED -> setMovementSpeed(getMovementSpeed() * 2);
-      case FRIGHTEN_ACTIVATED -> System.out.println("SPOOK TIME");
-      case FRIGHTEN_DEACTIVATED -> System.out.println("BACK TO NORMAL");
+      case FRIGHTEN_ACTIVATED -> {
+        changeBehavior(GhostBehavior.FRIGHTENED);
+        isDeadly = false;
+        setDirection(getDirection().scalarMult(-1));
+      }
+      case FRIGHTEN_DEACTIVATED -> {
+        changeBehavior(GhostBehavior.CHASE);
+        isDeadly = true;
+        setDirection(getDirection().scalarMult(-1));
+      }
     }
+  }
+
+  /* TODO: perhaps refactor? */
+  public enum GhostBehavior {
+    FRIGHTENED,
+    SCATTER,
+    CHASE,
+    EATEN,
+    WAIT
   }
 }
