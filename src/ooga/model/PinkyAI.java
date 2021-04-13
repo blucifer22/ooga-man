@@ -18,7 +18,7 @@ public class PinkyAI extends ChaseAI {
    * @return direction to move the ghost
    */
   @Override
-  public Vec2 getRequestedDirection() {
+  public Vec2 chaseBehavior() {
     Vec2 targetOrientation = getTarget().getDirection();
     Vec2 targetTilePos = getTarget().getCoordinates().getTileCoordinates().toVec2()
         .add(targetOrientation.scalarMult(4));

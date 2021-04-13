@@ -12,13 +12,12 @@ public class Ghost extends MoveableSprite {
 
   public static final String TYPE = "ghost";
   private final boolean isDeadly = true;
-  private boolean isAfraid;
   private GhostBehavior ghostBehavior;
 
   public Ghost(SpriteCoordinates position, Vec2 direction, double speed) {
     super(position, direction, speed);
     swapClass = SwapClass.GHOST;
-    ghostBehavior = GhostBehavior.WAIT;
+    ghostBehavior = GhostBehavior.CHASE;
   }
 
   public Ghost(SpriteDescription spriteDescription) {
@@ -63,10 +62,6 @@ public class Ghost extends MoveableSprite {
     return isDeadly;
   }
 
-  public boolean isFrightened() {
-    return isAfraid;
-  }
-
   private void changeBehavior(GhostBehavior behavior) {
     ghostBehavior = behavior;
   }
@@ -76,9 +71,14 @@ public class Ghost extends MoveableSprite {
     switch (event) {
 //      case GHOST_SLOWDOWN_ACTIVATED -> setMovementSpeed(getMovementSpeed() * 0.5);
 //      case GHOST_SLOWDOWN_DEACTIVATED -> setMovementSpeed(getMovementSpeed() * 2);
-      case FRIGHTEN_ACTIVATED -> changeBehavior(GhostBehavior.FRIGHTENED);
-      case FRIGHTEN_DEACTIVATED -> changeBehavior(GhostBehavior.CHASE);
-
+      case FRIGHTEN_ACTIVATED -> {
+        changeBehavior(GhostBehavior.FRIGHTENED);
+        setDirection(getDirection().scalarMult(-1));
+      }
+      case FRIGHTEN_DEACTIVATED -> {
+        changeBehavior(GhostBehavior.CHASE);
+        setDirection(getDirection().scalarMult(-1));
+      }
     }
   }
 

@@ -73,7 +73,7 @@ public class GhostAI implements InputSource {
    */
   protected Vec2 frightenedBehavior() {
     // TODO: Implement
-    return Vec2.ZERO;
+    return scatterBehavior();
   }
 
   /**

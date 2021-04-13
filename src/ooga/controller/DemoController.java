@@ -69,10 +69,10 @@ public class DemoController implements GameStateController {
     pgs.addSprite(pacman);
     pgs.registerEventListener(pacman);
 
-//    pgs.addSprite(blinky);
-//    pgs.registerEventListener(blinky);
-//    pgs.addSprite(pinky);
-//    pgs.registerEventListener(pinky);
+    pgs.addSprite(blinky);
+    pgs.registerEventListener(blinky);
+    pgs.addSprite(pinky);
+    pgs.registerEventListener(pinky);
 
     pgs.addSprite(dot1);
     pgs.registerEventListener(dot1);

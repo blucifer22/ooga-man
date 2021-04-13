@@ -32,7 +32,7 @@ public class ChaseAI extends GhostAI {
    * @return direction to move the ghost
    */
   @Override
-  public Vec2 getRequestedDirection() {
+  protected Vec2 chaseBehavior() {
     Vec2 targetTilePos = getTarget().getCoordinates().getTileCoordinates().toVec2();
     Vec2 currentTilePos = getGhost().getCoordinates().getTileCoordinates().toVec2();
 
