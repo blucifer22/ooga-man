@@ -11,16 +11,26 @@ import ooga.util.Vec2;
 public class Ghost extends MoveableSprite {
 
   public static final String TYPE = "ghost";
-  private boolean isDeadly = true;
+  private final boolean isDeadly = true;
   private boolean isAfraid;
+  private GhostBehavior ghostBehavior;
 
   public Ghost(SpriteCoordinates position, Vec2 direction, double speed) {
     super(position, direction, speed);
     swapClass = SwapClass.GHOST;
+    ghostBehavior = GhostBehavior.WAIT;
   }
 
   public Ghost(SpriteDescription spriteDescription) {
     super(spriteDescription);
+  }
+
+  /**
+   * Gets the current state of the ghost
+   * @return
+   */
+  public GhostBehavior getGhostBehavior() {
+    return ghostBehavior;
   }
 
   @Override
@@ -53,17 +63,30 @@ public class Ghost extends MoveableSprite {
     return isDeadly;
   }
 
-  public boolean isFrightened(){ return isAfraid; }
+  public boolean isFrightened() {
+    return isAfraid;
+  }
 
-  private void changeFearStatus(boolean fearStatus){ isAfraid = fearStatus; }
+  private void changeBehavior(GhostBehavior behavior) {
+    ghostBehavior = behavior;
+  }
 
   @Override
   public void respondToPowerEvent(PacmanPowerupEvent event) {
-    switch (event){
+    switch (event) {
 //      case GHOST_SLOWDOWN_ACTIVATED -> setMovementSpeed(getMovementSpeed() * 0.5);
 //      case GHOST_SLOWDOWN_DEACTIVATED -> setMovementSpeed(getMovementSpeed() * 2);
-      case FRIGHTEN_ACTIVATED -> changeFearStatus(true);
-      case FRIGHTEN_DEACTIVATED -> changeFearStatus(false);
+      case FRIGHTEN_ACTIVATED -> changeBehavior(GhostBehavior.FRIGHTENED);
+      case FRIGHTEN_DEACTIVATED -> changeBehavior(GhostBehavior.CHASE);
+
     }
+  }
+
+  /* TODO: perhaps refactor? */
+  public enum GhostBehavior {
+    SCATTER,
+    CHASE,
+    FRIGHTENED,
+    WAIT
   }
 }

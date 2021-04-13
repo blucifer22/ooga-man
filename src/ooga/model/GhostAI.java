@@ -3,6 +3,7 @@ package ooga.model;
 import java.util.ArrayList;
 import java.util.Random;
 import ooga.model.sprites.Ghost;
+import ooga.model.sprites.Ghost.GhostBehavior;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
@@ -42,6 +43,20 @@ public class GhostAI implements InputSource {
   @Override
   public Vec2 getRequestedDirection() {
     // TODO: Implement this!
+    switch (getGhost().getGhostBehavior()){
+      case CHASE:
+        chaseBehavior();
+      case FRIGHTENED:
+
+      case WAIT:
+
+      case SCATTER:
+
+    }
+    return Vec2.ZERO;
+  }
+
+  protected Vec2 chaseBehavior() {
     Vec2 ret = Vec2.ZERO;
     ArrayList<Vec2> randomVectorOptions = new ArrayList<>();
     randomVectorOptions.add(new Vec2(-1.0, 0));
@@ -63,14 +78,9 @@ public class GhostAI implements InputSource {
     return false;
   }
 
-  public void changeBehavior(GhostBehavior newBehavior) {
+  protected void changeBehavior(GhostBehavior newBehavior) {
   }
 
-  /* TODO: perhaps refactor? */
-  public enum GhostBehavior {
-    SCATTER,
-    CHASE,
-    FRIGHTENED
-  }
+
 
 }
