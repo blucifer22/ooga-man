@@ -40,10 +40,14 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
   @Override
   public Vec2 getRequestedDirection() {
     Vec2 ret = Vec2.ZERO;
-    if (pressedKeys.contains(KeyCode.UP)) ret = ret.add(new Vec2(0, -1));
-    if (pressedKeys.contains(KeyCode.DOWN)) ret = ret.add(new Vec2(0, 1));
-    if (pressedKeys.contains(KeyCode.LEFT)) ret = ret.add(new Vec2(-1, 0));
-    if (pressedKeys.contains(KeyCode.RIGHT)) ret = ret.add(new Vec2(1, 0));
+    if ((pressedKeys.contains(KeyCode.UP) || pressedKeys.contains(KeyCode.W)))
+      ret = ret.add(new Vec2(0, -1));
+    if ((pressedKeys.contains(KeyCode.DOWN) || pressedKeys.contains(KeyCode.S)))
+      ret = ret.add(new Vec2(0, 1));
+    if ((pressedKeys.contains(KeyCode.LEFT) || pressedKeys.contains(KeyCode.A)))
+      ret = ret.add(new Vec2(-1, 0));
+    if ((pressedKeys.contains(KeyCode.RIGHT) || pressedKeys.contains(KeyCode.D)))
+      ret = ret.add(new Vec2(1, 0));
     return ret;
   }
 
