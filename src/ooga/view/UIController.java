@@ -4,13 +4,15 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ooga.controller.GameStateController;
 import ooga.view.internal_api.MainMenuResponder;
+import ooga.view.internal_api.PreferenceResponder;
 import ooga.view.io.HumanInputConsumer;
 import ooga.view.language.bundled.BundledLanguageService;
 import ooga.view.theme.serialized.SerializedThemeService;
 import ooga.view.views.GameView;
 import ooga.view.views.MenuView;
+import ooga.view.views.PreferenceView;
 
-public class UIController implements MainMenuResponder {
+public class UIController implements MainMenuResponder, PreferenceResponder {
 
   private static final double DEFAULT_STAGE_SIZE = 600;
   private final Stage primaryStage;
@@ -81,6 +83,7 @@ public class UIController implements MainMenuResponder {
 
   @Override
   public void openPreferences() {
-    // TODO: open preferences
+    this.primaryStage.setScene(new Scene((new PreferenceView(this, themeService, languageService).getRenderingNode()), primaryStage.getWidth(),
+        primaryStage.getHeight()));
   }
 }

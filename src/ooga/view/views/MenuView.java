@@ -42,7 +42,7 @@ public class MenuView implements View, ThemedObject {
     title.getStyleClass().add("menu-title");
     title.textProperty().bind(languageService.getLocalizedString("pacman"));
     GridPane.setHalignment(title, HPos.CENTER);
-    this.primaryView.add(title, 1, 1);
+    this.primaryView.add(title, 0, 0);
 
     VBox menuButtons = new VBox(
         menuButton("startGame", e -> this.menuResponder.startGame()),
@@ -51,14 +51,14 @@ public class MenuView implements View, ThemedObject {
     );
     menuButtons.setAlignment(Pos.CENTER);
     menuButtons.getStyleClass().add("menu-button-box");
-    this.primaryView.add(menuButtons, 1, 2);
+    this.primaryView.add(menuButtons, 0, 1);
   }
 
   private Button menuButton(String labelKey, EventHandler<MouseEvent> onClickHandler) {
     Button start = new Button();
     start.getStyleClass().add("menu-button");
     start.textProperty().bind(languageService.getLocalizedString(labelKey));
-    start.setOnMouseClicked(e -> this.menuResponder.startGame());
+    start.setOnMouseClicked(onClickHandler);
     return start;
   }
 
