@@ -10,13 +10,13 @@ import java.util.Set;
 
 import ooga.model.*;
 import ooga.model.api.ObservableSprite;
+import ooga.model.api.PowerupEventObserver;
 import ooga.model.api.SpriteEvent;
 import ooga.model.api.SpriteObserver;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.util.Vec2;
 
-import static ooga.model.api.SpriteEvent.EventType.ROTATE;
-import static ooga.model.api.SpriteEvent.EventType.TRANSLATE;
+import static ooga.model.api.SpriteEvent.EventType.*;
 
 /**
  * Sprites are things that exist on top of the grid, but are not pure UI elements such as score
@@ -24,11 +24,12 @@ import static ooga.model.api.SpriteEvent.EventType.TRANSLATE;
  *
  * @author George Hong
  */
-public abstract class Sprite implements ObservableSprite {
+public abstract class Sprite implements ObservableSprite, PowerupEventObserver {
 
   private SpriteCoordinates position;
   private Vec2 direction;
   private Map<SpriteEvent.EventType, Set<SpriteObserver>> observers;
+  private String type;
 
   @JsonCreator
   public Sprite(
@@ -71,7 +72,14 @@ public abstract class Sprite implements ObservableSprite {
    *
    * @return
    */
-  public abstract String getType();
+  public String getType() {
+    return type;
+  }
+
+  protected void setType(String newType) {
+    type = newType;
+    notifyObservers(TYPE_CHANGE);
+  }
 
   // coordinates of the tile above which this sprite's center lies
 
@@ -137,7 +145,7 @@ public abstract class Sprite implements ObservableSprite {
    *
    * @param state
    */
-  public void handleCollisions(PacmanGameState state) {
+  public void handleCollisions(MutableGameState state) {
     List<Sprite> sprites = state.getCollidingWith(this);
     for (Sprite other : sprites) {
       this.uponHitBy(other, state);
@@ -153,7 +161,7 @@ public abstract class Sprite implements ObservableSprite {
    * @param state current state of the game, allowing Sprites to perform actions such as remove
    *              themselves from the game or adjust the score
    */
-  public abstract void uponHitBy(Sprite other, PacmanGameState state);
+  public abstract void uponHitBy(Sprite other, MutableGameState state);
 
   /**
    * Adds an observer that will be notified whenever any of the subset of observedEvents occurs
@@ -197,9 +205,12 @@ public abstract class Sprite implements ObservableSprite {
   }
 
   // advance state by dt seconds
-  public abstract void step(double dt, PacmanGameState pacmanGameState);
+  public abstract void step(double dt, MutableGameState pacmanGameState);
 
   public abstract boolean mustBeConsumed();
 
   public abstract boolean isDeadlyToPacMan();
+
+  @Override
+  public abstract void respondToPowerEvent(PacmanPowerupEvent event);
 }

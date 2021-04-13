@@ -63,7 +63,7 @@ class TestObserver implements SpriteObserver {
 //    System.out.println(e.getEventType());
     lastEventType = e.getEventType();
     lastSender = e.getSender().getType();
-    lastCoordinates = e.getSender().getCenter();
+    lastCoordinates = e.getSender().getCoordinates();
   }
 
   public SpriteCoordinates getLastCoordinates() {
@@ -89,17 +89,12 @@ class TestObservableSprite extends Sprite {
   }
 
   @Override
-  public void uponHitBy(Sprite other, PacmanGameState state) {
+  public void uponHitBy(Sprite other, MutableGameState state) {
 
   }
 
   @Override
-  public SpriteCoordinates getCenter() {
-    return getCoordinates();
-  }
-
-  @Override
-  public void step(double dt, PacmanGameState pacmanGameState) {
+  public void step(double dt, MutableGameState pacmanGameState) {
     setPosition(new Vec2(0.5, 0));
     notifyObservers(EventType.TRANSLATE);
   }
@@ -110,5 +105,12 @@ class TestObservableSprite extends Sprite {
   }
 
   @Override
-  public boolean isDeadlyToPacMan() { return false; }
+  public boolean isDeadlyToPacMan() {
+    return false;
+  }
+
+  @Override
+  public void respondToPowerEvent(PacmanPowerupEvent event) {
+
+  }
 }

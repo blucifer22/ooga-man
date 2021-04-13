@@ -1,6 +1,7 @@
 package ooga.model.sprites;
 
 import ooga.model.*;
+import ooga.model.api.PowerupEventObserver;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.util.Vec2;
 
@@ -9,7 +10,7 @@ import ooga.util.Vec2;
  */
 public class PacMan extends MoveableSprite {
 
-  public static final String TYPE = "pacman";
+  public static final String TYPE = "pacman_halfopen";
 
   public PacMan(SpriteCoordinates position, Vec2 direction, double speed) {
     super(position, direction, speed);
@@ -30,22 +31,17 @@ public class PacMan extends MoveableSprite {
   }
 
   @Override
-  public void uponHitBy(Sprite other, PacmanGameState state) {
-    if (other.isDeadlyToPacMan()){
+  public void uponHitBy(Sprite other, MutableGameState state) {
+    if (other.isDeadlyToPacMan()) {
       state.prepareRemove(this);
       System.out.println("GAMEOVER");
     }
   }
 
   @Override
-  public void step(double dt, PacmanGameState pacmanGameState) {
+  public void step(double dt, MutableGameState pacmanGameState) {
     move(dt, pacmanGameState.getGrid());
     handleCollisions(pacmanGameState);
-  }
-
-  @Override
-  public SpriteCoordinates getCenter() {
-    return getCoordinates();
   }
 
   @Override
@@ -54,5 +50,15 @@ public class PacMan extends MoveableSprite {
   }
 
   @Override
-  public boolean isDeadlyToPacMan() { return false; }
+  public boolean isDeadlyToPacMan() {
+    return false;
+  }
+
+  @Override
+  public void respondToPowerEvent(PacmanPowerupEvent event) {
+    switch (event){
+      case SPEED_UP_ACTIVATED -> setMovementSpeed(getMovementSpeed() * 2);
+      case SPEED_UP_DEACTIVATED -> setMovementSpeed(getMovementSpeed() * 0.5);
+    }
+  }
 }

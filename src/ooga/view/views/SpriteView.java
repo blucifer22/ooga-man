@@ -75,7 +75,7 @@ public class SpriteView implements SpriteObserver, ThemedObject, Renderable {
   }
 
   private void updatePosition() {
-    SpriteCoordinates coordinates = dataSource.getCenter();
+    SpriteCoordinates coordinates = dataSource.getCoordinates();
     this.viewGraphic.translateXProperty()
         .bind(size.multiply(coordinates.getPosition().getX()-0.5*this.costume.getScale()));
     this.viewGraphic.translateYProperty()

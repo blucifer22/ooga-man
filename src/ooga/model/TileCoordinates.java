@@ -28,6 +28,9 @@ public class TileCoordinates {
     this.x = 0;
     this.y = 0;
   }
+  public Vec2 toVec2(){
+    return new Vec2(x, y);
+  }
 
   @JsonGetter
   public int getX() {

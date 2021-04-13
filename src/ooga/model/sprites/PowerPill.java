@@ -1,31 +1,31 @@
 package ooga.model.sprites;
 
 import ooga.model.MutableGameState;
+import ooga.model.PacmanGameState;
 import ooga.model.PacmanPowerupEvent;
 import ooga.model.SpriteCoordinates;
 import ooga.util.Vec2;
 
-import java.lang.management.MemoryUsage;
-
 /**
  * Basic Dot, consumable by Pac-Man to increase the score.
+ *
+ * @author Matthew Belissary
  */
-public class Dot extends Sprite {
+public class PowerPill extends Sprite {
 
-  public Dot(SpriteCoordinates position, Vec2 direction) {
+  public PowerPill(SpriteCoordinates position, Vec2 direction) {
     super(position, direction);
   }
 
   @Override
   public String getType() {
-    return "dot";
+    return "powerpill";
   }
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    state.incrementScore(1);
     state.prepareRemove(this);
-    System.out.println("SCORE: " + state.getScore());
+    System.out.println("Powerup Consumed");
   }
 
   @Override
@@ -33,9 +33,10 @@ public class Dot extends Sprite {
 
   }
 
+
   @Override
   public boolean mustBeConsumed() {
-    return true;
+    return false;
   }
 
   @Override
