@@ -10,25 +10,23 @@ import ooga.view.theme.api.Theme;
 public class ThemeDescription extends JSONDescription {
 
   private final Map<String, CostumeDescription> costumes;
-
-  public ThemeDescription() {
-    this.costumes = new HashMap<>();
-    costumes.put("pacman", new CostumeDescription("themes/classic/images/pacman.png",
-        true, 1.0, true, true));
-    costumes.put("ghost", new CostumeDescription("RED", false, 1.0, false, true));
-    costumes.put("tile", new CostumeDescription("BLACK", false, 1.0, false, true));
-  }
+  private final String stylesheet;
 
   public ThemeDescription(
-      @JsonProperty("costumes") Map<String, CostumeDescription> costumes
+      @JsonProperty("costumes") Map<String, CostumeDescription> costumes,
+      @JsonProperty("stylesheet") String stylesheet
   ) {
     this.costumes = costumes;
+    this.stylesheet = stylesheet;
   }
 
   @JsonGetter("costumes")
   public Map<String, CostumeDescription> getCostumes() {
     return costumes;
   }
+
+  @JsonGetter("stylesheet")
+  public String getStylesheet() { return this.stylesheet; }
 
   public Theme toTheme() {
     return new SerializedTheme(this);

@@ -1,7 +1,26 @@
 {
-  "fill" : "TRANSPARENT",
-  "imageFill" : false,
-  "scale" : 1.2,
-  "bottomHeavy" : true,
-  "rotates" : true
+  "costumes" : {
+    "ghost" : {
+      "fill" : "RED",
+      "imageFill" : false,
+      "scale" : 1.0,
+      "bottomHeavy" : false,
+      "rotates" : true
+    },
+    "tile" : {
+      "fill" : "BLACK",
+      "imageFill" : false,
+      "scale" : 1.0,
+      "bottomHeavy" : false,
+      "rotates" : true
+    },
+    "pacman" : {
+      "fill" : "themes/classic/images/pacman.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true,
+      "rotates" : true
+    }
+  },
+  "stylesheet" : "themes/classic/theme.css"
 }

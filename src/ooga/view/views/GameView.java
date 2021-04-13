@@ -29,7 +29,8 @@ public class GameView implements View, ThemedObject {
   public GameView(ThemeService themeService) {
     this.primaryView = new GridPane();
 
-    setThemeService(themeService);
+    this.themeService = themeService;
+    this.themeService.addThemedObject(this);
 
     this.gridView = new GameGridView(this.themeService);
 
@@ -65,9 +66,4 @@ public class GameView implements View, ThemedObject {
     // TODO: figure out if anything needs to change on a theme change
   }
 
-  @Override
-  public void setThemeService(ThemeService themeService) {
-    this.themeService = themeService;
-    this.themeService.addThemedObject(this);
-  }
 }

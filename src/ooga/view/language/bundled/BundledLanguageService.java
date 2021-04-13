@@ -15,6 +15,7 @@ public class BundledLanguageService implements LanguageService {
   private static final String DEFAULT_LANGUAGE = "english";
 
   private final String languageRoot;
+  private String languageName;
   private final HashMap<String, StringProperty> strings;
 
   public BundledLanguageService() {
@@ -40,11 +41,6 @@ public class BundledLanguageService implements LanguageService {
   private void updatePropertyValues(String languageName, boolean initial) {
     ResourceBundle newLang = ResourceBundle.getBundle(languageRoot +"/"+languageName);
 
-    for (String key: newLang.keySet()) {
-      strings.putIfAbsent(key, new SimpleStringProperty());
-      strings.get(key).setValue(newLang.getString(key));
-    }
-
     if (!initial) {
       HashSet<String> keysToUpdate = new HashSet<>(strings.keySet());
       keysToUpdate.removeAll(newLang.keySet());
@@ -56,15 +52,34 @@ public class BundledLanguageService implements LanguageService {
         } catch (MissingResourceException e) {
           // THIS VALUE MUST BE HARD-CODED: the EXCEPTION here is that resource bundle error
           // messages are are missing
-          throw new IllegalArgumentException(String.format("Corrupted or incomplete resource bundle: %s.",
-              languageName));
+          throw new IllegalArgumentException(String.format("Error while handling error: corrupted "
+              + "or incomplete resource bundle: %s.", languageName));
         }
       }
     }
+
+    for (String key: newLang.keySet()) {
+      strings.putIfAbsent(key, new SimpleStringProperty());
+      strings.get(key).setValue(newLang.getString(key));
+    }
+
+    this.languageName = languageName;
   }
 
   @Override
   public ReadOnlyStringProperty getLocalizedString(String s) {
+    try {
+      if (!strings.containsKey(s)) {
+        throw new IllegalArgumentException(String.format(strings.get("missingvalerror").getValue(),
+            languageName, s));
+      }
+    } catch (MissingResourceException m) {
+      // THIS VALUE MUST BE HARD-CODED: the EXCEPTION here is that resource bundle error
+      // messages are are missing
+      throw new IllegalArgumentException(String.format("Error while handling error: corrupted "
+          + "or incomplete resource bundle: %s.", languageName));
+    }
+
     return strings.get(s);
   }
 }
