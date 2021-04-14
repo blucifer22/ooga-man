@@ -64,9 +64,15 @@ public class PreferenceView implements ThemedObject, View {
     this.primaryView.add(labeledLangDropdown, 0, 0);
 
     Button returnToMenu = new Button();
-    returnToMenu.textProperty().bind(languageService.getLocalizedString("Back"));
+    returnToMenu.textProperty().bind(languageService.getLocalizedString("previousMenu"));
     returnToMenu.setOnMouseClicked(e -> System.out.println("exit"));
-    this.primaryView.add(returnToMenu, 0, 1);
+    returnToMenu.getStyleClass().add("menu-button");
+
+    VBox backButtonCard = new VBox(
+        returnToMenu
+    );
+    backButtonCard.setAlignment(Pos.CENTER);
+    this.primaryView.add(backButtonCard, 0, 1);
   }
 
   @Override
