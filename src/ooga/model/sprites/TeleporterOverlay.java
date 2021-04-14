@@ -56,7 +56,7 @@ public class TeleporterOverlay extends Sprite {
     Vec2 spriteDirection = connectedTeleporter.getDirection();
 
     other.setCoordinates(
-        new SpriteCoordinates(teleporterCenter.add(spriteDirection.scalarMult(0.6))));
+        new SpriteCoordinates(teleporterCenter.add(spriteDirection.scalarMult(1))));
   }
 
   @Override
