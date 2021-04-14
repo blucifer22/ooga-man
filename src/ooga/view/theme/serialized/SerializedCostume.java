@@ -19,7 +19,6 @@ public class SerializedCostume implements Costume {
     this.rotatable = description.isRotatable();
 
     if (description.isImage()) {
-      System.out.println(description.getFill());
       this.fill = new ImagePattern(new Image(description.getFill()));
     } else {
       this.fill = Color.valueOf(description.getFill().toUpperCase());
