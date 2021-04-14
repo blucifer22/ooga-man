@@ -104,7 +104,7 @@ public class UIController implements MainMenuResponder, PreferenceResponder, Vie
     double oldWidth = primaryStage.getWidth();
     double oldHeight = primaryStage.getHeight();
     if(addToStack) {
-      this.viewStack.add(this.primaryStage.getScene());
+      this.viewStack.push(this.primaryStage.getScene());
     }
     this.primaryStage.setScene(s);
     this.primaryStage.setWidth(oldWidth);
