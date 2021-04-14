@@ -48,8 +48,10 @@ public abstract class Ghost extends MoveableSprite {
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    if (!isDeadly && other.eatsGhosts()){
+    if (!isDeadly && !isEaten && other.eatsGhosts()){
+      this.setMovementSpeed(this.getMovementSpeed() * 2);
       changeBehavior(GhostBehavior.EATEN);
+      isEaten = true;
     }
   }
 

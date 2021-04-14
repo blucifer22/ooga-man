@@ -28,7 +28,8 @@ public class PowerPill extends Sprite {
   public void uponHitBy(Sprite other, MutableGameState state) {
     delete(state);
     // PacmanPowerupEvent has cases for activation of powerups (Even indices) and deactivates them for odd indices
-    int evenIndex = new Random().nextInt(PacmanPowerupEvent.values().length / 2) * 2;
+    // int evenIndex = new Random().nextInt(PacmanPowerupEvent.values().length / 2) * 2;
+    int evenIndex = 4;
     state.notifyPowerupListeners(PacmanPowerupEvent.values()[evenIndex]);
     System.out.println(PacmanPowerupEvent.values()[evenIndex]);
     state.getClock().addTimer(new Timer(9, mutableGameState -> {
