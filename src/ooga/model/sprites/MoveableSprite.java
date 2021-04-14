@@ -8,6 +8,7 @@ import ooga.model.SpriteCoordinates;
 import ooga.model.Tile;
 import ooga.model.TileCoordinates;
 import ooga.model.leveldescription.SpriteDescription;
+import ooga.model.sprites.animation.ObservableAnimation;
 import ooga.util.Vec2;
 
 public abstract class MoveableSprite extends Sprite {
@@ -17,19 +18,20 @@ public abstract class MoveableSprite extends Sprite {
   private double movementSpeed;
   private Vec2 queuedDirection;
 
-  @JsonCreator
-  public MoveableSprite(
-      @JsonProperty("position") SpriteCoordinates position,
-      @JsonProperty("direction") Vec2 direction,
-      @JsonProperty("speed") double speed) {
-    super(position, direction);
+  protected MoveableSprite(
+      ObservableAnimation animation,
+      SpriteCoordinates position,
+      Vec2 direction,
+      double speed) {
+    super(animation, position, direction);
     this.currentSpeed = 0;
     this.movementSpeed = speed;
     queuedDirection = null;
   }
 
-  public MoveableSprite(SpriteDescription description) {
-    super(description);
+  protected MoveableSprite(ObservableAnimation animation,
+                           SpriteDescription description) {
+    super(animation, description);
   }
 
   public double getMovementSpeed() {
