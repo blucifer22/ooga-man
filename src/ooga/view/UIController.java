@@ -3,7 +3,7 @@ package ooga.view;
 import java.util.Stack;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import ooga.ViewStackManager;
+import ooga.view.internal_api.ViewStackManager;
 import ooga.controller.GameStateController;
 import ooga.view.internal_api.MainMenuResponder;
 import ooga.view.internal_api.PreferenceResponder;
