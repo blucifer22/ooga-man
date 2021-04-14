@@ -60,8 +60,8 @@ public class DemoController implements GameStateController {
     PowerPill powerPill4 = new PowerPill(new SpriteCoordinates(new Vec2(6.5, 6.5)), new Vec2(0, 0));
     Cherry cherry = new Cherry(new SpriteCoordinates(new Vec2(1.5, 9.5)), new Vec2(0, 0));
 
-    TeleporterOverlay teleporter1 = new TeleporterOverlay(new SpriteCoordinates(new Vec2(8.5, 1.5)));
-    TeleporterOverlay teleporter2 = new TeleporterOverlay(new SpriteCoordinates(new Vec2(8.5, 15.5)));
+    TeleporterOverlay teleporter1 = new TeleporterOverlay(new SpriteCoordinates(new Vec2(1.5, 8.5)));
+    TeleporterOverlay teleporter2 = new TeleporterOverlay(new SpriteCoordinates(new Vec2(15.5, 8.5)));
     teleporter1.connectTeleporter(teleporter2);
     teleporter2.connectTeleporter(teleporter1);
     pgs.addSprite(teleporter1);

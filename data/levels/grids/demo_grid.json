@@ -839,9 +839,9 @@
       "x" : 2,
       "y" : 6
     },
-    "type" : "tileclosed",
-    "openToPacman" : false,
-    "openToGhosts" : false
+    "type" : "tile",
+    "openToPacman" : true,
+    "openToGhosts" : true
   }, {
     "coordinates" : {
       "x" : 3,
@@ -935,9 +935,9 @@
       "x" : 14,
       "y" : 6
     },
-    "type" : "tileclosed",
-    "openToPacman" : false,
-    "openToGhosts" : false
+    "type" : "tile",
+    "openToPacman" : true,
+    "openToGhosts" : true
   }, {
     "coordinates" : {
       "x" : 15,
@@ -967,17 +967,17 @@
       "x" : 1,
       "y" : 7
     },
-    "type" : "tile",
-    "openToPacman" : true,
-    "openToGhosts" : true
+    "type" : "tileclosed",
+    "openToPacman" : false,
+    "openToGhosts" : false
   }, {
     "coordinates" : {
       "x" : 2,
       "y" : 7
     },
-    "type" : "tileclosed",
-    "openToPacman" : false,
-    "openToGhosts" : false
+    "type" : "tile",
+    "openToPacman" : true,
+    "openToGhosts" : true
   }, {
     "coordinates" : {
       "x" : 3,
@@ -1071,17 +1071,17 @@
       "x" : 14,
       "y" : 7
     },
-    "type" : "tileclosed",
-    "openToPacman" : false,
-    "openToGhosts" : false
+    "type" : "tile",
+    "openToPacman" : true,
+    "openToGhosts" : true
   }, {
     "coordinates" : {
       "x" : 15,
       "y" : 7
     },
-    "type" : "tile",
-    "openToPacman" : true,
-    "openToGhosts" : true
+    "type" : "tileclosed",
+    "openToPacman" : false,
+    "openToGhosts" : false
   }, {
     "coordinates" : {
       "x" : 16,
@@ -1239,17 +1239,17 @@
       "x" : 1,
       "y" : 9
     },
-    "type" : "tile",
-    "openToPacman" : true,
-    "openToGhosts" : true
+    "type" : "tileclosed",
+    "openToPacman" : false,
+    "openToGhosts" : false
   }, {
     "coordinates" : {
       "x" : 2,
       "y" : 9
     },
-    "type" : "tileclosed",
-    "openToPacman" : false,
-    "openToGhosts" : false
+    "type" : "tile",
+    "openToPacman" : true,
+    "openToGhosts" : true
   }, {
     "coordinates" : {
       "x" : 3,
@@ -1343,17 +1343,17 @@
       "x" : 14,
       "y" : 9
     },
-    "type" : "tileclosed",
-    "openToPacman" : false,
-    "openToGhosts" : false
+    "type" : "tile",
+    "openToPacman" : true,
+    "openToGhosts" : true
   }, {
     "coordinates" : {
       "x" : 15,
       "y" : 9
     },
-    "type" : "tile",
-    "openToPacman" : true,
-    "openToGhosts" : true
+    "type" : "tileclosed",
+    "openToPacman" : false,
+    "openToGhosts" : false
   }, {
     "coordinates" : {
       "x" : 16,
@@ -1383,9 +1383,9 @@
       "x" : 2,
       "y" : 10
     },
-    "type" : "tileclosed",
-    "openToPacman" : false,
-    "openToGhosts" : false
+    "type" : "tile",
+    "openToPacman" : true,
+    "openToGhosts" : true
   }, {
     "coordinates" : {
       "x" : 3,
@@ -1479,9 +1479,9 @@
       "x" : 14,
       "y" : 10
     },
-    "type" : "tileclosed",
-    "openToPacman" : false,
-    "openToGhosts" : false
+    "type" : "tile",
+    "openToPacman" : true,
+    "openToGhosts" : true
   }, {
     "coordinates" : {
       "x" : 15,
