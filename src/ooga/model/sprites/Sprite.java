@@ -6,12 +6,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javafx.animation.Animation;
 import ooga.model.*;
 import ooga.model.api.ObservableSprite;
 import ooga.model.api.PowerupEventObserver;
 import ooga.model.api.SpriteEvent;
 import ooga.model.api.SpriteObserver;
 import ooga.model.leveldescription.SpriteDescription;
+import ooga.model.sprites.animation.AnimationObserver;
+import ooga.model.sprites.animation.ObservableAnimation;
 import ooga.util.Vec2;
 
 import static ooga.model.api.SpriteEvent.EventType.*;
@@ -22,7 +25,7 @@ import static ooga.model.api.SpriteEvent.EventType.*;
  *
  * @author George Hong
  */
-public abstract class Sprite implements ObservableSprite, PowerupEventObserver {
+public abstract class Sprite implements ObservableSprite, PowerupEventObserver, AnimationObserver {
 
   protected SwapClass swapClass;
   protected InputSource inputSource;
@@ -31,47 +34,38 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver {
   private Vec2 direction;
   private Map<SpriteEvent.EventType, Set<SpriteObserver>> observers;
 
-  /**
-   * List of the costumes which this sprite can "wear".
-   *
-   * At any time, exactly one costume from this list is active.
-   */
-  private List<String> animationCostumes;
-  private int currentCostume;
+  private ObservableAnimation animation;
 
   /**
    * Initialize a sprite.
    *
-   * @param animationCostumes List of costumes as strings.
+   * @param animation List of costumes as strings.
    * @param position Starting position.
    * @param direction
    */
-  protected Sprite(List<String> animationCostumes,
+  protected Sprite(ObservableAnimation animation,
                    SpriteCoordinates position,
                    Vec2 direction) {
     this.position = position;
     this.direction = direction;
-    this.animationCostumes = animationCostumes;
-
-    assert(animationCostumes.size() > 0);
-
-    this.currentCostume = 0; // start on first costume
 
     initializeObserverMap();
     defaultInputSource = null;
+
+    setAnimation(animation);
   }
 
-  protected Sprite(List<String> animationCostumes,
+  protected Sprite(ObservableAnimation animation,
                    SpriteDescription description) {
-    this(animationCostumes,
+    this(animation,
          description.getCoordinates(),
-         Vec2.ZERO);
+         new Vec2(1,0));
   }
 
-  protected Sprite(List<String> animationCostumes) {
-    this(animationCostumes,
+  protected Sprite(ObservableAnimation animation) {
+    this(animation,
          new SpriteCoordinates(),
-         Vec2.ZERO);
+         new Vec2(1,0));
   }
 
   private void initializeObserverMap() {
@@ -98,16 +92,28 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver {
    * "pacman_halfopen".
    */
   public final String getCostume() {
-    return animationCostumes.get(currentCostume);
+    return animation.getCurrentCostume();
   }
 
-  protected void setCostume(String newType) {
-    type = newType;
+  public final ObservableAnimation getAnimation() {
+    return animation;
+  }
+
+  protected void setAnimation(ObservableAnimation newAnimation) {
+    ObservableAnimation oldAnimation = animation;
+
+    if(oldAnimation != null)
+      oldAnimation.removeObserver(this);
+
+    animation = newAnimation;
     notifyObservers(TYPE_CHANGE);
+
+    newAnimation.addObserver(this);
   }
 
-  protected void setCostumeIndex(int index) {
-
+  @Override
+  public void onCostumeChange(String newCostume) {
+    notifyObservers(TYPE_CHANGE);
   }
 
   // coordinates of the tile above which this sprite's center lies
@@ -234,7 +240,9 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver {
   }
 
   // advance state by dt seconds
-  public abstract void step(double dt, MutableGameState pacmanGameState);
+  public void step(double dt, MutableGameState pacmanGameState) {
+    getAnimation().step(dt);
+  }
 
   public abstract boolean mustBeConsumed();
 
