@@ -4,8 +4,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Dot;
+import ooga.model.sprites.Ghost;
 import ooga.model.sprites.PacMan;
+import ooga.model.sprites.TeleporterOverlay;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -78,5 +81,55 @@ public class CollisionTest {
     }
     assertTrue(state.getScore() > 0);
     assertTrue(state.getSprites().size() == 1);
+  }
+
+  @Test
+  public void teleporterBasicTest() {
+
+    class TestInputSource implements InputSource {
+
+      private final List<Vec2> prepopulatedActions = new ArrayList<>();
+      private int dex = 0;
+
+      public TestInputSource() {
+        for (int j = 0; j < 10; j++) {
+          prepopulatedActions.add(new Vec2(-1, 0));
+        }
+      }
+
+      @Override
+      public Vec2 getRequestedDirection() {
+        return prepopulatedActions.get(dex++);
+      }
+
+      @Override
+      public boolean isActionPressed() {
+        return false;
+      }
+    }
+
+    Vec2 position = new Vec2(2.5, 2.5);
+    Vec2 direction = new Vec2(-1, 0);
+    SpriteCoordinates spriteCoordinates = new SpriteCoordinates(position);
+    pacMan = new PacMan(spriteCoordinates, direction, 5);
+    pacMan.setInputSource(new TestInputSource());
+
+    state = new PacmanGameState();
+    state.loadGrid(grid);
+    state.addSprite(pacMan);
+
+    TeleporterOverlay teleporter1 = new TeleporterOverlay(
+        new SpriteCoordinates(new Vec2(1.5, 2.5)));
+    TeleporterOverlay teleporter2 = new TeleporterOverlay(
+        new SpriteCoordinates(new Vec2(4.5, 2.5)));
+    teleporter1.connectTeleporter(teleporter2);
+    teleporter2.connectTeleporter(teleporter1);
+    state.addSprite(teleporter1);
+    state.addSprite(teleporter2);
+
+    for (int k = 0; k < 6; k++){
+      state.step(1/60.);
+    }
+    assertTrue(pacMan.getCoordinates().getPosition().getX() > 2.5);
   }
 }
