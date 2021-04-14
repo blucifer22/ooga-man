@@ -3,6 +3,7 @@ package ooga.model.sprites;
 import ooga.model.MutableGameState;
 import ooga.model.PacmanPowerupEvent;
 import ooga.model.SpriteCoordinates;
+import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
 
 import java.lang.management.MemoryUsage;
@@ -15,12 +16,8 @@ public class Dot extends Sprite {
   private int dotScoreIncrement = 1;
 
   public Dot(SpriteCoordinates position, Vec2 direction) {
-    super(position, direction);
-  }
-
-  @Override
-  public String getCostume() {
-    return "dot";
+    super(new StillAnimation("dot"),
+            position, direction);
   }
 
   @Override
@@ -30,7 +27,7 @@ public class Dot extends Sprite {
 
   @Override
   public void step(double dt, MutableGameState pacmanGameState) {
-
+    super.step(dt, pacmanGameState);
   }
 
   @Override
