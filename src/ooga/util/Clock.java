@@ -1,6 +1,5 @@
 package ooga.util;
 
-import java.util.ArrayList;
 import java.util.PriorityQueue;
 import ooga.model.MutableGameState;
 
@@ -8,7 +7,7 @@ import ooga.model.MutableGameState;
  * The Game Clock is designed for use with a game loop update system to keep track of the current
  * time and provides utility for events
  */
-public class GameClock {
+public class Clock {
 
   private final PriorityQueue<Timer> activeTimers;
   private double seconds;
@@ -16,11 +15,11 @@ public class GameClock {
   /**
    * Initializes a game clock where each tick increments the time by dt
    */
-  public GameClock() {
+  public Clock() {
     this(0);
   }
 
-  public GameClock(double startingTime) {
+  public Clock(double startingTime) {
     this.seconds = startingTime;
     this.activeTimers = new PriorityQueue<>();
   }

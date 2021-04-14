@@ -18,4 +18,9 @@ public class Blinky extends Ghost{
   public Blinky(SpriteDescription spriteDescription) {
     this(spriteDescription.getCoordinates(), new Vec2(1,0), 4.0);
   }
+
+  @Override
+  protected double getInitialWaitTime() {
+    return 1.0;
+  }
 }

@@ -2,7 +2,7 @@ package ooga.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import ooga.util.GameClock;
+import ooga.util.Clock;
 import ooga.util.Timer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,12 +10,12 @@ import org.junit.jupiter.api.Test;
 public class TimerTest {
 
   public static final double DT = 1 / 60.;
-  private GameClock clock;
+  private Clock clock;
   private PacmanGameState state;
 
   @BeforeEach
   public void setUp() {
-    clock = new GameClock(DT);
+    clock = new Clock(DT);
     state = new PacmanGameState();
   }
 

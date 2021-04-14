@@ -1,9 +1,10 @@
 package ooga.model.sprites;
 
 import ooga.model.*;
-import ooga.model.api.PowerupEventObserver;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.ObservableAnimation;
+import ooga.util.Clock;
+import ooga.util.Timer;
 import ooga.util.Vec2;
 
 /**
@@ -12,28 +13,44 @@ import ooga.util.Vec2;
 public abstract class Ghost extends MoveableSprite {
 
   public static final String TYPE = "ghost";
+  private final Clock ghostClock;
   private boolean isDeadly = true;
   private int baseGhostScore = 200;
   private GhostBehavior ghostBehavior;
 
   protected Ghost(ObservableAnimation animation,
-                  SpriteCoordinates position,
-                  Vec2 direction,
-                  double speed) {
+      SpriteCoordinates position,
+      Vec2 direction,
+      double speed) {
     super(animation, position, direction, speed);
     swapClass = SwapClass.GHOST;
-    ghostBehavior = GhostBehavior.CHASE;
+    ghostBehavior = GhostBehavior.WAIT;
+    ghostClock = new Clock();
+
+    ghostClock.addTimer(new Timer(getInitialWaitTime(), state -> {
+      ghostBehavior = GhostBehavior.CHASE;
+    }));
   }
 
   public Ghost(ObservableAnimation animation,
-               SpriteDescription spriteDescription) {
+      SpriteDescription spriteDescription) {
     this(animation,
-         spriteDescription.getCoordinates(),
-         new Vec2(1,0), 1);
+        spriteDescription.getCoordinates(),
+        new Vec2(1, 0), 1);
+  }
+
+  /**
+   * Defines how long this ghost takes before leaving the pen at the start of the game
+   *
+   * @return
+   */
+  protected double getInitialWaitTime() {
+    return 0;
   }
 
   /**
    * Gets the current state of the ghost
+   *
    * @return
    */
   public GhostBehavior getGhostBehavior() {
@@ -47,7 +64,7 @@ public abstract class Ghost extends MoveableSprite {
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    if (!isDeadly && other.eatsGhosts()){
+    if (!isDeadly && other.eatsGhosts()) {
       state.prepareRemove(this);
       changeBehavior(GhostBehavior.EATEN);
     }
@@ -55,6 +72,7 @@ public abstract class Ghost extends MoveableSprite {
 
   @Override
   public void step(double dt, MutableGameState pacmanGameState) {
+    ghostClock.step(dt, pacmanGameState);
     super.step(dt, pacmanGameState);
     move(dt, pacmanGameState.getGrid());
   }
