@@ -6,6 +6,7 @@ import ooga.model.api.SpriteEvent;
 import ooga.model.api.SpriteEvent.EventType;
 import ooga.model.api.SpriteObserver;
 import ooga.model.sprites.Sprite;
+import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -83,9 +84,8 @@ class TestObservableSprite extends Sprite {
 
   public static final String SPRITE_TYPE = "TEST_SPRITE";
 
-  @Override
-  public String getCostume() {
-    return SPRITE_TYPE;
+  public TestObservableSprite() {
+    super(new StillAnimation(SPRITE_TYPE));
   }
 
   @Override
