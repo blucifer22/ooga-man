@@ -2,11 +2,13 @@ package ooga.view.views;
 
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.util.Pair;
 import ooga.view.internal_api.PreferenceResponder;
 import ooga.view.internal_api.View;
 import ooga.view.language.api.LanguageService;
@@ -19,19 +21,18 @@ public class PreferenceView implements ThemedObject, View {
   private final ThemeService themeService;
   private final LanguageService languageService;
   private final PreferenceResponder preferenceResponder;
-  private final ResourceBundle languageManifest;
+  private static final String LANGUAGE_MANIFEST = "resources.languages.manifest";
 
   public PreferenceView(PreferenceResponder preferenceResponder, ThemeService themeService,
       LanguageService languageService) {
     this.preferenceResponder = preferenceResponder;
-    this.languageManifest = ResourceBundle.getBundle("resources.languages.manifest");
     this.themeService = themeService;
     this.themeService.addThemedObject(this);
     this.languageService = languageService;
     this.primaryView = new GridPane();
     this.primaryView.setGridLinesVisible(true);
     this.primaryView.setAlignment(Pos.CENTER);
-    this.primaryView.getStyleClass().add("view");
+    this.primaryView.getStyleClass().addAll("view", "card-pane");
     this.onThemeChange();
 
     buildScene();
@@ -41,21 +42,31 @@ public class PreferenceView implements ThemedObject, View {
     Label langDropdownLabel = new Label();
     langDropdownLabel.textProperty().bind(languageService.getLocalizedString("language"));
     langDropdownLabel.getStyleClass().add("dropdown-label");
-    this.primaryView.add(langDropdownLabel, 0, 0);
 
-    ComboBox<String> langDropdown = new ComboBox<>();
-
+    ResourceBundle languageManifest = ResourceBundle.getBundle(LANGUAGE_MANIFEST);
+    ComboBox<Pair<String, String>> langDropdown = new ComboBox<>();
     for (String key: languageManifest.keySet()) {
-      langDropdown.getItems().add(key);
+      langDropdown.getItems().add(new Pair<>(key, languageManifest.getString(key)) {
+        @Override
+        public String toString() {
+          return this.getValue();
+        }
+      });
     }
 
-    langDropdown.setOnAction(e -> this.preferenceResponder.setLanguage(langDropdown.getValue()));
+    langDropdown.setOnAction(e -> this.preferenceResponder.setLanguage(langDropdown.getValue().getKey()));
 
     VBox labeledLangDropdown = new VBox(
         langDropdownLabel,
         langDropdown
     );
-    this.primaryView.add(labeledLangDropdown, 0, 1);
+    labeledLangDropdown.getStyleClass().add("card");
+    this.primaryView.add(labeledLangDropdown, 0, 0);
+
+    Button returnToMenu = new Button();
+    returnToMenu.textProperty().bind(languageService.getLocalizedString("Back"));
+    returnToMenu.setOnMouseClicked(e -> System.out.println("exit"));
+    this.primaryView.add(returnToMenu, 0, 1);
   }
 
   @Override
