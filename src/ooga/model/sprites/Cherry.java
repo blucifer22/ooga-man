@@ -3,6 +3,9 @@ package ooga.model.sprites;
 import ooga.model.MutableGameState;
 import ooga.model.PacmanPowerupEvent;
 import ooga.model.SpriteCoordinates;
+import ooga.model.leveldescription.SpriteDescription;
+import ooga.model.sprites.animation.FreeRunningPeriodicAnimation;
+import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
 
 import java.lang.management.MemoryUsage;
@@ -17,12 +20,11 @@ public class Cherry extends Sprite {
   private int cherryScoreIncrement = 50;
 
   public Cherry(SpriteCoordinates position, Vec2 direction) {
-    super(position, direction);
+    super(new StillAnimation("cherry"), position, direction);
   }
 
-  @Override
-  public String getCostume() {
-    return "cherry";
+  public Cherry(SpriteDescription spriteDescription) {
+    this(spriteDescription.getCoordinates(), new Vec2(1,0));
   }
 
   @Override
