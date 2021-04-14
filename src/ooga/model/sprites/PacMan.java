@@ -28,14 +28,14 @@ public class PacMan extends MoveableSprite {
   }
 
   @Override
-  public String getType() {
+  public String getCostume() {
     return TYPE;
   }
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
     if (other.isDeadlyToPacMan()) {
-      state.prepareRemove(this);
+      delete(state);
       System.out.println("GAMEOVER");
     } else if (other.hasMultiplicativeScoring()) {
       ghostsEaten++;

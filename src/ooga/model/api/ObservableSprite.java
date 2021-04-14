@@ -5,7 +5,7 @@ import ooga.util.Vec2;
 
 public interface ObservableSprite {
 
-  String getType();
+  String getCostume();
 
   SpriteCoordinates getCoordinates();
 

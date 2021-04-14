@@ -18,7 +18,7 @@ public class Clyde extends Ghost{
   }
 
   @Override
-  public String getType() {
+  public String getCostume() {
     return TYPE;
   }
 

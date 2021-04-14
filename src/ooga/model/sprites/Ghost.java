@@ -39,7 +39,7 @@ public class Ghost extends MoveableSprite {
   }
 
   @Override
-  public String getType() {
+  public String getCostume() {
     return TYPE;
   }
 

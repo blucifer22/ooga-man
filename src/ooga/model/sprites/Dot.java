@@ -19,13 +19,13 @@ public class Dot extends Sprite {
   }
 
   @Override
-  public String getType() {
+  public String getCostume() {
     return "dot";
   }
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    state.prepareRemove(this);
+    delete(state);
   }
 
   @Override

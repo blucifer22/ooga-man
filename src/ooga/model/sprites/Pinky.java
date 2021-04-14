@@ -18,7 +18,7 @@ public class Pinky extends Ghost{
   }
 
   @Override
-  public String getType() {
+  public String getCostume() {
     return TYPE;
   }
 

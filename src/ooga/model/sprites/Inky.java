@@ -18,7 +18,7 @@ public class Inky extends Ghost{
   }
 
   @Override
-  public String getType() {
+  public String getCostume() {
     return TYPE;
   }
 

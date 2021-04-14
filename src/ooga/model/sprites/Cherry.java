@@ -21,13 +21,13 @@ public class Cherry extends Sprite {
   }
 
   @Override
-  public String getType() {
+  public String getCostume() {
     return "cherry";
   }
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    state.prepareRemove(this);
+    delete(state);
   }
 
   @Override

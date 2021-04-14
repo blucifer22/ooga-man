@@ -16,17 +16,12 @@ import ooga.util.Vec2;
 public class PowerPill extends Sprite {
 
   public PowerPill(SpriteCoordinates position, Vec2 direction) {
-    super(position, direction);
-  }
-
-  @Override
-  public String getType() {
-    return "powerpill";
+    super(new FreeRunningAnimation(List.of("powerpill", "blank")), position, direction);
   }
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    state.prepareRemove(this);
+    delete(state);
     // PacmanPowerupEvent has cases for activation of powerups (Even indices) and deactivates them for odd indices
     int evenIndex = new Random().nextInt(PacmanPowerupEvent.values().length / 2) * 2;
     state.notifyPowerupListeners(PacmanPowerupEvent.values()[evenIndex]);

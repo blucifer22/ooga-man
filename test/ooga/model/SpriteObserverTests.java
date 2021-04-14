@@ -59,10 +59,10 @@ class TestObserver implements SpriteObserver {
 
   @Override
   public void onSpriteUpdate(SpriteEvent e) {
-//    System.out.println(e.getSender().getType());
+//    System.out.println(e.getSender().getCostume());
 //    System.out.println(e.getEventType());
     lastEventType = e.getEventType();
-    lastSender = e.getSender().getType();
+    lastSender = e.getSender().getCostume();
     lastCoordinates = e.getSender().getCoordinates();
   }
 
@@ -84,7 +84,7 @@ class TestObservableSprite extends Sprite {
   public static final String SPRITE_TYPE = "TEST_SPRITE";
 
   @Override
-  public String getType() {
+  public String getCostume() {
     return SPRITE_TYPE;
   }
 

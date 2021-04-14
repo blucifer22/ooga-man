@@ -1,7 +1,5 @@
 package ooga.model.sprites;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -32,29 +30,48 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver {
   private SpriteCoordinates position;
   private Vec2 direction;
   private Map<SpriteEvent.EventType, Set<SpriteObserver>> observers;
-  private String type;
 
-  @JsonCreator
-  public Sprite(
-      @JsonProperty("position") SpriteCoordinates position,
-      @JsonProperty("direction") Vec2 direction) {
+  /**
+   * List of the costumes which this sprite can "wear".
+   *
+   * At any time, exactly one costume from this list is active.
+   */
+  private List<String> animationCostumes;
+  private int currentCostume;
+
+  /**
+   * Initialize a sprite.
+   *
+   * @param animationCostumes List of costumes as strings.
+   * @param position Starting position.
+   * @param direction
+   */
+  protected Sprite(List<String> animationCostumes,
+                   SpriteCoordinates position,
+                   Vec2 direction) {
     this.position = position;
     this.direction = direction;
+    this.animationCostumes = animationCostumes;
+
+    assert(animationCostumes.size() > 0);
+
+    this.currentCostume = 0; // start on first costume
+
     initializeObserverMap();
     defaultInputSource = null;
   }
 
-  public Sprite(SpriteDescription description) {
-    this.position = description.getCoordinates();
-    this.direction = Vec2.ZERO;
+  protected Sprite(List<String> animationCostumes,
+                   SpriteDescription description) {
+    this(animationCostumes,
+         description.getCoordinates(),
+         Vec2.ZERO);
   }
 
-  @JsonCreator
-  public Sprite() {
-    // TODO: Verify that this is appropriate behavior for the no-arg constructor
-    this.position = new SpriteCoordinates();
-    this.direction = Vec2.ZERO;
-    initializeObserverMap();
+  protected Sprite(List<String> animationCostumes) {
+    this(animationCostumes,
+         new SpriteCoordinates(),
+         Vec2.ZERO);
   }
 
   private void initializeObserverMap() {
@@ -67,22 +84,30 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver {
   /**
    * Removes the Sprite from the game
    */
-  public void delete(PacmanGameState state) {
+  public void delete(MutableGameState state) {
     state.prepareRemove(this);
   }
 
   /**
-   * Returns the type of this Sprite
+   * Returns the type of this Sprite.
    *
-   * @return
+   * Cannot be overridden -- type changes must go through
+   * setCostumeIndex().
+   *
+   * @return Current costume type, as a string, like
+   * "pacman_halfopen".
    */
-  public String getType() {
-    return type;
+  public final String getCostume() {
+    return animationCostumes.get(currentCostume);
   }
 
-  protected void setType(String newType) {
+  protected void setCostume(String newType) {
     type = newType;
     notifyObservers(TYPE_CHANGE);
+  }
+
+  protected void setCostumeIndex(int index) {
+
   }
 
   // coordinates of the tile above which this sprite's center lies
