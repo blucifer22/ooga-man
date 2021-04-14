@@ -57,6 +57,7 @@ public class MenuView implements View, ThemedObject {
     start.getStyleClass().add("menu-button");
     start.textProperty().bind(languageService.getLocalizedString(labelKey));
     start.setOnMouseClicked(onClickHandler);
+    start.setMaxWidth(Double.MAX_VALUE);
     return start;
   }
 
