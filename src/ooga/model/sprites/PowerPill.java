@@ -1,10 +1,13 @@
 package ooga.model.sprites;
 
+import java.util.List;
 import java.util.Random;
 import ooga.model.MutableGameState;
 import ooga.model.PacmanGameState;
 import ooga.model.PacmanPowerupEvent;
 import ooga.model.SpriteCoordinates;
+import ooga.model.sprites.animation.FreeRunningPeriodicAnimation;
+import ooga.model.sprites.animation.PeriodicAnimation;
 import ooga.util.Timer;
 import ooga.util.Vec2;
 
@@ -16,7 +19,9 @@ import ooga.util.Vec2;
 public class PowerPill extends Sprite {
 
   public PowerPill(SpriteCoordinates position, Vec2 direction) {
-    super(new FreeRunningAnimation(List.of("powerpill", "blank")), position, direction);
+    super(new FreeRunningPeriodicAnimation(List.of("powerpill", "blank"),
+            PeriodicAnimation.FrameOrder.SAWTOOTH,
+            1/6.0), position, direction);
   }
 
   @Override
@@ -34,6 +39,7 @@ public class PowerPill extends Sprite {
 
   @Override
   public void step(double dt, MutableGameState pacmanGameState) {
+    super.step(dt, pacmanGameState);
   }
 
   @Override
