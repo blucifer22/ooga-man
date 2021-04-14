@@ -4,6 +4,7 @@ import ooga.model.*;
 import ooga.model.api.PowerupEventObserver;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.ObservableAnimation;
+import ooga.util.Timer;
 import ooga.util.Vec2;
 
 /**
@@ -53,12 +54,23 @@ public abstract class Ghost extends MoveableSprite {
       changeBehavior(GhostBehavior.EATEN);
       isEaten = true;
     }
+    if (other.isRespawnTarget() && ghostBehavior.equals(GhostBehavior.EATEN)){
+      System.out.println("wait");
+      this.setMovementSpeed(this.getMovementSpeed() * 0.5);
+      changeBehavior(GhostBehavior.WAIT);
+      state.getClock().addTimer(new Timer(10, mutableGameState -> {
+        changeBehavior(GhostBehavior.CHASE);
+        isDeadly = true;
+        setDirection(getDirection().scalarMult(-1));
+      }));
+    }
   }
 
   @Override
   public void step(double dt, MutableGameState pacmanGameState) {
     super.step(dt, pacmanGameState);
     move(dt, pacmanGameState.getGrid());
+    handleCollisions(pacmanGameState);
   }
 
   @Override
@@ -111,9 +123,12 @@ public abstract class Ghost extends MoveableSprite {
         setDirection(getDirection().scalarMult(-1));
       }
       case FRIGHTEN_DEACTIVATED -> {
-        changeBehavior(GhostBehavior.CHASE);
-        isDeadly = true;
-        setDirection(getDirection().scalarMult(-1));
+        if (getGhostBehavior() != GhostBehavior.WAIT){
+          changeBehavior(GhostBehavior.CHASE);
+          isDeadly = true;
+          setDirection(getDirection().scalarMult(-1));
+        }
+
       }
       case POINT_BONUS_ACTIVATED -> baseGhostScore *= 2;
       case POINT_BONUS_DEACTIVATED -> baseGhostScore *= 0.5;

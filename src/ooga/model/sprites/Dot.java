@@ -22,7 +22,9 @@ public class Dot extends Sprite {
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    delete(state);
+    if (other.eatsGhosts()){
+      delete(state);
+    }
   }
 
   @Override

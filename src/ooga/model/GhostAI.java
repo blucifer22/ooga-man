@@ -62,10 +62,15 @@ public class GhostAI implements InputSource {
       case EATEN:
         return eatenBehavior();
       case WAIT:
-        return Vec2.ZERO;
+        return waitBehavior();
       case SCATTER:
         return scatterBehavior();
     }
+    return Vec2.ZERO;
+  }
+
+  protected Vec2 waitBehavior() {
+    getGhost().setMovementSpeed(0);
     return Vec2.ZERO;
   }
 
