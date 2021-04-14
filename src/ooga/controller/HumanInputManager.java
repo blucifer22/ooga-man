@@ -27,30 +27,30 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
   public HumanInputManager(KeybindingType keybindingType) {
     if (keybindingType.equals(KeybindingType.PLAYER_1)) {
       keybinding =
-          Map.of(
-              "UP",
-              KeyCode.UP,
-              "DOWN",
-              KeyCode.DOWN,
-              "LEFT",
-              KeyCode.LEFT,
-              "RIGHT",
-              KeyCode.RIGHT,
-              "ACTION",
-              KeyCode.CONTROL);
+        Map.of(
+            "UP",
+            KeyCode.W,
+            "DOWN",
+            KeyCode.S,
+            "LEFT",
+            KeyCode.A,
+            "RIGHT",
+            KeyCode.D,
+            "ACTION",
+            KeyCode.SPACE);
     } else {
       keybinding =
-          Map.of(
-              "UP",
-              KeyCode.W,
-              "DOWN",
-              KeyCode.S,
-              "LEFT",
-              KeyCode.A,
-              "RIGHT",
-              KeyCode.D,
-              "ACTION",
-              KeyCode.SPACE);
+        Map.of(
+          "UP",
+          KeyCode.I,
+          "DOWN",
+          KeyCode.K,
+          "LEFT",
+          KeyCode.J,
+          "RIGHT",
+          KeyCode.L,
+          "ACTION",
+          KeyCode.U);
     }
     pressedKeys = new HashSet<>();
   }
