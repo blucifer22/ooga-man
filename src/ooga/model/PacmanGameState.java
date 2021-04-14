@@ -46,7 +46,8 @@ public class PacmanGameState
     clock = new GameClock();
   }
 
-  public void setDefaultInputSource() {}
+  public void setDefaultInputSource() {
+  }
 
   /**
    * Returns the GameClock that keeps track of the elapsed time of the Pac-Man game
@@ -57,7 +58,9 @@ public class PacmanGameState
     return clock;
   }
 
-  /** @param score */
+  /**
+   * @param score
+   */
   @Override
   public void incrementScore(int score) {
     pacManScore += score;
@@ -70,6 +73,9 @@ public class PacmanGameState
 
   @Override
   public void prepareRemove(Sprite sprite) {
+    if (toDelete.contains(sprite)) {
+      return;
+    }
     toDelete.add(sprite);
     notifySpriteDestruction(sprite);
   }
@@ -135,7 +141,8 @@ public class PacmanGameState
     TileCoordinates tc = sprite.getCoordinates().getTileCoordinates();
     List<Sprite> collidingSprites = new ArrayList<>();
     for (Sprite otherSprite : sprites) {
-      if (sprite != otherSprite && otherSprite.getCoordinates().getTileCoordinates().equals(tc)) {
+      if (!toDelete.contains(otherSprite) && sprite != otherSprite && otherSprite.getCoordinates()
+          .getTileCoordinates().equals(tc)) {
         collidingSprites.add(otherSprite);
       }
     }
@@ -157,7 +164,8 @@ public class PacmanGameState
     return grid;
   }
 
-  public void advanceLevel() {}
+  public void advanceLevel() {
+  }
 
   private void notifySpriteDestruction(Sprite sprite) {
     for (SpriteExistenceObserver observer : spriteExistenceObservers) {
