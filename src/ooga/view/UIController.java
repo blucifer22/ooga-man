@@ -55,7 +55,7 @@ public class UIController implements MainMenuResponder, PreferenceResponder, Vie
   public void showMenu() {
     this.viewStack.add(this.primaryStage.getScene());
     this.primaryStage.setScene(new Scene(new MenuView(this, this.themeService,
-        this.languageService).getRenderingNode(), primaryStage.getWidth(), primaryStage.getHeight()));
+        this.languageService).getRenderingNode()));
   }
 
   private void showGameView() {
@@ -63,8 +63,7 @@ public class UIController implements MainMenuResponder, PreferenceResponder, Vie
     Scene gameViewScene = this.gameView.getRenderingNode().getScene();
 
     if (gameViewScene == null) {
-      gameViewScene = new Scene(this.gameView.getRenderingNode(), primaryStage.getWidth(),
-          primaryStage.getHeight());
+      gameViewScene = new Scene(this.gameView.getRenderingNode());
     }
 
     this.primaryStage.setScene(gameViewScene);
@@ -95,8 +94,8 @@ public class UIController implements MainMenuResponder, PreferenceResponder, Vie
   @Override
   public void openPreferences() {
     this.viewStack.add(primaryStage.getScene());
-    this.primaryStage.setScene(new Scene((new PreferenceView(this, themeService, languageService,
-        this).getRenderingNode()), primaryStage.getWidth(), primaryStage.getHeight()));
+    this.primaryStage.setScene(new Scene((new PreferenceView(this, themeService,
+        languageService, this).getRenderingNode())));
   }
 
   @Override
@@ -106,9 +105,6 @@ public class UIController implements MainMenuResponder, PreferenceResponder, Vie
 
   @Override
   public void unwind() {
-    System.out.println(viewStack);
-    this.primaryStage.setResizable(false);
     this.primaryStage.setScene(viewStack.pop());
-    this.primaryStage.setResizable(true);
   }
 }
