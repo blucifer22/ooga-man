@@ -4,7 +4,7 @@ import ooga.model.sprites.Ghost;
 import ooga.model.sprites.PacMan;
 import ooga.util.Vec2;
 
-public class PinkyAI extends ChaseAI {
+public class PinkyAI extends GhostAI {
 
   public PinkyAI(PacmanGrid grid, Ghost ghost, PacMan target,
       double intelligence) {

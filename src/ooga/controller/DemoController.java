@@ -6,7 +6,6 @@ import javafx.animation.Timeline;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import ooga.model.BlinkyAI;
-import ooga.model.ChaseAI;
 import ooga.model.InputSource;
 import ooga.model.PacmanGameState;
 import ooga.model.PinkyAI;

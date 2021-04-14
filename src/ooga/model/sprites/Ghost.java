@@ -13,6 +13,7 @@ public abstract class Ghost extends MoveableSprite {
 
   public static final String TYPE = "ghost";
   private boolean isDeadly = true;
+  private boolean isEaten;
   private int baseGhostScore = 200;
   private GhostBehavior ghostBehavior;
 
@@ -48,7 +49,6 @@ public abstract class Ghost extends MoveableSprite {
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
     if (!isDeadly && other.eatsGhosts()){
-      state.prepareRemove(this);
       changeBehavior(GhostBehavior.EATEN);
     }
   }
@@ -76,7 +76,7 @@ public abstract class Ghost extends MoveableSprite {
 
   @Override
   public boolean isConsumable() {
-    return !isDeadly;
+    return !isDeadly && !isEaten;
   }
 
   @Override
