@@ -19,6 +19,7 @@ import ooga.model.sprites.Dot;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Pinky;
 import ooga.model.sprites.PowerPill;
+import ooga.model.sprites.TeleporterOverlay;
 import ooga.util.Vec2;
 import ooga.view.UIController;
 import ooga.view.views.GameView;
@@ -58,6 +59,13 @@ public class DemoController implements GameStateController {
     PowerPill powerPill3 = new PowerPill(new SpriteCoordinates(new Vec2(4.5, 15.5)), new Vec2(0, 0));
     PowerPill powerPill4 = new PowerPill(new SpriteCoordinates(new Vec2(6.5, 6.5)), new Vec2(0, 0));
     Cherry cherry = new Cherry(new SpriteCoordinates(new Vec2(1.5, 9.5)), new Vec2(0, 0));
+
+    TeleporterOverlay teleporter1 = new TeleporterOverlay(new SpriteCoordinates(new Vec2(8.5, 1.5)));
+    TeleporterOverlay teleporter2 = new TeleporterOverlay(new SpriteCoordinates(new Vec2(8.5, 15.5)));
+    teleporter1.connectTeleporter(teleporter2);
+    teleporter2.connectTeleporter(teleporter1);
+    pgs.addSprite(teleporter1);
+    pgs.addSprite(teleporter2);
 
     pacman.setInputSource(this.inputManager);
     InputSource inBlinky = new BlinkyAI(pgs.getGrid(), blinky, pacman, 0.9);
