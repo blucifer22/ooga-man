@@ -1,19 +1,20 @@
 package ooga.model.sprites;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javafx.animation.Animation;
 import ooga.model.*;
 import ooga.model.api.ObservableSprite;
 import ooga.model.api.PowerupEventObserver;
 import ooga.model.api.SpriteEvent;
 import ooga.model.api.SpriteObserver;
 import ooga.model.leveldescription.SpriteDescription;
+import ooga.model.sprites.animation.AnimationObserver;
+import ooga.model.sprites.animation.ObservableAnimation;
 import ooga.util.Vec2;
 
 import static ooga.model.api.SpriteEvent.EventType.*;
@@ -24,7 +25,7 @@ import static ooga.model.api.SpriteEvent.EventType.*;
  *
  * @author George Hong
  */
-public abstract class Sprite implements ObservableSprite, PowerupEventObserver {
+public abstract class Sprite implements ObservableSprite, PowerupEventObserver, AnimationObserver {
 
   protected SwapClass swapClass;
   protected InputSource inputSource;
@@ -32,29 +33,39 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver {
   private SpriteCoordinates position;
   private Vec2 direction;
   private Map<SpriteEvent.EventType, Set<SpriteObserver>> observers;
-  private String type;
 
-  @JsonCreator
-  public Sprite(
-      @JsonProperty("position") SpriteCoordinates position,
-      @JsonProperty("direction") Vec2 direction) {
+  private ObservableAnimation animation;
+
+  /**
+   * Initialize a sprite.
+   *
+   * @param animation List of costumes as strings.
+   * @param position Starting position.
+   * @param direction
+   */
+  protected Sprite(ObservableAnimation animation,
+                   SpriteCoordinates position,
+                   Vec2 direction) {
     this.position = position;
     this.direction = direction;
+
     initializeObserverMap();
     defaultInputSource = null;
+
+    setAnimation(animation);
   }
 
-  public Sprite(SpriteDescription description) {
-    this.position = description.getCoordinates();
-    this.direction = Vec2.ZERO;
+  protected Sprite(ObservableAnimation animation,
+                   SpriteDescription description) {
+    this(animation,
+         description.getCoordinates(),
+         new Vec2(1,0));
   }
 
-  @JsonCreator
-  public Sprite() {
-    // TODO: Verify that this is appropriate behavior for the no-arg constructor
-    this.position = new SpriteCoordinates();
-    this.direction = Vec2.ZERO;
-    initializeObserverMap();
+  protected Sprite(ObservableAnimation animation) {
+    this(animation,
+         new SpriteCoordinates(),
+         new Vec2(1,0));
   }
 
   private void initializeObserverMap() {
@@ -67,21 +78,41 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver {
   /**
    * Removes the Sprite from the game
    */
-  public void delete(PacmanGameState state) {
+  public void delete(MutableGameState state) {
     state.prepareRemove(this);
   }
 
   /**
-   * Returns the type of this Sprite
+   * Returns the type of this Sprite.
    *
-   * @return
+   * Cannot be overridden -- type changes must go through
+   * setCostumeIndex().
+   *
+   * @return Current costume type, as a string, like
+   * "pacman_halfopen".
    */
-  public String getType() {
-    return type;
+  public final String getCostume() {
+    return animation.getCurrentCostume();
   }
 
-  protected void setType(String newType) {
-    type = newType;
+  public final ObservableAnimation getAnimation() {
+    return animation;
+  }
+
+  protected void setAnimation(ObservableAnimation newAnimation) {
+    ObservableAnimation oldAnimation = animation;
+
+    if(oldAnimation != null)
+      oldAnimation.removeObserver(this);
+
+    animation = newAnimation;
+    notifyObservers(TYPE_CHANGE);
+
+    newAnimation.addObserver(this);
+  }
+
+  @Override
+  public void onCostumeChange(String newCostume) {
     notifyObservers(TYPE_CHANGE);
   }
 
@@ -209,11 +240,21 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver {
   }
 
   // advance state by dt seconds
-  public abstract void step(double dt, MutableGameState pacmanGameState);
+  public void step(double dt, MutableGameState pacmanGameState) {
+    getAnimation().step(dt);
+  }
 
   public abstract boolean mustBeConsumed();
 
   public abstract boolean isDeadlyToPacMan();
+
+  public abstract boolean eatsGhosts();
+
+  public abstract boolean isConsumable();
+
+  public abstract boolean hasMultiplicativeScoring();
+
+  public abstract int getScore();
 
   @Override
   public abstract void respondToPowerEvent(PacmanPowerupEvent event);

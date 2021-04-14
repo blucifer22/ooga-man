@@ -78,7 +78,7 @@ public class SpriteViewTest extends ApplicationTest {
     }
 
     @Override
-    public String getType() {
+    public String getCostume() {
       return "pacman_halfopen";
     }
 

@@ -6,6 +6,7 @@ import ooga.model.api.SpriteEvent;
 import ooga.model.api.SpriteEvent.EventType;
 import ooga.model.api.SpriteObserver;
 import ooga.model.sprites.Sprite;
+import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -59,10 +60,10 @@ class TestObserver implements SpriteObserver {
 
   @Override
   public void onSpriteUpdate(SpriteEvent e) {
-//    System.out.println(e.getSender().getType());
+//    System.out.println(e.getSender().getCostume());
 //    System.out.println(e.getEventType());
     lastEventType = e.getEventType();
-    lastSender = e.getSender().getType();
+    lastSender = e.getSender().getCostume();
     lastCoordinates = e.getSender().getCoordinates();
   }
 
@@ -83,9 +84,8 @@ class TestObservableSprite extends Sprite {
 
   public static final String SPRITE_TYPE = "TEST_SPRITE";
 
-  @Override
-  public String getType() {
-    return SPRITE_TYPE;
+  public TestObservableSprite() {
+    super(new StillAnimation(SPRITE_TYPE));
   }
 
   @Override
@@ -107,6 +107,26 @@ class TestObservableSprite extends Sprite {
   @Override
   public boolean isDeadlyToPacMan() {
     return false;
+  }
+
+  @Override
+  public boolean eatsGhosts() {
+    return false;
+  }
+
+  @Override
+  public boolean isConsumable() {
+    return false;
+  }
+
+  @Override
+  public boolean hasMultiplicativeScoring() {
+    return false;
+  }
+
+  @Override
+  public int getScore() {
+    return 0;
   }
 
   @Override

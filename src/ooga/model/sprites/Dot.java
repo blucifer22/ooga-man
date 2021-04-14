@@ -3,6 +3,7 @@ package ooga.model.sprites;
 import ooga.model.MutableGameState;
 import ooga.model.PacmanPowerupEvent;
 import ooga.model.SpriteCoordinates;
+import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
 
 import java.lang.management.MemoryUsage;
@@ -15,24 +16,18 @@ public class Dot extends Sprite {
   private int dotScoreIncrement = 1;
 
   public Dot(SpriteCoordinates position, Vec2 direction) {
-    super(position, direction);
-  }
-
-  @Override
-  public String getType() {
-    return "dot";
+    super(new StillAnimation("dot"),
+            position, direction);
   }
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    state.incrementScore(dotScoreIncrement);
-    state.prepareRemove(this);
-    System.out.println("SCORE: " + state.getScore());
+    delete(state);
   }
 
   @Override
   public void step(double dt, MutableGameState pacmanGameState) {
-
+    super.step(dt, pacmanGameState);
   }
 
   @Override
@@ -43,6 +38,26 @@ public class Dot extends Sprite {
   @Override
   public boolean isDeadlyToPacMan() {
     return false;
+  }
+
+  @Override
+  public boolean eatsGhosts() {
+    return false;
+  }
+
+  @Override
+  public boolean isConsumable() {
+    return true;
+  }
+
+  @Override
+  public boolean hasMultiplicativeScoring() {
+    return false;
+  }
+
+  @Override
+  public int getScore() {
+    return dotScoreIncrement;
   }
 
   @Override
