@@ -29,14 +29,13 @@ public class PreferenceView implements ThemedObject, View {
       LanguageService languageService, ViewStackManager viewStackManager) {
     this.preferenceResponder = preferenceResponder;
     this.themeService = themeService;
-    this.themeService.addThemedObject(this);
     this.languageService = languageService;
     this.viewStackManager = viewStackManager;
     this.primaryView = new GridPane();
     this.primaryView.setGridLinesVisible(true);
     this.primaryView.setAlignment(Pos.CENTER);
     this.primaryView.getStyleClass().addAll("view", "card-pane");
-    this.onThemeChange();
+    this.themeService.addThemedObject(this);
 
     buildScene();
   }

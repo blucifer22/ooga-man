@@ -85,7 +85,7 @@ public class Controller implements GameStateController {
     pgs.addSprite(dot3);
     pgs.addSprite(powerPill);
 
-    uiController.showGameView();
+    //uiController.showGameView();
 
     //    pgs.step(TIMESTEP);
     //    pgs.step(TIMESTEP);
