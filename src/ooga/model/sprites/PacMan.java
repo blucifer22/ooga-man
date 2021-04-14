@@ -55,7 +55,7 @@ public class PacMan extends MoveableSprite {
     move(dt, pacmanGameState.getGrid());
     handleCollisions(pacmanGameState);
 
-    getAnimation().setPaused(getCurrentSpeed() == 0);
+    getCurrentAnimation().setPaused(getCurrentSpeed() == 0);
   }
 
   @Override
@@ -93,11 +93,11 @@ public class PacMan extends MoveableSprite {
     switch (event){
       case SPEED_UP_ACTIVATED -> {
         setMovementSpeed(getMovementSpeed() * 2);
-        getAnimation().setRelativeSpeed(getAnimation().getRelativeSpeed() * 2);
+        getCurrentAnimation().setRelativeSpeed(getCurrentAnimation().getRelativeSpeed() * 2);
       }
       case SPEED_UP_DEACTIVATED -> {
         setMovementSpeed(getMovementSpeed() * 0.5);
-        getAnimation().setRelativeSpeed(getAnimation().getRelativeSpeed() * 0.5);
+        getCurrentAnimation().setRelativeSpeed(getCurrentAnimation().getRelativeSpeed() * 0.5);
       }
     }
   }
