@@ -18,4 +18,9 @@ public class Clyde extends Ghost{
   public Clyde(SpriteDescription spriteDescription) {
     this(spriteDescription.getCoordinates(), new Vec2(1,0), 3.9);
   }
+
+  @Override
+  protected double getInitialWaitTime() {
+    return 8.0;
+  }
 }

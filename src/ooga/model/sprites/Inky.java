@@ -19,4 +19,9 @@ public class Inky extends Ghost{
     this(spriteDescription.getCoordinates(),
             new Vec2(1,0), 4.0);
   }
+
+  @Override
+  protected double getInitialWaitTime() {
+    return 6.0;
+  }
 }
