@@ -26,10 +26,14 @@ public abstract class SpriteAnimation implements ObservableAnimation {
 
   private boolean paused;
 
+  private double relativeSpeed;
+
   protected SpriteAnimation(String initialCostume) {
     observers = new HashSet<>();
     costume = initialCostume;
     paused = false;
+
+    setRelativeSpeed(1);
   }
 
   public final String getCurrentCostume() {
@@ -63,5 +67,15 @@ public abstract class SpriteAnimation implements ObservableAnimation {
   protected void notifyObservers(Consumer<AnimationObserver> consumer) {
     for(AnimationObserver ao : observers)
       consumer.accept(ao);
+  }
+
+  @Override
+  public double getRelativeSpeed() {
+    return relativeSpeed;
+  }
+
+  @Override
+  public void setRelativeSpeed(double relativeSpeed) {
+    this.relativeSpeed = relativeSpeed;
   }
 }

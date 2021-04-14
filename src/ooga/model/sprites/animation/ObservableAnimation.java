@@ -8,4 +8,7 @@ public interface ObservableAnimation {
 
   void step(double dt);
   void setPaused(boolean paused);
+
+  void setRelativeSpeed(double relativeSpeed);
+  double getRelativeSpeed();
 }
