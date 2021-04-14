@@ -90,7 +90,7 @@ public class DemoController implements GameStateController {
 
     pgs.registerEventListener(pacman);
 
-    uiController.showGameView();
+    //uiController.showGameView();
 
     KeyFrame frame = new KeyFrame(Duration.seconds(TIMESTEP), e -> pgs.step(TIMESTEP)); //
     // TODO: remove grid from step parameter

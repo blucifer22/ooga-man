@@ -41,6 +41,7 @@ public class SerializedThemeService implements ThemeService {
   @Override
   public void addThemedObject(ThemedObject themedObject) {
     this.observers.add(themedObject);
+    themedObject.onThemeChange();
   }
 }
 

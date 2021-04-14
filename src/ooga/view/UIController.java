@@ -46,7 +46,7 @@ public class UIController implements MainMenuResponder, PreferenceResponder, Vie
     this.primaryStage.titleProperty().bind(this.languageService.getLocalizedString("pacman"));
 
     // Prep Game View
-    this.gameView = new GameView(this.themeService);
+    this.gameView = new GameView(this.themeService, this);
 
     // Allow user interaction
     this.primaryStage.show();
@@ -58,7 +58,7 @@ public class UIController implements MainMenuResponder, PreferenceResponder, Vie
         this.languageService).getRenderingNode(), primaryStage.getWidth(), primaryStage.getHeight()));
   }
 
-  public void showGameView() {
+  private void showGameView() {
     this.viewStack.add(this.primaryStage.getScene());
     Scene gameViewScene = this.gameView.getRenderingNode().getScene();
 
@@ -107,6 +107,7 @@ public class UIController implements MainMenuResponder, PreferenceResponder, Vie
   @Override
   public void unwind() {
     System.out.println(viewStack);
+    this.primaryStage.setResizable(false);
     this.primaryStage.setScene(viewStack.pop());
     this.primaryStage.setResizable(true);
   }
