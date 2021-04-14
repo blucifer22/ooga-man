@@ -32,7 +32,6 @@ public class Controller implements GameStateController {
   public Controller(Stage primaryStage) {
     this.inputManager = new HumanInputManager(KeybindingType.PLAYER_1);
     this.uiController = new UIController(primaryStage, this, this.inputManager);
-    uiController.showMenu();
     // startGame();
   }
 

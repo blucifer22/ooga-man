@@ -33,9 +33,6 @@ public class UIController implements MainMenuResponder, PreferenceResponder, Vie
   public UIController(Stage primaryStage, GameStateController gameController,
       HumanInputConsumer inputConsumer) {
     // Configure Data Sources & Displays
-    this.primaryStage = primaryStage;
-    this.primaryStage.setWidth(DEFAULT_STAGE_SIZE);
-    this.primaryStage.setHeight(DEFAULT_STAGE_SIZE);
     this.inputConsumer = inputConsumer;
     this.gameController = gameController;
     this.languageService = new BundledLanguageService();
@@ -43,7 +40,11 @@ public class UIController implements MainMenuResponder, PreferenceResponder, Vie
     this.viewStack = new Stack<>();
 
     // Stage Prep
+    this.primaryStage = primaryStage;
+    this.primaryStage.setScene(new Scene(new MenuView(this, this.themeService,
+        this.languageService).getRenderingNode(), DEFAULT_STAGE_SIZE, DEFAULT_STAGE_SIZE));
     this.primaryStage.titleProperty().bind(this.languageService.getLocalizedString("pacman"));
+    this.viewStack.add(this.primaryStage.getScene());
 
     // Prep Game View
     this.gameView = new GameView(this.themeService, this);
@@ -52,22 +53,14 @@ public class UIController implements MainMenuResponder, PreferenceResponder, Vie
     this.primaryStage.show();
   }
 
-  public void showMenu() {
-    this.viewStack.add(this.primaryStage.getScene());
-    this.primaryStage.setScene(new Scene(new MenuView(this, this.themeService,
-        this.languageService).getRenderingNode()));
-  }
-
-  private void showGameView() {
-    this.viewStack.add(this.primaryStage.getScene());
+  public void showGameView() {
     Scene gameViewScene = this.gameView.getRenderingNode().getScene();
 
     if (gameViewScene == null) {
       gameViewScene = new Scene(this.gameView.getRenderingNode());
     }
 
-    this.primaryStage.setScene(gameViewScene);
-    redirectInput(gameViewScene);
+    showScene(gameViewScene);
   }
 
   // TODO: abstract GameView to an interface here
@@ -93,8 +86,7 @@ public class UIController implements MainMenuResponder, PreferenceResponder, Vie
 
   @Override
   public void openPreferences() {
-    this.viewStack.add(primaryStage.getScene());
-    this.primaryStage.setScene(new Scene((new PreferenceView(this, themeService,
+    showScene(new Scene((new PreferenceView(this, themeService,
         languageService, this).getRenderingNode())));
   }
 
@@ -105,6 +97,14 @@ public class UIController implements MainMenuResponder, PreferenceResponder, Vie
 
   @Override
   public void unwind() {
+    this.primaryStage.setResizable(false);
     this.primaryStage.setScene(viewStack.pop());
+    this.primaryStage.setResizable(true);
+  }
+
+  private void showScene(Scene s) {
+    this.viewStack.add(this.primaryStage.getScene());
+    this.primaryStage.setScene(s);
+    redirectInput(s);
   }
 }
