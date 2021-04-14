@@ -9,7 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
-import ooga.ViewStackManager;
+import ooga.view.internal_api.ViewStackManager;
 import ooga.view.internal_api.PreferenceResponder;
 import ooga.view.internal_api.View;
 import ooga.view.language.api.LanguageService;

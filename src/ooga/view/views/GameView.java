@@ -12,7 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import ooga.ViewStackManager;
+import ooga.view.internal_api.ViewStackManager;
 import ooga.model.api.GridRebuildObserver;
 import ooga.model.api.SpriteExistenceObserver;
 import ooga.view.internal_api.View;
