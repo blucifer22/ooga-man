@@ -3,7 +3,7 @@ package ooga.model;
 import ooga.model.sprites.Sprite;
 
 import java.util.List;
-import ooga.util.GameClock;
+import ooga.util.Clock;
 
 public interface MutableGameState {
 
@@ -28,7 +28,7 @@ public interface MutableGameState {
 
   PacmanGrid getGrid();
 
-  GameClock getClock();
+  Clock getClock();
 
   void registerEventListener(Sprite listener);
 

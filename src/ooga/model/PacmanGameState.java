@@ -14,7 +14,7 @@ import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.leveldescription.GridDescription;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.Sprite;
-import ooga.util.GameClock;
+import ooga.util.Clock;
 
 /**
  * This class contains all the state of a in-progress pacman game and serves as the top-level class
@@ -33,7 +33,7 @@ public class PacmanGameState
 
   private final List<Sprite> sprites;
   private final Set<Sprite> toDelete;
-  private final GameClock clock;
+  private final Clock clock;
   private PacmanGrid grid;
   private int pacManScore;
 
@@ -43,7 +43,7 @@ public class PacmanGameState
     toDelete = new HashSet<>();
     sprites = new LinkedList<>();
     pacmanPowerupObservers = new HashSet<>();
-    clock = new GameClock();
+    clock = new Clock();
   }
 
   public void setDefaultInputSource() {
@@ -54,7 +54,7 @@ public class PacmanGameState
    *
    * @return game clock
    */
-  public GameClock getClock() {
+  public Clock getClock() {
     return clock;
   }
 
