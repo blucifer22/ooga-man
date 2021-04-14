@@ -75,6 +75,7 @@ public abstract class Ghost extends MoveableSprite {
     ghostClock.step(dt, pacmanGameState);
     super.step(dt, pacmanGameState);
     move(dt, pacmanGameState.getGrid());
+    handleCollisions(pacmanGameState);
   }
 
   @Override

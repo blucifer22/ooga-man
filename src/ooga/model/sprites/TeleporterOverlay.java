@@ -53,10 +53,12 @@ public class TeleporterOverlay extends Sprite {
     int dex = ThreadLocalRandom.current().nextInt(connectedTeleporters.size());
     Sprite connectedTeleporter = connectedTeleporters.get(dex);
     Vec2 teleporterCenter = connectedTeleporter.getCoordinates().getTileCenter();
-    Vec2 spriteDirection = connectedTeleporter.getDirection();
+    Vec2 spriteDirection = other.getDirection();
+
+    Vec2 newSpritePosition = teleporterCenter.add(spriteDirection.scalarMult(0.51));
 
     other.setCoordinates(
-        new SpriteCoordinates(teleporterCenter.add(spriteDirection.scalarMult(1))));
+        new SpriteCoordinates(newSpritePosition));
   }
 
   @Override
