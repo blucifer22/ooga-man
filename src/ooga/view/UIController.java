@@ -1,7 +1,9 @@
 package ooga.view;
 
+import java.util.Stack;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ooga.ViewStackManager;
 import ooga.controller.GameStateController;
 import ooga.view.internal_api.MainMenuResponder;
 import ooga.view.internal_api.PreferenceResponder;
@@ -12,15 +14,21 @@ import ooga.view.views.GameView;
 import ooga.view.views.MenuView;
 import ooga.view.views.PreferenceView;
 
-public class UIController implements MainMenuResponder, PreferenceResponder {
+public class UIController implements MainMenuResponder, PreferenceResponder, ViewStackManager {
 
+  // constants
   private static final double DEFAULT_STAGE_SIZE = 600;
+
+  // controlled elements
   private final Stage primaryStage;
+  private final GameStateController gameController;
   private final GameView gameView;
+  private final Stack<Scene> viewStack;
+
+  // shared UI dependencies
   private final BundledLanguageService languageService;
   private final SerializedThemeService themeService;
   private final HumanInputConsumer inputConsumer;
-  private final GameStateController gameController;
 
   public UIController(Stage primaryStage, GameStateController gameController,
       HumanInputConsumer inputConsumer) {
@@ -32,6 +40,7 @@ public class UIController implements MainMenuResponder, PreferenceResponder {
     this.gameController = gameController;
     this.languageService = new BundledLanguageService();
     this.themeService = new SerializedThemeService();
+    this.viewStack = new Stack<>();
 
     // Stage Prep
     this.primaryStage.titleProperty().bind(this.languageService.getLocalizedString("pacman"));
@@ -44,11 +53,13 @@ public class UIController implements MainMenuResponder, PreferenceResponder {
   }
 
   public void showMenu() {
+    this.viewStack.add(this.primaryStage.getScene());
     this.primaryStage.setScene(new Scene(new MenuView(this, this.themeService,
         this.languageService).getRenderingNode(), primaryStage.getWidth(), primaryStage.getHeight()));
   }
 
   public void showGameView() {
+    this.viewStack.add(this.primaryStage.getScene());
     Scene gameViewScene = this.gameView.getRenderingNode().getScene();
 
     if (gameViewScene == null) {
@@ -83,12 +94,20 @@ public class UIController implements MainMenuResponder, PreferenceResponder {
 
   @Override
   public void openPreferences() {
-    this.primaryStage.setScene(new Scene((new PreferenceView(this, themeService, languageService).getRenderingNode()), primaryStage.getWidth(),
-        primaryStage.getHeight()));
+    this.viewStack.add(primaryStage.getScene());
+    this.primaryStage.setScene(new Scene((new PreferenceView(this, themeService, languageService,
+        this).getRenderingNode()), primaryStage.getWidth(), primaryStage.getHeight()));
   }
 
   @Override
   public void setLanguage(String language) {
     this.languageService.setLanguage(language);
+  }
+
+  @Override
+  public void unwind() {
+    System.out.println(viewStack);
+    this.primaryStage.setScene(viewStack.pop());
+    this.primaryStage.setResizable(true);
   }
 }
