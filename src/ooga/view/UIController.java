@@ -103,8 +103,12 @@ public class UIController implements MainMenuResponder, PreferenceResponder, Vie
   }
 
   private void showScene(Scene s) {
+    double oldWidth = primaryStage.getWidth();
+    double oldHeight = primaryStage.getHeight();
     this.viewStack.add(this.primaryStage.getScene());
     this.primaryStage.setScene(s);
+    this.primaryStage.setWidth(oldWidth);
+    this.primaryStage.setHeight(oldHeight);
     redirectInput(s);
   }
 }
