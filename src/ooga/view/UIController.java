@@ -1,61 +1,66 @@
 package ooga.view;
 
+import java.util.Stack;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ooga.view.internal_api.ViewStackManager;
 import ooga.controller.GameStateController;
 import ooga.view.internal_api.MainMenuResponder;
+import ooga.view.internal_api.PreferenceResponder;
 import ooga.view.io.HumanInputConsumer;
 import ooga.view.language.bundled.BundledLanguageService;
 import ooga.view.theme.serialized.SerializedThemeService;
 import ooga.view.views.GameView;
 import ooga.view.views.MenuView;
+import ooga.view.views.PreferenceView;
 
-public class UIController implements MainMenuResponder {
+public class UIController implements MainMenuResponder, PreferenceResponder, ViewStackManager {
 
+  // constants
   private static final double DEFAULT_STAGE_SIZE = 600;
+
+  // controlled elements
   private final Stage primaryStage;
+  private final GameStateController gameController;
   private final GameView gameView;
+  private final Stack<Scene> viewStack;
+
+  // shared UI dependencies
   private final BundledLanguageService languageService;
   private final SerializedThemeService themeService;
   private final HumanInputConsumer inputConsumer;
-  private final GameStateController gameController;
 
   public UIController(Stage primaryStage, GameStateController gameController,
       HumanInputConsumer inputConsumer) {
     // Configure Data Sources & Displays
-    this.primaryStage = primaryStage;
-    this.primaryStage.setWidth(DEFAULT_STAGE_SIZE);
-    this.primaryStage.setHeight(DEFAULT_STAGE_SIZE);
     this.inputConsumer = inputConsumer;
     this.gameController = gameController;
     this.languageService = new BundledLanguageService();
     this.themeService = new SerializedThemeService();
+    this.viewStack = new Stack<>();
 
     // Stage Prep
+    this.primaryStage = primaryStage;
+    this.primaryStage.setScene(new Scene(new MenuView(this, this.themeService,
+        this.languageService).getRenderingNode(), DEFAULT_STAGE_SIZE, DEFAULT_STAGE_SIZE));
     this.primaryStage.titleProperty().bind(this.languageService.getLocalizedString("pacman"));
+    this.viewStack.add(this.primaryStage.getScene());
 
     // Prep Game View
-    this.gameView = new GameView(this.themeService);
+    this.gameView = new GameView(this.themeService, this);
 
     // Allow user interaction
     this.primaryStage.show();
-  }
-
-  public void showMenu() {
-    this.primaryStage.setScene(new Scene(new MenuView(this, this.themeService,
-        this.languageService).getRenderingNode(), primaryStage.getWidth(), primaryStage.getHeight()));
   }
 
   public void showGameView() {
     Scene gameViewScene = this.gameView.getRenderingNode().getScene();
 
     if (gameViewScene == null) {
-      gameViewScene = new Scene(this.gameView.getRenderingNode(), primaryStage.getWidth(),
-          primaryStage.getHeight());
+      gameViewScene = new Scene(this.gameView.getRenderingNode());
     }
 
-    this.primaryStage.setScene(gameViewScene);
-    redirectInput(gameViewScene);
+    showScene(gameViewScene, true);
   }
 
   // TODO: abstract GameView to an interface here
@@ -81,6 +86,29 @@ public class UIController implements MainMenuResponder {
 
   @Override
   public void openPreferences() {
-    // TODO: open preferences
+    showScene(new Scene((new PreferenceView(this, themeService,
+        languageService, this).getRenderingNode())), true);
+  }
+
+  @Override
+  public void setLanguage(String language) {
+    this.languageService.setLanguage(language);
+  }
+
+  @Override
+  public void unwind() {
+    showScene(viewStack.pop(), false);
+  }
+
+  private void showScene(Scene s, boolean addToStack) {
+    double oldWidth = primaryStage.getWidth();
+    double oldHeight = primaryStage.getHeight();
+    if(addToStack) {
+      this.viewStack.push(this.primaryStage.getScene());
+    }
+    this.primaryStage.setScene(s);
+    this.primaryStage.setWidth(oldWidth);
+    this.primaryStage.setHeight(oldHeight);
+    redirectInput(s);
   }
 }
