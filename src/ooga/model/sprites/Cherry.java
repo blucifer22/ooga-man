@@ -3,6 +3,9 @@ package ooga.model.sprites;
 import ooga.model.MutableGameState;
 import ooga.model.PacmanPowerupEvent;
 import ooga.model.SpriteCoordinates;
+import ooga.model.leveldescription.SpriteDescription;
+import ooga.model.sprites.animation.FreeRunningPeriodicAnimation;
+import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
 
 import java.lang.management.MemoryUsage;
@@ -14,20 +17,19 @@ import java.lang.management.MemoryUsage;
  */
 public class Cherry extends Sprite {
 
+  private int cherryScoreIncrement = 50;
+
   public Cherry(SpriteCoordinates position, Vec2 direction) {
-    super(position, direction);
+    super(new StillAnimation("cherry"), position, direction);
   }
 
-  @Override
-  public String getType() {
-    return "cherry";
+  public Cherry(SpriteDescription spriteDescription) {
+    this(spriteDescription.getCoordinates(), new Vec2(1,0));
   }
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    state.incrementScore(50);
-    state.prepareRemove(this);
-    System.out.println("SCORE: " + state.getScore());
+    delete(state);
   }
 
   @Override
@@ -46,7 +48,30 @@ public class Cherry extends Sprite {
   }
 
   @Override
-  public void respondToPowerEvent(PacmanPowerupEvent event) {
+  public boolean eatsGhosts() {
+    return false;
+  }
 
+  @Override
+  public boolean isConsumable() {
+    return true;
+  }
+
+  @Override
+  public boolean hasMultiplicativeScoring() {
+    return false;
+  }
+
+  @Override
+  public int getScore() {
+    return cherryScoreIncrement;
+  }
+
+  @Override
+  public void respondToPowerEvent(PacmanPowerupEvent event) {
+    switch (event){
+      case POINT_BONUS_ACTIVATED -> cherryScoreIncrement *= 2;
+      case POINT_BONUS_DEACTIVATED -> cherryScoreIncrement *= 0.5;
+    }
   }
 }

@@ -30,7 +30,7 @@ public class DemoController implements GameStateController {
   private final HumanInputManager inputManager;
 
   public DemoController(Stage primaryStage) {
-    this.inputManager = new HumanInputManager();
+    this.inputManager = new HumanInputManager(KeybindingType.PLAYER_1);
     this.uiController = new UIController(primaryStage, this, this.inputManager);
     uiController.showMenu();
     //startGame();
@@ -51,11 +51,14 @@ public class DemoController implements GameStateController {
     }
 
     PacMan pacman = new PacMan(new SpriteCoordinates(new Vec2(1.5, 1.5)), new Vec2(0, 0), 5.0);
-    Ghost blinky = new Blinky(new SpriteCoordinates(new Vec2(13.5, 13.5)), new Vec2(0, 0), 4);
-    Ghost pinky = new Pinky(new SpriteCoordinates(new Vec2(1.5, 13.5)), new Vec2(0, 0), 4);
+    Ghost blinky = new Blinky(new SpriteCoordinates(new Vec2(8.5, 9.5)), new Vec2(0, 0), 3.9);
+    Ghost pinky = new Pinky(new SpriteCoordinates(new Vec2(8.5, 9.5)), new Vec2(0, 0), 4);
     Dot dot1 = new Dot(new SpriteCoordinates(new Vec2(4.5, 4.5)), new Vec2(0, 0));
     Dot dot2 = new Dot(new SpriteCoordinates(new Vec2(1.5, 3.5)), new Vec2(0, 0));
-    PowerPill powerPill = new PowerPill(new SpriteCoordinates(new Vec2(1.5, 6.5)), new Vec2(0, 0));
+    PowerPill powerPill1 = new PowerPill(new SpriteCoordinates(new Vec2(1.5, 6.5)), new Vec2(0, 0));
+    PowerPill powerPill2 = new PowerPill(new SpriteCoordinates(new Vec2(6.5, 9.5)), new Vec2(0, 0));
+    PowerPill powerPill3 = new PowerPill(new SpriteCoordinates(new Vec2(4.5, 15.5)), new Vec2(0, 0));
+    PowerPill powerPill4 = new PowerPill(new SpriteCoordinates(new Vec2(6.5, 6.5)), new Vec2(0, 0));
     Cherry cherry = new Cherry(new SpriteCoordinates(new Vec2(1.5, 9.5)), new Vec2(0, 0));
 
     pacman.setInputSource(this.inputManager);
@@ -65,12 +68,27 @@ public class DemoController implements GameStateController {
     pinky.setInputSource(inPinky);
 
     pgs.addSprite(pacman);
+    pgs.registerEventListener(pacman);
+
     pgs.addSprite(blinky);
+    pgs.registerEventListener(blinky);
     pgs.addSprite(pinky);
+    pgs.registerEventListener(pinky);
+
     pgs.addSprite(dot1);
+    pgs.registerEventListener(dot1);
     pgs.addSprite(dot2);
-    pgs.addSprite(powerPill);
+    pgs.registerEventListener(dot1);
     pgs.addSprite(cherry);
+    pgs.registerEventListener(cherry);
+
+    pgs.addSprite(powerPill1);
+    pgs.addSprite(powerPill2);
+    pgs.addSprite(powerPill3);
+    pgs.addSprite(powerPill4);
+
+
+    pgs.registerEventListener(pacman);
 
     uiController.showGameView();
 

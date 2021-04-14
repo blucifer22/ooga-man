@@ -1,6 +1,7 @@
 package ooga.controller;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import javafx.scene.input.KeyCode;
 import ooga.model.InputSource;
@@ -15,6 +16,7 @@ import ooga.view.io.HumanInputConsumer;
  */
 public class HumanInputManager implements InputSource, HumanInputConsumer {
 
+  private final Map<String, KeyCode> keybinding;
   private final Set<KeyCode> pressedKeys;
 
   /**
@@ -22,7 +24,34 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
    *
    * <p>Creates a new HashSet of pressedKeys.
    */
-  public HumanInputManager() {
+  public HumanInputManager(KeybindingType keybindingType) {
+    if (keybindingType.equals(KeybindingType.PLAYER_1)) {
+      keybinding =
+          Map.of(
+              "UP",
+              KeyCode.UP,
+              "DOWN",
+              KeyCode.DOWN,
+              "LEFT",
+              KeyCode.LEFT,
+              "RIGHT",
+              KeyCode.RIGHT,
+              "ACTION",
+              KeyCode.CONTROL);
+    } else {
+      keybinding =
+          Map.of(
+              "UP",
+              KeyCode.W,
+              "DOWN",
+              KeyCode.S,
+              "LEFT",
+              KeyCode.A,
+              "RIGHT",
+              KeyCode.D,
+              "ACTION",
+              KeyCode.SPACE);
+    }
     pressedKeys = new HashSet<>();
   }
 
@@ -40,10 +69,14 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
   @Override
   public Vec2 getRequestedDirection() {
     Vec2 ret = Vec2.ZERO;
-    if (pressedKeys.contains(KeyCode.UP)) ret = ret.add(new Vec2(0, -1));
-    if (pressedKeys.contains(KeyCode.DOWN)) ret = ret.add(new Vec2(0, 1));
-    if (pressedKeys.contains(KeyCode.LEFT)) ret = ret.add(new Vec2(-1, 0));
-    if (pressedKeys.contains(KeyCode.RIGHT)) ret = ret.add(new Vec2(1, 0));
+    if ((pressedKeys.contains(keybinding.get("UP"))))
+      ret = ret.add(new Vec2(0, -1));
+    if ((pressedKeys.contains(keybinding.get("DOWN"))))
+      ret = ret.add(new Vec2(0, 1));
+    if ((pressedKeys.contains(keybinding.get("LEFT"))))
+      ret = ret.add(new Vec2(-1, 0));
+    if ((pressedKeys.contains(keybinding.get("RIGHT"))))
+      ret = ret.add(new Vec2(1, 0));
     return ret;
   }
 
@@ -79,6 +112,6 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
    */
   @Override
   public boolean isActionPressed() {
-    return pressedKeys.contains(KeyCode.SPACE);
+    return pressedKeys.contains(keybinding.get("ACTION"));
   }
 }

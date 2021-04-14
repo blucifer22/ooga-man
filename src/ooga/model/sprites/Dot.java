@@ -3,6 +3,7 @@ package ooga.model.sprites;
 import ooga.model.MutableGameState;
 import ooga.model.PacmanPowerupEvent;
 import ooga.model.SpriteCoordinates;
+import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
 
 import java.lang.management.MemoryUsage;
@@ -12,25 +13,21 @@ import java.lang.management.MemoryUsage;
  */
 public class Dot extends Sprite {
 
-  public Dot(SpriteCoordinates position, Vec2 direction) {
-    super(position, direction);
-  }
+  private int dotScoreIncrement = 1;
 
-  @Override
-  public String getType() {
-    return "dot";
+  public Dot(SpriteCoordinates position, Vec2 direction) {
+    super(new StillAnimation("dot"),
+            position, direction);
   }
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    state.incrementScore(1);
-    state.prepareRemove(this);
-    System.out.println("SCORE: " + state.getScore());
+    delete(state);
   }
 
   @Override
   public void step(double dt, MutableGameState pacmanGameState) {
-
+    super.step(dt, pacmanGameState);
   }
 
   @Override
@@ -44,7 +41,30 @@ public class Dot extends Sprite {
   }
 
   @Override
-  public void respondToPowerEvent(PacmanPowerupEvent event) {
+  public boolean eatsGhosts() {
+    return false;
+  }
 
+  @Override
+  public boolean isConsumable() {
+    return true;
+  }
+
+  @Override
+  public boolean hasMultiplicativeScoring() {
+    return false;
+  }
+
+  @Override
+  public int getScore() {
+    return dotScoreIncrement;
+  }
+
+  @Override
+  public void respondToPowerEvent(PacmanPowerupEvent event) {
+    switch (event){
+      case POINT_BONUS_ACTIVATED -> dotScoreIncrement *= 2;
+      case POINT_BONUS_DEACTIVATED -> dotScoreIncrement *= 0.5;
+    }
   }
 }

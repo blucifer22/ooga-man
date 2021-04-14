@@ -66,6 +66,9 @@ public class SpriteInternalDataTests {
     };
     pacMan.setInputSource(input);
 
+    // Check that the defaultInputSource is set correctly
+    assertNotNull(pacMan.getDefaultInputSource());
+
     for (int k = 0; k < 500; k++) {
       pacMan.step(1.0 / 60, state);
     }

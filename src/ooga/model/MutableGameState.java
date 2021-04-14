@@ -3,30 +3,34 @@ package ooga.model;
 import ooga.model.sprites.Sprite;
 
 import java.util.List;
+import ooga.util.GameClock;
 
 public interface MutableGameState {
-    /**
-     * @param score
-     */
-    void incrementScore(int score);
 
-    int getScore();
+  /**
+   * @param score
+   */
+  void incrementScore(int score);
 
-    void prepareRemove(Sprite sprite);
+  int getScore();
 
-    /**
-     * Gets the list of other Sprites that resides in the same list as this sprite
-     *
-     * @param sprite
-     * @return
-     */
-    List<Sprite> getCollidingWith(Sprite sprite);
+  void prepareRemove(Sprite sprite);
 
-    void addSprite(Sprite sprite);
+  /**
+   * Gets the list of other Sprites that resides in the same list as this sprite
+   *
+   * @param sprite
+   * @return
+   */
+  List<Sprite> getCollidingWith(Sprite sprite);
 
-    PacmanGrid getGrid();
+  void addSprite(Sprite sprite);
 
-    void registerEventListener(Sprite listener);
+  PacmanGrid getGrid();
 
-    void notifyPowerupListeners(PacmanPowerupEvent type);
+  GameClock getClock();
+
+  void registerEventListener(Sprite listener);
+
+  void notifyPowerupListeners(PacmanPowerupEvent type);
 }
