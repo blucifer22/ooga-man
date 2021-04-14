@@ -32,7 +32,6 @@ public class DemoController implements GameStateController {
   public DemoController(Stage primaryStage) {
     this.inputManager = new HumanInputManager(KeybindingType.PLAYER_1);
     this.uiController = new UIController(primaryStage, this, this.inputManager);
-    startGame();
   }
 
   public void startGame() {
@@ -86,10 +85,7 @@ public class DemoController implements GameStateController {
     pgs.addSprite(powerPill3);
     pgs.addSprite(powerPill4);
 
-
     pgs.registerEventListener(pacman);
-
-    uiController.showGameView();
 
     KeyFrame frame = new KeyFrame(Duration.seconds(TIMESTEP), e -> pgs.step(TIMESTEP)); //
     // TODO: remove grid from step parameter
