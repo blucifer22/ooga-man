@@ -3,7 +3,11 @@ package ooga.model.sprites;
 import ooga.model.*;
 import ooga.model.api.PowerupEventObserver;
 import ooga.model.leveldescription.SpriteDescription;
+import ooga.model.sprites.animation.FreeRunningPeriodicAnimation;
+import ooga.model.sprites.animation.PeriodicAnimation;
 import ooga.util.Vec2;
+
+import java.util.List;
 
 /**
  * @author George Hong
@@ -14,22 +18,20 @@ public class PacMan extends MoveableSprite {
   private int ghostsEaten;
 
   public PacMan(SpriteCoordinates position, Vec2 direction, double speed) {
-    super(position, direction, speed);
+    super(new FreeRunningPeriodicAnimation(List.of("pacman_closed", "pacman_halfopen", "pacman_open"),
+            PeriodicAnimation.FrameOrder.TRIANGLE, 1/15.0),
+            position, direction, speed);
     swapClass = SwapClass.PACMAN;
   }
 
   public PacMan(SpriteDescription spriteDescription) {
-    super(spriteDescription);
+    this(spriteDescription.getCoordinates(),
+            new Vec2(1,0), 5.0);
   }
 
   @Override
   protected boolean canMoveTo(Tile tile) {
     return tile.isOpenToPacman();
-  }
-
-  @Override
-  public String getCostume() {
-    return TYPE;
   }
 
   @Override
@@ -49,8 +51,11 @@ public class PacMan extends MoveableSprite {
 
   @Override
   public void step(double dt, MutableGameState pacmanGameState) {
+    super.step(dt, pacmanGameState);
     move(dt, pacmanGameState.getGrid());
     handleCollisions(pacmanGameState);
+
+    getAnimation().setPaused(getCurrentSpeed() == 0);
   }
 
   @Override
@@ -86,8 +91,14 @@ public class PacMan extends MoveableSprite {
   @Override
   public void respondToPowerEvent(PacmanPowerupEvent event) {
     switch (event){
-      case SPEED_UP_ACTIVATED -> setMovementSpeed(getMovementSpeed() * 2);
-      case SPEED_UP_DEACTIVATED -> setMovementSpeed(getMovementSpeed() * 0.5);
+      case SPEED_UP_ACTIVATED -> {
+        setMovementSpeed(getMovementSpeed() * 2);
+        getAnimation().setRelativeSpeed(getAnimation().getRelativeSpeed() * 2);
+      }
+      case SPEED_UP_DEACTIVATED -> {
+        setMovementSpeed(getMovementSpeed() * 0.5);
+        getAnimation().setRelativeSpeed(getAnimation().getRelativeSpeed() * 0.5);
+      }
     }
   }
 }
