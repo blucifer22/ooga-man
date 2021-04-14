@@ -21,6 +21,6 @@ public class Blinky extends Ghost{
 
   @Override
   protected double getInitialWaitTime() {
-    return 4.0;
+    return 1.0;
   }
 }

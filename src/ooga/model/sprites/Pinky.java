@@ -21,6 +21,6 @@ public class Pinky extends Ghost {
 
   @Override
   protected double getInitialWaitTime() {
-    return 2.0;
+    return 4.0;
   }
 }

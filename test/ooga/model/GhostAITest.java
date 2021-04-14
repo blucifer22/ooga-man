@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Ghost;
+import ooga.model.sprites.Ghost.GhostBehavior;
 import ooga.model.sprites.PacMan;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,16 +31,35 @@ public class GhostAITest {
       }
     }
     this.grid = grid;
+    state = new PacmanGameState();
+    state.loadGrid(grid);
   }
 
   @Test
   public void testBlinkyDecisionUpwards() {
-    blinky = new Blinky(new SpriteCoordinates(new Vec2(1.5, 1.9)), new Vec2(0, -1), 4);
+    blinky = new TestBlinky(new SpriteCoordinates(new Vec2(1.5, 1.9)), new Vec2(0, -1), 4);
     InputSource in = new ChaseAI(grid, blinky, pacMan, -1);
     blinky.setInputSource(in);
+    blinky.step(1/60., state);
     Vec2 req = in.getRequestedDirection();
     assertEquals(new Vec2(1, 0), req);
   }
+
+  @Test
+  public void testInitialWait() {
+    blinky = new Blinky(new SpriteCoordinates(new Vec2(1.5, 1.9)), new Vec2(0, -1), 4);
+    InputSource in = new ChaseAI(grid, blinky, pacMan, -1);
+    blinky.setInputSource(in);
+    for (int k = 0; k < 30; k++){
+      blinky.step(1/60., state);
+    }
+    assertEquals(GhostBehavior.WAIT, blinky.getGhostBehavior());
+    for (int k = 0; k < 240; k++){
+      blinky.step(1/60., state);
+    }
+    assertEquals(GhostBehavior.CHASE, blinky.getGhostBehavior());
+  }
+
 
   @Test
   public void testParallelSort() {
