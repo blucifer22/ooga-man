@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
+import ooga.ViewStackManager;
 import ooga.view.internal_api.PreferenceResponder;
 import ooga.view.internal_api.View;
 import ooga.view.language.api.LanguageService;
@@ -21,14 +22,16 @@ public class PreferenceView implements ThemedObject, View {
   private final ThemeService themeService;
   private final LanguageService languageService;
   private final PreferenceResponder preferenceResponder;
+  private final ViewStackManager viewStackManager;
   private static final String LANGUAGE_MANIFEST = "resources.languages.manifest";
 
   public PreferenceView(PreferenceResponder preferenceResponder, ThemeService themeService,
-      LanguageService languageService) {
+      LanguageService languageService, ViewStackManager viewStackManager) {
     this.preferenceResponder = preferenceResponder;
     this.themeService = themeService;
     this.themeService.addThemedObject(this);
     this.languageService = languageService;
+    this.viewStackManager = viewStackManager;
     this.primaryView = new GridPane();
     this.primaryView.setGridLinesVisible(true);
     this.primaryView.setAlignment(Pos.CENTER);
@@ -65,7 +68,7 @@ public class PreferenceView implements ThemedObject, View {
 
     Button returnToMenu = new Button();
     returnToMenu.textProperty().bind(languageService.getLocalizedString("previousMenu"));
-    returnToMenu.setOnMouseClicked(e -> System.out.println("exit"));
+    returnToMenu.setOnMouseClicked(e -> viewStackManager.unwind());
     returnToMenu.getStyleClass().add("menu-button");
 
     VBox backButtonCard = new VBox(
