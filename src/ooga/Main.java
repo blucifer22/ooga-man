@@ -2,6 +2,7 @@ package ooga;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import ooga.controller.CollisionController;
 import ooga.controller.Controller;
 import ooga.controller.DemoController;
 
