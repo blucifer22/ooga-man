@@ -60,7 +60,7 @@ public class UIController implements MainMenuResponder, PreferenceResponder, Vie
       gameViewScene = new Scene(this.gameView.getRenderingNode());
     }
 
-    showScene(gameViewScene);
+    showScene(gameViewScene, true);
   }
 
   // TODO: abstract GameView to an interface here
@@ -87,7 +87,7 @@ public class UIController implements MainMenuResponder, PreferenceResponder, Vie
   @Override
   public void openPreferences() {
     showScene(new Scene((new PreferenceView(this, themeService,
-        languageService, this).getRenderingNode())));
+        languageService, this).getRenderingNode())), true);
   }
 
   @Override
@@ -97,15 +97,15 @@ public class UIController implements MainMenuResponder, PreferenceResponder, Vie
 
   @Override
   public void unwind() {
-    this.primaryStage.setResizable(false);
-    this.primaryStage.setScene(viewStack.pop());
-    this.primaryStage.setResizable(true);
+    showScene(viewStack.pop(), false);
   }
 
-  private void showScene(Scene s) {
+  private void showScene(Scene s, boolean addToStack) {
     double oldWidth = primaryStage.getWidth();
     double oldHeight = primaryStage.getHeight();
-    this.viewStack.add(this.primaryStage.getScene());
+    if(addToStack) {
+      this.viewStack.add(this.primaryStage.getScene());
+    }
     this.primaryStage.setScene(s);
     this.primaryStage.setWidth(oldWidth);
     this.primaryStage.setHeight(oldHeight);
