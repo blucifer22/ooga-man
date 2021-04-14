@@ -64,6 +64,9 @@ public class PowerPill extends Sprite {
   }
 
   @Override
+  public boolean isRespawnTarget() { return false; }
+
+  @Override
   public boolean hasMultiplicativeScoring() {
     return false;
   }

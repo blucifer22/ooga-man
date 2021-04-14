@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 import ooga.model.sprites.Ghost;
+import ooga.model.sprites.Home;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
@@ -25,14 +26,14 @@ public class GhostAI implements InputSource {
   private final PacmanGrid pacmanGrid;
   private final PacMan target;
   private final double intelligence;
-  private Vec2 home;
+  private final Home home;
 
-  public GhostAI(PacmanGrid grid, Ghost ghost, PacMan target, double intelligence) {
+  public GhostAI(PacmanGrid grid, Ghost ghost, PacMan target, Home home, double intelligence) {
     this.pacmanGrid = grid;
     this.ghost = ghost;
     this.target = target;
     this.intelligence = intelligence;
-    home = new Vec2(8.5, 9.5);
+    this.home = home;
   }
 
   protected Sprite getTarget() {
@@ -47,8 +48,8 @@ public class GhostAI implements InputSource {
     return pacmanGrid;
   }
 
-  public void setHome(Vec2 newHome){
-    home = newHome;
+  protected Home getHome() {
+    return home;
   }
 
   @Override
@@ -75,8 +76,9 @@ public class GhostAI implements InputSource {
   protected Vec2 eatenBehavior() {
     // TODO: Implement
     Vec2 currentTilePos = getGhost().getCoordinates().getTileCoordinates().toVec2();
+    Vec2 homeTilePos = getHome().getCoordinates().getTileCoordinates().toVec2();
 
-    return reduceDistance(home, currentTilePos);
+    return reduceDistance(homeTilePos, currentTilePos);
   }
 
   /**

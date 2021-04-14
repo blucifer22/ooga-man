@@ -15,9 +15,11 @@ import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Cherry;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Dot;
+import ooga.model.sprites.Home;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Pinky;
 import ooga.model.sprites.PowerPill;
+import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
 import ooga.view.UIController;
 import ooga.view.views.GameView;
@@ -57,10 +59,11 @@ public class DemoController implements GameStateController {
     PowerPill powerPill3 = new PowerPill(new SpriteCoordinates(new Vec2(4.5, 15.5)), new Vec2(0, 0));
     PowerPill powerPill4 = new PowerPill(new SpriteCoordinates(new Vec2(6.5, 6.5)), new Vec2(0, 0));
     Cherry cherry = new Cherry(new SpriteCoordinates(new Vec2(1.5, 9.5)), new Vec2(0, 0));
+    Home home = new Home(new StillAnimation("home"), new SpriteCoordinates(new Vec2(8.5, 9.5)), new Vec2(0, 0));
 
     pacman.setInputSource(this.inputManager);
-    InputSource inBlinky = new BlinkyAI(pgs.getGrid(), blinky, pacman, 0.9);
-    InputSource inPinky = new PinkyAI(pgs.getGrid(), pinky, pacman, 0.9);
+    InputSource inBlinky = new BlinkyAI(pgs.getGrid(), blinky, pacman, home, 0.9);
+    InputSource inPinky = new PinkyAI(pgs.getGrid(), pinky, pacman, home,0.9);
     blinky.setInputSource(inBlinky);
     pinky.setInputSource(inPinky);
 

@@ -8,7 +8,9 @@ import java.util.Comparator;
 import java.util.List;
 import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Ghost;
+import ooga.model.sprites.Home;
 import ooga.model.sprites.PacMan;
+import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +19,7 @@ public class GhostAITest {
 
   private PacMan pacMan;
   private Ghost blinky;
+  private Home home;
   private PacmanGameState state;
   private PacmanGrid grid;
 
@@ -35,7 +38,8 @@ public class GhostAITest {
   @Test
   public void testBlinkyDecisionUpwards() {
     blinky = new Blinky(new SpriteCoordinates(new Vec2(1.5, 1.9)), new Vec2(0, -1), 4);
-    InputSource in = new GhostAI(grid, blinky, pacMan, -1);
+    home = new Home(new StillAnimation("home"), new SpriteCoordinates(new Vec2(1.5, 1.9)), new Vec2(0, 0));
+    InputSource in = new GhostAI(grid, blinky, pacMan, home,-1);
     blinky.setInputSource(in);
     Vec2 req = in.getRequestedDirection();
     assertEquals(new Vec2(1, 0), req);

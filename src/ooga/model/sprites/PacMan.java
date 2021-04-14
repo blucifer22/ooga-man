@@ -79,6 +79,9 @@ public class PacMan extends MoveableSprite {
   }
 
   @Override
+  public boolean isRespawnTarget() { return false; }
+
+  @Override
   public boolean hasMultiplicativeScoring() {
     return false;
   }

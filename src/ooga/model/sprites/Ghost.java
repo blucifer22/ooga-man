@@ -83,6 +83,11 @@ public abstract class Ghost extends MoveableSprite {
 
   @Override
   public boolean hasMultiplicativeScoring() {
+    return true;
+  }
+
+  @Override
+  public boolean isRespawnTarget() {
     return false;
   }
 

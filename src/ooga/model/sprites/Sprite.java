@@ -15,6 +15,7 @@ import ooga.model.api.SpriteObserver;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.AnimationObserver;
 import ooga.model.sprites.animation.ObservableAnimation;
+import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
 
 import static ooga.model.api.SpriteEvent.EventType.*;
@@ -251,6 +252,8 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
   public abstract boolean eatsGhosts();
 
   public abstract boolean isConsumable();
+
+  public abstract boolean isRespawnTarget();
 
   public abstract boolean hasMultiplicativeScoring();
 
