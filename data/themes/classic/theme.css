@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
+.view * {
+  -fx-font-family: VT323;
+}
+
 .menu-title {
   -fx-font-size: 80px;
   -fx-font-weight: bold;
@@ -23,11 +27,17 @@
   -fx-spacing: 10px;
 }
 
-.view * {
-  -fx-font-family: VT323;
-
-}
-
 .view {
   -fx-background-color: black;
+}
+
+.card-pane {
+  -fx-vgap: 10px;
+}
+
+.card {
+  -fx-background-color: white;
+  -fx-background-radius: 5px;
+  -fx-padding: 5px;
+  -fx-font-size: 20px;
 }
