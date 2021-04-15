@@ -25,15 +25,18 @@ public class PowerPill extends Sprite {
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    delete(state);
-    // PacmanPowerupEvent has cases for activation of powerups (Even indices) and deactivates them for odd indices
-    int evenIndex = new Random().nextInt(PacmanPowerupEvent.values().length / 2) * 2;
-    state.notifyPowerupListeners(PacmanPowerupEvent.values()[evenIndex]);
-    System.out.println(PacmanPowerupEvent.values()[evenIndex]);
-    state.getClock().addTimer(new Timer(9, mutableGameState -> {
-      state.notifyPowerupListeners(PacmanPowerupEvent.values()[evenIndex + 1]);
-      System.out.println(PacmanPowerupEvent.values()[evenIndex + 1]);
-    }));
+    if (other.eatsGhosts()){
+      delete(state);
+      // PacmanPowerupEvent has cases for activation of powerups (Even indices) and deactivates them for odd indices
+      // int evenIndex = new Random().nextInt(PacmanPowerupEvent.values().length / 2) * 2;
+      int evenIndex = 4;
+      state.notifyPowerupListeners(PacmanPowerupEvent.values()[evenIndex]);
+      System.out.println(PacmanPowerupEvent.values()[evenIndex]);
+      state.getClock().addTimer(new Timer(9, mutableGameState -> {
+        state.notifyPowerupListeners(PacmanPowerupEvent.values()[evenIndex + 1]);
+        System.out.println(PacmanPowerupEvent.values()[evenIndex + 1]);
+      }));
+    }
   }
 
   @Override
@@ -60,6 +63,9 @@ public class PowerPill extends Sprite {
   public boolean isConsumable() {
     return true;
   }
+
+  @Override
+  public boolean isRespawnTarget() { return false; }
 
   @Override
   public boolean hasMultiplicativeScoring() {

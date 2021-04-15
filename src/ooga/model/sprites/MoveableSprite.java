@@ -47,6 +47,9 @@ public abstract class MoveableSprite extends Sprite {
   public void setMovementSpeed(double speed) {
     this.movementSpeed = speed;
   }
+  public void setCurrentSpeed(double speed) {
+    this.currentSpeed = speed;
+  }
 
   @Override
   public InputSource getInputSource() {

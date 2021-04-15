@@ -267,6 +267,8 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
 
   public abstract boolean isConsumable();
 
+  public abstract boolean isRespawnTarget();
+
   public abstract boolean hasMultiplicativeScoring();
 
   public abstract int getScore();

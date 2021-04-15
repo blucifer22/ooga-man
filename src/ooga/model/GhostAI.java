@@ -1,18 +1,24 @@
 package ooga.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 import java.util.Random;
 import ooga.model.sprites.Ghost;
-import ooga.model.sprites.Ghost.GhostBehavior;
+import ooga.model.sprites.Home;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * First-order implementation of ghost AI.
  *
  * @author Franklin Wei
  * @author Matthew Belissary
+ * @author George Hong
  */
 public class GhostAI implements InputSource {
 
@@ -20,12 +26,14 @@ public class GhostAI implements InputSource {
   private final PacmanGrid pacmanGrid;
   private final PacMan target;
   private final double intelligence;
+  private final Home home;
 
-  public GhostAI(PacmanGrid grid, Ghost ghost, PacMan target, double intelligence) {
+  public GhostAI(PacmanGrid grid, Ghost ghost, PacMan target, Home home, double intelligence) {
     this.pacmanGrid = grid;
     this.ghost = ghost;
     this.target = target;
     this.intelligence = intelligence;
+    this.home = home;
   }
 
   protected Sprite getTarget() {
@@ -40,6 +48,10 @@ public class GhostAI implements InputSource {
     return pacmanGrid;
   }
 
+  protected Home getHome() {
+    return home;
+  }
+
   @Override
   public Vec2 getRequestedDirection() {
     switch (getGhost().getGhostBehavior()) {
@@ -50,10 +62,15 @@ public class GhostAI implements InputSource {
       case EATEN:
         return eatenBehavior();
       case WAIT:
-        return Vec2.ZERO;
+        return waitBehavior();
       case SCATTER:
         return scatterBehavior();
     }
+    return Vec2.ZERO;
+  }
+
+  protected Vec2 waitBehavior() {
+    getGhost().setCurrentSpeed(0);
     return Vec2.ZERO;
   }
 
@@ -63,7 +80,10 @@ public class GhostAI implements InputSource {
    */
   protected Vec2 eatenBehavior() {
     // TODO: Implement
-    return Vec2.ZERO;
+    Vec2 currentTilePos = getGhost().getCoordinates().getTileCoordinates().toVec2();
+    Vec2 homeTilePos = getHome().getCoordinates().getTileCoordinates().toVec2();
+
+    return reduceDistance(homeTilePos, currentTilePos);
   }
 
   /**
@@ -107,7 +127,64 @@ public class GhostAI implements InputSource {
    * @return direction to queue for ghost to move to
    */
   protected Vec2 chaseBehavior() {
-    return scatterBehavior();
+    Vec2 targetTilePos = getTarget().getCoordinates().getTileCoordinates().toVec2();
+    Vec2 currentTilePos = getGhost().getCoordinates().getTileCoordinates().toVec2();
+
+    return reduceDistance(targetTilePos, currentTilePos);
+  }
+
+  private boolean isOpenToGhosts(Vec2 target) {
+    return getPacmanGrid().getTile(new TileCoordinates((int) target.getX(), (int) target.getY()))
+        .isOpenToGhosts();
+  }
+
+  @NotNull
+  protected Vec2 reduceDistance(Vec2 targetTilePos, Vec2 currentTilePos) {
+    Vec2[] directions = {
+        new Vec2(-1, 0),
+        new Vec2(1, 0),
+        new Vec2(0, 1),
+        new Vec2(0, -1)
+    };
+
+    List<DirectionDistanceWrapper> distances = new ArrayList<>();
+    for (Vec2 direction : directions) {
+      Vec2 nextPos = currentTilePos.add(direction);
+      distances.add(new DirectionDistanceWrapper(direction, nextPos.distance(targetTilePos)));
+    }
+    Collections.sort(distances);
+    Vec2 currentReverseDirection = getGhost().getDirection().scalarMult(-1);
+    Queue<DirectionDistanceWrapper> queue = new LinkedList<>(distances);
+
+    while (!queue.isEmpty()) {
+      Vec2 cand = queue.remove().getVec();
+      Vec2 target = currentTilePos.add(cand);
+      if (!isOpenToGhosts(target) || cand.equals(currentReverseDirection)) {
+        continue;
+      }
+      return cand;
+    }
+    return Vec2.ZERO;
+  }
+
+  class DirectionDistanceWrapper implements Comparable<GhostAI.DirectionDistanceWrapper> {
+
+    private final Vec2 vec;
+    private final double dis;
+
+    public DirectionDistanceWrapper(Vec2 vec, double dis) {
+      this.vec = vec;
+      this.dis = dis;
+    }
+
+    public Vec2 getVec() {
+      return vec;
+    }
+
+    @Override
+    public int compareTo(@NotNull GhostAI.DirectionDistanceWrapper o) {
+      return Double.compare(this.dis, o.dis);
+    }
   }
 
   @Override
