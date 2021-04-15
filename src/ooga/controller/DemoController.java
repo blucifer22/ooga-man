@@ -59,7 +59,8 @@ public class DemoController implements GameStateController {
     PowerPill powerPill2 = new PowerPill(new SpriteCoordinates(new Vec2(6.5, 9.5)), new Vec2(0, 0));
     PowerPill powerPill3 = new PowerPill(new SpriteCoordinates(new Vec2(4.5, 15.5)), new Vec2(0, 0));
     PowerPill powerPill4 = new PowerPill(new SpriteCoordinates(new Vec2(6.5, 6.5)), new Vec2(0, 0));
-    Cherry cherry = new Cherry(new SpriteCoordinates(new Vec2(1.5, 9.5)), new Vec2(0, 0));
+    Cherry cherry1 = new Cherry(new SpriteCoordinates(new Vec2(4.5, 8.5)), new Vec2(0, 0));
+    Cherry cherry2 = new Cherry(new SpriteCoordinates(new Vec2(8.5, 1.5)), new Vec2(0, 0));
     Home home = new Home(new SpriteCoordinates(new Vec2(8.5, 8.5)), new Vec2(0, 0));
 
     TeleporterOverlay teleporter1 = new TeleporterOverlay(new SpriteCoordinates(new Vec2(1.5, 8.5)));
@@ -97,8 +98,10 @@ public class DemoController implements GameStateController {
     pgs.registerEventListener(dot1);
     pgs.addSprite(dot2);
     pgs.registerEventListener(dot1);
-    pgs.addSprite(cherry);
-    pgs.registerEventListener(cherry);
+    pgs.addSprite(cherry1);
+    pgs.registerEventListener(cherry1);
+    pgs.addSprite(cherry2);
+    pgs.registerEventListener(cherry2);
 
     pgs.addSprite(powerPill1);
     pgs.addSprite(powerPill2);
