@@ -17,6 +17,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Vec2 {
 
   public static final Vec2 ZERO = new Vec2(0, 0);
+  public static final Vec2 ONE = new Vec2(1, 0);
+
+  public static final Vec2 RIGHT = new Vec2(1, 0);
+  public static final Vec2 LEFT = new Vec2(-1, 0);
+  public static final Vec2 UP = new Vec2(0, -1);
+  public static final Vec2 DOWN = new Vec2(0, 1);
+
   public static final double EPSILON = 1E-6;
   private final double x;
   private final double y;
@@ -64,6 +71,10 @@ public class Vec2 {
   public Vec2 scalarMult(double scalar) {
     return new Vec2(this.x * scalar,
                     this.y * scalar);
+  }
+
+  public Vec2 normalize() {
+    return this.scalarMult(1. / this.getMagnitude());
   }
 
   @JsonIgnore
