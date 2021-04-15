@@ -33,6 +33,8 @@ public class GhostAITest {
       }
     }
     this.grid = grid;
+    state = new PacmanGameState();
+    state.loadGrid(grid);
   }
 
   @Test
@@ -41,9 +43,26 @@ public class GhostAITest {
     home = new Home(new StillAnimation("home"), new SpriteCoordinates(new Vec2(1.5, 1.9)), new Vec2(0, 0));
     InputSource in = new GhostAI(grid, blinky, pacMan, home,-1);
     blinky.setInputSource(in);
+    blinky.step(1/60., state);
     Vec2 req = in.getRequestedDirection();
     assertEquals(new Vec2(1, 0), req);
   }
+
+  @Test
+  public void testInitialWait() {
+    blinky = new Blinky(new SpriteCoordinates(new Vec2(1.5, 1.9)), new Vec2(0, -1), 4);
+    InputSource in = new ChaseAI(grid, blinky, pacMan, -1);
+    blinky.setInputSource(in);
+    for (int k = 0; k < 30; k++){
+      blinky.step(1/60., state);
+    }
+    assertEquals(GhostBehavior.WAIT, blinky.getGhostBehavior());
+    for (int k = 0; k < 240; k++){
+      blinky.step(1/60., state);
+    }
+    assertEquals(GhostBehavior.CHASE, blinky.getGhostBehavior());
+  }
+
 
   @Test
   public void testParallelSort() {

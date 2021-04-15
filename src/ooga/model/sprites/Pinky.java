@@ -11,11 +11,16 @@ public class Pinky extends Ghost {
   public static final String TYPE = "pinky";
 
   public Pinky(SpriteCoordinates position, Vec2 direction, double speed) {
-    super(new StillAnimation("pinky"),
+    super("pinky",
             position, direction, speed);
   }
 
   public Pinky(SpriteDescription spriteDescription) {
     this(spriteDescription.getCoordinates(), new Vec2(1, 0), 4.0);
+  }
+
+  @Override
+  protected double getInitialWaitTime() {
+    return 4.0;
   }
 }

@@ -5,6 +5,7 @@ import ooga.model.PacmanPowerupEvent;
 import ooga.model.SpriteCoordinates;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.FreeRunningPeriodicAnimation;
+import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
 
@@ -20,7 +21,9 @@ public class Cherry extends Sprite {
   private int cherryScoreIncrement = 50;
 
   public Cherry(SpriteCoordinates position, Vec2 direction) {
-    super(new StillAnimation("cherry"), position, direction);
+    super("cherry",
+            SpriteAnimationFactory.SpriteAnimationType.CHERRY_STILL,
+            position, direction);
   }
 
   public Cherry(SpriteDescription spriteDescription) {

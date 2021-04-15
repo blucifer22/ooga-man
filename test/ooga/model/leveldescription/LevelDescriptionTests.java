@@ -50,7 +50,7 @@ public class LevelDescriptionTests {
 
     assertEquals(levelDescription.getLevelName(), levelName);
     assertEquals(levelDescription.getGridDescription().getGridName(), "testGrid");
-    assertEquals(spriteLayoutDescription.getSprites().get(0).getClassName(), "Ghost");
+    assertEquals(spriteLayoutDescription.getSprites().get(0).getClassName(), "Blinky");
   }
 
   @Test
@@ -75,7 +75,7 @@ public class LevelDescriptionTests {
 
     assertEquals(levelDescription.getLevelName(), levelName);
     assertEquals(levelDescription.getGridDescription().getGridName(), "testGrid");
-    assertEquals(spriteLayoutDescription.getSprites().get(0).getClassName(), "Ghost");
+    assertEquals(spriteLayoutDescription.getSprites().get(0).getClassName(), "Blinky");
 
     String levelDescriptionPath = "data/levels/test_level.json";
     LevelDescription levelDescriptionFromJSON = null;

@@ -5,6 +5,7 @@ import ooga.model.api.PowerupEventObserver;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.FreeRunningPeriodicAnimation;
 import ooga.model.sprites.animation.PeriodicAnimation;
+import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Vec2;
 
 import java.util.List;
@@ -18,8 +19,8 @@ public class PacMan extends MoveableSprite {
   private int ghostsEaten;
 
   public PacMan(SpriteCoordinates position, Vec2 direction, double speed) {
-    super(new FreeRunningPeriodicAnimation(List.of("pacman_closed", "pacman_halfopen", "pacman_open"),
-            PeriodicAnimation.FrameOrder.TRIANGLE, 1/15.0),
+    super("pacman",
+            SpriteAnimationFactory.SpriteAnimationType.PACMAN_CHOMP,
             position, direction, speed);
     swapClass = SwapClass.PACMAN;
   }
@@ -55,7 +56,7 @@ public class PacMan extends MoveableSprite {
     move(dt, pacmanGameState.getGrid());
     handleCollisions(pacmanGameState);
 
-    getAnimation().setPaused(getCurrentSpeed() == 0);
+    getCurrentAnimation().setPaused(getCurrentSpeed() == 0);
   }
 
   @Override
@@ -96,11 +97,11 @@ public class PacMan extends MoveableSprite {
     switch (event){
       case SPEED_UP_ACTIVATED -> {
         setMovementSpeed(getMovementSpeed() * 2);
-        getAnimation().setRelativeSpeed(getAnimation().getRelativeSpeed() * 2);
+        getCurrentAnimation().setRelativeSpeed(getCurrentAnimation().getRelativeSpeed() * 2);
       }
       case SPEED_UP_DEACTIVATED -> {
         setMovementSpeed(getMovementSpeed() * 0.5);
-        getAnimation().setRelativeSpeed(getAnimation().getRelativeSpeed() * 0.5);
+        getCurrentAnimation().setRelativeSpeed(getCurrentAnimation().getRelativeSpeed() * 0.5);
       }
     }
   }

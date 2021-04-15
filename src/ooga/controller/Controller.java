@@ -16,7 +16,7 @@ import ooga.model.sprites.Inky;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Pinky;
 import ooga.model.sprites.PowerPill;
-import ooga.model.sprites.animation.StillAnimation;
+import ooga.model.sprites.TeleporterOverlay;
 import ooga.util.Vec2;
 import ooga.view.UIController;
 import ooga.view.views.GameView;
@@ -77,6 +77,7 @@ public class Controller implements GameStateController {
     pinky.setInputSource(this.pinkyAI);
     this.clydeAI = new GhostAI(pgs.getGrid(), clyde, pacman, home,0.6);
     clyde.setInputSource(this.clydeAI);
+
 
     pgs.addSprite(pacman);
     pgs.addSprite(blinky);

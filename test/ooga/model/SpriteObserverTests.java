@@ -6,6 +6,7 @@ import ooga.model.api.SpriteEvent;
 import ooga.model.api.SpriteEvent.EventType;
 import ooga.model.api.SpriteObserver;
 import ooga.model.sprites.Sprite;
+import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
@@ -82,10 +83,10 @@ class TestObserver implements SpriteObserver {
 
 class TestObservableSprite extends Sprite {
 
-  public static final String SPRITE_TYPE = "TEST_SPRITE";
+  public static final String SPRITE_TYPE = "blank_1";
 
   public TestObservableSprite() {
-    super(new StillAnimation(SPRITE_TYPE));
+    super("", SpriteAnimationFactory.SpriteAnimationType.BLANK);
   }
 
   @Override

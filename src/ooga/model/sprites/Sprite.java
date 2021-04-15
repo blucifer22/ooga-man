@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javafx.animation.Animation;
 import ooga.model.*;
 import ooga.model.api.ObservableSprite;
 import ooga.model.api.PowerupEventObserver;
@@ -15,7 +14,7 @@ import ooga.model.api.SpriteObserver;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.AnimationObserver;
 import ooga.model.sprites.animation.ObservableAnimation;
-import ooga.model.sprites.animation.StillAnimation;
+import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Vec2;
 
 import static ooga.model.api.SpriteEvent.EventType.*;
@@ -35,36 +34,43 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
   private Vec2 direction;
   private Map<SpriteEvent.EventType, Set<SpriteObserver>> observers;
 
-  private ObservableAnimation animation;
+  private final SpriteAnimationFactory animationFactory;
+  private ObservableAnimation currentAnimation;
 
   /**
    * Initialize a sprite.
    *
-   * @param animation List of costumes as strings.
+   * @param currentAnimation List of costumes as strings.
    * @param position Starting position.
    * @param direction
    */
-  protected Sprite(ObservableAnimation animation,
+  protected Sprite(String spriteAnimationPrefix,
+                   SpriteAnimationFactory.SpriteAnimationType startingAnimation,
                    SpriteCoordinates position,
                    Vec2 direction) {
     this.position = position;
     this.direction = direction;
+    this.animationFactory = new SpriteAnimationFactory(spriteAnimationPrefix);
 
     initializeObserverMap();
     defaultInputSource = null;
 
-    setAnimation(animation);
+    setCurrentAnimation(animationFactory.createAnimation(startingAnimation));
   }
 
-  protected Sprite(ObservableAnimation animation,
+  protected Sprite(String spriteAnimationPrefix,
+                   SpriteAnimationFactory.SpriteAnimationType startingAnimation,
                    SpriteDescription description) {
-    this(animation,
+    this(spriteAnimationPrefix,
+         startingAnimation,
          description.getCoordinates(),
          new Vec2(1,0));
   }
 
-  protected Sprite(ObservableAnimation animation) {
-    this(animation,
+  protected Sprite(String spriteAnimationPrefix,
+                   SpriteAnimationFactory.SpriteAnimationType startingAnimation) {
+    this(spriteAnimationPrefix,
+         startingAnimation,
          new SpriteCoordinates(),
          new Vec2(1,0));
   }
@@ -93,20 +99,28 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
    * "pacman_halfopen".
    */
   public final String getCostume() {
-    return animation.getCurrentCostume();
+    return currentAnimation.getCurrentCostume();
   }
 
-  public final ObservableAnimation getAnimation() {
-    return animation;
+  public final ObservableAnimation getCurrentAnimation() {
+    return currentAnimation;
   }
 
-  protected void setAnimation(ObservableAnimation newAnimation) {
-    ObservableAnimation oldAnimation = animation;
+  protected SpriteAnimationFactory getAnimationFactory() {
+    return animationFactory;
+  }
+
+  protected void setCurrentAnimationType(SpriteAnimationFactory.SpriteAnimationType type) {
+    setCurrentAnimation(getAnimationFactory().createAnimation(type));
+  }
+
+  private void setCurrentAnimation(ObservableAnimation newAnimation) {
+    ObservableAnimation oldAnimation = currentAnimation;
 
     if(oldAnimation != null)
       oldAnimation.removeObserver(this);
 
-    animation = newAnimation;
+    currentAnimation = newAnimation;
     notifyObservers(TYPE_CHANGE);
 
     newAnimation.addObserver(this);
@@ -242,7 +256,7 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
 
   // advance state by dt seconds
   public void step(double dt, MutableGameState pacmanGameState) {
-    getAnimation().step(dt);
+    getCurrentAnimation().step(dt);
   }
 
   public abstract boolean mustBeConsumed();

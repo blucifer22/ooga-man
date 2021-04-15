@@ -1,41 +1,92 @@
 package ooga.model.sprites;
 
 import ooga.model.*;
-import ooga.model.api.PowerupEventObserver;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.ObservableAnimation;
+import ooga.model.sprites.animation.SpriteAnimationFactory;
+import ooga.util.Clock;
 import ooga.util.Timer;
 import ooga.util.Vec2;
+
+import static ooga.model.sprites.Ghost.GhostAnimationType.NORMAL;
+import static ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimationType.GHOST_FRIGHTENED;
+import static ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimationType.GHOST_FRIGHTENED_END;
 
 /**
  * @author Matthew Belissary
  */
 public abstract class Ghost extends MoveableSprite {
 
-  public static final String TYPE = "ghost";
+  private final Clock ghostClock;
   private boolean isDeadly = true;
   private boolean isEaten;
   private int baseGhostScore = 200;
   private GhostBehavior ghostBehavior;
 
-  protected Ghost(ObservableAnimation animation,
-                  SpriteCoordinates position,
-                  Vec2 direction,
-                  double speed) {
-    super(animation, position, direction, speed);
+  protected Ghost(
+      String spriteAnimationPrefix,
+      SpriteCoordinates position,
+      Vec2 direction,
+      double speed) {
+    super(spriteAnimationPrefix, directionToAnimationType(direction, NORMAL), position, direction, speed);
     swapClass = SwapClass.GHOST;
-    ghostBehavior = GhostBehavior.CHASE;
+    ghostBehavior = GhostBehavior.WAIT;
+    ghostClock = new Clock();
+
+    ghostClock.addTimer(new Timer(getInitialWaitTime(), state -> {
+      ghostBehavior = GhostBehavior.CHASE;
+    }));
   }
 
-  public Ghost(ObservableAnimation animation,
-               SpriteDescription spriteDescription) {
-    this(animation,
+  public Ghost(
+      String spriteAnimationPrefix,
+      SpriteDescription spriteDescription) {
+    this(spriteAnimationPrefix,
          spriteDescription.getCoordinates(),
-         new Vec2(1,0), 1);
+         new Vec2(1, 0), 1);
+  }
+
+  protected enum GhostAnimationType {
+    NORMAL,
+    EYES,
+    FRIGHTENED,
+    FRIGHTENED_END
+  };
+
+  protected static SpriteAnimationFactory.SpriteAnimationType directionToAnimationType(Vec2 direction, GhostAnimationType type) {
+    return switch(type) {
+      case FRIGHTENED -> GHOST_FRIGHTENED;
+      case FRIGHTENED_END -> GHOST_FRIGHTENED_END;
+      default -> {
+        String directionName = "RIGHT";
+        if(direction.getMagnitude() > Vec2.EPSILON) {
+          Vec2 unitDirection = direction.normalize();
+          if(Vec2.RIGHT.dot(unitDirection) > 0.5)
+            directionName = "RIGHT";
+          else if(Vec2.LEFT.dot(unitDirection) > 0.5)
+            directionName = "LEFT";
+          else if(Vec2.UP.dot(unitDirection) > 0.5)
+            directionName = "UP";
+          else if(Vec2.DOWN.dot(unitDirection) > 0.5)
+            directionName = "DOWN";
+        }
+        yield SpriteAnimationFactory.SpriteAnimationType.valueOf("GHOST_" + directionName + (type == GhostAnimationType.EYES ? "_EYES" : ""));
+      }
+    };
+  }
+
+  /**
+   * Defines how long this ghost takes before leaving the pen at the start of the game
+   *
+   * @return
+   */
+  protected double getInitialWaitTime() {
+    return 0;
   }
 
   /**
    * Gets the current state of the ghost
+   *
    * @return
    */
   public GhostBehavior getGhostBehavior() {
@@ -69,9 +120,15 @@ public abstract class Ghost extends MoveableSprite {
 
   @Override
   public void step(double dt, MutableGameState pacmanGameState) {
+    Vec2 oldDirection = getDirection();
+
+    ghostClock.step(dt, pacmanGameState);
     super.step(dt, pacmanGameState);
     move(dt, pacmanGameState.getGrid());
     handleCollisions(pacmanGameState);
+
+    if(!getDirection().equals(oldDirection))
+      setCurrentAnimationType(directionToAnimationType(getDirection(), NORMAL));
   }
 
   @Override

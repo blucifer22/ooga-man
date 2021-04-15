@@ -1,26 +1,242 @@
 {
   "stylesheet": "themes/classic/theme.css",
   "costumes" : {
-    "blinky" : {
-      "fill" : "themes/classic/images/ghosts/blinky.png",
+    "blinky_up_1" : {
+      "fill" : "themes/classic/images/ghosts/blinky/blinky_up_1.png",
       "imageFill" : true,
       "scale" : 1.0,
       "bottomHeavy" : true
     },
-    "clyde" : {
-      "fill" : "themes/classic/images/ghosts/clyde.png",
+    "blinky_up_2" : {
+      "fill" : "themes/classic/images/ghosts/blinky/blinky_up_2.png",
       "imageFill" : true,
       "scale" : 1.0,
       "bottomHeavy" : true
     },
-    "inky" : {
-      "fill" : "themes/classic/images/ghosts/inky.png",
+    "blinky_down_1" : {
+      "fill" : "themes/classic/images/ghosts/blinky/blinky_down_1.png",
       "imageFill" : true,
       "scale" : 1.0,
       "bottomHeavy" : true
     },
-    "pinky" : {
-      "fill" : "themes/classic/images/ghosts/pinky.png",
+    "blinky_down_2" : {
+      "fill" : "themes/classic/images/ghosts/blinky/blinky_down_2.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "blinky_left_1" : {
+      "fill" : "themes/classic/images/ghosts/blinky/blinky_left_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "blinky_left_2" : {
+      "fill" : "themes/classic/images/ghosts/blinky/blinky_left_2.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "blinky_right_1" : {
+      "fill" : "themes/classic/images/ghosts/blinky/blinky_right_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "blinky_right_2" : {
+      "fill" : "themes/classic/images/ghosts/blinky/blinky_right_2.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "inky_up_1" : {
+      "fill" : "themes/classic/images/ghosts/inky/inky_up_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "inky_up_2" : {
+      "fill" : "themes/classic/images/ghosts/inky/inky_up_2.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "inky_down_1" : {
+      "fill" : "themes/classic/images/ghosts/inky/inky_down_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "inky_down_2" : {
+      "fill" : "themes/classic/images/ghosts/inky/inky_down_2.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "inky_left_1" : {
+      "fill" : "themes/classic/images/ghosts/inky/inky_left_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "inky_left_2" : {
+      "fill" : "themes/classic/images/ghosts/inky/inky_left_2.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "inky_right_1" : {
+      "fill" : "themes/classic/images/ghosts/inky/inky_right_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "inky_right_2" : {
+      "fill" : "themes/classic/images/ghosts/inky/inky_right_2.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pinky_up_1" : {
+      "fill" : "themes/classic/images/ghosts/pinky/pinky_up_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pinky_up_2" : {
+      "fill" : "themes/classic/images/ghosts/pinky/pinky_up_2.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pinky_down_1" : {
+      "fill" : "themes/classic/images/ghosts/pinky/pinky_down_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pinky_down_2" : {
+      "fill" : "themes/classic/images/ghosts/pinky/pinky_down_2.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pinky_left_1" : {
+      "fill" : "themes/classic/images/ghosts/pinky/pinky_left_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pinky_left_2" : {
+      "fill" : "themes/classic/images/ghosts/pinky/pinky_left_2.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pinky_right_1" : {
+      "fill" : "themes/classic/images/ghosts/pinky/pinky_right_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pinky_right_2" : {
+      "fill" : "themes/classic/images/ghosts/pinky/pinky_right_2.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "clyde_up_1" : {
+      "fill" : "themes/classic/images/ghosts/clyde/clyde_up_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "clyde_up_2" : {
+      "fill" : "themes/classic/images/ghosts/clyde/clyde_up_2.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "clyde_down_1" : {
+      "fill" : "themes/classic/images/ghosts/clyde/clyde_down_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "clyde_down_2" : {
+      "fill" : "themes/classic/images/ghosts/clyde/clyde_down_2.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "clyde_left_1" : {
+      "fill" : "themes/classic/images/ghosts/clyde/clyde_left_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "clyde_left_2" : {
+      "fill" : "themes/classic/images/ghosts/clyde/clyde_left_2.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "clyde_right_1" : {
+      "fill" : "themes/classic/images/ghosts/clyde/clyde_right_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "clyde_right_2" : {
+      "fill" : "themes/classic/images/ghosts/clyde/clyde_right_2.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "eyes_up_1" : {
+      "fill" : "themes/classic/images/ghosts/frightened/eyes_up_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "eyes_down_1" : {
+      "fill" : "themes/classic/images/ghosts/frightened/eyes_down_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "eyes_left_1" : {
+      "fill" : "themes/classic/images/ghosts/frightened/eyes_left_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "eyes_right_1" : {
+      "fill" : "themes/classic/images/ghosts/frightened/eyes_right_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "frightened_1" : {
+      "fill" : "themes/classic/images/ghosts/frightened/frightened_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "frightened_2" : {
+      "fill" : "themes/classic/images/ghosts/frightened/frightened_2.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "frightened_end_1" : {
+      "fill" : "themes/classic/images/ghosts/frightened/frightened_end_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "frightened_end_2" : {
+      "fill" : "themes/classic/images/ghosts/frightened/frightened_end_2.png",
       "imageFill" : true,
       "scale" : 1.0,
       "bottomHeavy" : true
@@ -43,47 +259,61 @@
       "scale" : 1.0,
       "bottomHeavy" : false
     },
-    "pacman_closed" : {
-      "fill" : "themes/classic/images/pacman/pacman_closed.png",
+    "pacman_chomp_1" : {
+      "fill" : "themes/classic/images/pacman/pacman_chomp_1.png",
       "imageFill" : true,
       "scale" : 1.0,
       "bottomHeavy" : true,
       "rotates": true
     },
-    "pacman_halfopen" : {
-      "fill" : "themes/classic/images/pacman/pacman_halfopen.png",
+    "pacman_chomp_2" : {
+      "fill" : "themes/classic/images/pacman/pacman_chomp_2.png",
       "imageFill" : true,
       "scale" : 1.0,
       "bottomHeavy" : true,
       "rotates": true
     },
-    "pacman_open" : {
-      "fill" : "themes/classic/images/pacman/pacman_open.png",
+    "pacman_chomp_3" : {
+      "fill" : "themes/classic/images/pacman/pacman_chomp_3.png",
       "imageFill" : true,
       "scale" : 1.0,
       "bottomHeavy" : true,
       "rotates": true
     },
-    "dot" : {
+    "dot_still_1" : {
       "fill" : "themes/classic/images/consumables/dot.png",
       "imageFill" : true,
       "scale" : 0.25,
       "bottomHeavy" : false,
       "rotates": false
     },
-    "powerpill" : {
-      "fill" : "themes/classic/images/consumables/powerpill.png",
+    "powerpill_blink_1" : {
+      "fill" : "themes/classic/images/consumables/powerpill_blink_1.png",
       "imageFill" : true,
       "scale" : 0.5,
       "bottomHeavy" : false,
       "rotates": false
     },
-    "cherry" : {
+    "powerpill_blink_2" : {
+      "fill" : "themes/classic/images/blank.png",
+      "imageFill" : true,
+      "scale" : 0.5,
+      "bottomHeavy" : false,
+      "rotates": false
+    },
+    "cherry_still_1" : {
       "fill" : "themes/classic/images/consumables/cherries.png",
       "imageFill" : true,
       "scale" : 0.5,
       "bottomHeavy" : false,
       "rotates": false
+    },
+    "blank" : {
+      "fill" : "themes/classic/images/blank.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : false,
+      "rotates" : false
     }
   }
 }
