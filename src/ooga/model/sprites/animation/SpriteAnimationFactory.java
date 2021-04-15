@@ -35,10 +35,13 @@ public class SpriteAnimationFactory {
     GHOST_DOWN_EYES(false, "eyes_down", 1),
     GHOST_LEFT_EYES(false, "eyes_left", 1),
     GHOST_RIGHT_EYES(false, "eyes_right", 1),
-    PACMAN_CHOMP(true, "chomp", 3, 1.0 / 6.0, FrameOrder.TRIANGLE),
+    PACMAN_CHOMP(true, "chomp", 3, 1.0 / 15.0, FrameOrder.TRIANGLE),
     PACMAN_STILL_HALFOPEN(true, "halfopen", 1),
     PACMAN_STILL_OPEN(true, "open", 1),
-    POWER_PILL_BLINK(true, "blink", 2, 1.0/6.0, FrameOrder.SAWTOOTH);
+    POWER_PILL_BLINK(true, "blink", 2, 1.0/6.0, FrameOrder.SAWTOOTH),
+    DOT_STILL(true, "still", 1),
+    CHERRY_STILL(true, "still", 1),
+    BLANK(false, "blank", 1);
 
     private static final double DEFAULT_FRAME_PERIOD = 1.0 / 15.0;
     private final boolean spriteSpecific;
