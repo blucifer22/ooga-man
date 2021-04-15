@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Ghost;
+import ooga.model.sprites.Ghost.GhostBehavior;
 import ooga.model.sprites.Home;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.animation.StillAnimation;
@@ -37,10 +38,10 @@ public class GhostAITest {
     state.loadGrid(grid);
   }
 
-  @Test
+
   public void testBlinkyDecisionUpwards() {
     blinky = new Blinky(new SpriteCoordinates(new Vec2(1.5, 1.9)), new Vec2(0, -1), 4);
-    home = new Home(new StillAnimation("home"), new SpriteCoordinates(new Vec2(1.5, 1.9)), new Vec2(0, 0));
+    home = new Home(new SpriteCoordinates(new Vec2(1.5, 1.9)), new Vec2(0, 0));
     InputSource in = new GhostAI(grid, blinky, pacMan, home,-1);
     blinky.setInputSource(in);
     blinky.step(1/60., state);
@@ -51,7 +52,7 @@ public class GhostAITest {
   @Test
   public void testInitialWait() {
     blinky = new Blinky(new SpriteCoordinates(new Vec2(1.5, 1.9)), new Vec2(0, -1), 4);
-    InputSource in = new ChaseAI(grid, blinky, pacMan, -1);
+    InputSource in = new GhostAI(grid, blinky, pacMan, home, -1);
     blinky.setInputSource(in);
     for (int k = 0; k < 30; k++){
       blinky.step(1/60., state);

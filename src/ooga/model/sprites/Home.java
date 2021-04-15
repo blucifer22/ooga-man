@@ -4,14 +4,14 @@ import ooga.model.MutableGameState;
 import ooga.model.PacmanPowerupEvent;
 import ooga.model.SpriteCoordinates;
 import ooga.model.sprites.animation.ObservableAnimation;
+import ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimationType;
 import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
 
 public class Home extends Sprite {
 
-  public Home(ObservableAnimation animation, SpriteCoordinates position,
-      Vec2 direction) {
-    super(new StillAnimation("home"), position, direction);
+  public Home(SpriteCoordinates position, Vec2 direction) {
+    super("", SpriteAnimationType.BLANK, position, direction);
   }
 
   @Override

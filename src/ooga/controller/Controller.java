@@ -17,6 +17,7 @@ import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Pinky;
 import ooga.model.sprites.PowerPill;
 import ooga.model.sprites.TeleporterOverlay;
+import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
 import ooga.view.UIController;
 import ooga.view.views.GameView;
@@ -59,7 +60,7 @@ public class Controller implements GameStateController {
     Pinky pinky = new Pinky(new SpriteCoordinates(new Vec2(11.5, 11.5)), new Vec2(0, 0), 5.0);
     Clyde clyde = new Clyde(new SpriteCoordinates(new Vec2(11.5, 11.5)), new Vec2(0, 0), 5.0);
 
-    Home home = new Home(new StillAnimation("home"), new SpriteCoordinates(new Vec2(8.5, 9.5)), new Vec2(0, 0));
+    Home home = new Home(new SpriteCoordinates(new Vec2(8.5, 9.5)), new Vec2(0, 0));
 
     Dot dot1 = new Dot(new SpriteCoordinates(new Vec2(4.5, 4.5)), new Vec2(0, 0));
     Dot dot2 = new Dot(new SpriteCoordinates(new Vec2(1.5, 3.5)), new Vec2(0, 0));
