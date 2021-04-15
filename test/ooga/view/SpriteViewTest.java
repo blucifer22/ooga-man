@@ -30,7 +30,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
-public class SpriteViewTest extends ApplicationTest {
+public class SpriteViewTest extends CustomApplicationTest {
   private Group graphicsGroup;
   private SpriteView sv;
   private Rectangle spriteViewNode;
@@ -201,14 +201,4 @@ public class SpriteViewTest extends ApplicationTest {
       Thread.sleep(100);
     }
   }
-
-  private void syncFXRun(Runnable r) throws InterruptedException {
-    CountDownLatch cdl = new CountDownLatch(1);
-    Platform.runLater(() -> {
-      r.run();
-      cdl.countDown();
-    });
-    cdl.await();
-  }
-
 }

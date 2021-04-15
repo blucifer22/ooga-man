@@ -16,9 +16,8 @@ import ooga.view.theme.serialized.SerializedThemeService;
 import ooga.view.views.MenuView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.testfx.framework.junit5.ApplicationTest;
 
-public class MainMenuTest extends ApplicationTest {
+public class MainMenuTest extends CustomApplicationTest {
 
   private class TestHarness implements MainMenuResponder {
     private final int [] state = new int[3];
@@ -105,21 +104,11 @@ public class MainMenuTest extends ApplicationTest {
     Thread.sleep(500);
   }
 
-
   private HashMap<String, Node> buttons() {
     HashMap<String, Node> nodes = new HashMap<>();
     for (String s: new String[] {"startGame", "openLevelBuilder", "openPreferences"}) {
       nodes.put(s, lookup("#menu-button-"+s).query());
     }
     return nodes;
-  }
-
-  private void syncFXRun(Runnable r) throws InterruptedException {
-    CountDownLatch cdl = new CountDownLatch(1);
-    Platform.runLater(() -> {
-      r.run();
-      cdl.countDown();
-    });
-    cdl.await();
   }
 }
