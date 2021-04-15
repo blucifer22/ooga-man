@@ -110,8 +110,8 @@ public class PreferenceViewTest extends CustomApplicationTest {
       cbox.getSelectionModel().select(0);
       cbox.getSelectionModel().getSelectedIndex();
 
-      while (!cbox.getItems().get(cbox.getSelectionModel().getSelectedIndex()).toString().equals(
-          "English")) {
+      while (!cbox.getItems().get(cbox.getSelectionModel().getSelectedIndex()).getKey().equals(
+          "english")) {
         cbox.getSelectionModel().selectNext();
       }
     });
@@ -123,10 +123,10 @@ public class PreferenceViewTest extends CustomApplicationTest {
     syncFXRun(() -> {
       moveTo(cbox);
       cbox.getSelectionModel().select(0);
-      cbox.getSelectionModel().getSelectedIndex();
 
-      while (!cbox.getItems().get(cbox.getSelectionModel().getSelectedIndex()).toString().equals(
-          "Español")) {
+      while (!cbox.getItems().get(cbox.getSelectionModel().getSelectedIndex()).getKey().equals(
+          "spanish")) {
+        System.out.println(cbox.getItems().get(cbox.getSelectionModel().getSelectedIndex()).toString());
         cbox.getSelectionModel().selectNext();
       }
     });
