@@ -69,14 +69,13 @@ public class DemoController implements GameStateController {
     pgs.addSprite(teleporter1);
     pgs.addSprite(teleporter2);
 
-    //pacman.setInputSource(this.inputManager);
 
-    PacmanBasicAI pacmanBasicAI = new PacmanBasicAI(pgs.getGrid(), pacman);
-    pacmanBasicAI.addTarget(blinky);
-    pacmanBasicAI.addTarget(pinky);
-    pacman.setInputSource(pacmanBasicAI);
+//    PacmanBasicAI pacmanBasicAI = new PacmanBasicAI(pgs.getGrid(), pacman);
+//    pacmanBasicAI.addTarget(blinky);
+//    pacmanBasicAI.addTarget(pinky);
+//    pacman.setInputSource(pacmanBasicAI);
 
-    //pacman.setInputSource(this.inputManager);
+    pacman.setInputSource(this.inputManager);
     InputSource inBlinky = new BlinkyAI(pgs.getGrid(), blinky, pacman, home, 0.9);
     InputSource inPinky = new PinkyAI(pgs.getGrid(), pinky, pacman, home,0.9);
 
