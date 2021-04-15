@@ -1,6 +1,8 @@
 package ooga.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.Blinky;
@@ -35,8 +37,7 @@ public class GhostTests {
     clydeSpriteDescription = createDefaultGhostDescription("Clyde");
   }
 
-  private SpriteDescription createDefaultGhostDescription(
-      String spriteClassName) {
+  private SpriteDescription createDefaultGhostDescription(String spriteClassName) {
     String inputSource = "GHOST_AI";
     SpriteCoordinates startingCoordinates = new SpriteCoordinates(new Vec2(5, 5));
     return new SpriteDescription(spriteClassName, inputSource, startingCoordinates);
@@ -84,5 +85,15 @@ public class GhostTests {
     assertEquals(clyde.getCoordinates().getPosition().getX(), 5);
     assertEquals(clyde.getCoordinates().getPosition().getY(), 5);
     assertEquals(clyde.getGhostBehavior(), GhostBehavior.WAIT);
+  }
+
+  @Test
+  public void testGhostInvariants() {
+    Ghost blinky = new Blinky(blinkySpriteDescription);
+
+    assertFalse(blinky.mustBeConsumed());
+    assertTrue(blinky.hasMultiplicativeScoring());
+    assertFalse(blinky.isRespawnTarget());
+    assertFalse(blinky.eatsGhosts());
   }
 }
