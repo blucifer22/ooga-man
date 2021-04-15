@@ -53,12 +53,13 @@ public class MenuView implements View, ThemedObject {
   }
 
   private Button menuButton(String labelKey, EventHandler<MouseEvent> onClickHandler) {
-    Button start = new Button();
-    start.getStyleClass().add("menu-button");
-    start.textProperty().bind(languageService.getLocalizedString(labelKey));
-    start.setOnMouseClicked(onClickHandler);
-    start.setMaxWidth(Double.MAX_VALUE);
-    return start;
+    Button button = new Button();
+    button.getStyleClass().add("menu-button");
+    button.setId("menu-button-"+labelKey);
+    button.textProperty().bind(languageService.getLocalizedString(labelKey));
+    button.setOnMouseClicked(onClickHandler);
+    button.setMaxWidth(Double.MAX_VALUE);
+    return button;
   }
 
   @Override

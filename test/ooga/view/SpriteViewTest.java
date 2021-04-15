@@ -151,7 +151,7 @@ public class SpriteViewTest extends ApplicationTest {
       size.setValue(TILE_SIZE);
     });
 
-    Thread.sleep(1000);
+    Thread.sleep(100);
 
     syncFXRun(() -> {
       assertTrue(this.spriteViewNode.isVisible());
@@ -159,7 +159,7 @@ public class SpriteViewTest extends ApplicationTest {
       assertEquals(100, this.spriteViewNode.getHeight());
     });
 
-    Thread.sleep(1000);
+    Thread.sleep(100);
   }
 
   @Test
@@ -173,14 +173,14 @@ public class SpriteViewTest extends ApplicationTest {
         harness.setCoords(finalI, finalI);
       });
 
-      Thread.sleep(1000);
+      Thread.sleep(100);
 
       syncFXRun(() -> {
         assertEquals(finalI*TILE_SIZE - TILE_SIZE/2, this.spriteViewNode.getTranslateX(), 0.005);
         assertEquals(finalI*TILE_SIZE - TILE_SIZE/2, this.spriteViewNode.getTranslateY(), 0.005);
       });
 
-      Thread.sleep(1000);
+      Thread.sleep(100);
     }
   }
 
@@ -192,13 +192,13 @@ public class SpriteViewTest extends ApplicationTest {
         harness.setDirection(new Vec2(Math.cos(finalI), Math.sin(finalI)));
       });
 
-      Thread.sleep(1000);
+      Thread.sleep(100);
 
       syncFXRun(() -> {
         assertEquals(finalI*180/Math.PI, (360 + this.spriteViewNode.getRotate()) % 360, 0.005);
       });
 
-      Thread.sleep(1000);
+      Thread.sleep(100);
     }
   }
 
