@@ -18,7 +18,7 @@ public class SpriteLayoutDescriptionTests {
 
   @BeforeEach
   public void setLayoutDescription() {
-    String spriteClassName = "Ghost";
+    String spriteClassName = "Blinky";
     String inputSource = "GHOST_AI";
     SpriteCoordinates startingCoordinates = new SpriteCoordinates(new Vec2(5, 5));
     SpriteDescription ghostDescription =
@@ -37,7 +37,7 @@ public class SpriteLayoutDescriptionTests {
 
   @Test
   public void testSpriteLayoutDescriptionConstructor() {
-    assertEquals(layoutDescription.getSprites().get(0).getClassName(), "Ghost");
+    assertEquals(layoutDescription.getSprites().get(0).getClassName(), "Blinky");
     assertEquals(layoutDescription.getSprites().get(0).getInputSource(), "GHOST_AI");
     assertEquals(layoutDescription.getSprites().get(0).getCoordinates().getPosition().getX(), 5);
     assertEquals(layoutDescription.getSprites().get(0).getCoordinates().getPosition().getY(), 5);
@@ -70,7 +70,7 @@ public class SpriteLayoutDescriptionTests {
       fail();
     }
 
-    assertEquals(layoutDescription.getSprites().get(0).getClassName(), "Ghost");
+    assertEquals(layoutDescription.getSprites().get(0).getClassName(), "Blinky");
     assertEquals(layoutDescription.getSprites().get(0).getInputSource(), "GHOST_AI");
     assertEquals(layoutDescription.getSprites().get(0).getCoordinates().getPosition().getX(), 5);
     assertEquals(layoutDescription.getSprites().get(0).getCoordinates().getPosition().getY(), 5);

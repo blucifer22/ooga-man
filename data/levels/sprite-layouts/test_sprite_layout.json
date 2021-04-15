@@ -1,6 +1,6 @@
 {
   "sprites" : [ {
-    "className" : "Ghost",
+    "className" : "Blinky",
     "inputSource" : "GHOST_AI",
     "coordinates" : {
       "position" : {
