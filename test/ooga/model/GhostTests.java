@@ -50,7 +50,7 @@ public class GhostTests {
 
   private SpriteDescription createDefaultPacmanDescription() {
     String inputSource = "HUMAN";
-    SpriteCoordinates startingCoordinates = new SpriteCoordinates(new Vec2(4.9, 5));
+    SpriteCoordinates startingCoordinates = new SpriteCoordinates(new Vec2(0, 5));
     return new SpriteDescription("PacMan", inputSource, startingCoordinates);
   }
 
@@ -131,6 +131,7 @@ public class GhostTests {
     // Make sure we're starting off on the right foot
     assertEquals(blinky.getGhostBehavior(), GhostBehavior.WAIT);
     double defaultMoveSpeed = blinky.getMovementSpeed();
+    double defaultPointValue = blinky.getScore();
     pgs.step(DT);
 
     // Spoof Pac-Man eating a Ghost Slowdown power-up
@@ -138,15 +139,32 @@ public class GhostTests {
     pgs.step(DT);
     assertEquals(defaultMoveSpeed * .5, blinky.getMovementSpeed());
 
-    // Make sure we return to pre-power-up at some point
+    // Make sure we return to pre-power-up status at some point
     blinky.respondToPowerEvent(PacmanPowerupEvent.GHOST_SLOWDOWN_DEACTIVATED);
     pgs.step(DT);
     assertEquals(defaultMoveSpeed, blinky.getMovementSpeed());
+
+    // Spoof Pac-Man eating a double point power-up
+    blinky.respondToPowerEvent(PacmanPowerupEvent.POINT_BONUS_ACTIVATED);
+    pgs.step(DT);
+    assertEquals(defaultPointValue * 2, blinky.getScore());
+
+    // Make sure we return to pre-power-up status at some point
+    blinky.respondToPowerEvent(PacmanPowerupEvent.POINT_BONUS_DEACTIVATED);
+    pgs.step(DT);
+    assertEquals(defaultPointValue, blinky.getScore());
+
+    // Add some "NOP" steps to give Blinky time to eat Pac-Man
+    // TODO: Remove this kludge!!!! (msc68)
+    pgs.step(DT);
+    pgs.step(DT);
 
     // Spoof Pac-Man eating a Power-Pill and check for transition to FRIGHTENED state
     blinky.respondToPowerEvent(PacmanPowerupEvent.FRIGHTEN_ACTIVATED);
     pgs.step(DT);
     assertEquals(blinky.getGhostBehavior(), GhostBehavior.FRIGHTENED);
     assertEquals(blinky.getCurrentAnimation().getCurrentCostume(), "frightened_1");
+
+    // TODO: Implement a test to check for de-activation!
   }
 }
