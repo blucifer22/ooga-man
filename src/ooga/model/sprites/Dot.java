@@ -24,7 +24,9 @@ public class Dot extends Sprite {
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    delete(state);
+    if (other.eatsGhosts()){
+      delete(state);
+    }
   }
 
   @Override
@@ -51,6 +53,9 @@ public class Dot extends Sprite {
   public boolean isConsumable() {
     return true;
   }
+
+  @Override
+  public boolean isRespawnTarget() { return false; }
 
   @Override
   public boolean hasMultiplicativeScoring() {

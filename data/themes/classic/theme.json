@@ -308,7 +308,7 @@
       "bottomHeavy" : false,
       "rotates": false
     },
-    "blank" : {
+    "blank_1" : {
       "fill" : "themes/classic/images/blank.png",
       "imageFill" : true,
       "scale" : 1.0,

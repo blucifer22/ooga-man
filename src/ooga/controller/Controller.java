@@ -12,11 +12,13 @@ import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Clyde;
 import ooga.model.sprites.Dot;
+import ooga.model.sprites.Home;
 import ooga.model.sprites.Inky;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Pinky;
 import ooga.model.sprites.PowerPill;
 import ooga.model.sprites.TeleporterOverlay;
+import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
 import ooga.view.UIController;
 import ooga.view.views.GameView;
@@ -59,6 +61,8 @@ public class Controller implements GameStateController {
     Pinky pinky = new Pinky(new SpriteCoordinates(new Vec2(11.5, 11.5)), new Vec2(0, 0), 5.0);
     Clyde clyde = new Clyde(new SpriteCoordinates(new Vec2(11.5, 11.5)), new Vec2(0, 0), 5.0);
 
+    Home home = new Home(new SpriteCoordinates(new Vec2(8.5, 9.5)), new Vec2(0, 0));
+
     Dot dot1 = new Dot(new SpriteCoordinates(new Vec2(4.5, 4.5)), new Vec2(0, 0));
     Dot dot2 = new Dot(new SpriteCoordinates(new Vec2(1.5, 3.5)), new Vec2(0, 0));
     Dot dot3 = new Dot(new SpriteCoordinates(new Vec2(1.5, 8.5)), new Vec2(0, 0));
@@ -74,13 +78,13 @@ public class Controller implements GameStateController {
     pacmanBasicAI.addTarget(inky);
     pacman.setInputSource(pacmanBasicAI);
 
-    this.blinkyAI = new GhostAI(pgs.getGrid(), blinky, pacman, 0.9);
+    this.blinkyAI = new GhostAI(pgs.getGrid(), blinky, pacman, home, 0.9);
     blinky.setInputSource(this.blinkyAI);
-    this.inkyAI = new GhostAI(pgs.getGrid(), inky, pacman, 0.8);
+    this.inkyAI = new GhostAI(pgs.getGrid(), inky, pacman, home,0.8);
     inky.setInputSource(this.inkyAI);
-    this.pinkyAI = new GhostAI(pgs.getGrid(), pinky, pacman, 0.7);
+    this.pinkyAI = new GhostAI(pgs.getGrid(), pinky, pacman, home,0.7);
     pinky.setInputSource(this.pinkyAI);
-    this.clydeAI = new GhostAI(pgs.getGrid(), clyde, pacman, 0.6);
+    this.clydeAI = new GhostAI(pgs.getGrid(), clyde, pacman, home,0.6);
     clyde.setInputSource(this.clydeAI);
 
     TeleporterOverlay teleporter1 = new TeleporterOverlay(new SpriteCoordinates(new Vec2(1.5, 8.5)));

@@ -32,7 +32,9 @@ public class Cherry extends Sprite {
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    delete(state);
+    if (other.eatsGhosts()){
+      delete(state);
+    }
   }
 
   @Override
@@ -61,9 +63,10 @@ public class Cherry extends Sprite {
   }
 
   @Override
-  public boolean hasMultiplicativeScoring() {
-    return false;
-  }
+  public boolean isRespawnTarget() { return false; }
+
+  @Override
+  public boolean hasMultiplicativeScoring() { return false; }
 
   @Override
   public int getScore() {
