@@ -1,6 +1,5 @@
 package ooga.model.sprites.animation;
 
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import ooga.model.sprites.animation.PeriodicAnimation.FrameOrder;
@@ -38,7 +37,7 @@ public class SpriteAnimationFactory {
     PACMAN_CHOMP(true, "chomp", 3, 1.0 / 15.0, FrameOrder.TRIANGLE),
     PACMAN_STILL_HALFOPEN(true, "halfopen", 1),
     PACMAN_STILL_OPEN(true, "open", 1),
-    POWER_PILL_BLINK(true, "blink", 2, 1.0/6.0, FrameOrder.SAWTOOTH),
+    POWER_PILL_BLINK(true, "blink", 2, 1.0 / 6.0, FrameOrder.SAWTOOTH),
     DOT_STILL(true, "still", 1),
     CHERRY_STILL(true, "still", 1),
     BLANK(false, "blank", 1);
@@ -69,12 +68,14 @@ public class SpriteAnimationFactory {
 
     public ObservableAnimation getAnimation(String spriteName) {
       return frameCount > 1
-          ? new FreeRunningPeriodicAnimation(IntStream.range(1, frameCount + 1)
-                                             .mapToObj(
-                                                 num -> ((spriteSpecific ? spriteName + "_" : "") + costumeBaseName + "_" + num))
-                                             .collect(Collectors.toList()),
-                                             frameOrder,
-                                             framePeriod)
+          ? new FreeRunningPeriodicAnimation(
+              IntStream.range(1, frameCount + 1)
+                  .mapToObj(
+                      num ->
+                          ((spriteSpecific ? spriteName + "_" : "") + costumeBaseName + "_" + num))
+                  .collect(Collectors.toList()),
+              frameOrder,
+              framePeriod)
           : new StillAnimation((spriteSpecific ? spriteName + "_" : "") + costumeBaseName + "_1");
     }
   }
