@@ -91,7 +91,7 @@ public class MainMenuTest extends ApplicationTest {
   }
 
   private void test(String testButtonID, int testHarnessIndex) throws InterruptedException {
-    Thread.sleep(2000);
+    Thread.sleep(500);
 
     HashMap<String, Node> nodes = buttons();
     Node target = nodes.get(testButtonID);
@@ -102,7 +102,7 @@ public class MainMenuTest extends ApplicationTest {
 
     assertEquals(1, testHarness.getState()[testHarnessIndex]);
 
-    Thread.sleep(2000);
+    Thread.sleep(500);
   }
 
 
