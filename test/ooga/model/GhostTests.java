@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
  */
 public class GhostTests {
 
-  public static final double DT = .01;
+  public static final double DT = .005;
   SpriteDescription blinkySpriteDescription;
   SpriteDescription inkySpriteDescription;
   SpriteDescription pinkySpriteDescription;
@@ -131,6 +131,11 @@ public class GhostTests {
     blinky.respondToPowerEvent(PacmanPowerupEvent.GHOST_SLOWDOWN_ACTIVATED);
     pgs.step(DT);
     assertEquals(defaultMoveSpeed * .5, blinky.getMovementSpeed());
+
+    // Make sure we return to pre-power-up at some point
+    blinky.respondToPowerEvent(PacmanPowerupEvent.GHOST_SLOWDOWN_DEACTIVATED);
+    pgs.step(DT);
+    assertEquals(defaultMoveSpeed, blinky.getMovementSpeed());
 
     // Spoof Pac-Man eating a Power-Pill and check for transition to FRIGHTENED state
     blinky.respondToPowerEvent(PacmanPowerupEvent.FRIGHTEN_ACTIVATED);
