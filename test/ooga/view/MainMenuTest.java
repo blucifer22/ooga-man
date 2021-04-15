@@ -3,8 +3,6 @@ package ooga.view;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.HashMap;
-import java.util.concurrent.CountDownLatch;
-import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
