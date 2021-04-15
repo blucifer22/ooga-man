@@ -36,6 +36,8 @@ public class SpriteAnimationFactory {
     GHOST_LEFT_EYES(false, "eyes_left", 1),
     GHOST_RIGHT_EYES(false, "eyes_right", 1),
     PACMAN_CHOMP(true, "chomp", 3, 1.0 / 6.0, FrameOrder.TRIANGLE),
+    PACMAN_STILL_HALFOPEN(true, "halfopen", 1),
+    PACMAN_STILL_OPEN(true, "open", 1),
     POWER_PILL_BLINK(true, "blink", 2, 1.0/6.0, FrameOrder.SAWTOOTH);
 
     private static final double DEFAULT_FRAME_PERIOD = 1.0 / 15.0;
@@ -63,12 +65,14 @@ public class SpriteAnimationFactory {
     }
 
     public ObservableAnimation getAnimation(String spriteName) {
-      List<String> animationCostumes =
-          IntStream.range(1, frameCount + 1)
-              .mapToObj(
-                  num -> ((spriteSpecific ? spriteName + "_" : "") + costumeBaseName + "_" + num))
-              .collect(Collectors.toList());
-      return new FreeRunningPeriodicAnimation(animationCostumes, frameOrder, framePeriod);
+      return frameCount > 1
+          ? new FreeRunningPeriodicAnimation(IntStream.range(1, frameCount + 1)
+                                             .mapToObj(
+                                                 num -> ((spriteSpecific ? spriteName + "_" : "") + costumeBaseName + "_" + num))
+                                             .collect(Collectors.toList()),
+                                             frameOrder,
+                                             framePeriod)
+          : new StillAnimation((spriteSpecific ? spriteName + "_" : "") + costumeBaseName + "_1");
     }
   }
 }
