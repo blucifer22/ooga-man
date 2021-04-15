@@ -14,6 +14,7 @@ import ooga.model.api.SpriteObserver;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.AnimationObserver;
 import ooga.model.sprites.animation.ObservableAnimation;
+import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Vec2;
 
 import static ooga.model.api.SpriteEvent.EventType.*;
@@ -33,6 +34,7 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
   private Vec2 direction;
   private Map<SpriteEvent.EventType, Set<SpriteObserver>> observers;
 
+  private final SpriteAnimationFactory animationFactory;
   private ObservableAnimation currentAnimation;
 
   /**
@@ -42,27 +44,33 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
    * @param position Starting position.
    * @param direction
    */
-  protected Sprite(ObservableAnimation currentAnimation,
+  protected Sprite(String spriteAnimationPrefix,
+                   SpriteAnimationFactory.SpriteAnimationType startingAnimation,
                    SpriteCoordinates position,
                    Vec2 direction) {
     this.position = position;
     this.direction = direction;
+    this.animationFactory = new SpriteAnimationFactory(spriteAnimationPrefix);
 
     initializeObserverMap();
     defaultInputSource = null;
 
-    setCurrentAnimation(currentAnimation);
+    setCurrentAnimation(animationFactory.createAnimation(startingAnimation));
   }
 
-  protected Sprite(ObservableAnimation currentAnimation,
+  protected Sprite(String spriteAnimationPrefix,
+                   SpriteAnimationFactory.SpriteAnimationType startingAnimation,
                    SpriteDescription description) {
-    this(currentAnimation,
+    this(spriteAnimationPrefix,
+         startingAnimation,
          description.getCoordinates(),
          new Vec2(1,0));
   }
 
-  protected Sprite(ObservableAnimation currentAnimation) {
-    this(currentAnimation,
+  protected Sprite(String spriteAnimationPrefix,
+                   SpriteAnimationFactory.SpriteAnimationType startingAnimation) {
+    this(spriteAnimationPrefix,
+         startingAnimation,
          new SpriteCoordinates(),
          new Vec2(1,0));
   }
@@ -98,7 +106,15 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
     return currentAnimation;
   }
 
-  protected void setCurrentAnimation(ObservableAnimation newAnimation) {
+  protected SpriteAnimationFactory getAnimationFactory() {
+    return animationFactory;
+  }
+
+  protected void setCurrentAnimationType(SpriteAnimationFactory.SpriteAnimationType type) {
+    setCurrentAnimation(getAnimationFactory().createAnimation(type));
+  }
+
+  private void setCurrentAnimation(ObservableAnimation newAnimation) {
     ObservableAnimation oldAnimation = currentAnimation;
 
     if(oldAnimation != null)
