@@ -9,6 +9,7 @@ import ooga.model.Tile;
 import ooga.model.TileCoordinates;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.ObservableAnimation;
+import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Vec2;
 
 public abstract class MoveableSprite extends Sprite {
@@ -18,20 +19,21 @@ public abstract class MoveableSprite extends Sprite {
   private double movementSpeed;
   private Vec2 queuedDirection;
 
-  protected MoveableSprite(
-      ObservableAnimation animation,
-      SpriteCoordinates position,
-      Vec2 direction,
+  protected MoveableSprite(String spriteAnimationPrefix,
+                           SpriteAnimationFactory.SpriteAnimationType startingAnimation,
+                           SpriteCoordinates position,
+                           Vec2 direction,
       double speed) {
-    super(animation, position, direction);
+    super(spriteAnimationPrefix, startingAnimation, position, direction);
     this.currentSpeed = 0;
     this.movementSpeed = speed;
     queuedDirection = null;
   }
 
-  protected MoveableSprite(ObservableAnimation animation,
+  protected MoveableSprite(String spriteAnimationPrefix,
+                           SpriteAnimationFactory.SpriteAnimationType startingAnimation,
                            SpriteDescription description) {
-    super(animation, description);
+    super(spriteAnimationPrefix, startingAnimation, description);
   }
 
   public double getMovementSpeed() {
