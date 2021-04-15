@@ -3,6 +3,7 @@ package ooga.model.sprites;
 import ooga.model.MutableGameState;
 import ooga.model.PacmanPowerupEvent;
 import ooga.model.SpriteCoordinates;
+import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
 
@@ -16,7 +17,8 @@ public class Dot extends Sprite {
   private int dotScoreIncrement = 1;
 
   public Dot(SpriteCoordinates position, Vec2 direction) {
-    super(new StillAnimation("dot"),
+    super("dot",
+            SpriteAnimationFactory.SpriteAnimationType.DOT_STILL,
             position, direction);
   }
 

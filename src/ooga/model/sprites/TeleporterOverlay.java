@@ -6,6 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import ooga.model.MutableGameState;
 import ooga.model.PacmanPowerupEvent;
 import ooga.model.SpriteCoordinates;
+import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
 
@@ -25,7 +26,7 @@ public class TeleporterOverlay extends Sprite {
    * @param position position of the teleporter
    */
   public TeleporterOverlay(SpriteCoordinates position) {
-    super(new StillAnimation("teleporter"), position, Vec2.ZERO);
+    super("", SpriteAnimationFactory.SpriteAnimationType.BLANK, position, Vec2.ZERO);
     connectedTeleporters = new ArrayList<>();
   }
 

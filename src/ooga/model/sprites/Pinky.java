@@ -11,7 +11,7 @@ public class Pinky extends Ghost {
   public static final String TYPE = "pinky";
 
   public Pinky(SpriteCoordinates position, Vec2 direction, double speed) {
-    super(new StillAnimation("pinky"),
+    super("pinky",
             position, direction, speed);
   }
 
