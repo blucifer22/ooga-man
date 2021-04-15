@@ -77,48 +77,30 @@ public class MainMenuTest extends ApplicationTest {
 
   @Test
   public void startGameTest() throws InterruptedException {
-    Thread.sleep(2000);
-
-    HashMap<String, Node> nodes = buttons();
-    Node target = nodes.get("startGame");
-    syncFXRun(() -> {
-      moveTo(target);
-      target.getOnMouseClicked().handle(null);
-    });
-
-    assertEquals(1, testHarness.getState()[0]);
-
-    Thread.sleep(2000);
+    test("startGame", 0);
   }
 
   @Test
   public void levelBuilderTest() throws InterruptedException {
-    Thread.sleep(2000);
-
-    HashMap<String, Node> nodes = buttons();
-    Node target = nodes.get("openLevelBuilder");
-    syncFXRun(() -> {
-      moveTo(target);
-      target.getOnMouseClicked().handle(null);
-    });
-
-    assertEquals(1, testHarness.getState()[1]);
-
-    Thread.sleep(2000);
+    test("openLevelBuilder", 1);
   }
 
   @Test
   public void openPreferencesTest() throws InterruptedException {
+    test("openPreferences", 2);
+  }
+
+  private void test(String testButtonID, int testHarnessIndex) throws InterruptedException {
     Thread.sleep(2000);
 
     HashMap<String, Node> nodes = buttons();
-    Node target = nodes.get("openPreferences");
+    Node target = nodes.get(testButtonID);
     syncFXRun(() -> {
       moveTo(target);
       target.getOnMouseClicked().handle(null);
     });
 
-    assertEquals(1, testHarness.getState()[2]);
+    assertEquals(1, testHarness.getState()[testHarnessIndex]);
 
     Thread.sleep(2000);
   }
