@@ -99,13 +99,19 @@ public class GhostTests {
   }
 
   @Test
-  public void testGhostInvariants() {
+  public void testGhostDefaultsAndInvariants() {
     Ghost blinky = new Blinky(blinkySpriteDescription);
 
+    // Invariants
     assertFalse(blinky.mustBeConsumed());
     assertTrue(blinky.hasMultiplicativeScoring());
     assertFalse(blinky.isRespawnTarget());
     assertFalse(blinky.eatsGhosts());
+
+    // Defaults
+    assertEquals(blinky.getMovementSpeed(), 4.0);
+    assertFalse(blinky.isConsumable());
+    assertEquals(blinky.getScore(), 200);
   }
 
   @Test
