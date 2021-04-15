@@ -23,12 +23,17 @@ public class TileCoordinates {
     this.y = y;
   }
 
+  public TileCoordinates(Vec2 coordinates) {
+    this((int) coordinates.getX(), (int) coordinates.getY());
+  }
+
   public TileCoordinates() {
     // TODO: Verify that this is appropriate behavior for the no-arg constructor
     this.x = 0;
     this.y = 0;
   }
-  public Vec2 toVec2(){
+
+  public Vec2 toVec2() {
     return new Vec2(x, y);
   }
 

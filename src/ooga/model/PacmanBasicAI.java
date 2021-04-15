@@ -2,9 +2,11 @@ package ooga.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
@@ -27,6 +29,55 @@ public class PacmanBasicAI implements InputSource {
     pacmanGrid = grid;
   }
 
+  private int getDistanceBFS(TileCoordinates start, TileCoordinates target) {
+    Vec2[] directions = {
+        new Vec2(-1, 0),
+        new Vec2(1, 0),
+        new Vec2(0, 1),
+        new Vec2(0, -1)
+    };
+    Set<TileCoordinates> visited = new HashSet<>();
+    Queue<TileCoordinates> qu = new LinkedList<>();
+    qu.add(start);
+    int distance = 0;
+    while (!qu.isEmpty()) {
+      Set<TileCoordinates> nextLevel = new HashSet<>();
+      for (int k = 0; k < qu.size(); k++) {
+        TileCoordinates current = qu.remove();
+        visited.add(current);
+
+        if (current.equals(target)) {
+          return distance;
+        }
+        for (Vec2 direction : directions) {
+          Vec2 adjPosition = current.toVec2().add(direction);
+          TileCoordinates coord = new TileCoordinates(adjPosition);
+          if (pacmanGrid.inBoundaries(coord) && isOpenToPacman(
+              adjPosition)) {
+            nextLevel.add(coord);
+          }
+        }
+      }
+      distance++;
+      for (TileCoordinates next : nextLevel) {
+        if (!visited.contains(next)) {
+          qu.add(next);
+        }
+      }
+    }
+    return -1;
+  }
+
+  /**
+   * Add Sprite to be tracked by the movement algorithm.  The algorithm will try to maximize the
+   * distance between Pac-Man and these sprites.
+   *
+   * @param sprite Sprites to move away from.
+   */
+  public void addTarget(Sprite sprite) {
+    targets.add(sprite);
+  }
+
   /**
    * The Pac-Man AI is focused on survival.  It considers the position of all ghosts in the game.
    * For each direction that it can choose, it considers the closest Sprite in that direction to
@@ -38,6 +89,7 @@ public class PacmanBasicAI implements InputSource {
    */
   protected Vec2 maximizeDistance(Vec2 currentTilePos) {
     Vec2[] directions = {
+        new Vec2(0, 0),
         new Vec2(-1, 0),
         new Vec2(1, 0),
         new Vec2(0, 1),
@@ -46,11 +98,14 @@ public class PacmanBasicAI implements InputSource {
 
     List<DirectionDistanceWrapper> distances = new ArrayList<>();
     for (Vec2 direction : directions) {
-      double closestDistance = -1;
+      Vec2 nextPos = currentTilePos.add(direction);
+      double closestDistance = Double.MAX_VALUE;
       for (Sprite target : targets) {
         Vec2 targetTilePos = target.getCoordinates().getTileCoordinates().toVec2();
-        Vec2 nextPos = currentTilePos.add(direction);
-        closestDistance = Math.min(nextPos.distance(targetTilePos), closestDistance);
+//        double candDistance = getDistanceBFS(new TileCoordinates(nextPos),
+//            new TileCoordinates(targetTilePos));
+        double candDistance = nextPos.distance(targetTilePos);
+        closestDistance = Math.min(candDistance, closestDistance);
       }
       distances.add(new DirectionDistanceWrapper(direction, closestDistance));
     }
@@ -105,4 +160,6 @@ public class PacmanBasicAI implements InputSource {
       return Double.compare(this.dis, o.dis);
     }
   }
+
+
 }

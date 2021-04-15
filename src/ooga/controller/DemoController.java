@@ -8,6 +8,7 @@ import javafx.util.Duration;
 import ooga.model.BlinkyAI;
 import ooga.model.ChaseAI;
 import ooga.model.InputSource;
+import ooga.model.PacmanBasicAI;
 import ooga.model.PacmanGameState;
 import ooga.model.PinkyAI;
 import ooga.model.SpriteCoordinates;
@@ -67,7 +68,13 @@ public class DemoController implements GameStateController {
     pgs.addSprite(teleporter1);
     pgs.addSprite(teleporter2);
 
-    pacman.setInputSource(this.inputManager);
+    //pacman.setInputSource(this.inputManager);
+
+    PacmanBasicAI pacmanBasicAI = new PacmanBasicAI(pgs.getGrid(), pacman);
+    pacmanBasicAI.addTarget(blinky);
+    pacmanBasicAI.addTarget(pinky);
+    pacman.setInputSource(pacmanBasicAI);
+
     InputSource inBlinky = new BlinkyAI(pgs.getGrid(), blinky, pacman, 0.9);
     InputSource inPinky = new PinkyAI(pgs.getGrid(), pinky, pacman, 0.9);
     blinky.setInputSource(inBlinky);

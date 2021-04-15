@@ -31,7 +31,7 @@ public class PacmanGrid implements Iterable<Tile>, ObservableGrid {
   private List<List<Tile>> initialize2DTileList(int width, int height) {
     List<List<Tile>> ret = new ArrayList<>();
     List<Tile> emptyRow = new ArrayList<>();
-    for (int col = 0; col < width; col++){
+    for (int col = 0; col < width; col++) {
       emptyRow.add(null);
     }
     for (int row = 0; row < height; row++) {
@@ -50,6 +50,18 @@ public class PacmanGrid implements Iterable<Tile>, ObservableGrid {
 
   public Tile getTile(TileCoordinates tileCoordinates) {
     return contents.get(tileCoordinates.getY()).get(tileCoordinates.getX());
+  }
+
+  /**
+   * Returns whether the provided TileCoordinates is within the boundaries of the Grid
+   *
+   * @param tileCoordinates
+   * @return
+   */
+  public boolean inBoundaries(TileCoordinates tileCoordinates) {
+    int x = tileCoordinates.getX();
+    int y = tileCoordinates.getY();
+    return !(x >= width || x < 0 || y >= height || y < 0);
   }
 
   public void setTile(int x, int y, Tile tile) {
