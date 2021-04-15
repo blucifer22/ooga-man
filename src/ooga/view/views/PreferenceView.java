@@ -1,5 +1,7 @@
 package ooga.view.views;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -44,18 +46,23 @@ public class PreferenceView implements ThemedObject, View {
     Label langDropdownLabel = new Label();
     langDropdownLabel.textProperty().bind(languageService.getLocalizedString("language"));
     langDropdownLabel.getStyleClass().add("dropdown-label");
+    langDropdownLabel.setId("menu-label-lang-select");
 
     ResourceBundle languageManifest = ResourceBundle.getBundle(LANGUAGE_MANIFEST);
-    ComboBox<Pair<String, String>> langDropdown = new ComboBox<>();
+    ArrayList<Pair<String, String>> dropdownOptions = new ArrayList<>();
     for (String key: languageManifest.keySet()) {
-      langDropdown.getItems().add(new Pair<>(key, languageManifest.getString(key)) {
+      dropdownOptions.add(new Pair<>(key, languageManifest.getString(key)) {
         @Override
         public String toString() {
           return this.getValue();
         }
       });
     }
+    dropdownOptions.sort(Comparator.comparing(Pair::toString));
 
+    ComboBox<Pair<String, String>> langDropdown = new ComboBox<>();
+    langDropdown.getItems().addAll(dropdownOptions);
+    langDropdown.setId("menu-combo-lang-select");
     langDropdown.setOnAction(e -> this.preferenceResponder.setLanguage(langDropdown.getValue().getKey()));
 
     VBox labeledLangDropdown = new VBox(
@@ -69,6 +76,7 @@ public class PreferenceView implements ThemedObject, View {
     returnToMenu.textProperty().bind(languageService.getLocalizedString("previousMenu"));
     returnToMenu.setOnMouseClicked(e -> viewStackManager.unwind());
     returnToMenu.getStyleClass().add("menu-button");
+    returnToMenu.setId("menu-button-previousMenu");
 
     VBox backButtonCard = new VBox(
         returnToMenu
