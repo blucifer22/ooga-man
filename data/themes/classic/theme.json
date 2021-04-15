@@ -280,7 +280,7 @@
       "bottomHeavy" : true,
       "rotates": true
     },
-    "dot" : {
+    "dot_still_1" : {
       "fill" : "themes/classic/images/consumables/dot.png",
       "imageFill" : true,
       "scale" : 0.25,
@@ -295,17 +295,25 @@
       "rotates": false
     },
     "powerpill_blink_2" : {
-      "imageFill" : false,
+      "fill" : "themes/classic/images/blank.png",
+      "imageFill" : true,
       "scale" : 0.5,
       "bottomHeavy" : false,
       "rotates": false
     },
-    "cherry" : {
+    "cherry_still_1" : {
       "fill" : "themes/classic/images/consumables/cherries.png",
       "imageFill" : true,
       "scale" : 0.5,
       "bottomHeavy" : false,
       "rotates": false
+    },
+    "blank" : {
+      "fill" : "themes/classic/images/blank.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : false,
+      "rotates" : false
     }
   }
 }
