@@ -4,12 +4,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import ooga.controller.HumanInputManager;
+import ooga.controller.KeybindingType;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Clyde;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Ghost.GhostBehavior;
+import ooga.model.sprites.Home;
 import ooga.model.sprites.Inky;
+import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Pinky;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +26,7 @@ import org.junit.jupiter.api.Test;
  */
 public class GhostTests {
 
+  public static final double DT = .01;
   SpriteDescription blinkySpriteDescription;
   SpriteDescription inkySpriteDescription;
   SpriteDescription pinkySpriteDescription;
@@ -41,6 +46,12 @@ public class GhostTests {
     String inputSource = "GHOST_AI";
     SpriteCoordinates startingCoordinates = new SpriteCoordinates(new Vec2(5, 5));
     return new SpriteDescription(spriteClassName, inputSource, startingCoordinates);
+  }
+
+  private SpriteDescription createDefaultPacmanDescription() {
+    String inputSource = "HUMAN";
+    SpriteCoordinates startingCoordinates = new SpriteCoordinates(new Vec2(4.9, 5));
+    return new SpriteDescription("PacMan", inputSource, startingCoordinates);
   }
 
   @Test
@@ -95,5 +106,36 @@ public class GhostTests {
     assertTrue(blinky.hasMultiplicativeScoring());
     assertFalse(blinky.isRespawnTarget());
     assertFalse(blinky.eatsGhosts());
+  }
+
+  @Test
+  public void testGhostPowerUpResponses() {
+    PacmanGameState pgs = new PacmanGameState();
+    Home home = new Home(new SpriteCoordinates(new Vec2(8.5, 8.5)), new Vec2(0, 0));
+
+    PacMan pacMan = new PacMan(createDefaultPacmanDescription());
+    pacMan.setInputSource(new HumanInputManager(KeybindingType.PLAYER_1));
+
+    Ghost blinky = new Blinky(blinkySpriteDescription);
+    blinky.setInputSource(new BlinkyAI(pgs.getGrid(), blinky, pacMan, home, 1.0));
+
+    pgs.addSprite(pacMan);
+    pgs.addSprite(blinky);
+
+    // Make sure we're starting off on the right foot
+    assertEquals(blinky.getGhostBehavior(), GhostBehavior.WAIT);
+    double defaultMoveSpeed = blinky.getMovementSpeed();
+    pgs.step(DT);
+
+    // Spoof Pac-Man eating a Ghost Slowdown power-up
+    blinky.respondToPowerEvent(PacmanPowerupEvent.GHOST_SLOWDOWN_ACTIVATED);
+    pgs.step(DT);
+    assertEquals(defaultMoveSpeed * .5, blinky.getMovementSpeed());
+
+    // Spoof Pac-Man eating a Power-Pill and check for transition to FRIGHTENED state
+    blinky.respondToPowerEvent(PacmanPowerupEvent.FRIGHTEN_ACTIVATED);
+    pgs.step(DT);
+    assertEquals(blinky.getGhostBehavior(), GhostBehavior.FRIGHTENED);
+    assertEquals(blinky.getCurrentAnimation().getCurrentCostume(), "frightened_1");
   }
 }
