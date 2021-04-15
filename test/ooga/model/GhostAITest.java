@@ -10,6 +10,7 @@ import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Ghost.GhostBehavior;
 import ooga.model.sprites.Home;
+import ooga.model.sprites.Inky;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
@@ -38,15 +39,15 @@ public class GhostAITest {
     state.loadGrid(grid);
   }
 
-
-  public void testBlinkyDecisionUpwards() {
-    blinky = new Blinky(new SpriteCoordinates(new Vec2(1.5, 1.9)), new Vec2(0, -1), 4);
+  @Test
+  public void testInkyInitialWait() {
+    Inky inky = new Inky(new SpriteCoordinates(new Vec2(1.5, 1.9)), new Vec2(0, -1), 4);
     home = new Home(new SpriteCoordinates(new Vec2(1.5, 1.9)), new Vec2(0, 0));
-    InputSource in = new GhostAI(grid, blinky, pacMan, home,-1);
-    blinky.setInputSource(in);
-    blinky.step(1/60., state);
+    InputSource in = new PinkyAI(grid, inky, pacMan, home,-1);
+    inky.setInputSource(in);
+    inky.step(1/60., state);
     Vec2 req = in.getRequestedDirection();
-    assertEquals(new Vec2(1, 0), req);
+    assertEquals(new Vec2(0, 0), req);
   }
 
   @Test
