@@ -58,7 +58,7 @@ public class DemoController implements GameStateController {
     PowerPill powerPill2 = new PowerPill(new SpriteCoordinates(new Vec2(6.5, 9.5)), new Vec2(0, 0));
     PowerPill powerPill3 = new PowerPill(new SpriteCoordinates(new Vec2(4.5, 15.5)), new Vec2(0, 0));
     PowerPill powerPill4 = new PowerPill(new SpriteCoordinates(new Vec2(6.5, 6.5)), new Vec2(0, 0));
-    Cherry cherry1 = new Cherry(new SpriteCoordinates(new Vec2(2.5, 10.5)), new Vec2(0, 0));
+    Cherry cherry1 = new Cherry(new SpriteCoordinates(new Vec2(4.5, 8.5)), new Vec2(0, 0));
     Cherry cherry2 = new Cherry(new SpriteCoordinates(new Vec2(8.5, 1.5)), new Vec2(0, 0));
     Home home = new Home(new SpriteCoordinates(new Vec2(8.5, 8.5)), new Vec2(0, 0));
 
