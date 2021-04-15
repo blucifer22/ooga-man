@@ -108,6 +108,7 @@ public abstract class Ghost extends MoveableSprite {
       this.setMovementSpeed(this.getMovementSpeed() * 2);
       changeBehavior(GhostBehavior.EATEN);
       isEaten = true;
+      isDeadly = false;
     }
     if (other.isRespawnTarget() && ghostBehavior.equals(GhostBehavior.EATEN)){
       System.out.println("wait");
@@ -202,9 +203,13 @@ public abstract class Ghost extends MoveableSprite {
         setDirection(getDirection().scalarMult(-1));
       }
       case FRIGHTEN_DEACTIVATED -> {
-        if (getGhostBehavior() != GhostBehavior.WAIT){
-          changeBehavior(GhostBehavior.CHASE);
-          setDirection(getDirection().scalarMult(-1));
+        if(!isEaten) {
+          if (getGhostBehavior() != GhostBehavior.WAIT) {
+            changeBehavior(GhostBehavior.CHASE);
+            setDirection(getDirection().scalarMult(-1));
+          }
+
+          isDeadly = true;
         }
       }
       case POINT_BONUS_ACTIVATED -> baseGhostScore *= 2;
