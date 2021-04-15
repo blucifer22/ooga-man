@@ -70,7 +70,7 @@ public class GhostAI implements InputSource {
   }
 
   protected Vec2 waitBehavior() {
-    getGhost().setMovementSpeed(0);
+    getGhost().setCurrentSpeed(0);
     return Vec2.ZERO;
   }
 

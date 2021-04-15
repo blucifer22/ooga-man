@@ -59,7 +59,8 @@ public abstract class Ghost extends MoveableSprite {
       this.setMovementSpeed(this.getMovementSpeed() * 0.5);
       changeBehavior(GhostBehavior.WAIT);
       state.getClock().addTimer(new Timer(10, mutableGameState -> {
-        changeBehavior(GhostBehavior.CHASE);
+        this.setCurrentSpeed(getMovementSpeed());
+        this.changeBehavior(GhostBehavior.CHASE);
         isDeadly = true;
         setDirection(getDirection().scalarMult(-1));
       }));
