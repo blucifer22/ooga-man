@@ -189,7 +189,8 @@ public abstract class Ghost extends MoveableSprite {
     return baseGhostScore;
   }
 
-  private void changeBehavior(GhostBehavior behavior) {
+  //TODO confrim with mark about GhostTests to see if this can be made private again
+  public void changeBehavior(GhostBehavior behavior) {
     GhostAnimationType oldAnimType = behaviorToAnimationType(ghostBehavior);
     ghostBehavior = behavior;
     if(behaviorToAnimationType(ghostBehavior) != oldAnimType)
@@ -202,6 +203,7 @@ public abstract class Ghost extends MoveableSprite {
       case GHOST_SLOWDOWN_ACTIVATED -> setMovementSpeed(getMovementSpeed() * 0.5);
       case GHOST_SLOWDOWN_DEACTIVATED -> setMovementSpeed(getMovementSpeed() * 2);
       case FRIGHTEN_ACTIVATED -> {
+        frightenedBank++;
         if (getGhostBehavior().equals(GhostBehavior.CHASE)){
           changeBehavior(GhostBehavior.FRIGHTENED);
           isDeadly = false;
@@ -211,7 +213,9 @@ public abstract class Ghost extends MoveableSprite {
         }
       }
       case FRIGHTEN_DEACTIVATED -> {
-        if(!isEaten) {
+        frightenedBank--;
+        System.out.println(frightenedBank);
+        if(!isEaten && frightenedBank == 0) {
           if (!getGhostBehavior().equals(GhostBehavior.WAIT)) {
             changeBehavior(GhostBehavior.CHASE);
             isDeadly = true;
@@ -220,7 +224,7 @@ public abstract class Ghost extends MoveableSprite {
             setDirection(getDirection().scalarMult(-1));
           }
 
-          isDeadly = true;
+//          isDeadly = true;
         }
       }
       case POINT_BONUS_ACTIVATED -> baseGhostScore *= 2;

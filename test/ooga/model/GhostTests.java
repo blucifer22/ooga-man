@@ -160,6 +160,7 @@ public class GhostTests {
     pgs.step(DT);
 
     // Spoof Pac-Man eating a Power-Pill and check for transition to FRIGHTENED state
+    blinky.changeBehavior(GhostBehavior.CHASE);
     blinky.respondToPowerEvent(PacmanPowerupEvent.FRIGHTEN_ACTIVATED);
     pgs.step(DT);
     assertEquals(blinky.getGhostBehavior(), GhostBehavior.FRIGHTENED);
