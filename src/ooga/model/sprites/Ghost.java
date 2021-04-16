@@ -21,6 +21,7 @@ public abstract class Ghost extends MoveableSprite {
   private boolean isDeadly = true;
   private boolean isEaten;
   private int baseGhostScore = 200;
+  private int frightenedBank;
   private GhostBehavior ghostBehavior;
   private boolean forceAnimationUpdate;
 
@@ -104,20 +105,23 @@ public abstract class Ghost extends MoveableSprite {
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    if (!isDeadly && !isEaten && other.eatsGhosts()){
-      this.setMovementSpeed(this.getMovementSpeed() * 2);
+    if (!isDeadly && !isEaten && isConsumable() && other.eatsGhosts()){
+      this.setMovementSpeed(this.getMovementSpeed() * 1.5);
       changeBehavior(GhostBehavior.EATEN);
       isEaten = true;
       isDeadly = false;
+      // isConsumable() -> false
     }
     if (other.isRespawnTarget() && ghostBehavior.equals(GhostBehavior.EATEN)){
       System.out.println("wait");
-      this.setMovementSpeed(this.getMovementSpeed() * 0.5);
+      this.setMovementSpeed(this.getMovementSpeed() * (2.0/3.0));
       changeBehavior(GhostBehavior.WAIT);
       state.getClock().addTimer(new Timer(10, mutableGameState -> {
         this.setCurrentSpeed(getMovementSpeed());
         this.changeBehavior(GhostBehavior.CHASE);
         isDeadly = true;
+        isEaten = false;
+        // isConsumable() -> false
         setDirection(getDirection().scalarMult(-1));
       }));
     }
@@ -198,14 +202,21 @@ public abstract class Ghost extends MoveableSprite {
       case GHOST_SLOWDOWN_ACTIVATED -> setMovementSpeed(getMovementSpeed() * 0.5);
       case GHOST_SLOWDOWN_DEACTIVATED -> setMovementSpeed(getMovementSpeed() * 2);
       case FRIGHTEN_ACTIVATED -> {
-        changeBehavior(GhostBehavior.FRIGHTENED);
-        isDeadly = false;
-        setDirection(getDirection().scalarMult(-1));
+        if (getGhostBehavior().equals(GhostBehavior.CHASE)){
+          changeBehavior(GhostBehavior.FRIGHTENED);
+          isDeadly = false;
+          isEaten = false;
+          // isConsumable() -> true
+          setDirection(getDirection().scalarMult(-1));
+        }
       }
       case FRIGHTEN_DEACTIVATED -> {
         if(!isEaten) {
-          if (getGhostBehavior() != GhostBehavior.WAIT) {
+          if (!getGhostBehavior().equals(GhostBehavior.WAIT)) {
             changeBehavior(GhostBehavior.CHASE);
+            isDeadly = true;
+            isEaten = false;
+            // isConsumable() -> false
             setDirection(getDirection().scalarMult(-1));
           }
 
