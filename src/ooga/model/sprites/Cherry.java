@@ -6,6 +6,7 @@ import ooga.model.SpriteCoordinates;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.FreeRunningPeriodicAnimation;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
+import ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimationType;
 import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Timer;
 import ooga.util.Vec2;
@@ -35,12 +36,11 @@ public class Cherry extends Sprite {
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
     if (other.eatsGhosts()){
-      //TODO: Change costume and make inedible
       isEdible = false;
-      delete(state);
+      this.setCurrentAnimationType(SpriteAnimationType.BLANK);
       state.getClock().addTimer(new Timer(45, mutableGameState -> {
-        //TODO: Change costume to visable and make cherry edible
         isEdible = true;
+        this.setCurrentAnimationType(SpriteAnimationType.CHERRY_STILL);
       }));
     }
   }
