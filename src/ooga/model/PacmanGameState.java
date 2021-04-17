@@ -35,7 +35,9 @@ public class PacmanGameState
   private final Set<Sprite> toDelete;
   private final Clock clock;
   private PacmanGrid grid;
-  private int pacManScore;
+  private Player pacmanPlayer;
+  private Player ghostsPlayer;
+  //private int pacManScore;
 
   public PacmanGameState() {
     spriteExistenceObservers = new HashSet<>();
@@ -46,7 +48,25 @@ public class PacmanGameState
     clock = new Clock();
   }
 
-  public void setDefaultInputSource() {
+
+  public ImmutablePlayer getGhostsPlayer() {
+    return ghostsPlayer;
+  }
+
+  public ImmutablePlayer getPacmanPlayer() {
+    return pacmanPlayer;
+  }
+
+  /**
+   * Sets up the Players associated with a PacMan game mode.  These players are responsible for
+   * keeping score.
+   *
+   * @param pacmanPlayer Player controlling Pac-Man.  Null if single player during hunt mode.
+   * @param ghostsPlayer Player controlling the ghosts.  Null if single player during classic mode.
+   */
+  public void setPlayers(Player pacmanPlayer, Player ghostsPlayer) {
+    this.pacmanPlayer = pacmanPlayer;
+    this.ghostsPlayer = ghostsPlayer;
   }
 
   /**
@@ -59,16 +79,25 @@ public class PacmanGameState
   }
 
   /**
+   * Increases the game score, corresponding to Pac-Man's consumption of game elements.  Only
+   * Pac-Man and its player has an associated score.
+   *
    * @param score
    */
   @Override
   public void incrementScore(int score) {
-    pacManScore += score;
+    //pacManScore += score;
+    pacmanPlayer.setScore(pacmanPlayer.getScore() + score);
   }
 
+  /**
+   * Returns Pac-Man's score from all levels
+   * @return Pac-Man's score
+   */
   @Override
   public int getScore() {
-    return pacManScore;
+    //return pacManScore;
+    return pacmanPlayer.getScore();
   }
 
   @Override
