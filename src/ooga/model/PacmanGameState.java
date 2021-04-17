@@ -46,6 +46,20 @@ public class PacmanGameState
     clock = new Clock();
   }
 
+  public PacmanGameState(PacmanLevel level) {
+    spriteExistenceObservers = new HashSet<>();
+    gridRebuildObservers = new HashSet<>();
+    toDelete = new HashSet<>();
+    sprites = new LinkedList<>();
+
+    for(Sprite sprite : level.getSprites()) {
+      addSprite(sprite);
+    }
+
+    pacmanPowerupObservers = new HashSet<>();
+    clock = new Clock();
+  }
+
   public void setDefaultInputSource() {
   }
 
