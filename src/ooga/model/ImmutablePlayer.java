@@ -2,6 +2,8 @@ package ooga.model;
 
 /**
  * Defines interface that the view can interact with when displaying player information
+ *
+ * @author George Hong
  */
 public interface ImmutablePlayer {
 
