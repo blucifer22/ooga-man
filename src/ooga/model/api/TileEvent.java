@@ -7,15 +7,15 @@ public class TileEvent {
     TYPE_CHANGE
   }
 
-  private final ObservableSprite sender;
+  private final ObservableTile sender;
   private final EventType type;
 
-  public TileEvent(ObservableSprite sender, EventType type) {
+  public TileEvent(ObservableTile sender, EventType type) {
     this.sender = sender;
     this.type = type;
   }
 
-  public ObservableSprite getSender() {
+  public ObservableTile getSender() {
     return sender;
   }
 
