@@ -29,16 +29,20 @@ public class ConsumablesTest {
 
   @Test
   public void testCherryConsumption() {
-    Cherry cherry = new Cherry(new SpriteCoordinates(new Vec2(0.5, 0.5)), new Vec2(-1, 0));
-    pgs.addSprite(cherry);
-    pgs.registerEventListener(cherry);
-    pacMan.uponHitBy(cherry, pgs);
-    cherry.uponHitBy(pacMan, pgs);
+    Cherry cherry1 = new Cherry(new SpriteCoordinates(new Vec2(0.5, 0.5)), new Vec2(-1, 0));
+    Cherry cherry2 = new Cherry(new SpriteCoordinates(new Vec2(1.5, 1.5)), new Vec2(-1, 0));
+    pgs.addSprite(cherry1);
+    pgs.addSprite(cherry2);
+    pgs.registerEventListener(cherry1);
+    pgs.registerEventListener(cherry2);
+
+    pacMan.uponHitBy(cherry1, pgs);
+    cherry1.uponHitBy(pacMan, pgs);
     assertEquals(50, pgs.getScore());
 
     pgs.notifyPowerupListeners(PacmanPowerupEvent.POINT_BONUS_ACTIVATED);
-    pacMan.uponHitBy(cherry, pgs);
-    cherry.uponHitBy(pacMan, pgs);
+    pacMan.uponHitBy(cherry2, pgs);
+    cherry2.uponHitBy(pacMan, pgs);
     assertEquals(150, pgs.getScore());
   }
 
