@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import ooga.controller.HumanInputManager;
+import ooga.controller.KeybindingType;
 import ooga.model.sprites.PacMan;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,6 +39,7 @@ public class SpriteInternalDataTests {
     Vec2 direction = new Vec2(-1, 0);
     SpriteCoordinates spriteCoordinates = new SpriteCoordinates(position);
     pacMan = new PacMan(spriteCoordinates, direction, 11);
+    state.setPlayers(new Player(1, new HumanInputManager(KeybindingType.PLAYER_1)), null);
   }
 
   @Test
@@ -89,7 +92,7 @@ public class SpriteInternalDataTests {
         prepopulatedActions.add(new Vec2(1, 0));  // RIGHT
         prepopulatedActions.add(new Vec2(0, 1));  // DOWN
         prepopulatedActions.add(new Vec2(-1, 0)); // LEFT
-        for (int k = 0; k < 50; k++){
+        for (int k = 0; k < 50; k++) {
           prepopulatedActions.add(Vec2.ZERO);
         }
       }
