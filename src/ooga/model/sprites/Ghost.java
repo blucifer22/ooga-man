@@ -189,8 +189,7 @@ public abstract class Ghost extends MoveableSprite {
     return baseGhostScore;
   }
 
-  //TODO confrim with mark about GhostTests to see if this can be made private again
-  public void changeBehavior(GhostBehavior behavior) {
+  private void changeBehavior(GhostBehavior behavior) {
     GhostAnimationType oldAnimType = behaviorToAnimationType(ghostBehavior);
     ghostBehavior = behavior;
     if(behaviorToAnimationType(ghostBehavior) != oldAnimType)
@@ -203,7 +202,7 @@ public abstract class Ghost extends MoveableSprite {
       case GHOST_SLOWDOWN_ACTIVATED -> setMovementSpeed(getMovementSpeed() * 0.5);
       case GHOST_SLOWDOWN_DEACTIVATED -> setMovementSpeed(getMovementSpeed() * 2);
       case FRIGHTEN_ACTIVATED -> {
-        frightenedBank++;
+        frightenedBank = 1;
         if (getGhostBehavior().equals(GhostBehavior.CHASE)){
           changeBehavior(GhostBehavior.FRIGHTENED);
           isDeadly = false;

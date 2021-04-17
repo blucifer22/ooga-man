@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import ooga.controller.HumanInputManager;
 import ooga.controller.KeybindingType;
+import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Clyde;
@@ -117,6 +118,10 @@ public class GhostTests {
   @Test
   public void testGhostPowerUpResponses() {
     PacmanGameState pgs = new PacmanGameState();
+    try {
+      pgs.loadGrid(new JSONDescriptionFactory()
+          .getGridDescriptionFromJSON("data/levels/grids/demo_grid.json"));
+    } catch (Exception e) {}
     Home home = new Home(new SpriteCoordinates(new Vec2(8.5, 8.5)), new Vec2(0, 0));
 
     PacMan pacMan = new PacMan(createDefaultPacmanDescription());
@@ -156,11 +161,12 @@ public class GhostTests {
 
     // Add some "NOP" steps to give Blinky time to eat Pac-Man
     // TODO: Remove this kludge!!!! (msc68)
-    pgs.step(DT);
-    pgs.step(DT);
+    for (int i=0; i < 10000; i++){
+      pgs.step(DT);
+    }
 
     // Spoof Pac-Man eating a Power-Pill and check for transition to FRIGHTENED state
-    blinky.changeBehavior(GhostBehavior.CHASE);
+    //blinky.changeBehavior(GhostBehavior.CHASE);
     blinky.respondToPowerEvent(PacmanPowerupEvent.FRIGHTEN_ACTIVATED);
     pgs.step(DT);
     assertEquals(blinky.getGhostBehavior(), GhostBehavior.FRIGHTENED);
