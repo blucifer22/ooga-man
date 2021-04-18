@@ -19,7 +19,7 @@ import ooga.view.language.api.LanguageService;
 
 public class BundledLanguageService implements LanguageService, LanguageSelectionService {
 
-  private static final String DEFAULT_LANGUAGE_ROOT = "resources.languages";
+  private static final String DEFAULT_LANGUAGE_ROOT = "resources.languages/";
   private static final String DEFAULT_LANGUAGE = "english";
 
   private final TreeMap<String, String> availableLanguages;
@@ -44,7 +44,7 @@ public class BundledLanguageService implements LanguageService, LanguageSelectio
   }
 
   private void updateAvailableLanguages() {
-    ResourceBundle languageManifest = ResourceBundle.getBundle(DEFAULT_LANGUAGE_ROOT);
+    ResourceBundle languageManifest = ResourceBundle.getBundle(DEFAULT_LANGUAGE_ROOT+"manifest");
     availableLanguages.clear();
 
     for (String key: languageManifest.keySet()) {
