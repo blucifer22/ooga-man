@@ -1,5 +1,9 @@
 package ooga.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * This implementation of Pac-Man accommodates versus mode, allowing more than one player to play at
  * a time.
@@ -21,7 +25,8 @@ public class Player implements ImmutablePlayer {
    * @param id identification number for this player.
    * @param inputSource Keybindings used by this player to control their Sprites.
    */
-  public Player(int id, InputSource inputSource) {
+  @JsonCreator
+  public Player(@JsonProperty("id") int id, @JsonProperty("inputSource") InputSource inputSource) {
     this(id, 0, 0, inputSource);
   }
 
@@ -57,6 +62,7 @@ public class Player implements ImmutablePlayer {
     this.roundWins = roundWins;
   }
 
+  @JsonGetter
   public int getID() {
     return id;
   }
@@ -67,6 +73,7 @@ public class Player implements ImmutablePlayer {
    *
    * @return input source used by this Player, for example, (WASD) or (IJKL) for movement.
    */
+  @JsonGetter
   public InputSource getInputSource() {
     return inputSource;
   }
