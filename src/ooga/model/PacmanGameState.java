@@ -53,21 +53,12 @@ public class PacmanGameState
     clock = new Clock();
   }
 
-  public PacmanGameState(PacmanLevel level) {
-    spriteExistenceObservers = new HashSet<>();
-    gridRebuildObservers = new HashSet<>();
-    pacmanGameStateObservers = new HashSet<>();
-    toDelete = new HashSet<>();
-    sprites = new LinkedList<>();
-
+  public void loadPacmanLevel(PacmanLevel level) {
     for(Sprite sprite : level.getSprites()) {
       addSprite(sprite);
     }
 
     loadGrid(level.getGrid());
-
-    pacmanPowerupObservers = new HashSet<>();
-    clock = new Clock();
   }
 
   public void addGameStateObserver(GameStateObserver observer) {
