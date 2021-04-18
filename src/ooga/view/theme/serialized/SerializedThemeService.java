@@ -51,11 +51,11 @@ public class SerializedThemeService implements ThemeService, ThemeSelectionServi
 
   @Override
   public Set<String> getAvailableThemes() {
+    refreshAvailableThemes();
     return this.availableThemes.keySet();
   }
 
-  @Override
-  public void refreshAvailableThemes() {
+  private void refreshAvailableThemes() {
     this.availableThemes.clear();
 
     File defaultTheme = new File(DEFAULT_THEME_PATH);

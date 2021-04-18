@@ -8,5 +8,4 @@ public interface ThemeSelectionService {
 
   Set<String> getAvailableThemes();
 
-  void refreshAvailableThemes();
 }

@@ -7,39 +7,33 @@ import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import ooga.view.language.api.LanguageSelectionService;
 import ooga.view.language.api.LanguageService;
 
-public class BundledLanguageService implements LanguageService {
+public class BundledLanguageService implements LanguageService, LanguageSelectionService {
 
   private static final String DEFAULT_LANGUAGE_ROOT = "resources.languages";
   private static final String DEFAULT_LANGUAGE = "english";
 
-  private final String languageRoot;
   private String languageName;
   private final HashMap<String, StringProperty> strings;
 
   public BundledLanguageService() {
     this.strings = new HashMap<>();
-    this.languageRoot = DEFAULT_LANGUAGE_ROOT;
     this.loadDefaultLanguage();
   }
 
-  public BundledLanguageService(String languageRoot) {
-    this.strings = new HashMap<>();
-    this.languageRoot = languageRoot;
-    this.loadDefaultLanguage();
+  @Override
+  public void setLanguage(String languageName) {
+    updatePropertyValues(languageName, false);
   }
 
   private void loadDefaultLanguage() {
     updatePropertyValues(DEFAULT_LANGUAGE, true);
   }
 
-  public void setLanguage(String languageName) {
-    updatePropertyValues(languageName, false);
-  }
-
   private void updatePropertyValues(String languageName, boolean initial) {
-    ResourceBundle newLang = ResourceBundle.getBundle(languageRoot +"/"+languageName);
+    ResourceBundle newLang = ResourceBundle.getBundle(DEFAULT_LANGUAGE_ROOT +"/"+languageName);
 
     if (!initial) {
       HashSet<String> keysToUpdate = new HashSet<>(strings.keySet());
