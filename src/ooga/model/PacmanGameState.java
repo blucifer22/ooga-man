@@ -235,6 +235,7 @@ public class PacmanGameState
   @Override
   public void addSprite(Sprite sprite) {
     sprites.add(sprite);
+    registerEventListener(sprite);
     notifySpriteCreation(sprite);
   }
 

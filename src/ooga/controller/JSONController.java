@@ -31,6 +31,7 @@ public class JSONController implements GameStateController {
       PacmanGameState pgs = new PacmanGameState(loadLevelFromJSON("data/levels/test_level.json"));
       GameView gv = uiController.getGameView(); // TODO: abstract GameView to an interface here
 
+
       pgs.addSpriteExistenceObserver(gv.getSpriteExistenceObserver());
       pgs.addGridRebuildObserver(gv.getGridRebuildObserver());
 
