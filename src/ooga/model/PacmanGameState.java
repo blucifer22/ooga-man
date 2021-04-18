@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import ooga.model.api.GameStateObservable;
+import ooga.model.api.GameStateObserver;
 import ooga.model.api.GridRebuildObservable;
 import ooga.model.api.GridRebuildObserver;
 import ooga.model.api.PowerupEventObserver;
@@ -25,28 +27,81 @@ import ooga.util.Clock;
  * @author Franklin Wei
  */
 public class PacmanGameState
-    implements SpriteExistenceObservable, GridRebuildObservable, MutableGameState {
+    implements SpriteExistenceObservable, GridRebuildObservable, MutableGameState,
+    GameStateObservable {
 
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
   private final Set<PowerupEventObserver> pacmanPowerupObservers;
+  private final Set<GameStateObserver> pacmanGameStateObservers;
 
   private final List<Sprite> sprites;
   private final Set<Sprite> toDelete;
   private final Clock clock;
   private PacmanGrid grid;
-  private int pacManScore;
+  private Player pacmanPlayer;
+  private Player ghostsPlayer;
+  private int pacmanLivesRemaining;
 
   public PacmanGameState() {
     spriteExistenceObservers = new HashSet<>();
     gridRebuildObservers = new HashSet<>();
     toDelete = new HashSet<>();
+    pacmanGameStateObservers = new HashSet<>();
     sprites = new LinkedList<>();
     pacmanPowerupObservers = new HashSet<>();
     clock = new Clock();
   }
 
-  public void setDefaultInputSource() {
+  public void addGameStateObserver(GameStateObserver observer) {
+    pacmanGameStateObservers.add(observer);
+  }
+
+  public void notifyGameStateObservers() {
+    for (GameStateObserver observer : pacmanGameStateObservers) {
+      observer.onGameStateUpdate(this);
+    }
+  }
+
+  protected ImmutablePlayer getGhostsPlayer() {
+    return ghostsPlayer;
+  }
+
+  /**
+   * Returns a list of players for this Pac-Man game mode
+   * @return list of players
+   */
+  @Override
+  public List<ImmutablePlayer> getPlayers() {
+    List<ImmutablePlayer> ret = new ArrayList<>();
+    if (pacmanPlayer != null) {
+      ret.add(pacmanPlayer);
+    }
+    if (ghostsPlayer != null) {
+      ret.add(ghostsPlayer);
+    }
+    return ret;
+  }
+
+  @Override
+  public int getPacmanLivesRemaining() {
+    return pacmanLivesRemaining;
+  }
+
+  protected ImmutablePlayer getPacmanPlayer() {
+    return pacmanPlayer;
+  }
+
+  /**
+   * Sets up the Players associated with a PacMan game mode.  These players are responsible for
+   * keeping score.
+   *
+   * @param pacmanPlayer Player controlling Pac-Man.  Null if single player during hunt mode.
+   * @param ghostsPlayer Player controlling the ghosts.  Null if single player during classic mode.
+   */
+  public void setPlayers(Player pacmanPlayer, Player ghostsPlayer) {
+    this.pacmanPlayer = pacmanPlayer;
+    this.ghostsPlayer = ghostsPlayer;
   }
 
   /**
@@ -59,16 +114,27 @@ public class PacmanGameState
   }
 
   /**
+   * Increases the game score, corresponding to Pac-Man's consumption of game elements.  Only
+   * Pac-Man and its player has an associated score.
+   *
    * @param score
    */
   @Override
   public void incrementScore(int score) {
-    pacManScore += score;
+    //pacManScore += score;
+    pacmanPlayer.setScore(pacmanPlayer.getScore() + score);
+    notifyGameStateObservers();
   }
 
+  /**
+   * Returns Pac-Man's score from all levels
+   *
+   * @return Pac-Man's score
+   */
   @Override
   public int getScore() {
-    return pacManScore;
+    //return pacManScore;
+    return pacmanPlayer.getScore();
   }
 
   @Override
