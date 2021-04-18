@@ -8,6 +8,7 @@ import ooga.view.theme.api.Costume;
 import ooga.view.theme.api.Theme;
 
 public class SerializedTheme implements Theme {
+
   private final Map<String, Costume> costumes;
   private final String stylesheet;
   private final String name;
@@ -17,7 +18,7 @@ public class SerializedTheme implements Theme {
     this.costumes = new HashMap<>();
     this.name = description.getName();
 
-    for (String key: description.getCostumes().keySet()) {
+    for (String key : description.getCostumes().keySet()) {
       costumes.put(key, description.getCostumes().get(key).toCostume());
     }
   }
@@ -44,7 +45,9 @@ public class SerializedTheme implements Theme {
         }
 
         @Override
-        public boolean isRotatable() { return true; }
+        public boolean isRotatable() {
+          return true;
+        }
       };
     } else {
       return ret;

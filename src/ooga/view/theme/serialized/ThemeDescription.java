@@ -2,7 +2,6 @@ package ooga.view.theme.serialized;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.HashMap;
 import java.util.Map;
 import ooga.model.leveldescription.JSONDescription;
 import ooga.view.theme.api.Theme;
@@ -34,7 +33,9 @@ public class ThemeDescription extends JSONDescription {
   }
 
   @JsonGetter("stylesheet")
-  public String getStylesheet() { return this.stylesheet; }
+  public String getStylesheet() {
+    return this.stylesheet;
+  }
 
   public Theme toTheme() {
     return new SerializedTheme(this);

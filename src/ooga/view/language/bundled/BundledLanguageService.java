@@ -1,19 +1,15 @@
 package ooga.view.language.bundled;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-import java.util.Set;
 import java.util.TreeMap;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.util.Pair;
 import ooga.view.language.api.LanguageSelectionService;
 import ooga.view.language.api.LanguageService;
 
@@ -44,10 +40,10 @@ public class BundledLanguageService implements LanguageService, LanguageSelectio
   }
 
   private void updateAvailableLanguages() {
-    ResourceBundle languageManifest = ResourceBundle.getBundle(DEFAULT_LANGUAGE_ROOT+"manifest");
+    ResourceBundle languageManifest = ResourceBundle.getBundle(DEFAULT_LANGUAGE_ROOT + "manifest");
     availableLanguages.clear();
 
-    for (String key: languageManifest.keySet()) {
+    for (String key : languageManifest.keySet()) {
       availableLanguages.put(key, languageManifest.getString(key));
     }
   }
@@ -57,7 +53,7 @@ public class BundledLanguageService implements LanguageService, LanguageSelectio
   }
 
   private void updatePropertyValues(String languageName, boolean initial) {
-    ResourceBundle newLang = ResourceBundle.getBundle(DEFAULT_LANGUAGE_ROOT +"/"+languageName);
+    ResourceBundle newLang = ResourceBundle.getBundle(DEFAULT_LANGUAGE_ROOT + "/" + languageName);
 
     if (!initial) {
       HashSet<String> keysToUpdate = new HashSet<>(strings.keySet());
@@ -76,7 +72,7 @@ public class BundledLanguageService implements LanguageService, LanguageSelectio
       }
     }
 
-    for (String key: newLang.keySet()) {
+    for (String key : newLang.keySet()) {
       strings.putIfAbsent(key, new SimpleStringProperty());
       strings.get(key).setValue(newLang.getString(key));
     }
