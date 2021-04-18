@@ -230,7 +230,7 @@ public class PacmanGameState
     notifySpriteCreation(sprite);
   }
 
-  public Collection<Sprite> getSprites() {
+  public List<Sprite> getSprites() {
     return sprites;
   }
 

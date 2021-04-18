@@ -28,12 +28,12 @@ public class GhostAI implements InputSource {
 
   private final Ghost ghost;
   private final PacmanGrid pacmanGrid;
-  private final PacMan target;
+  private final Sprite target;
   private final double intelligence;
-  private final Home home;
+  private final Sprite home;
   private Map<GhostBehavior, Supplier<Vec2>> movementOptions= new HashMap<>();
 
-  public GhostAI(PacmanGrid grid, Ghost ghost, PacMan target, Home home, double intelligence) {
+  public GhostAI(PacmanGrid grid, Ghost ghost, Sprite target, Sprite home, double intelligence) {
     this.pacmanGrid = grid;
     this.ghost = ghost;
     this.target = target;
@@ -56,7 +56,7 @@ public class GhostAI implements InputSource {
     return pacmanGrid;
   }
 
-  protected Home getHome() {
+  protected Sprite getHome() {
     return home;
   }
 

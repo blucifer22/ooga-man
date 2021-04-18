@@ -2649,8 +2649,8 @@
         "inputSource": "GHOST_AI",
         "coordinates": {
           "position": {
-            "x": 5.0,
-            "y": 5.0
+            "x": 4.5,
+            "y": 4.5
           }
         }
       },
@@ -2659,8 +2659,8 @@
         "inputSource": "HUMAN",
         "coordinates": {
           "position": {
-            "x": 10.0,
-            "y": 10.0
+            "x": 10.5,
+            "y": 10.5
           }
         }
       }
