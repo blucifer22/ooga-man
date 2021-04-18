@@ -1,45 +1,59 @@
 package ooga.view.language.bundled;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import java.util.TreeMap;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import ooga.view.language.api.LanguageSelectionService;
 import ooga.view.language.api.LanguageService;
 
-public class BundledLanguageService implements LanguageService {
+public class BundledLanguageService implements LanguageService, LanguageSelectionService {
 
-  private static final String DEFAULT_LANGUAGE_ROOT = "resources.languages";
+  private static final String DEFAULT_LANGUAGE_ROOT = "resources.languages/";
   private static final String DEFAULT_LANGUAGE = "english";
 
-  private final String languageRoot;
-  private String languageName;
+  private final TreeMap<String, String> availableLanguages;
   private final HashMap<String, StringProperty> strings;
+  private String languageName;
 
   public BundledLanguageService() {
     this.strings = new HashMap<>();
-    this.languageRoot = DEFAULT_LANGUAGE_ROOT;
+    this.availableLanguages = new TreeMap<>();
     this.loadDefaultLanguage();
   }
 
-  public BundledLanguageService(String languageRoot) {
-    this.strings = new HashMap<>();
-    this.languageRoot = languageRoot;
-    this.loadDefaultLanguage();
+  @Override
+  public void setLanguage(String languageName) {
+    updatePropertyValues(languageName, false);
+  }
+
+  @Override
+  public Map<String, String> getAvailableLanguages() {
+    updateAvailableLanguages();
+    return Collections.unmodifiableMap(availableLanguages);
+  }
+
+  private void updateAvailableLanguages() {
+    ResourceBundle languageManifest = ResourceBundle.getBundle(DEFAULT_LANGUAGE_ROOT + "manifest");
+    availableLanguages.clear();
+
+    for (String key : languageManifest.keySet()) {
+      availableLanguages.put(key, languageManifest.getString(key));
+    }
   }
 
   private void loadDefaultLanguage() {
     updatePropertyValues(DEFAULT_LANGUAGE, true);
   }
 
-  public void setLanguage(String languageName) {
-    updatePropertyValues(languageName, false);
-  }
-
   private void updatePropertyValues(String languageName, boolean initial) {
-    ResourceBundle newLang = ResourceBundle.getBundle(languageRoot +"/"+languageName);
+    ResourceBundle newLang = ResourceBundle.getBundle(DEFAULT_LANGUAGE_ROOT + "/" + languageName);
 
     if (!initial) {
       HashSet<String> keysToUpdate = new HashSet<>(strings.keySet());
@@ -58,7 +72,7 @@ public class BundledLanguageService implements LanguageService {
       }
     }
 
-    for (String key: newLang.keySet()) {
+    for (String key : newLang.keySet()) {
       strings.putIfAbsent(key, new SimpleStringProperty());
       strings.get(key).setValue(newLang.getString(key));
     }

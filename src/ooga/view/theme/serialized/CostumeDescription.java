@@ -6,11 +6,12 @@ import ooga.model.leveldescription.JSONDescription;
 import ooga.view.theme.api.Costume;
 
 public class CostumeDescription extends JSONDescription {
-  private String fill;
-  private boolean fillIsImage;
-  private double scale;
-  private boolean bottomHeavy;
-  private boolean rotatable;
+
+  private final String fill;
+  private final boolean fillIsImage;
+  private final double scale;
+  private final boolean bottomHeavy;
+  private final boolean rotatable;
 
   public CostumeDescription(
       @JsonProperty("fill") String fill,
@@ -55,7 +56,9 @@ public class CostumeDescription extends JSONDescription {
   }
 
   @JsonGetter("rotates")
-  public boolean isRotatable() { return this.rotatable; }
+  public boolean isRotatable() {
+    return this.rotatable;
+  }
 
   public Costume toCostume() {
     return new SerializedCostume(this);

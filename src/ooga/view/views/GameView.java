@@ -12,10 +12,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import ooga.view.internal_api.ViewStackManager;
 import ooga.model.api.GridRebuildObserver;
 import ooga.model.api.SpriteExistenceObserver;
 import ooga.view.internal_api.View;
+import ooga.view.internal_api.ViewStackManager;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.api.ThemedObject;
 
@@ -28,7 +28,7 @@ public class GameView implements View, ThemedObject {
   private final GridPane primaryView;
   private final GameGridView gridView;
   private final ViewStackManager viewStackManager;
-  private ThemeService themeService;
+  private final ThemeService themeService;
 
   public GameView(ThemeService themeService, ViewStackManager viewStackManager) {
     this.primaryView = new GridPane();
@@ -60,7 +60,7 @@ public class GameView implements View, ThemedObject {
     backButton.setOnMouseClicked(e -> viewStackManager.unwind());
 
     VBox backButtonBox = new VBox(
-      backButton
+        backButton
     );
     backButtonBox.setAlignment(Pos.CENTER);
 

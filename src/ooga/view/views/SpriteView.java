@@ -5,8 +5,8 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import ooga.model.SpriteCoordinates;
-import ooga.model.api.SpriteEvent;
 import ooga.model.api.ObservableSprite;
+import ooga.model.api.SpriteEvent;
 import ooga.model.api.SpriteObserver;
 import ooga.util.Vec2;
 import ooga.view.internal_api.Renderable;
@@ -22,7 +22,7 @@ public class SpriteView implements SpriteObserver, ThemedObject, Renderable {
   private final Rectangle viewGraphic;
   private final ObservableSprite dataSource;
   private final DoubleProperty size;
-  private ThemeService themeService;
+  private final ThemeService themeService;
   private Costume costume;
 
   public SpriteView(ObservableSprite so, ThemeService themeService, DoubleProperty size) {
@@ -77,9 +77,9 @@ public class SpriteView implements SpriteObserver, ThemedObject, Renderable {
   private void updatePosition() {
     SpriteCoordinates coordinates = dataSource.getCoordinates();
     this.viewGraphic.translateXProperty()
-        .bind(size.multiply(coordinates.getPosition().getX()-0.5*this.costume.getScale()));
+        .bind(size.multiply(coordinates.getPosition().getX() - 0.5 * this.costume.getScale()));
     this.viewGraphic.translateYProperty()
-        .bind(size.multiply(coordinates.getPosition().getY()-0.5*this.costume.getScale()));
+        .bind(size.multiply(coordinates.getPosition().getY() - 0.5 * this.costume.getScale()));
   }
 
   private void updateOrientation() {
