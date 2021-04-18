@@ -3,6 +3,7 @@ package ooga.view.theme.serialized;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
@@ -52,7 +53,7 @@ public class SerializedThemeService implements ThemeService, ThemeSelectionServi
   @Override
   public Set<String> getAvailableThemes() {
     refreshAvailableThemes();
-    return this.availableThemes.keySet();
+    return Collections.unmodifiableSet(this.availableThemes.keySet());
   }
 
   private void refreshAvailableThemes() {

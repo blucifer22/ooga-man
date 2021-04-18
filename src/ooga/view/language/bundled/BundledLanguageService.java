@@ -1,12 +1,19 @@
 package ooga.view.language.bundled;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.TreeMap;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.util.Pair;
 import ooga.view.language.api.LanguageSelectionService;
 import ooga.view.language.api.LanguageService;
 
@@ -15,17 +22,34 @@ public class BundledLanguageService implements LanguageService, LanguageSelectio
   private static final String DEFAULT_LANGUAGE_ROOT = "resources.languages";
   private static final String DEFAULT_LANGUAGE = "english";
 
-  private String languageName;
+  private final TreeMap<String, String> availableLanguages;
   private final HashMap<String, StringProperty> strings;
+  private String languageName;
 
   public BundledLanguageService() {
     this.strings = new HashMap<>();
+    this.availableLanguages = new TreeMap<>();
     this.loadDefaultLanguage();
   }
 
   @Override
   public void setLanguage(String languageName) {
     updatePropertyValues(languageName, false);
+  }
+
+  @Override
+  public Map<String, String> getAvailableLanguages() {
+    updateAvailableLanguages();
+    return Collections.unmodifiableMap(availableLanguages);
+  }
+
+  private void updateAvailableLanguages() {
+    ResourceBundle languageManifest = ResourceBundle.getBundle(DEFAULT_LANGUAGE_ROOT);
+    availableLanguages.clear();
+
+    for (String key: languageManifest.keySet()) {
+      availableLanguages.put(key, languageManifest.getString(key));
+    }
   }
 
   private void loadDefaultLanguage() {
