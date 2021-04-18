@@ -27,7 +27,6 @@ public class PreferenceView implements ThemedObject, View {
   private final LanguageService languageService;
   private final PreferenceResponder preferenceResponder;
   private final ViewStackManager viewStackManager;
-  private static final String LANGUAGE_MANIFEST = "resources.languages.manifest";
 
   public PreferenceView(PreferenceResponder preferenceResponder, ThemeService themeService,
       LanguageService languageService, ViewStackManager viewStackManager) {
