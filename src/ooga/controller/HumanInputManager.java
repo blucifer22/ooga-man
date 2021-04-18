@@ -87,7 +87,7 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
    */
   @Override
   public void onKeyPress(KeyCode code) {
-    System.out.println(code);
+    //System.out.println(code);
     pressedKeys.add(code);
   }
 
