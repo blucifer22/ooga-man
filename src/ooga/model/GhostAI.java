@@ -2,11 +2,15 @@ package ooga.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
+import java.util.function.Supplier;
 import ooga.model.sprites.Ghost;
+import ooga.model.sprites.Ghost.GhostBehavior;
 import ooga.model.sprites.Home;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Sprite;
@@ -27,6 +31,7 @@ public class GhostAI implements InputSource {
   private final PacMan target;
   private final double intelligence;
   private final Home home;
+  private Map<GhostBehavior, Supplier<Vec2>> movementOptions= new HashMap<>();
 
   public GhostAI(PacmanGrid grid, Ghost ghost, PacMan target, Home home, double intelligence) {
     this.pacmanGrid = grid;
@@ -34,11 +39,14 @@ public class GhostAI implements InputSource {
     this.target = target;
     this.intelligence = intelligence;
     this.home = home;
+    movementOptions.put(GhostBehavior.CHASE, this::chaseBehavior);
+    movementOptions.put(GhostBehavior.WAIT, this::waitBehavior);
+    movementOptions.put(GhostBehavior.EATEN, this::eatenBehavior);
+    movementOptions.put(GhostBehavior.FRIGHTENED, this::frightenedBehavior);
+    movementOptions.put(GhostBehavior.SCATTER, this::scatterBehavior);
   }
 
-  protected Sprite getTarget() {
-    return target;
-  }
+  protected Sprite getTarget() { return target; }
 
   protected Ghost getGhost() {
     return ghost;
@@ -54,19 +62,8 @@ public class GhostAI implements InputSource {
 
   @Override
   public Vec2 getRequestedDirection() {
-    switch (getGhost().getGhostBehavior()) {
-      case CHASE:
-        return chaseBehavior();
-      case FRIGHTENED:
-        return frightenedBehavior();
-      case EATEN:
-        return eatenBehavior();
-      case WAIT:
-        return waitBehavior();
-      case SCATTER:
-        return scatterBehavior();
-    }
-    return Vec2.ZERO;
+    Supplier<Vec2> getAI = movementOptions.get(getGhost().getGhostBehavior());
+    return getAI.get();
   }
 
   protected Vec2 waitBehavior() {
@@ -165,6 +162,10 @@ public class GhostAI implements InputSource {
       return cand;
     }
     return Vec2.ZERO;
+  }
+
+  public double getIntelligence() {
+    return intelligence;
   }
 
   class DirectionDistanceWrapper implements Comparable<GhostAI.DirectionDistanceWrapper> {
