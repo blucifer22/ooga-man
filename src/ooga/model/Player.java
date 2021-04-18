@@ -13,6 +13,14 @@ public class Player implements ImmutablePlayer {
   private int score;
   private int roundWins;
 
+  /**
+   * This is a reduced form constructor for Player that just takes in an id and an InputSource but
+   * starts with a score of 0 and no round wins. This is intended to be used for the first round of
+   * a Pac-Man Game.
+   *
+   * @param id identification number for this player.
+   * @param inputSource Keybindings used by this player to control their Sprites.
+   */
   public Player(int id, InputSource inputSource) {
     this(id, 0, 0, inputSource);
   }
@@ -20,10 +28,10 @@ public class Player implements ImmutablePlayer {
   /**
    * Creates an instance of Player used to keep score for all variants of Pac-Man.
    *
-   * @param id          identification number for this player.
-   * @param score       total score attained by this player while playing Pac-Man
-   * @param roundWins   keeps track of the number of rounds won by this player, useful in best-of
-   *                    approaches to determining overall winner.
+   * @param id identification number for this player.
+   * @param score total score attained by this player while playing Pac-Man
+   * @param roundWins keeps track of the number of rounds won by this player, useful in best-of
+   *     approaches to determining overall winner.
    * @param inputSource Keybindings used by this player to control their Sprites.
    */
   public Player(int id, int score, int roundWins, InputSource inputSource) {
@@ -54,7 +62,7 @@ public class Player implements ImmutablePlayer {
   }
 
   /**
-   * Gets the input to control the Sprites.  Used for swapping control of Ghosts and Pac-Man between
+   * Gets the input to control the Sprites. Used for swapping control of Ghosts and Pac-Man between
    * rounds.
    *
    * @return input source used by this Player, for example, (WASD) or (IJKL) for movement.
