@@ -34,7 +34,7 @@ public class SerializedThemeService implements ThemeService {
   public void setTheme(String name) {
     this.theme = availableThemes.get(name);
 
-    for(ThemedObject observer : observers) {
+    for (ThemedObject observer : observers) {
       observer.onThemeChange();
     }
   }
@@ -68,7 +68,7 @@ public class SerializedThemeService implements ThemeService {
         // TODO: handle exception
       }
     } else if (base.isDirectory() && base.exists()) {
-      for (File f: base.listFiles()) {
+      for (File f : base.listFiles()) {
         recursiveDirectoryTraversal(f);
       }
     }
