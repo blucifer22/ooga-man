@@ -16,22 +16,23 @@ public class PacmanGameStateAdversarial extends PacmanGameState {
   public static final int TOTAL_ROUNDS = 6;
 
   /**
-   * Defines the logic used to determine round end/next level.
+   * Defines the logic used to determine round end/next level.  Does nothing if conditions to end
+   * level are not satisfied.
    */
   @Override
   protected void endLevel() {
     if (isPacmanConsumed()) {
       if (getLevel() == TOTAL_ROUNDS) {
-        // TODO: PRINT WIN SCREEN
+        // TODO: PRESENT WIN SCREEN LOGIC FOR WINNER
       } else {
         incrementLevel();
-        swapPlayerControls();
         loadNextLevel();
+        swapPlayerControls();
       }
     }
   }
 
   private void swapPlayerControls() {
-
+    // Note: load level likely sets the AI ahead of time
   }
 }

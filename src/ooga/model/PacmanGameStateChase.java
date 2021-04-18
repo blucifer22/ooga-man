@@ -12,8 +12,14 @@ package ooga.model;
  */
 public class PacmanGameStateChase extends PacmanGameState {
 
+  public static final int TIME_LIMIT = 45;
+
   @Override
   protected void endLevel() {
-    // TODO: Implement
+    if (getClock().getTime() >= TIME_LIMIT) {
+      // TODO: PRESENT LOSE SCREEN
+    } else if (isPacmanConsumed()){
+      // TODO: PRESENT WIN SCREEN
+    }
   }
 }
