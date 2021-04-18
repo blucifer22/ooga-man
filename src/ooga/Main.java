@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import ooga.controller.Controller;
 import ooga.controller.DemoController;
+import ooga.controller.JSONController;
 
 /** Feel free to completely change this code or delete it entirely. */
 public class Main extends Application {
@@ -21,6 +22,7 @@ public class Main extends Application {
   @Override
   public void start(Stage primaryStage) {
     //new DemoController(primaryStage);
-    new Controller(primaryStage);
+    //new Controller(primaryStage);
+    new JSONController(primaryStage);
   }
 }
