@@ -25,7 +25,8 @@ import ooga.util.Clock;
  * @author Franklin Wei
  */
 public class PacmanGameState
-    implements SpriteExistenceObservable, GridRebuildObservable, MutableGameState {
+    implements SpriteExistenceObservable, GridRebuildObservable, MutableGameState,
+    GameStateObservable {
 
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
@@ -37,7 +38,7 @@ public class PacmanGameState
   private PacmanGrid grid;
   private Player pacmanPlayer;
   private Player ghostsPlayer;
-  //private int pacManScore;
+  private int pacmanLivesRemaining;
 
   public PacmanGameState() {
     spriteExistenceObservers = new HashSet<>();
@@ -48,9 +49,13 @@ public class PacmanGameState
     clock = new Clock();
   }
 
-
   public ImmutablePlayer getGhostsPlayer() {
     return ghostsPlayer;
+  }
+
+  @Override
+  public int getPacmanLivesRemaining() {
+    return pacmanLivesRemaining;
   }
 
   public ImmutablePlayer getPacmanPlayer() {
@@ -92,6 +97,7 @@ public class PacmanGameState
 
   /**
    * Returns Pac-Man's score from all levels
+   *
    * @return Pac-Man's score
    */
   @Override
