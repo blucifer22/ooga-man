@@ -8,8 +8,7 @@ import ooga.util.Vec2;
 
 public class BlinkyAI extends GhostAI {
 
-  public BlinkyAI(PacmanGrid grid, Ghost ghost, Sprite target, Sprite home,
-      double intelligence) {
-    super(grid, ghost, target, home, intelligence);
+  public BlinkyAI(PacmanGrid grid, Ghost ghost, Sprite target, Sprite home) {
+    super(grid, ghost, target, home);
   }
 }

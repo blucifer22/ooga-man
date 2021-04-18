@@ -8,9 +8,8 @@ import ooga.util.Vec2;
 
 public class PinkyAI extends GhostAI {
 
-  public PinkyAI(PacmanGrid grid, Ghost ghost, Sprite target, Sprite home,
-      double intelligence) {
-    super(grid, ghost, target, home, intelligence);
+  public PinkyAI(PacmanGrid grid, Ghost ghost, Sprite target, Sprite home) {
+    super(grid, ghost, target, home);
   }
 
   /**

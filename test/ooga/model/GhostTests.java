@@ -128,7 +128,7 @@ public class GhostTests {
     pacMan.setInputSource(new HumanInputManager(KeybindingType.PLAYER_1));
 
     Ghost blinky = new Blinky(blinkySpriteDescription);
-    blinky.setInputSource(new BlinkyAI(pgs.getGrid(), blinky, pacMan, home, 1.0));
+    blinky.setInputSource(new BlinkyAI(pgs.getGrid(), blinky, pacMan, home));
 
     pgs.addSprite(pacMan);
     pgs.addSprite(blinky);

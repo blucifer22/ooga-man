@@ -29,15 +29,13 @@ public class GhostAI implements InputSource {
   private final Ghost ghost;
   private final PacmanGrid pacmanGrid;
   private final Sprite target;
-  private final double intelligence;
   private final Sprite home;
   private Map<GhostBehavior, Supplier<Vec2>> movementOptions= new HashMap<>();
 
-  public GhostAI(PacmanGrid grid, Ghost ghost, Sprite target, Sprite home, double intelligence) {
+  public GhostAI(PacmanGrid grid, Ghost ghost, Sprite target, Sprite home) {
     this.pacmanGrid = grid;
     this.ghost = ghost;
     this.target = target;
-    this.intelligence = intelligence;
     this.home = home;
     movementOptions.put(GhostBehavior.CHASE, this::chaseBehavior);
     movementOptions.put(GhostBehavior.WAIT, this::waitBehavior);
@@ -163,10 +161,6 @@ public class GhostAI implements InputSource {
       return cand;
     }
     return Vec2.ZERO;
-  }
-
-  public double getIntelligence() {
-    return intelligence;
   }
 
   class DirectionDistanceWrapper implements Comparable<GhostAI.DirectionDistanceWrapper> {

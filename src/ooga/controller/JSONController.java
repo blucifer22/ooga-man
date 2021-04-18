@@ -54,8 +54,7 @@ public class JSONController implements GameStateController {
               pgs.getGrid(),
               (Ghost) pgs.getSprites().get(1),
               pgs.getSprites().get(2),
-              pgs.getSprites().get(0),
-              0.9);
+              pgs.getSprites().get(0));
       pgs.getSprites().get(1).setInputSource(source);
 
       pgs.setPlayers(new Player(1, inputManager), null);

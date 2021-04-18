@@ -78,8 +78,8 @@ public class DemoController implements GameStateController {
 //    pacman.setInputSource(pacmanBasicAI);
 
     pacman.setInputSource(this.inputManager);
-    InputSource inBlinky = new BlinkyAI(pgs.getGrid(), blinky, pacman, home, 0.9);
-    InputSource inPinky = new PinkyAI(pgs.getGrid(), pinky, pacman, home,0.9);
+    InputSource inBlinky = new BlinkyAI(pgs.getGrid(), blinky, pacman, home);
+    InputSource inPinky = new PinkyAI(pgs.getGrid(), pinky, pacman, home);
 
     blinky.setInputSource(inBlinky);
     pinky.setInputSource(inPinky);
