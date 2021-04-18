@@ -63,8 +63,24 @@ public class PacmanGameState
     }
   }
 
-  public ImmutablePlayer getGhostsPlayer() {
+  protected ImmutablePlayer getGhostsPlayer() {
     return ghostsPlayer;
+  }
+
+  /**
+   * Returns a list of players for this Pac-Man game mode
+   * @return list of players
+   */
+  @Override
+  public List<ImmutablePlayer> getPlayers() {
+    List<ImmutablePlayer> ret = new ArrayList<>();
+    if (pacmanPlayer != null) {
+      ret.add(pacmanPlayer);
+    }
+    if (ghostsPlayer != null) {
+      ret.add(ghostsPlayer);
+    }
+    return ret;
   }
 
   @Override
@@ -72,7 +88,7 @@ public class PacmanGameState
     return pacmanLivesRemaining;
   }
 
-  public ImmutablePlayer getPacmanPlayer() {
+  protected ImmutablePlayer getPacmanPlayer() {
     return pacmanPlayer;
   }
 

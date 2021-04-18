@@ -1,5 +1,6 @@
 package ooga.model.api;
 
+import java.util.List;
 import ooga.model.ImmutablePlayer;
 
 /**
@@ -8,19 +9,15 @@ import ooga.model.ImmutablePlayer;
  */
 public interface GameStateObservable {
 
-  /**
-   * Gets the current Pacman player, providing access to their ID and score.
-   *
-   * @return Pacman player.  Null if game mode is single player and controlling ghosts.
-   */
-  ImmutablePlayer getPacmanPlayer();
 
   /**
-   * Gets the current Ghost player, providing access to their ID and score
+   * Get a list of all players for this Pac-Man mode.  Each player provides access to a player ID
+   * and score.  If applicable to the game-mode, the first Player corresponds to the player
+   * controlling Pac-Man.
    *
-   * @return Ghosts player.  Null if game mode is single player and controlling Pac-Man.
+   * @return List of all players
    */
-  ImmutablePlayer getGhostsPlayer();
+  List<ImmutablePlayer> getPlayers();
 
   /**
    * Gets the number of Pac-Man lives remaining
