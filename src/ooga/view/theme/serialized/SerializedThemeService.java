@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import ooga.view.theme.api.Theme;
 import ooga.view.theme.api.ThemeSelectionService;
@@ -77,7 +78,7 @@ public class SerializedThemeService implements ThemeService, ThemeSelectionServi
         // TODO: handle exception
       }
     } else if (base.isDirectory() && base.exists()) {
-      for (File f : base.listFiles()) {
+      for (File f : Objects.requireNonNull(base.listFiles())) {
         recursiveDirectoryTraversal(f);
       }
     }
