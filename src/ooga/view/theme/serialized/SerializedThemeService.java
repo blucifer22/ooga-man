@@ -5,11 +5,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 import ooga.view.theme.api.Theme;
+import ooga.view.theme.api.ThemeSelectionService;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.api.ThemedObject;
 
-public class SerializedThemeService implements ThemeService {
+public class SerializedThemeService implements ThemeService, ThemeSelectionService {
 
   private static final String USER_THEME_PATH = "data/themes/";
   private static final String THEME_MANIFEST_NAME = "theme.json";
@@ -31,6 +33,7 @@ public class SerializedThemeService implements ThemeService {
     return this.theme;
   }
 
+  @Override
   public void setTheme(String name) {
     this.theme = availableThemes.get(name);
 
@@ -45,6 +48,12 @@ public class SerializedThemeService implements ThemeService {
     themedObject.onThemeChange();
   }
 
+  @Override
+  public Set<String> getAvailableThemes() {
+    return this.availableThemes.keySet();
+  }
+
+  @Override
   public void refreshAvailableThemes() {
     this.availableThemes.clear();
 
