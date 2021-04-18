@@ -13,7 +13,7 @@ import ooga.util.Timer;
 import ooga.util.Vec2;
 
 /**
- * Basic Dot, consumable by Pac-Man to increase the score.
+ * Basic Powerpill, consumable by Pac-Man to increase the score.
  *
  * @author Matthew Belissary
  */
