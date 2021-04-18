@@ -11,14 +11,14 @@ public interface GameStateObservable {
   /**
    * Gets the current Pacman player, providing access to their ID and score.
    *
-   * @return Pacman player
+   * @return Pacman player.  Null if game mode is single player and controlling ghosts.
    */
   ImmutablePlayer getPacmanPlayer();
 
   /**
    * Gets the current Ghost player, providing access to their ID and score
    *
-   * @return Ghosts player
+   * @return Ghosts player.  Null if game mode is single player and controlling Pac-Man.
    */
   ImmutablePlayer getGhostsPlayer();
 
