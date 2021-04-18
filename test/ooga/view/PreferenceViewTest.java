@@ -29,21 +29,16 @@ import org.junit.jupiter.api.Test;
 
 public class PreferenceViewTest extends CustomApplicationTest {
 
-  private class TestHarness implements PreferenceResponder, ThemeService, LanguageService,
-      ViewStackManager {
-    private BundledLanguageService ls = new BundledLanguageService();
+  private class TestHarness extends BundledLanguageService implements PreferenceResponder,
+      ThemeService, LanguageService, ViewStackManager {
     private ThemeService ts = new SerializedThemeService();
     private final int[] state = new int[2];
     private String language = null;
 
     @Override
     public void setLanguage(String language) {
-      ls.setLanguage(language);
-    }
-
-    @Override
-    public ReadOnlyStringProperty getLocalizedString(String s) {
-      return ls.getLocalizedString(s);
+      super.setLanguage(language);
+      this.language = language;
     }
 
     @Override
