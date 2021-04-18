@@ -2645,12 +2645,22 @@
   "spriteLayoutDescription": {
     "sprites": [
       {
+        "className": "Home",
+        "inputSource": "NONE",
+        "coordinates": {
+          "position": {
+            "x": 8.5,
+            "y": 8.5
+          }
+        }
+      },
+      {
         "className": "Blinky",
         "inputSource": "GHOST_AI",
         "coordinates": {
           "position": {
-            "x": 4.5,
-            "y": 4.5
+            "x": 8.5,
+            "y": 8.5
           }
         }
       },
@@ -2671,6 +2681,16 @@
           "position": {
             "x": 8.5,
             "y": 10.5
+          }
+        }
+      },
+      {
+        "className": "Dot",
+        "inputSource": "NONE",
+        "coordinates": {
+          "position": {
+            "x": 11.5,
+            "y": 12.5
           }
         }
       }

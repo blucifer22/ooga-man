@@ -26,11 +26,6 @@ public class PacmanGrid implements Iterable<Tile>, ObservableGrid {
     this.width = gridDescription.getWidth();
     this.height = gridDescription.getHeight();
     this.contents = gridDescription.getGrid();
-//    for (List<Tile> tiles : contents) {
-//        for(Tile tile : tiles) {
-//        System.out.println(tile.getCoordinates().getX() + ", " + tile.getCoordinates().getY());
-//        }
-//    }
   }
 
   private List<List<Tile>> initialize2DTileList(int width, int height) {
