@@ -6,11 +6,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import ooga.model.PacmanGameState;
+import ooga.model.PacmanLevel;
 import ooga.model.TileCoordinates;
-import ooga.model.leveldescription.GridDescription;
-import ooga.model.leveldescription.JSONDescriptionFactory;
-import ooga.model.leveldescription.LevelDescription;
-import ooga.model.leveldescription.SpriteLayoutDescription;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -97,7 +94,7 @@ public class LevelDescriptionTests {
   }
 
   @Test
-  public void testLevelDescriptionFromJSONToPacmanGameState() {
+  public void testLevelDescriptionFromJSONToPacmanLevelToPacmanGameState() {
     String levelDescriptionPath = "data/levels/test_level.json";
     LevelDescription levelDescription = null;
 
@@ -129,10 +126,16 @@ public class LevelDescriptionTests {
         levelDescription.getSpriteLayoutDescription().getSprites().size(),
         spriteLayoutDescription.getSprites().size());
 
-    PacmanGameState pgs = levelDescription.toPacmanGameState();
+    PacmanLevel level = levelDescription.toPacmanLevel();
 
-    assertEquals(pgs.getSprites().size(), 2);
-    assertEquals(pgs.getGrid().getHeight(), 6);
-    assertFalse(pgs.getGrid().getTile(new TileCoordinates(0, 0)).isOpenToPacman());
+    assertEquals(level.getSprites().size(), 2);
+    assertEquals(level.getGrid().getHeight(), 6);
+    assertFalse(level.getGrid().getTile(new TileCoordinates(0, 0)).isOpenToPacman());
+
+
+    PacmanGameState pgs = new PacmanGameState(level);
+
+    assertEquals(pgs.getSprites(), level.getSprites());
+    assertEquals(pgs.getGrid(), level.getGrid());
   }
 }
