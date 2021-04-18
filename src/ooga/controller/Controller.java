@@ -8,6 +8,7 @@ import ooga.model.GhostAI;
 import ooga.model.PacmanBasicAI;
 import ooga.model.PacmanGameState;
 import ooga.model.PinkyAI;
+import ooga.model.Player;
 import ooga.model.SpriteCoordinates;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.sprites.Blinky;
@@ -109,9 +110,9 @@ public class Controller implements GameStateController {
 
     //    pgs.step(TIMESTEP);
     //    pgs.step(TIMESTEP);
+    pgs.setPlayers(new Player(1, new HumanInputManager(KeybindingType.PLAYER_1)), null);
 
     KeyFrame frame = new KeyFrame(Duration.seconds(TIMESTEP), e -> pgs.step(TIMESTEP)); //
-    // TODO: remove grid from step parameter
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
