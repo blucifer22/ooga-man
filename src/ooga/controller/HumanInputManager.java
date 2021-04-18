@@ -1,5 +1,7 @@
 package ooga.controller;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -24,7 +26,8 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
    *
    * <p>Creates a new HashSet of pressedKeys.
    */
-  public HumanInputManager(KeybindingType keybindingType) {
+  @JsonCreator
+  public HumanInputManager(@JsonProperty("keybindingType") KeybindingType keybindingType) {
     if (keybindingType.equals(KeybindingType.PLAYER_1)) {
       keybinding =
         Map.of(

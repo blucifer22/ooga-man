@@ -6,6 +6,7 @@ import ooga.model.MutableGameState;
 import ooga.model.PacmanGameState;
 import ooga.model.PacmanPowerupEvent;
 import ooga.model.SpriteCoordinates;
+import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.FreeRunningPeriodicAnimation;
 import ooga.model.sprites.animation.PeriodicAnimation;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
@@ -21,6 +22,10 @@ public class PowerPill extends Sprite {
 
   public PowerPill(SpriteCoordinates position, Vec2 direction) {
     super("powerpill", SpriteAnimationFactory.SpriteAnimationType.POWER_PILL_BLINK, position, direction);
+  }
+
+  public PowerPill(SpriteDescription description) {
+    this(description.getCoordinates(), new Vec2(1,0));
   }
 
   @Override
