@@ -2663,6 +2663,16 @@
             "y": 10.5
           }
         }
+      },
+      {
+        "className": "PowerPill",
+        "inputSource": "NONE",
+        "coordinates": {
+          "position": {
+            "x": 8.5,
+            "y": 10.5
+          }
+        }
       }
     ]
   }
