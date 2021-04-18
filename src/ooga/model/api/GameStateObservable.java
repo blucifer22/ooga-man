@@ -1,4 +1,6 @@
-package ooga.model;
+package ooga.model.api;
+
+import ooga.model.ImmutablePlayer;
 
 /**
  * Information to display about the current state of the Pac-man game can be read through this

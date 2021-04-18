@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import ooga.model.api.GameStateObservable;
+import ooga.model.api.GameStateObserver;
 import ooga.model.api.GridRebuildObservable;
 import ooga.model.api.GridRebuildObserver;
 import ooga.model.api.PowerupEventObserver;
@@ -31,6 +33,7 @@ public class PacmanGameState
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
   private final Set<PowerupEventObserver> pacmanPowerupObservers;
+  private final Set<GameStateObserver> pacmanGameStateObservers;
 
   private final List<Sprite> sprites;
   private final Set<Sprite> toDelete;
@@ -44,9 +47,20 @@ public class PacmanGameState
     spriteExistenceObservers = new HashSet<>();
     gridRebuildObservers = new HashSet<>();
     toDelete = new HashSet<>();
+    pacmanGameStateObservers = new HashSet<>();
     sprites = new LinkedList<>();
     pacmanPowerupObservers = new HashSet<>();
     clock = new Clock();
+  }
+
+  public void addGameStateObserver(GameStateObserver observer) {
+    pacmanGameStateObservers.add(observer);
+  }
+
+  public void notifyGameStateObservers() {
+    for (GameStateObserver observer : pacmanGameStateObservers) {
+      observer.onGameStateUpdate(this);
+    }
   }
 
   public ImmutablePlayer getGhostsPlayer() {
@@ -93,6 +107,7 @@ public class PacmanGameState
   public void incrementScore(int score) {
     //pacManScore += score;
     pacmanPlayer.setScore(pacmanPlayer.getScore() + score);
+    notifyGameStateObservers();
   }
 
   /**
