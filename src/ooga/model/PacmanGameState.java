@@ -56,6 +56,8 @@ public class PacmanGameState
       addSprite(sprite);
     }
 
+    loadGrid(level.getGrid());
+
     pacmanPowerupObservers = new HashSet<>();
     clock = new Clock();
   }
