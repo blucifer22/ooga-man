@@ -1,5 +1,9 @@
 package ooga.model.sprites;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import ooga.model.*;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.ObservableAnimation;
@@ -21,7 +25,9 @@ public abstract class Ghost extends MoveableSprite {
   private boolean isDeadly = true;
   private boolean isEaten;
   private int baseGhostScore = 200;
-  private int frightenedBank;
+  private int activateFrightenedID;
+  private int deactivateFrightenedID;
+  private Map<Integer, Integer> activeFrightentedPowerups = new HashMap<>();
   private GhostBehavior ghostBehavior;
   private boolean forceAnimationUpdate;
 
@@ -202,7 +208,8 @@ public abstract class Ghost extends MoveableSprite {
       case GHOST_SLOWDOWN_ACTIVATED -> setMovementSpeed(getMovementSpeed() * 0.5);
       case GHOST_SLOWDOWN_DEACTIVATED -> setMovementSpeed(getMovementSpeed() * 2);
       case FRIGHTEN_ACTIVATED -> {
-        frightenedBank = 1;
+        activateFrightenedID++;
+        activeFrightentedPowerups.put(activateFrightenedID, activateFrightenedID);
         if (getGhostBehavior().equals(GhostBehavior.CHASE)){
           changeBehavior(GhostBehavior.FRIGHTENED);
           isDeadly = false;
@@ -212,9 +219,13 @@ public abstract class Ghost extends MoveableSprite {
         }
       }
       case FRIGHTEN_DEACTIVATED -> {
-        frightenedBank--;
-        System.out.println(frightenedBank);
-        if(!isEaten && frightenedBank == 0) {
+        deactivateFrightenedID++;
+        if(!isEaten && activeFrightentedPowerups.get(deactivateFrightenedID) == activateFrightenedID) {
+          System.out.println(activateFrightenedID);
+          System.out.println(deactivateFrightenedID);
+          activateFrightenedID = 0;
+          deactivateFrightenedID = 0;
+//          activeFrightentedPowerups.clear();
           if (!getGhostBehavior().equals(GhostBehavior.WAIT)) {
             changeBehavior(GhostBehavior.CHASE);
             isDeadly = true;
