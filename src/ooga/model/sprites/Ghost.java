@@ -1,12 +1,9 @@
 package ooga.model.sprites;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import ooga.model.*;
 import ooga.model.leveldescription.SpriteDescription;
-import ooga.model.sprites.animation.ObservableAnimation;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Clock;
 import ooga.util.Timer;
@@ -119,7 +116,6 @@ public abstract class Ghost extends MoveableSprite {
       // isConsumable() -> false
     }
     if (other.isRespawnTarget() && ghostBehavior.equals(GhostBehavior.EATEN)){
-      System.out.println("wait");
       this.setMovementSpeed(this.getMovementSpeed() * (2.0/3.0));
       changeBehavior(GhostBehavior.WAIT);
       state.getClock().addTimer(new Timer(10, mutableGameState -> {
@@ -221,11 +217,8 @@ public abstract class Ghost extends MoveableSprite {
       case FRIGHTEN_DEACTIVATED -> {
         deactivateFrightenedID++;
         if(!isEaten && activeFrightentedPowerups.get(deactivateFrightenedID) == activateFrightenedID) {
-          System.out.println(activateFrightenedID);
-          System.out.println(deactivateFrightenedID);
           activateFrightenedID = 0;
           deactivateFrightenedID = 0;
-//          activeFrightentedPowerups.clear();
           if (!getGhostBehavior().equals(GhostBehavior.WAIT)) {
             changeBehavior(GhostBehavior.CHASE);
             isDeadly = true;
