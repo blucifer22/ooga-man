@@ -11,13 +11,21 @@ public class ThemeDescription extends JSONDescription {
 
   private final Map<String, CostumeDescription> costumes;
   private final String stylesheet;
+  private final String name;
 
   public ThemeDescription(
+      @JsonProperty("name") String name,
       @JsonProperty("costumes") Map<String, CostumeDescription> costumes,
       @JsonProperty("stylesheet") String stylesheet
   ) {
+    this.name = name;
     this.costumes = costumes;
     this.stylesheet = stylesheet;
+  }
+
+  @JsonGetter("name")
+  public String getName() {
+    return this.name;
   }
 
   @JsonGetter("costumes")
