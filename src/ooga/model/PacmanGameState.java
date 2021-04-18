@@ -56,6 +56,7 @@ public class PacmanGameState
   public PacmanGameState(PacmanLevel level) {
     spriteExistenceObservers = new HashSet<>();
     gridRebuildObservers = new HashSet<>();
+    pacmanGameStateObservers = new HashSet<>();
     toDelete = new HashSet<>();
     sprites = new LinkedList<>();
 
