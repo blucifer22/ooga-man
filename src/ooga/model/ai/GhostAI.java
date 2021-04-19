@@ -32,9 +32,9 @@ public class GhostAI implements InputSource {
   private Sprite target;
   private Map<GhostBehavior, Supplier<Vec2>> movementOptions = new HashMap<>();
 
-  public GhostAI(PacmanGrid grid, Ghost ghost) {
+  public GhostAI(PacmanGrid grid, Sprite ghost) {
     this.pacmanGrid = grid;
-    this.ghost = ghost;
+    this.ghost = (Ghost)ghost;
     this.target = null;
     movementOptions.put(GhostBehavior.CHASE, this::chaseBehavior);
     movementOptions.put(GhostBehavior.WAIT, this::waitBehavior);
