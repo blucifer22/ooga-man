@@ -55,28 +55,18 @@ public class PacmanGameState
     clock = new Clock();
   }
 
-  public PacmanGameState(PacmanLevel level) {
-    spriteExistenceObservers = new HashSet<>();
-    gridRebuildObservers = new HashSet<>();
-    pacmanGameStateObservers = new HashSet<>();
-    toDelete = new HashSet<>();
-    sprites = new LinkedList<>();
-
+  public void loadPacmanLevel(PacmanLevel level) {
     for (Sprite sprite : level.getSprites()) {
       addSprite(sprite);
     }
-
     loadGrid(level.getGrid());
-
-    pacmanPowerupObservers = new HashSet<>();
-    clock = new Clock();
   }
 
   protected void loadNextLevel() {
     // TODO: Implement
   }
 
-  protected void incrementLevel(){
+  protected void incrementLevel() {
     level++;
   }
 
@@ -267,10 +257,11 @@ public class PacmanGameState
   @Override
   public void addSprite(Sprite sprite) {
     sprites.add(sprite);
+    registerEventListener(sprite);
     notifySpriteCreation(sprite);
   }
 
-  public Collection<Sprite> getSprites() {
+  public List<Sprite> getSprites() {
     return sprites;
   }
 

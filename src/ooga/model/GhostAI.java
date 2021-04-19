@@ -28,16 +28,14 @@ public class GhostAI implements InputSource {
 
   private final Ghost ghost;
   private final PacmanGrid pacmanGrid;
-  private final PacMan target;
-  private final double intelligence;
-  private final Home home;
+  private final Sprite target;
+  private final Sprite home;
   private Map<GhostBehavior, Supplier<Vec2>> movementOptions= new HashMap<>();
 
-  public GhostAI(PacmanGrid grid, Ghost ghost, PacMan target, Home home, double intelligence) {
+  public GhostAI(PacmanGrid grid, Ghost ghost, Sprite target, Sprite home) {
     this.pacmanGrid = grid;
     this.ghost = ghost;
     this.target = target;
-    this.intelligence = intelligence;
     this.home = home;
     movementOptions.put(GhostBehavior.CHASE, this::chaseBehavior);
     movementOptions.put(GhostBehavior.WAIT, this::waitBehavior);
@@ -56,7 +54,7 @@ public class GhostAI implements InputSource {
     return pacmanGrid;
   }
 
-  protected Home getHome() {
+  protected Sprite getHome() {
     return home;
   }
 
@@ -101,6 +99,7 @@ public class GhostAI implements InputSource {
    * @return direction to queue for ghost to move to
    */
   protected Vec2 scatterBehavior() {
+    double scatterProbability = 0.9;
     Vec2 ret = Vec2.ZERO;
     ArrayList<Vec2> randomVectorOptions = new ArrayList<>();
     randomVectorOptions.add(new Vec2(-1.0, 0));
@@ -108,7 +107,7 @@ public class GhostAI implements InputSource {
     randomVectorOptions.add(new Vec2(0.0, 1.0));
     randomVectorOptions.add(new Vec2(0.0, -1.0));
     Random random = new Random();
-    if (random.nextDouble() <= intelligence) {
+    if (random.nextDouble() <= scatterProbability) {
       Random randomVector = new Random();
       ret = randomVectorOptions.get(randomVector.nextInt(randomVectorOptions.size()));
     }
@@ -162,10 +161,6 @@ public class GhostAI implements InputSource {
       return cand;
     }
     return Vec2.ZERO;
-  }
-
-  public double getIntelligence() {
-    return intelligence;
   }
 
   class DirectionDistanceWrapper implements Comparable<GhostAI.DirectionDistanceWrapper> {

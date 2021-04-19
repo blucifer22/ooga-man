@@ -3,6 +3,7 @@ package ooga.model.sprites;
 import ooga.model.MutableGameState;
 import ooga.model.PacmanPowerupEvent;
 import ooga.model.SpriteCoordinates;
+import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
@@ -20,6 +21,10 @@ public class Dot extends Sprite {
     super("dot",
             SpriteAnimationFactory.SpriteAnimationType.DOT_STILL,
             position, direction);
+  }
+
+  public Dot(SpriteDescription spriteDescription) {
+    this(spriteDescription.getCoordinates(), new Vec2(1,0));
   }
 
   @Override
