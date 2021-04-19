@@ -11,10 +11,8 @@ import ooga.controller.KeybindingType;
 import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Ghost.GhostBehavior;
-import ooga.model.sprites.Home;
 import ooga.model.sprites.Inky;
 import ooga.model.sprites.PacMan;
-import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +21,6 @@ public class GhostAITest {
 
   private PacMan pacMan;
   private Ghost blinky;
-  private Home home;
   private PacmanGameState state;
   private PacmanGrid grid;
 

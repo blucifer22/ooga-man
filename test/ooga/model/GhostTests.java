@@ -12,7 +12,6 @@ import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Clyde;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Ghost.GhostBehavior;
-import ooga.model.sprites.Home;
 import ooga.model.sprites.Inky;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Pinky;
@@ -122,7 +121,6 @@ public class GhostTests {
       pgs.loadGrid(new JSONDescriptionFactory()
           .getGridDescriptionFromJSON("data/levels/grids/demo_grid.json"));
     } catch (Exception e) {}
-    Home home = new Home(new SpriteCoordinates(new Vec2(8.5, 8.5)), new Vec2(0, 0));
 
     PacMan pacMan = new PacMan(createDefaultPacmanDescription());
     pacMan.setInputSource(new HumanInputManager(KeybindingType.PLAYER_1));

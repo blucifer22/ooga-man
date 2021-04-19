@@ -11,8 +11,6 @@ import java.util.Random;
 import java.util.function.Supplier;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Ghost.GhostBehavior;
-import ooga.model.sprites.Home;
-import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 import org.jetbrains.annotations.NotNull;
@@ -29,14 +27,12 @@ public class GhostAI implements InputSource {
   private final Ghost ghost;
   private final PacmanGrid pacmanGrid;
   private Sprite target;
-  private final Sprite home;
   private Map<GhostBehavior, Supplier<Vec2>> movementOptions= new HashMap<>();
 
   public GhostAI(PacmanGrid grid, Ghost ghost) {
     this.pacmanGrid = grid;
     this.ghost = ghost;
     this.target = null;
-    this.home = new Home(ghost.getSpawn(), new Vec2(0, 0));
     movementOptions.put(GhostBehavior.CHASE, this::chaseBehavior);
     movementOptions.put(GhostBehavior.WAIT, this::waitBehavior);
     movementOptions.put(GhostBehavior.EATEN, this::eatenBehavior);
@@ -56,10 +52,6 @@ public class GhostAI implements InputSource {
 
   protected PacmanGrid getPacmanGrid() {
     return pacmanGrid;
-  }
-
-  protected Sprite getHome() {
-    return home;
   }
 
   @Override

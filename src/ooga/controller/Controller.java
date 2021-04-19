@@ -14,7 +14,6 @@ import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Clyde;
 import ooga.model.sprites.Dot;
-import ooga.model.sprites.Home;
 import ooga.model.sprites.Inky;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Pinky;
@@ -62,8 +61,6 @@ public class Controller implements GameStateController {
     Inky inky = new Inky(new SpriteCoordinates(new Vec2(11.5, 11.5)), new Vec2(0, 0), 5.0);
     Pinky pinky = new Pinky(new SpriteCoordinates(new Vec2(11.5, 11.5)), new Vec2(0, 0), 5.0);
     Clyde clyde = new Clyde(new SpriteCoordinates(new Vec2(11.5, 11.5)), new Vec2(0, 0), 5.0);
-
-    Home home = new Home(new SpriteCoordinates(new Vec2(8.5, 9.5)), new Vec2(0, 0));
 
     Dot dot1 = new Dot(new SpriteCoordinates(new Vec2(4.5, 4.5)), new Vec2(0, 0));
     Dot dot2 = new Dot(new SpriteCoordinates(new Vec2(1.5, 3.5)), new Vec2(0, 0));

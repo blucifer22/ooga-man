@@ -17,7 +17,6 @@ import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Cherry;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Dot;
-import ooga.model.sprites.Home;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Pinky;
 import ooga.model.sprites.PowerPill;
@@ -62,7 +61,6 @@ public class DemoController implements GameStateController {
     PowerPill powerPill4 = new PowerPill(new SpriteCoordinates(new Vec2(6.5, 6.5)), new Vec2(0, 0));
     Cherry cherry1 = new Cherry(new SpriteCoordinates(new Vec2(4.5, 8.5)), new Vec2(0, 0));
     Cherry cherry2 = new Cherry(new SpriteCoordinates(new Vec2(8.5, 1.5)), new Vec2(0, 0));
-    Home home = new Home(new SpriteCoordinates(new Vec2(8.5, 8.5)), new Vec2(0, 0));
 
     TeleporterOverlay teleporter1 = new TeleporterOverlay(new SpriteCoordinates(new Vec2(1.5, 8.5)));
     TeleporterOverlay teleporter2 = new TeleporterOverlay(new SpriteCoordinates(new Vec2(15.5, 8.5)));
@@ -94,9 +92,6 @@ public class DemoController implements GameStateController {
     //pgs.registerEventListener(blinky);
     pgs.addSprite(pinky);
     //pgs.registerEventListener(pinky);
-
-    pgs.addSprite(home);
-    //pgs.registerEventListener(home);
 
     pgs.addSprite(dot1);
     //pgs.registerEventListener(dot1);
