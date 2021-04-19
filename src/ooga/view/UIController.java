@@ -57,7 +57,7 @@ public class UIController implements MainMenuResponder, PreferenceResponder, Vie
     this.viewStack.add(this.primaryStage.getScene());
 
     // Prep Game View
-    this.gameView = new GameView(this.serviceProvider.themeService(), this);
+    this.gameView = new GameView(this.serviceProvider);
 
     // Allow user interaction
     this.primaryStage.show();

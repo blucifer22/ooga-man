@@ -18,6 +18,7 @@ import ooga.view.internal_api.View;
 import ooga.view.internal_api.ViewStackManager;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.api.ThemedObject;
+import ooga.view.uiservice.UIServiceProvider;
 
 /**
  * GameView lays out how a round appears (the GridView in the center, information about
@@ -27,17 +28,14 @@ public class GameView implements View, ThemedObject {
 
   private final GridPane primaryView;
   private final GameGridView gridView;
-  private final ViewStackManager viewStackManager;
-  private final ThemeService themeService;
+  private final UIServiceProvider serviceProvider;
 
-  public GameView(ThemeService themeService, ViewStackManager viewStackManager) {
+  public GameView(UIServiceProvider serviceProvider) {
     this.primaryView = new GridPane();
+    this.serviceProvider = serviceProvider;
+    this.serviceProvider.themeService().addThemedObject(this);
 
-    this.themeService = themeService;
-    this.themeService.addThemedObject(this);
-    this.viewStackManager = viewStackManager;
-
-    this.gridView = new GameGridView(this.themeService);
+    this.gridView = new GameGridView(this.serviceProvider.themeService());
 
     ColumnConstraints cc = new ColumnConstraints();
     cc.setPercentWidth(80);
@@ -84,7 +82,7 @@ public class GameView implements View, ThemedObject {
   @Override
   public void onThemeChange() {
     this.primaryView.getStylesheets().clear();
-    this.primaryView.getStylesheets().add(themeService.getTheme().getStylesheet());
+    this.primaryView.getStylesheets().add(this.serviceProvider.themeService().getTheme().getStylesheet());
   }
 
 }
