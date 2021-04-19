@@ -105,12 +105,12 @@ public class GhostTests {
 
     // Invariants
     assertFalse(blinky.mustBeConsumed());
-    assertTrue(blinky.hasMultiplicativeScoring());
     assertFalse(blinky.isRespawnTarget());
     assertFalse(blinky.eatsGhosts());
 
     // Defaults
     assertEquals(blinky.getMovementSpeed(), 4.0);
+    assertEquals(blinky.hasMultiplicativeScoring(), blinky.getGhostBehavior().equals(GhostBehavior.CHASE));
     assertFalse(blinky.isConsumable());
     assertEquals(blinky.getScore(), 200);
   }
