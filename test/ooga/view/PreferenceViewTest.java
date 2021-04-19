@@ -129,7 +129,7 @@ public class PreferenceViewTest extends CustomApplicationTest {
   public void testLangChange() throws InterruptedException {
     Thread.sleep(500);
 
-    ComboBox<Pair<String, String>> cbox = lookup("#menu-combo-lang-select").query();
+    ComboBox<Pair<String, String>> cbox = lookup("#language-select-dropdown").query();
     syncFXRun(() -> {
       moveTo(cbox);
       cbox.getSelectionModel().select(0);

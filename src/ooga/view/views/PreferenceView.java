@@ -39,38 +39,15 @@ public class PreferenceView implements ThemedObject, View {
   }
 
   private void buildScene() {
-    Label langDropdownLabel = new Label();
-    langDropdownLabel.textProperty().bind(this.serviceProvider.languageService().getLocalizedString("language"));
-    langDropdownLabel.getStyleClass().add("dropdown-label");
-    langDropdownLabel.setId("menu-label-lang-select");
-
-    // FIXME: remove typecast
-    Map<String, String> availableLanguages =
-        this.preferenceService.languageSelectionService().getAvailableLanguages();
-
-    ArrayList<Pair<String, String>> dropdownOptions = new ArrayList<>();
-    for (String key : availableLanguages.keySet()) {
-      dropdownOptions.add(new Pair<>(key, availableLanguages.get(key)) {
-        @Override
-        public String toString() {
-          return this.getValue();
-        }
-      });
-    }
-
-    ComboBox<Pair<String, String>> langDropdown = new ComboBox<>();
-    langDropdown.getItems().addAll(dropdownOptions);
-    langDropdown.setId("menu-combo-lang-select");
-    langDropdown
-        .setOnAction(e -> this.preferenceService.languageSelectionService().setLanguage(langDropdown.getValue().getKey()));
-
-    VBox labeledLangDropdown = new VBox(
-        langDropdownLabel,
-        langDropdown
+    LabeledComboboxCard languageSelectCard = new LabeledComboboxCard(
+        this.serviceProvider,
+        "language",
+        this.preferenceService.languageSelectionService().getAvailableLanguages(),
+        selectedOption -> this.preferenceService.languageSelectionService().setLanguage(selectedOption)
     );
-    labeledLangDropdown.getStyleClass().add("card");
-    this.primaryView.add(labeledLangDropdown, 0, 0);
+    this.primaryView.add(languageSelectCard, 0, 0);
 
+    // Labeled Combobox; TODO: refactor!
     Button returnToMenu = new Button();
     returnToMenu.textProperty().bind(this.serviceProvider.languageService().getLocalizedString("previousMenu"));
     returnToMenu.setOnMouseClicked(e -> this.serviceProvider.viewStackManager().unwind());
