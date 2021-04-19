@@ -2,11 +2,15 @@ package ooga.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
+import java.util.function.Supplier;
 import ooga.model.sprites.Ghost;
+import ooga.model.sprites.Ghost.GhostBehavior;
 import ooga.model.sprites.Home;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Sprite;
@@ -24,21 +28,23 @@ public class GhostAI implements InputSource {
 
   private final Ghost ghost;
   private final PacmanGrid pacmanGrid;
-  private final PacMan target;
-  private final double intelligence;
-  private final Home home;
+  private final Sprite target;
+  private final Sprite home;
+  private Map<GhostBehavior, Supplier<Vec2>> movementOptions= new HashMap<>();
 
-  public GhostAI(PacmanGrid grid, Ghost ghost, PacMan target, Home home, double intelligence) {
+  public GhostAI(PacmanGrid grid, Ghost ghost, Sprite target, Sprite home) {
     this.pacmanGrid = grid;
     this.ghost = ghost;
     this.target = target;
-    this.intelligence = intelligence;
     this.home = home;
+    movementOptions.put(GhostBehavior.CHASE, this::chaseBehavior);
+    movementOptions.put(GhostBehavior.WAIT, this::waitBehavior);
+    movementOptions.put(GhostBehavior.EATEN, this::eatenBehavior);
+    movementOptions.put(GhostBehavior.FRIGHTENED, this::frightenedBehavior);
+    movementOptions.put(GhostBehavior.SCATTER, this::scatterBehavior);
   }
 
-  protected Sprite getTarget() {
-    return target;
-  }
+  protected Sprite getTarget() { return target; }
 
   protected Ghost getGhost() {
     return ghost;
@@ -48,25 +54,14 @@ public class GhostAI implements InputSource {
     return pacmanGrid;
   }
 
-  protected Home getHome() {
+  protected Sprite getHome() {
     return home;
   }
 
   @Override
   public Vec2 getRequestedDirection() {
-    switch (getGhost().getGhostBehavior()) {
-      case CHASE:
-        return chaseBehavior();
-      case FRIGHTENED:
-        return frightenedBehavior();
-      case EATEN:
-        return eatenBehavior();
-      case WAIT:
-        return waitBehavior();
-      case SCATTER:
-        return scatterBehavior();
-    }
-    return Vec2.ZERO;
+    Supplier<Vec2> getAI = movementOptions.get(getGhost().getGhostBehavior());
+    return getAI.get();
   }
 
   protected Vec2 waitBehavior() {
@@ -104,6 +99,7 @@ public class GhostAI implements InputSource {
    * @return direction to queue for ghost to move to
    */
   protected Vec2 scatterBehavior() {
+    double scatterProbability = 0.9;
     Vec2 ret = Vec2.ZERO;
     ArrayList<Vec2> randomVectorOptions = new ArrayList<>();
     randomVectorOptions.add(new Vec2(-1.0, 0));
@@ -111,7 +107,7 @@ public class GhostAI implements InputSource {
     randomVectorOptions.add(new Vec2(0.0, 1.0));
     randomVectorOptions.add(new Vec2(0.0, -1.0));
     Random random = new Random();
-    if (random.nextDouble() <= intelligence) {
+    if (random.nextDouble() <= scatterProbability) {
       Random randomVector = new Random();
       ret = randomVectorOptions.get(randomVector.nextInt(randomVectorOptions.size()));
     }
