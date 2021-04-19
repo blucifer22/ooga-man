@@ -5,25 +5,26 @@ import ooga.view.theme.api.ThemeSelectionService;
 
 public class PreferenceService implements UIPreferenceService {
 
-  private final LanguageSelectionService languageSelectionService;
   private final ThemeSelectionService themeSelectionService;
+  private final LanguageSelectionService languageSelectionService;
 
-  public PreferenceService(LanguageSelectionService languageSelectionService,
-      ThemeSelectionService themeSelectionService) {
-    this.languageSelectionService = languageSelectionService;
+  public PreferenceService(ThemeSelectionService themeSelectionService,
+      LanguageSelectionService languageSelectionService) {
     this.themeSelectionService = themeSelectionService;
+    this.languageSelectionService = languageSelectionService;
 
     if (languageSelectionService == null || themeSelectionService == null) {
       throw new NullPointerException();
     }
   }
-  @Override
-  public LanguageSelectionService languageSelectionService() {
-    return this.languageSelectionService;
-  }
 
   @Override
   public ThemeSelectionService themeSelectionService() {
     return this.themeSelectionService;
+  }
+
+  @Override
+  public LanguageSelectionService languageSelectionService() {
+    return this.languageSelectionService;
   }
 }
