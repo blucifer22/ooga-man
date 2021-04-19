@@ -20,7 +20,7 @@ import ooga.view.views.GameView;
 import ooga.view.views.MenuView;
 import ooga.view.views.PreferenceView;
 
-public class UIController implements MainMenuResponder, PreferenceResponder, ViewStackManager {
+public class UIController implements MainMenuResponder, ViewStackManager {
 
   // constants
   private static final double DEFAULT_STAGE_SIZE = 600;
@@ -98,11 +98,6 @@ public class UIController implements MainMenuResponder, PreferenceResponder, Vie
   public void openPreferences() {
     showScene(new Scene((new PreferenceView(this.serviceProvider, this.preferenceService).getRenderingNode())),
         true);
-  }
-
-  @Override
-  public void setLanguage(String language) {
-    this.preferenceService.languageSelectionService().setLanguage(language);
   }
 
   @Override
