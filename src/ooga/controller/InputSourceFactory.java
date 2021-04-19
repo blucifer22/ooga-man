@@ -2,9 +2,6 @@ package ooga.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import ooga.model.ai.GhostAI;
-import ooga.model.sprites.Ghost;
-import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Sprite;
 import ooga.model.sprites.SwapClass;
 
@@ -15,19 +12,31 @@ import ooga.model.sprites.SwapClass;
  * @author George Hong
  */
 public class InputSourceFactory {
-  public void attachTargets(List<Sprite> spriteList) {
-    List<Ghost> ghostList = new ArrayList<>();
-    PacMan pacman = null;
 
+  List<Sprite> ghostList;
+  Sprite pacman;
+
+  public InputSourceFactory(List<Sprite> spriteList) {
+    ghostList = new ArrayList<>();
+    pacman = null;
     for (Sprite sprite : spriteList) {
       if (sprite.getSwapClass() == SwapClass.PACMAN) {
-        pacman = (PacMan) sprite;
+        pacman = sprite;
       } else if (sprite.getSwapClass() == SwapClass.GHOST) {
-        ghostList.add((Ghost) sprite);
+        ghostList.add(sprite);
       }
     }
+  }
 
-    for(Ghost ghost : ghostList) {
+  public void attachGhostTargets() {
+    for (Sprite ghost : ghostList) {
+      ghost.getInputSource().addTarget(pacman);
+    }
+  }
+
+  public void attachPacmanTargets() {
+    for (Sprite ghost : ghostList) {
+      pacman.getInputSource().addTarget(ghost);
     }
   }
 }
