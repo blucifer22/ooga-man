@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import ooga.controller.HumanInputManager;
+import ooga.controller.KeybindingType;
 import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Dot;
 import ooga.model.sprites.Ghost;
@@ -45,6 +47,8 @@ public class CollisionTest {
     state.loadGrid(grid);
     state.addSprite(pacMan);
     state.addSprite(dot);
+    state.setPlayers(new Player(1, new HumanInputManager(KeybindingType.PLAYER_1)), null);
+
   }
 
   @Test

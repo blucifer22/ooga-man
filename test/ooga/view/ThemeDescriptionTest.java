@@ -32,7 +32,7 @@ public class ThemeDescriptionTest {
         true, 1.0, true, true));
     costumes.put("ghost", new CostumeDescription("RED", false, 1.0, false, true));
     costumes.put("tile", new CostumeDescription("BLACK", false, 1.0, false, true));
-    ThemeDescription td = new ThemeDescription(costumes, "themes/classic/theme.css");
+    ThemeDescription td = new ThemeDescription("demo", costumes, "themes/classic/theme.css");
     td.toJSON("data/test.json");
   }
 }

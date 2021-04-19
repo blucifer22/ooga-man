@@ -2,6 +2,8 @@ package ooga.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import ooga.controller.HumanInputManager;
+import ooga.controller.KeybindingType;
 import ooga.util.Clock;
 import ooga.util.Timer;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +19,7 @@ public class TimerTest {
   public void setUp() {
     clock = new Clock(DT);
     state = new PacmanGameState();
+    state.setPlayers(new Player(1, new HumanInputManager(KeybindingType.PLAYER_1)), null);
   }
 
   @Test

@@ -9,8 +9,8 @@ import javafx.scene.layout.Pane;
 import ooga.model.TileCoordinates;
 import ooga.model.api.GridRebuildObserver;
 import ooga.model.api.ObservableGrid;
-import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.api.ObservableSprite;
+import ooga.model.api.SpriteExistenceObserver;
 import ooga.view.internal_api.View;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.api.ThemedObject;
@@ -27,7 +27,7 @@ public class GameGridView implements View, GridRebuildObserver, SpriteExistenceO
   private final HashMap<ObservableSprite, SpriteView> spriteViews;
   private final Group spriteNodes;
   private final Pane primaryView;
-  private ThemeService themeService;
+  private final ThemeService themeService;
 
   public GameGridView(ThemeService themeService) {
     this.primaryView = new Pane();

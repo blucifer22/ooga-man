@@ -16,7 +16,7 @@ public class TileView implements Renderable, TileObserver, ThemedObject {
 
   private final Rectangle tileRect;
   private final ObservableTile tile;
-  private ThemeService themeService;
+  private final ThemeService themeService;
 
   public TileView(ObservableTile tile, DoubleProperty tileSize, ThemeService themeService) {
     // Configure data source
@@ -43,7 +43,8 @@ public class TileView implements Renderable, TileObserver, ThemedObject {
   }
 
   private void onTypeChange() {
-    this.tileRect.setFill(themeService.getTheme().getCostumeForObjectOfType(this.tile.getType()).getFill());
+    this.tileRect
+        .setFill(themeService.getTheme().getCostumeForObjectOfType(this.tile.getType()).getFill());
   }
 
   @Override

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ooga.model.PacmanGameState;
+import ooga.model.PacmanLevel;
 
 /**
  * LevelDescription is a class that serializes PacmanGameStates to JSON and can then convert it back
@@ -71,10 +72,7 @@ public class LevelDescription extends JSONDescription {
    *
    * @return A PacmanGameState that possesses the properties of this LevelDescription.
    */
-  public PacmanGameState toPacmanGameState() {
-    PacmanGameState pgs = new PacmanGameState();
-    pgs.loadGrid(this.gridDescription);
-    pgs.loadSprites(this.spriteLayoutDescription.getSprites());
-    return pgs;
+  public PacmanLevel toPacmanLevel() {
+    return new PacmanLevel(this);
   }
 }

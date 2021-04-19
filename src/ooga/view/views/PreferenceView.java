@@ -1,8 +1,7 @@
 package ooga.view.views;
 
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.ResourceBundle;
+import java.util.Map;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -11,9 +10,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
-import ooga.view.internal_api.ViewStackManager;
 import ooga.view.internal_api.PreferenceResponder;
 import ooga.view.internal_api.View;
+import ooga.view.internal_api.ViewStackManager;
+import ooga.view.language.api.LanguageSelectionService;
 import ooga.view.language.api.LanguageService;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.api.ThemedObject;
@@ -25,7 +25,6 @@ public class PreferenceView implements ThemedObject, View {
   private final LanguageService languageService;
   private final PreferenceResponder preferenceResponder;
   private final ViewStackManager viewStackManager;
-  private static final String LANGUAGE_MANIFEST = "resources.languages.manifest";
 
   public PreferenceView(PreferenceResponder preferenceResponder, ThemeService themeService,
       LanguageService languageService, ViewStackManager viewStackManager) {
@@ -48,22 +47,25 @@ public class PreferenceView implements ThemedObject, View {
     langDropdownLabel.getStyleClass().add("dropdown-label");
     langDropdownLabel.setId("menu-label-lang-select");
 
-    ResourceBundle languageManifest = ResourceBundle.getBundle(LANGUAGE_MANIFEST);
+    // FIXME: remove typecast
+    Map<String, String> availableLanguages = ((LanguageSelectionService) languageService)
+        .getAvailableLanguages();
+
     ArrayList<Pair<String, String>> dropdownOptions = new ArrayList<>();
-    for (String key: languageManifest.keySet()) {
-      dropdownOptions.add(new Pair<>(key, languageManifest.getString(key)) {
+    for (String key : availableLanguages.keySet()) {
+      dropdownOptions.add(new Pair<>(key, availableLanguages.get(key)) {
         @Override
         public String toString() {
           return this.getValue();
         }
       });
     }
-    dropdownOptions.sort(Comparator.comparing(Pair::toString));
 
     ComboBox<Pair<String, String>> langDropdown = new ComboBox<>();
     langDropdown.getItems().addAll(dropdownOptions);
     langDropdown.setId("menu-combo-lang-select");
-    langDropdown.setOnAction(e -> this.preferenceResponder.setLanguage(langDropdown.getValue().getKey()));
+    langDropdown
+        .setOnAction(e -> this.preferenceResponder.setLanguage(langDropdown.getValue().getKey()));
 
     VBox labeledLangDropdown = new VBox(
         langDropdownLabel,
