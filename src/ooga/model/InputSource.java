@@ -1,5 +1,6 @@
 package ooga.model;
 
+import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 
 /**
@@ -32,4 +33,11 @@ public interface InputSource {
    * requested (i.e. by AI input sources)
    */
   boolean isActionPressed();
+
+  /**
+   * Adds a Sprite target to the InputSource.
+   *
+   * @param target The Sprite to add to the InputSource.
+   */
+  void addTarget(Sprite target);
 }

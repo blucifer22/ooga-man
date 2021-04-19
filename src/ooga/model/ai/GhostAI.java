@@ -30,7 +30,7 @@ public class GhostAI implements InputSource {
   private final Ghost ghost;
   private final PacmanGrid pacmanGrid;
   private Sprite target;
-  private Map<GhostBehavior, Supplier<Vec2>> movementOptions= new HashMap<>();
+  private Map<GhostBehavior, Supplier<Vec2>> movementOptions = new HashMap<>();
 
   public GhostAI(PacmanGrid grid, Ghost ghost) {
     this.pacmanGrid = grid;
@@ -43,14 +43,16 @@ public class GhostAI implements InputSource {
     movementOptions.put(GhostBehavior.SCATTER, this::scatterBehavior);
   }
 
-  protected Sprite getTarget() { return target; }
+  protected Sprite getTarget() {
+    return target;
+  }
+
+  public void setTarget(Sprite target) {
+    this.target = target;
+  }
 
   protected Ghost getGhost() {
     return ghost;
-  }
-
-  public void setTarget(Sprite target){
-    this.target = target;
   }
 
   protected PacmanGrid getPacmanGrid() {
@@ -59,7 +61,7 @@ public class GhostAI implements InputSource {
 
   @Override
   public Vec2 getRequestedDirection() {
-    if (target == null){
+    if (target == null) {
       throw new IllegalArgumentException("AI has no Target");
     }
     Supplier<Vec2> getAI = movementOptions.get(getGhost().getGhostBehavior());
@@ -73,6 +75,7 @@ public class GhostAI implements InputSource {
 
   /**
    * This mode corresponds to the ghost seeking home
+   *
    * @return
    */
   protected Vec2 eatenBehavior() {
@@ -95,7 +98,7 @@ public class GhostAI implements InputSource {
 
   /**
    * This mode coincides with classic Pac-Man where ghosts periodically give up the chase and choose
-   * to wander around for a few seconds.  This is emulated by default by using a random direction
+   * to wander around for a few seconds. This is emulated by default by using a random direction
    * generator.
    *
    * @return direction to queue for ghost to move to
@@ -118,8 +121,8 @@ public class GhostAI implements InputSource {
   }
 
   /**
-   * This behavior can be overridden to define the most aggressive modes for Pac-Man.  Targeting can
-   * be used here to follow a tracked Sprite, such as Pac-Man.  The default GhostAI defaults to
+   * This behavior can be overridden to define the most aggressive modes for Pac-Man. Targeting can
+   * be used here to follow a tracked Sprite, such as Pac-Man. The default GhostAI defaults to
    * random behavior to "track" Pac-Man.
    *
    * @return direction to queue for ghost to move to
@@ -132,18 +135,14 @@ public class GhostAI implements InputSource {
   }
 
   private boolean isOpenToGhosts(Vec2 target) {
-    return getPacmanGrid().getTile(new TileCoordinates((int) target.getX(), (int) target.getY()))
+    return getPacmanGrid()
+        .getTile(new TileCoordinates((int) target.getX(), (int) target.getY()))
         .isOpenToGhosts();
   }
 
   @NotNull
   protected Vec2 reduceDistance(Vec2 targetTilePos, Vec2 currentTilePos) {
-    Vec2[] directions = {
-        new Vec2(-1, 0),
-        new Vec2(1, 0),
-        new Vec2(0, 1),
-        new Vec2(0, -1)
-    };
+    Vec2[] directions = {new Vec2(-1, 0), new Vec2(1, 0), new Vec2(0, 1), new Vec2(0, -1)};
 
     List<DirectionDistanceWrapper> distances = new ArrayList<>();
     for (Vec2 direction : directions) {
@@ -165,6 +164,22 @@ public class GhostAI implements InputSource {
     return Vec2.ZERO;
   }
 
+  @Override
+  public boolean isActionPressed() {
+    // TODO: Implement this!
+    return false;
+  }
+
+  /**
+   * Adds a Sprite target to the InputSource.
+   *
+   * @param target The Sprite to add to the InputSource.
+   */
+  @Override
+  public void addTarget(Sprite target) {
+    setTarget(target);
+  }
+
   class DirectionDistanceWrapper implements Comparable<GhostAI.DirectionDistanceWrapper> {
 
     private final Vec2 vec;
@@ -184,11 +199,4 @@ public class GhostAI implements InputSource {
       return Double.compare(this.dis, o.dis);
     }
   }
-
-  @Override
-  public boolean isActionPressed() {
-    // TODO: Implement this!
-    return false;
-  }
-
 }
