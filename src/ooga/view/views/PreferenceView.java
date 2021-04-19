@@ -17,39 +17,36 @@ import ooga.view.language.api.LanguageSelectionService;
 import ooga.view.language.api.LanguageService;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.api.ThemedObject;
+import ooga.view.uiservice.UIPreferenceService;
+import ooga.view.uiservice.UIServiceProvider;
 
 public class PreferenceView implements ThemedObject, View {
 
   private final GridPane primaryView;
-  private final ThemeService themeService;
-  private final LanguageService languageService;
-  private final PreferenceResponder preferenceResponder;
-  private final ViewStackManager viewStackManager;
+  private final UIServiceProvider serviceProvider;
+  private final UIPreferenceService preferenceService;
 
-  public PreferenceView(PreferenceResponder preferenceResponder, ThemeService themeService,
-      LanguageService languageService, ViewStackManager viewStackManager) {
-    this.preferenceResponder = preferenceResponder;
-    this.themeService = themeService;
-    this.languageService = languageService;
-    this.viewStackManager = viewStackManager;
+  public PreferenceView(UIServiceProvider serviceProvider, UIPreferenceService preferenceService) {
+    this.preferenceService = preferenceService;
+    this.serviceProvider = serviceProvider;
     this.primaryView = new GridPane();
     this.primaryView.setGridLinesVisible(true);
     this.primaryView.setAlignment(Pos.CENTER);
     this.primaryView.getStyleClass().addAll("view", "card-pane");
-    this.themeService.addThemedObject(this);
+    this.serviceProvider.themeService().addThemedObject(this);
 
     buildScene();
   }
 
   private void buildScene() {
     Label langDropdownLabel = new Label();
-    langDropdownLabel.textProperty().bind(languageService.getLocalizedString("language"));
+    langDropdownLabel.textProperty().bind(this.serviceProvider.languageService().getLocalizedString("language"));
     langDropdownLabel.getStyleClass().add("dropdown-label");
     langDropdownLabel.setId("menu-label-lang-select");
 
     // FIXME: remove typecast
-    Map<String, String> availableLanguages = ((LanguageSelectionService) languageService)
-        .getAvailableLanguages();
+    Map<String, String> availableLanguages =
+        this.preferenceService.languageSelectionService().getAvailableLanguages();
 
     ArrayList<Pair<String, String>> dropdownOptions = new ArrayList<>();
     for (String key : availableLanguages.keySet()) {
@@ -65,7 +62,7 @@ public class PreferenceView implements ThemedObject, View {
     langDropdown.getItems().addAll(dropdownOptions);
     langDropdown.setId("menu-combo-lang-select");
     langDropdown
-        .setOnAction(e -> this.preferenceResponder.setLanguage(langDropdown.getValue().getKey()));
+        .setOnAction(e -> this.preferenceService.languageSelectionService().setLanguage(langDropdown.getValue().getKey()));
 
     VBox labeledLangDropdown = new VBox(
         langDropdownLabel,
@@ -75,8 +72,8 @@ public class PreferenceView implements ThemedObject, View {
     this.primaryView.add(labeledLangDropdown, 0, 0);
 
     Button returnToMenu = new Button();
-    returnToMenu.textProperty().bind(languageService.getLocalizedString("previousMenu"));
-    returnToMenu.setOnMouseClicked(e -> viewStackManager.unwind());
+    returnToMenu.textProperty().bind(this.serviceProvider.languageService().getLocalizedString("previousMenu"));
+    returnToMenu.setOnMouseClicked(e -> this.serviceProvider.viewStackManager().unwind());
     returnToMenu.getStyleClass().add("menu-button");
     returnToMenu.setId("menu-button-previousMenu");
 
@@ -90,7 +87,7 @@ public class PreferenceView implements ThemedObject, View {
   @Override
   public void onThemeChange() {
     this.primaryView.getStylesheets().clear();
-    this.primaryView.getStylesheets().add(themeService.getTheme().getStylesheet());
+    this.primaryView.getStylesheets().add(this.serviceProvider.themeService().getTheme().getStylesheet());
   }
 
   @Override

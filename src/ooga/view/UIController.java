@@ -96,8 +96,8 @@ public class UIController implements MainMenuResponder, PreferenceResponder, Vie
 
   @Override
   public void openPreferences() {
-    showScene(new Scene((new PreferenceView(this, this.serviceProvider.themeService(),
-        this.serviceProvider.languageService(), this).getRenderingNode())), true);
+    showScene(new Scene((new PreferenceView(this.serviceProvider, this.preferenceService).getRenderingNode())),
+        true);
   }
 
   @Override
