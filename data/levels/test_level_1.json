@@ -2655,6 +2655,36 @@
         }
       },
       {
+        "className": "Pinky",
+        "inputSource": "PinkyAI",
+        "coordinates": {
+          "position": {
+            "x": 8.5,
+            "y": 8.5
+          }
+        }
+      },
+      {
+        "className": "Inky",
+        "inputSource": "BlinkyAI",
+        "coordinates": {
+          "position": {
+            "x": 8.5,
+            "y": 8.5
+          }
+        }
+      },
+      {
+        "className": "Clyde",
+        "inputSource": "PinkyAI",
+        "coordinates": {
+          "position": {
+            "x": 8.5,
+            "y": 8.5
+          }
+        }
+      },
+      {
         "className": "PacMan",
         "inputSource": "PLAYER_1",
         "coordinates": {
