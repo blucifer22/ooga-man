@@ -6,6 +6,7 @@ import javafx.animation.Timeline;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import ooga.model.BlinkyAI;
+import ooga.model.GhostAI;
 import ooga.model.InputSource;
 import ooga.model.PacmanGameState;
 import ooga.model.PacmanLevel;
@@ -47,13 +48,11 @@ public class JSONController implements GameStateController {
       pgs.loadPacmanLevel(loadLevelFromJSON("data/levels/test_level_1.json"));
 
       // TODO: Implement input source assignment
-      pgs.getSprites().get(2).setInputSource(inputManager);
+      pgs.getSprites().get(1).setInputSource(inputManager);
 
-      InputSource source =
-          new BlinkyAI(
-              pgs.getGrid(),
-              (Ghost) pgs.getSprites().get(1));
-      pgs.getSprites().get(1).setInputSource(source);
+      GhostAI source = new BlinkyAI(pgs.getGrid(), (Ghost) pgs.getSprites().get(0));
+      source.setTarget(pgs.getSprites().get(1));
+      pgs.getSprites().get(0).setInputSource(source);
 
       pgs.setPlayers(new Player(1, inputManager), null);
 

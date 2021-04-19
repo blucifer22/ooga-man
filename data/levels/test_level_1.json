@@ -2645,16 +2645,6 @@
   "spriteLayoutDescription": {
     "sprites": [
       {
-        "className": "Home",
-        "inputSource": "NONE",
-        "coordinates": {
-          "position": {
-            "x": 8.5,
-            "y": 8.5
-          }
-        }
-      },
-      {
         "className": "Blinky",
         "inputSource": "GHOST_AI",
         "coordinates": {
