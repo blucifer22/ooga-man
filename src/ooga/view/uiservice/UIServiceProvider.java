@@ -1,5 +1,6 @@
-package ooga.view.internal_api;
+package ooga.view.uiservice;
 
+import ooga.view.internal_api.ViewStackManager;
 import ooga.view.language.api.LanguageService;
 import ooga.view.theme.api.ThemeService;
 

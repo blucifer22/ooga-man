@@ -1,4 +1,4 @@
-package ooga.view.internal_api;
+package ooga.view.uiservice;
 
 import ooga.view.language.api.LanguageSelectionService;
 import ooga.view.theme.api.ThemeSelectionService;
