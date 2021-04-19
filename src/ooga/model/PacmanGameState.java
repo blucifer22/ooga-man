@@ -42,6 +42,8 @@ public class PacmanGameState
   private Player pacmanPlayer;
   private Player ghostsPlayer;
   private int pacmanLivesRemaining;
+  private int level;
+  private boolean pacmanConsumed;
 
   public PacmanGameState() {
     spriteExistenceObservers = new HashSet<>();
@@ -54,11 +56,52 @@ public class PacmanGameState
   }
 
   public void loadPacmanLevel(PacmanLevel level) {
-    for(Sprite sprite : level.getSprites()) {
+    for (Sprite sprite : level.getSprites()) {
       addSprite(sprite);
     }
-
     loadGrid(level.getGrid());
+  }
+
+  protected void loadNextLevel() {
+    // TODO: Implement
+  }
+
+  protected void incrementLevel() {
+    level++;
+  }
+
+  protected int getLevel() {
+    return level;
+  }
+
+  protected boolean isPacmanConsumed() {
+    return pacmanConsumed;
+  }
+
+  /**
+   * Steps through a frame of the game and also checks for level progression/restart
+   *
+   * @param dt time-step, given by 1 / framerate
+   */
+  // advance game state by `dt' seconds
+  public void step(double dt) {
+    stepThroughSprites(dt);
+    endLevel();
+  }
+
+  protected void stepThroughSprites(double dt) {
+    clock.step(dt, this);
+    toDelete.clear();
+    for (Sprite sprite : getSprites()) {
+      if (toDelete.contains(sprite)) {
+        continue;
+      }
+      sprite.step(dt, this);
+    }
+
+    for (Sprite sprite : toDelete) {
+      sprites.remove(sprite);
+    }
   }
 
   public void addGameStateObserver(GameStateObserver observer) {
@@ -77,6 +120,7 @@ public class PacmanGameState
 
   /**
    * Returns a list of players for this Pac-Man game mode
+   *
    * @return list of players
    */
   @Override
@@ -172,21 +216,8 @@ public class PacmanGameState
     spriteDescriptions.forEach(spriteDescription -> addSprite(spriteDescription.toSprite()));
   }
 
-  // advance game state by `dt' seconds
-  public void step(double dt) {
-    clock.step(dt, this);
-    toDelete.clear();
-    for (Sprite sprite : getSprites()) {
-      if (toDelete.contains(sprite)) {
-        continue;
-      }
-      sprite.step(dt, this);
-    }
 
-    for (Sprite sprite : toDelete) {
-      sprites.remove(sprite);
-    }
-
+  protected void endLevel() {
     // Next level, all consumables eaten
     if (getRemainingConsumablesCount() == 0) {
       // notifyGridRebuildObservers();
@@ -242,19 +273,19 @@ public class PacmanGameState
   public void advanceLevel() {
   }
 
-  private void notifySpriteDestruction(Sprite sprite) {
+  protected void notifySpriteDestruction(Sprite sprite) {
     for (SpriteExistenceObserver observer : spriteExistenceObservers) {
       observer.onSpriteDestruction(sprite);
     }
   }
 
-  private void notifySpriteCreation(Sprite sprite) {
+  protected void notifySpriteCreation(Sprite sprite) {
     for (SpriteExistenceObserver observer : spriteExistenceObservers) {
       observer.onSpriteCreation(sprite);
     }
   }
 
-  private void notifyGridRebuildObservers() {
+  protected void notifyGridRebuildObservers() {
     for (GridRebuildObserver observers : gridRebuildObservers) {
       observers.onGridRebuild(grid);
     }

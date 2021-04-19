@@ -21,9 +21,9 @@ public class PacmanBasicAI implements InputSource {
 
   private final List<Sprite> targets;
   private final PacmanGrid pacmanGrid;
-  private final PacMan pacMan;
+  private final Sprite pacMan;
 
-  public PacmanBasicAI(PacmanGrid grid, PacMan pacMan) {
+  public PacmanBasicAI(PacmanGrid grid, Sprite pacMan) {
     this.pacMan = pacMan;
     targets = new ArrayList<>();
     pacmanGrid = grid;
