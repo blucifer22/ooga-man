@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import ooga.model.ai.PacmanAI;
 import ooga.model.sprites.Blinky;
 import ooga.model.sprites.PacMan;
 import ooga.util.Vec2;
@@ -14,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 public class PacmanAITest {
 
-  private PacmanBasicAI pacmanIn;
+  private PacmanAI pacmanIn;
   private PacMan pacman;
 
   @BeforeEach
@@ -32,7 +33,7 @@ public class PacmanAITest {
     }
     Blinky ghost1 = new Blinky(new SpriteCoordinates(new Vec2(5.5, 0.5)), new Vec2(0, -1), 2);
     Blinky ghost2 = new Blinky(new SpriteCoordinates(new Vec2(5.5, 1.5)), new Vec2(0, -1), 2);
-    pacmanIn = new PacmanBasicAI(grid, pacman);
+    pacmanIn = new PacmanAI(grid, pacman);
     pacmanIn.addTarget(ghost1);
     pacmanIn.addTarget(ghost2);
   }

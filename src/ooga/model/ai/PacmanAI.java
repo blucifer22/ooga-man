@@ -1,4 +1,4 @@
-package ooga.model;
+package ooga.model.ai;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,6 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
+import ooga.model.InputSource;
+import ooga.model.PacmanGrid;
+import ooga.model.TileCoordinates;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
@@ -17,13 +20,13 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author George Hong
  */
-public class PacmanBasicAI implements InputSource {
+public class PacmanAI implements InputSource {
 
   private final List<Sprite> targets;
   private final PacmanGrid pacmanGrid;
   private final Sprite pacMan;
 
-  public PacmanBasicAI(PacmanGrid grid, Sprite pacMan) {
+  public PacmanAI(PacmanGrid grid, Sprite pacMan) {
     this.pacMan = pacMan;
     targets = new ArrayList<>();
     pacmanGrid = grid;

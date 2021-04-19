@@ -5,11 +5,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import ooga.model.BlinkyAI;
-import ooga.model.InputSource;
-import ooga.model.PacmanBasicAI;
+import ooga.model.ai.BlinkyAI;
 import ooga.model.PacmanGameState;
-import ooga.model.PinkyAI;
+import ooga.model.ai.PinkyAI;
 import ooga.model.Player;
 import ooga.model.SpriteCoordinates;
 import ooga.model.leveldescription.JSONDescriptionFactory;
@@ -70,7 +68,7 @@ public class DemoController implements GameStateController {
     pgs.addSprite(teleporter2);
 
 
-//    PacmanBasicAI pacmanBasicAI = new PacmanBasicAI(pgs.getGrid(), pacman);
+//    PacmanAI pacmanBasicAI = new PacmanAI(pgs.getGrid(), pacman);
 //    pacmanBasicAI.addTarget(blinky);
 //    pacmanBasicAI.addTarget(pinky);
 //    pacman.setInputSource(pacmanBasicAI);

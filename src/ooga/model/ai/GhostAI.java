@@ -1,4 +1,4 @@
-package ooga.model;
+package ooga.model.ai;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
 import java.util.function.Supplier;
+import ooga.model.InputSource;
+import ooga.model.PacmanGrid;
+import ooga.model.TileCoordinates;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Ghost.GhostBehavior;
 import ooga.model.sprites.Sprite;

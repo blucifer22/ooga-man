@@ -22,7 +22,7 @@ public class SpriteDescription extends JSONDescription {
   /**
    * String constant representing the source of this sprite's input commands (if any).
    *
-   * <p>Allowed values: "HUMAN", "GHOST_AI", "PACMAN_AI", "NONE"
+   * <p>Allowed values: "BlinkyAI, PinkyAI, InkyAI, etc."
    */
   private final String inputSource;
 

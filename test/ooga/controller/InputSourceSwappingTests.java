@@ -2,21 +2,6 @@ package ooga.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import javafx.scene.input.KeyCode;
-import ooga.model.BlinkyAI;
-import ooga.model.GhostAI;
-import ooga.model.InputSource;
-import ooga.model.PacmanGameState;
-import ooga.model.PinkyAI;
-import ooga.model.SpriteCoordinates;
-import ooga.model.sprites.Blinky;
-import ooga.model.sprites.Clyde;
-import ooga.model.sprites.Dot;
-import ooga.model.sprites.Ghost;
-import ooga.model.sprites.Inky;
-import ooga.model.sprites.PacMan;
-import ooga.model.sprites.Pinky;
-import ooga.util.Vec2;
 import org.junit.jupiter.api.Test;
 
 /**

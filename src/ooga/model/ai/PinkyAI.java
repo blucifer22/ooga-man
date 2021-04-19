@@ -1,5 +1,6 @@
-package ooga.model;
+package ooga.model.ai;
 
+import ooga.model.PacmanGrid;
 import ooga.model.sprites.Ghost;
 import ooga.util.Vec2;
 

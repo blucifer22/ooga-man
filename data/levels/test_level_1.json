@@ -2646,7 +2646,7 @@
     "sprites": [
       {
         "className": "Blinky",
-        "inputSource": "GHOST_AI",
+        "inputSource": "BlinkyAI",
         "coordinates": {
           "position": {
             "x": 8.5,
@@ -2656,7 +2656,7 @@
       },
       {
         "className": "PacMan",
-        "inputSource": "HUMAN",
+        "inputSource": "PLAYER_1",
         "coordinates": {
           "position": {
             "x": 10.5,

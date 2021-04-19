@@ -8,6 +8,8 @@ import java.util.Comparator;
 import java.util.List;
 import ooga.controller.HumanInputManager;
 import ooga.controller.KeybindingType;
+import ooga.model.ai.GhostAI;
+import ooga.model.ai.PinkyAI;
 import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Ghost.GhostBehavior;

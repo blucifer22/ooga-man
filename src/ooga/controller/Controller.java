@@ -4,10 +4,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import ooga.model.GhostAI;
-import ooga.model.PacmanBasicAI;
+import ooga.model.ai.GhostAI;
 import ooga.model.PacmanGameState;
-import ooga.model.PinkyAI;
+import ooga.model.ai.PinkyAI;
 import ooga.model.Player;
 import ooga.model.SpriteCoordinates;
 import ooga.model.leveldescription.JSONDescriptionFactory;
@@ -19,7 +18,6 @@ import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Pinky;
 import ooga.model.sprites.PowerPill;
 import ooga.model.sprites.TeleporterOverlay;
-import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
 import ooga.view.UIController;
 import ooga.view.views.GameView;
@@ -70,7 +68,7 @@ public class Controller implements GameStateController {
 
     pacman.setInputSource(this.inputManager);
 
-//    PacmanBasicAI pacmanBasicAI = new PacmanBasicAI(pgs.getGrid(), pacman);
+//    PacmanAI pacmanBasicAI = new PacmanAI(pgs.getGrid(), pacman);
 //    pacmanBasicAI.addTarget(blinky);
 //    pacmanBasicAI.addTarget(pinky);
 //    pacmanBasicAI.addTarget(clyde);
