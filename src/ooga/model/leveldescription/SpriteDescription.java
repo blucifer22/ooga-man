@@ -57,7 +57,9 @@ public class SpriteDescription extends JSONDescription {
   public Sprite toSprite() {
     try {
       Class<?> spriteClass = Class.forName("ooga.model.sprites." + spriteClassName);
-      return (Sprite) spriteClass.getDeclaredConstructor(SpriteDescription.class).newInstance(this);
+      Sprite spriteToReturn = (Sprite) spriteClass.getDeclaredConstructor(SpriteDescription.class).newInstance(this);
+      spriteToReturn.setInputString(inputSource);
+      return spriteToReturn;
     } catch (ClassNotFoundException
         | NoSuchMethodException
         | InstantiationException

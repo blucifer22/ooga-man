@@ -30,6 +30,7 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
   protected SwapClass swapClass;
   protected InputSource inputSource;
   protected InputSource defaultInputSource;
+  protected String inputString;
   private SpriteCoordinates position;
   private Vec2 direction;
   private Map<SpriteEvent.EventType, Set<SpriteObserver>> observers;
@@ -295,4 +296,11 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
   public void setInputSource(InputSource s) {
   }
 
+  public String getInputString() {
+    return inputString;
+  }
+
+  public void setInputString(String inputString) {
+    this.inputString = inputString;
+  }
 }
