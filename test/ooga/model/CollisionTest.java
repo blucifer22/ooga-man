@@ -10,6 +10,7 @@ import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Dot;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.PacMan;
+import ooga.model.sprites.Sprite;
 import ooga.model.sprites.TeleporterOverlay;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
@@ -74,6 +75,16 @@ public class CollisionTest {
       public boolean isActionPressed() {
         return false;
       }
+
+      /**
+       * Adds a Sprite target to the InputSource.
+       *
+       * @param target The Sprite to add to the InputSource.
+       */
+      @Override
+      public void addTarget(Sprite target) {
+
+      }
     }
     TestInputSource input = new TestInputSource() {
     };
@@ -109,6 +120,16 @@ public class CollisionTest {
       @Override
       public boolean isActionPressed() {
         return false;
+      }
+
+      /**
+       * Adds a Sprite target to the InputSource.
+       *
+       * @param target The Sprite to add to the InputSource.
+       */
+      @Override
+      public void addTarget(Sprite target) {
+
       }
     }
 
