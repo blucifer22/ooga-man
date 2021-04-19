@@ -19,6 +19,7 @@ import static ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimatio
 public abstract class Ghost extends MoveableSprite {
 
   private final Clock ghostClock;
+  private final SpriteCoordinates spawn;
   private boolean isDeadly = true;
   private boolean isEaten;
   private int baseGhostScore = 200;
@@ -34,6 +35,7 @@ public abstract class Ghost extends MoveableSprite {
       Vec2 direction,
       double speed) {
     super(spriteAnimationPrefix, directionToAnimationType(direction, NORMAL), position, direction, speed);
+    spawn = position;
     swapClass = SwapClass.GHOST;
     ghostBehavior = GhostBehavior.WAIT;
     ghostClock = new Clock();
@@ -101,6 +103,8 @@ public abstract class Ghost extends MoveableSprite {
     return ghostBehavior;
   }
 
+  public SpriteCoordinates getSpawn() { return spawn; }
+
   @Override
   protected boolean canMoveTo(Tile tile) {
     return tile.isOpenToGhosts();
@@ -115,7 +119,7 @@ public abstract class Ghost extends MoveableSprite {
       isDeadly = false;
       // isConsumable() -> false
     }
-    if (other.isRespawnTarget() && ghostBehavior.equals(GhostBehavior.EATEN)){
+    if (getCoordinates().equals(getSpawn()) && ghostBehavior.equals(GhostBehavior.EATEN)){
       this.setMovementSpeed(this.getMovementSpeed() * (2.0/3.0));
       changeBehavior(GhostBehavior.WAIT);
       state.getClock().addTimer(new Timer(10, mutableGameState -> {

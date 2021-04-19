@@ -28,15 +28,15 @@ public class GhostAI implements InputSource {
 
   private final Ghost ghost;
   private final PacmanGrid pacmanGrid;
-  private final Sprite target;
+  private Sprite target;
   private final Sprite home;
   private Map<GhostBehavior, Supplier<Vec2>> movementOptions= new HashMap<>();
 
-  public GhostAI(PacmanGrid grid, Ghost ghost, Sprite target, Sprite home) {
+  public GhostAI(PacmanGrid grid, Ghost ghost) {
     this.pacmanGrid = grid;
     this.ghost = ghost;
-    this.target = target;
-    this.home = home;
+    this.target = null;
+    this.home = new Home(ghost.getSpawn(), new Vec2(0, 0));
     movementOptions.put(GhostBehavior.CHASE, this::chaseBehavior);
     movementOptions.put(GhostBehavior.WAIT, this::waitBehavior);
     movementOptions.put(GhostBehavior.EATEN, this::eatenBehavior);
@@ -50,6 +50,10 @@ public class GhostAI implements InputSource {
     return ghost;
   }
 
+  public void setTarget(Sprite target){
+    this.target = target;
+  }
+
   protected PacmanGrid getPacmanGrid() {
     return pacmanGrid;
   }
@@ -60,6 +64,9 @@ public class GhostAI implements InputSource {
 
   @Override
   public Vec2 getRequestedDirection() {
+    if (target == null){
+      throw new IllegalArgumentException("AI has no Target");
+    }
     Supplier<Vec2> getAI = movementOptions.get(getGhost().getGhostBehavior());
     return getAI.get();
   }
@@ -76,7 +83,7 @@ public class GhostAI implements InputSource {
   protected Vec2 eatenBehavior() {
     // TODO: Implement
     Vec2 currentTilePos = getGhost().getCoordinates().getTileCoordinates().toVec2();
-    Vec2 homeTilePos = getHome().getCoordinates().getTileCoordinates().toVec2();
+    Vec2 homeTilePos = getGhost().getSpawn().getTileCoordinates().toVec2();
 
     return reduceDistance(homeTilePos, currentTilePos);
   }

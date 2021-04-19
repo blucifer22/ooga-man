@@ -45,8 +45,8 @@ public class GhostAITest {
   @Test
   public void testInkyInitialWait() {
     Inky inky = new Inky(new SpriteCoordinates(new Vec2(1.5, 1.9)), new Vec2(0, -1), 4);
-    home = new Home(new SpriteCoordinates(new Vec2(1.5, 1.9)), new Vec2(0, 0));
-    InputSource in = new PinkyAI(grid, inky, pacMan, home);
+    PinkyAI in = new PinkyAI(grid, inky);
+    in.setTarget(pacMan);
     inky.setInputSource(in);
     inky.step(1 / 60., state);
     Vec2 req = in.getRequestedDirection();
@@ -56,8 +56,9 @@ public class GhostAITest {
   @Test
   public void testInitialWait() {
     blinky = new Blinky(new SpriteCoordinates(new Vec2(1.5, 1.9)), new Vec2(0, -1), 4);
-    InputSource in = new GhostAI(grid, blinky, pacMan, home);
-    blinky.setInputSource(in);
+    GhostAI AI = new GhostAI(grid, blinky);
+    AI.setTarget(pacMan);
+    blinky.setInputSource(AI);
     for (int k = 0; k < 30; k++) {
       blinky.step(1 / 60., state);
     }

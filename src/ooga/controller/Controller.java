@@ -80,13 +80,17 @@ public class Controller implements GameStateController {
 //    pacmanBasicAI.addTarget(inky);
 //    pacman.setInputSource(pacmanBasicAI);
 
-    this.blinkyAI = new GhostAI(pgs.getGrid(), blinky, pacman, home);
+    this.blinkyAI = new GhostAI(pgs.getGrid(), blinky);
+    blinkyAI.setTarget(pacman);
     blinky.setInputSource(this.blinkyAI);
-    this.inkyAI = new PinkyAI(pgs.getGrid(), inky, pacman, home);
+    this.inkyAI = new PinkyAI(pgs.getGrid(), inky);
+    inkyAI.setTarget(pacman);
     inky.setInputSource(this.inkyAI);
-    this.pinkyAI = new GhostAI(pgs.getGrid(), pinky, pacman, home);
+    this.pinkyAI = new GhostAI(pgs.getGrid(), pinky);
+    pinkyAI.setTarget(pacman);
     pinky.setInputSource(this.pinkyAI);
-    this.clydeAI = new PinkyAI(pgs.getGrid(), clyde, pacman, home);
+    this.clydeAI = new PinkyAI(pgs.getGrid(), clyde);
+    clydeAI.setTarget(pacman);
     clyde.setInputSource(this.clydeAI);
 
     TeleporterOverlay teleporter1 = new TeleporterOverlay(new SpriteCoordinates(new Vec2(1.5, 8.5)));
