@@ -1,22 +1,15 @@
 package ooga.controller;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import ooga.model.InputSource;
 import ooga.model.PacmanGameState;
-import ooga.model.PacmanGrid;
 import ooga.model.PacmanLevel;
 import ooga.model.Player;
-import ooga.model.ai.BlinkyAI;
-import ooga.model.ai.GhostAI;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.LevelDescription;
-import ooga.model.sprites.Ghost;
-import ooga.model.sprites.Sprite;
 import ooga.view.UIController;
 import ooga.view.views.GameView;
 
@@ -33,7 +26,7 @@ public class JSONController implements GameStateController {
   private final JSONDescriptionFactory jsonDescriptionFactory;
   private final HumanInputManager player1;
   private final HumanInputManager player2;
-  private InputSourceFactory inputSourceFactory;
+  private SpriteLinkageFactory spriteLinkageFactory;
 
   public JSONController(Stage primaryStage) {
     this.player1 = new HumanInputManager(KeybindingType.PLAYER_1);
@@ -52,7 +45,7 @@ public class JSONController implements GameStateController {
       pgs.addGridRebuildObserver(gv.getGridRebuildObserver());
 
       pgs.loadPacmanLevel(loadLevelFromJSON("data/levels/test_level_1.json"));
-      inputSourceFactory = new InputSourceFactory(pgs, player1, player2);
+      spriteLinkageFactory = new SpriteLinkageFactory(pgs, player1, player2);
 
       pgs.setPlayers(new Player(1, player1), null);
 

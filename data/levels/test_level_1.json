@@ -2685,6 +2685,16 @@
         }
       },
       {
+        "className": "Cherry",
+        "inputSource": "NONE",
+        "coordinates": {
+          "position": {
+            "x": 1.5,
+            "y": 1.5
+          }
+        }
+      },
+      {
         "className": "PacMan",
         "inputSource": "PLAYER_1",
         "coordinates": {
@@ -2711,6 +2721,46 @@
           "position": {
             "x": 11.5,
             "y": 12.5
+          }
+        }
+      },
+      {
+        "className": "TeleporterOverlay",
+        "inputSource": "TELEPORTER_A",
+        "coordinates": {
+          "position": {
+            "x": 1.5,
+            "y": 8.5
+          }
+        }
+      },
+      {
+        "className": "TeleporterOverlay",
+        "inputSource": "TELEPORTER_A",
+        "coordinates": {
+          "position": {
+            "x": 15.5,
+            "y": 8.5
+          }
+        }
+      },
+      {
+        "className": "TeleporterOverlay",
+        "inputSource": "TELEPORTER_B",
+        "coordinates": {
+          "position": {
+            "x": 1.5,
+            "y": 4.5
+          }
+        }
+      },
+      {
+        "className": "TeleporterOverlay",
+        "inputSource": "TELEPORTER_B",
+        "coordinates": {
+          "position": {
+            "x": 15.5,
+            "y": 4.5
           }
         }
       }
