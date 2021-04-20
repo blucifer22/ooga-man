@@ -9,6 +9,7 @@ import ooga.model.PacmanGameState;
 import ooga.model.ai.PinkyAI;
 import ooga.model.Player;
 import ooga.model.SpriteCoordinates;
+import ooga.model.api.GameStateObservationComposite;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Clyde;
@@ -38,12 +39,12 @@ public class Controller implements GameStateController {
     // startGame();
   }
 
-  public void startGame() {
+  @Override
+  public void startGame(GameStateObservationComposite rootObserver) {
     PacmanGameState pgs = new PacmanGameState();
-    GameView gv = uiController.getGameView(); // TODO: abstract GameView to an interface here
 
-    pgs.addSpriteExistenceObserver(gv.getSpriteExistenceObserver());
-    pgs.addGridRebuildObserver(gv.getGridRebuildObserver());
+    pgs.addSpriteExistenceObserver(rootObserver.spriteExistenceObserver());
+    pgs.addGridRebuildObserver(rootObserver.gridRebuildObserver());
 
     try {
       pgs.loadGrid(

@@ -8,6 +8,7 @@ import javafx.util.Duration;
 import ooga.model.PacmanGameState;
 import ooga.model.PacmanLevel;
 import ooga.model.Player;
+import ooga.model.api.GameStateObservationComposite;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.LevelDescription;
 import ooga.view.UIController;
@@ -35,13 +36,12 @@ public class JSONController implements GameStateController {
   }
 
   @Override
-  public void startGame() {
+  public void startGame(GameStateObservationComposite rootObserver) {
     try {
       PacmanGameState pgs = new PacmanGameState();
-      GameView gv = uiController.getGameView(); // TODO: abstract GameView to an interface here
 
-      pgs.addSpriteExistenceObserver(gv.getSpriteExistenceObserver());
-      pgs.addGridRebuildObserver(gv.getGridRebuildObserver());
+      pgs.addSpriteExistenceObserver(rootObserver.spriteExistenceObserver());
+      pgs.addGridRebuildObserver(rootObserver.gridRebuildObserver());
 
       pgs.loadPacmanLevel(loadLevelFromJSON("data/levels/test_level_1.json"));
       SpriteLinkageFactory spriteLinkageFactory = new SpriteLinkageFactory(pgs, player1, player2);

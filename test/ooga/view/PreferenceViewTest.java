@@ -2,20 +2,13 @@ package ooga.view;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.ResourceBundle;
-import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-import ooga.view.internal_api.PreferenceResponder;
 import ooga.view.internal_api.ViewStackManager;
 import ooga.view.language.api.LanguageSelectionService;
 import ooga.view.language.api.LanguageService;
@@ -33,8 +26,8 @@ import org.junit.jupiter.api.Test;
 
 public class PreferenceViewTest extends CustomApplicationTest {
 
-  private class TestHarness extends BundledLanguageService implements PreferenceResponder,
-      ThemeService, LanguageService, ViewStackManager, UIServiceProvider, UIPreferenceService {
+  private class TestHarness extends BundledLanguageService implements ThemeService,
+      LanguageService, ViewStackManager, UIServiceProvider, UIPreferenceService {
     private SerializedThemeService ts = new SerializedThemeService();
     private final int[] state = new int[2];
     private String language = null;

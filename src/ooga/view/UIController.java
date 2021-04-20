@@ -3,14 +3,12 @@ package ooga.view;
 import java.util.Stack;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ooga.model.api.GameStateObservationComposite;
 import ooga.view.internal_api.ViewStackManager;
 import ooga.controller.GameStateController;
 import ooga.view.internal_api.MainMenuResponder;
-import ooga.view.internal_api.PreferenceResponder;
 import ooga.view.io.HumanInputConsumer;
-import ooga.view.language.api.LanguageService;
 import ooga.view.language.bundled.BundledLanguageService;
-import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.serialized.SerializedThemeService;
 import ooga.view.uiservice.PreferenceService;
 import ooga.view.uiservice.ServiceProvider;
@@ -28,7 +26,7 @@ public class UIController implements MainMenuResponder, ViewStackManager {
   // controlled elements
   private final Stage primaryStage;
   private final GameStateController gameController;
-  private final GameView gameView;
+  private GameView gameView;
   private final Stack<Scene> viewStack;
 
   // shared UI dependencies
@@ -56,36 +54,14 @@ public class UIController implements MainMenuResponder, ViewStackManager {
     this.primaryStage.titleProperty().bind(this.serviceProvider.languageService().getLocalizedString("pacman"));
     this.viewStack.add(this.primaryStage.getScene());
 
-    // Prep Game View
-    this.gameView = new GameView(this.serviceProvider);
-
     // Allow user interaction
     this.primaryStage.show();
   }
 
-  public void showGameView() {
-    Scene gameViewScene = this.gameView.getRenderingNode().getScene();
-
-    if (gameViewScene == null) {
-      gameViewScene = new Scene(this.gameView.getRenderingNode());
-    }
-
-    showScene(gameViewScene, true);
-  }
-
-  // TODO: abstract GameView to an interface here
-  public GameView getGameView() {
-    return this.gameView;
-  }
-
-  private void redirectInput(Scene s) {
-    s.setOnKeyPressed(e -> inputConsumer.onKeyPress(e.getCode()));
-    s.setOnKeyReleased(e -> inputConsumer.onKeyRelease(e.getCode()));
-  }
-
   @Override
   public void startGame() {
-    gameController.startGame();
+    this.gameView = new GameView(this.serviceProvider);
+    gameController.startGame(this.gameView);
     showGameView();
   }
 
@@ -96,13 +72,23 @@ public class UIController implements MainMenuResponder, ViewStackManager {
 
   @Override
   public void openPreferences() {
-    showScene(new Scene((new PreferenceView(this.serviceProvider, this.preferenceService).getRenderingNode())),
-        true);
+    PreferenceView prefView = new PreferenceView(this.serviceProvider, this.preferenceService);
+    showScene(new Scene((prefView.getRenderingNode())), true);
   }
 
   @Override
   public void unwind() {
     showScene(viewStack.pop(), false);
+  }
+
+  private void redirectInput(Scene s) {
+    s.setOnKeyPressed(e -> inputConsumer.onKeyPress(e.getCode()));
+    s.setOnKeyReleased(e -> inputConsumer.onKeyRelease(e.getCode()));
+  }
+
+  private void showGameView() {
+    Scene gameViewScene = new Scene(this.gameView.getRenderingNode());
+    showScene(gameViewScene, true);
   }
 
   private void showScene(Scene s, boolean addToStack) {
