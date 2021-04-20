@@ -77,6 +77,7 @@ public class SerializedThemeService implements ThemeService, ThemeSelectionServi
         loadThemeFromFile(base);
       } catch (Exception e) {
         // TODO: handle exception
+        e.printStackTrace();
       }
     } else if (base.isDirectory() && base.exists()) {
       for (File f : Objects.requireNonNull(base.listFiles())) {
