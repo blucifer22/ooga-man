@@ -19,34 +19,45 @@ public abstract class MoveableSprite extends Sprite {
   private double movementSpeed;
   private Vec2 queuedDirection;
 
+  private double initialMovementSpeed;
+
   protected MoveableSprite(String spriteAnimationPrefix,
-                           SpriteAnimationFactory.SpriteAnimationType startingAnimation,
-                           SpriteCoordinates position,
-                           Vec2 direction,
+      SpriteAnimationFactory.SpriteAnimationType startingAnimation,
+      SpriteCoordinates position,
+      Vec2 direction,
       double speed) {
     super(spriteAnimationPrefix, startingAnimation, position, direction);
     this.currentSpeed = 0;
     this.movementSpeed = speed;
     queuedDirection = null;
+
+    initialMovementSpeed = speed;
   }
 
   protected MoveableSprite(String spriteAnimationPrefix,
-                           SpriteAnimationFactory.SpriteAnimationType startingAnimation,
-                           SpriteDescription description) {
+      SpriteAnimationFactory.SpriteAnimationType startingAnimation,
+      SpriteDescription description) {
     super(spriteAnimationPrefix, startingAnimation, description);
+  }
+
+  @Override
+  public void reset() {
+    super.reset();
+    movementSpeed = initialMovementSpeed;
   }
 
   public double getMovementSpeed() {
     return movementSpeed;
   }
 
+  public void setMovementSpeed(double speed) {
+    this.movementSpeed = speed;
+  }
+
   public double getCurrentSpeed() {
     return currentSpeed;
   }
 
-  public void setMovementSpeed(double speed) {
-    this.movementSpeed = speed;
-  }
   public void setCurrentSpeed(double speed) {
     this.currentSpeed = speed;
   }
@@ -58,7 +69,7 @@ public abstract class MoveableSprite extends Sprite {
 
   @Override
   public void setInputSource(InputSource s) {
-    if(defaultInputSource == null) {
+    if (defaultInputSource == null) {
       defaultInputSource = s;
     }
     inputSource = s;
@@ -66,7 +77,7 @@ public abstract class MoveableSprite extends Sprite {
 
   protected abstract boolean canMoveTo(Tile tile);
 
-  public void move(double dt, PacmanGrid grid){
+  public void move(double dt, PacmanGrid grid) {
     Vec2 userDirection = getInputSource().getRequestedDirection();
     userDirection = userDirection.getMagnitude() == 1 ? userDirection : Vec2.ZERO;
 
@@ -80,7 +91,8 @@ public abstract class MoveableSprite extends Sprite {
 
     Vec2 centerCoordinates = getCoordinates().getTileCenter();
     Vec2 currentPosition = getCoordinates().getPosition();
-    Vec2 nextPosition = currentPosition.add(getDirection().scalarMult(getCurrentSpeed()).scalarMult(dt));
+    Vec2 nextPosition = currentPosition
+        .add(getDirection().scalarMult(getCurrentSpeed()).scalarMult(dt));
 
     // Grid-snapping
     if (centerCoordinates.isBetween(currentPosition, nextPosition)) {
@@ -111,7 +123,8 @@ public abstract class MoveableSprite extends Sprite {
     }
 
     nextPosition =
-        getCoordinates().getPosition().add(getDirection().scalarMult(getCurrentSpeed()).scalarMult(dt));
+        getCoordinates().getPosition()
+            .add(getDirection().scalarMult(getCurrentSpeed()).scalarMult(dt));
 
     setPosition(nextPosition);
   }
