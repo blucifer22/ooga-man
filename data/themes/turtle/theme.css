@@ -1,20 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Seaweed+Script&display=swap');
 
 .view * {
-  -fx-font-family: VT323;
+  -fx-font-family: "Seaweed Script";
 }
 
 .menu-title {
   -fx-font-size: 80px;
   -fx-font-weight: bold;
-  -fx-text-fill: linear-gradient(#ffa500, #f5dc00);
+  -fx-text-fill: linear-gradient(#00a5ff, #00dcff);
   -fx-corner-radius: 5px;
 }
 
 .menu-button {
   -fx-font-size: 40px;
   -fx-font-weight: bold;
-  -fx-background-color: linear-gradient(#ffa500, #f5dc00);
+  -fx-background-color: linear-gradient(#00ffa5, #00ffdc);
   -fx-text-fill: white;
   -fx-border-radius: 5px;
   -fx-background-radius: 10px;
