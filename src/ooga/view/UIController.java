@@ -26,7 +26,7 @@ public class UIController implements MainMenuResponder, ViewStackManager {
   // controlled elements
   private final Stage primaryStage;
   private final GameStateController gameController;
-  private final GameView gameView;
+  private GameView gameView;
   private final Stack<Scene> viewStack;
 
   // shared UI dependencies
@@ -54,15 +54,13 @@ public class UIController implements MainMenuResponder, ViewStackManager {
     this.primaryStage.titleProperty().bind(this.serviceProvider.languageService().getLocalizedString("pacman"));
     this.viewStack.add(this.primaryStage.getScene());
 
-    // Prep Game View
-    this.gameView = new GameView(this.serviceProvider);
-
     // Allow user interaction
     this.primaryStage.show();
   }
 
   @Override
   public void startGame() {
+    this.gameView = new GameView(this.serviceProvider);
     gameController.startGame(this.gameView);
     showGameView();
   }
