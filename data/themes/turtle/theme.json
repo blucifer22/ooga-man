@@ -324,28 +324,28 @@
     "dot_still_1" : {
       "fill" : "themes/turtle/images/consumables/jellyfish.png",
       "imageFill" : true,
-      "scale" : 0.5,
+      "scale" : 0.75,
       "bottomHeavy" : false,
       "rotates": false
     },
     "powerpill_blink_1" : {
-      "fill" : "themes/turtle/images/consumables/powerpill_blink_1.png",
+      "fill" : "themes/turtle/images/consumables/bluefish.png",
       "imageFill" : true,
-      "scale" : 0.5,
+      "scale" : 0.75,
       "bottomHeavy" : false,
       "rotates": false
     },
     "powerpill_blink_2" : {
       "fill" : "themes/turtle/images/blank.png",
       "imageFill" : true,
-      "scale" : 0.5,
+      "scale" : 0.75,
       "bottomHeavy" : false,
       "rotates": false
     },
     "cherry_still_1" : {
-      "fill" : "themes/turtle/images/consumables/cherries.png",
+      "fill" : "themes/turtle/images/consumables/redfish.png",
       "imageFill" : true,
-      "scale" : 0.5,
+      "scale" : 0.75,
       "bottomHeavy" : false,
       "rotates": false
     },
