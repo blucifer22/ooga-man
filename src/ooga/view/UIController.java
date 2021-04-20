@@ -8,13 +8,19 @@ import ooga.controller.GameStateController;
 import ooga.view.internal_api.MainMenuResponder;
 import ooga.view.internal_api.PreferenceResponder;
 import ooga.view.io.HumanInputConsumer;
+import ooga.view.language.api.LanguageService;
 import ooga.view.language.bundled.BundledLanguageService;
+import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.serialized.SerializedThemeService;
+import ooga.view.uiservice.PreferenceService;
+import ooga.view.uiservice.ServiceProvider;
+import ooga.view.uiservice.UIPreferenceService;
+import ooga.view.uiservice.UIServiceProvider;
 import ooga.view.views.GameView;
 import ooga.view.views.MenuView;
 import ooga.view.views.PreferenceView;
 
-public class UIController implements MainMenuResponder, PreferenceResponder, ViewStackManager {
+public class UIController implements MainMenuResponder, ViewStackManager {
 
   // constants
   private static final double DEFAULT_STAGE_SIZE = 600;
@@ -26,28 +32,32 @@ public class UIController implements MainMenuResponder, PreferenceResponder, Vie
   private final Stack<Scene> viewStack;
 
   // shared UI dependencies
-  private final BundledLanguageService languageService;
-  private final SerializedThemeService themeService;
   private final HumanInputConsumer inputConsumer;
+  private final UIPreferenceService preferenceService;
+  private final UIServiceProvider serviceProvider;
 
   public UIController(Stage primaryStage, GameStateController gameController,
       HumanInputConsumer inputConsumer) {
     // Configure Data Sources & Displays
     this.inputConsumer = inputConsumer;
     this.gameController = gameController;
-    this.languageService = new BundledLanguageService();
-    this.themeService = new SerializedThemeService();
     this.viewStack = new Stack<>();
+
+    // initialize shared dependencies
+    BundledLanguageService languageService = new BundledLanguageService();
+    SerializedThemeService themeService = new SerializedThemeService();
+    this.serviceProvider = new ServiceProvider(themeService, languageService, this);
+    this.preferenceService = new PreferenceService(themeService, languageService);
 
     // Stage Prep
     this.primaryStage = primaryStage;
-    this.primaryStage.setScene(new Scene(new MenuView(this, this.themeService,
-        this.languageService).getRenderingNode(), DEFAULT_STAGE_SIZE, DEFAULT_STAGE_SIZE));
-    this.primaryStage.titleProperty().bind(this.languageService.getLocalizedString("pacman"));
+    this.primaryStage.setScene(new Scene(new MenuView(this.serviceProvider, this).getRenderingNode(),
+        DEFAULT_STAGE_SIZE, DEFAULT_STAGE_SIZE));
+    this.primaryStage.titleProperty().bind(this.serviceProvider.languageService().getLocalizedString("pacman"));
     this.viewStack.add(this.primaryStage.getScene());
 
     // Prep Game View
-    this.gameView = new GameView(this.themeService, this);
+    this.gameView = new GameView(this.serviceProvider);
 
     // Allow user interaction
     this.primaryStage.show();
@@ -86,13 +96,8 @@ public class UIController implements MainMenuResponder, PreferenceResponder, Vie
 
   @Override
   public void openPreferences() {
-    showScene(new Scene((new PreferenceView(this, themeService,
-        languageService, this).getRenderingNode())), true);
-  }
-
-  @Override
-  public void setLanguage(String language) {
-    this.languageService.setLanguage(language);
+    showScene(new Scene((new PreferenceView(this.serviceProvider, this.preferenceService).getRenderingNode())),
+        true);
   }
 
   @Override
