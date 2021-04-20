@@ -1,17 +1,21 @@
 package ooga.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
-import javafx.stage.Stage;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import ooga.controller.HumanInputManager;
-import ooga.controller.JSONController;
 import ooga.controller.KeybindingType;
 import ooga.controller.SpriteLinkageFactory;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.LevelDescription;
 import ooga.model.sprites.Sprite;
+import ooga.model.sprites.TeleporterOverlay;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -48,12 +52,41 @@ public class LinkageFactoryTests {
   @Test
   public void testHumanInputLoaded() {
     boolean connectedToHumanInput = false;
-    for (Sprite sprite : pgs.getSprites()){
-      if (sprite.getInputSource() == player1){
+    for (Sprite sprite : pgs.getSprites()) {
+      if (sprite.getInputSource() == player1) {
         connectedToHumanInput = true;
       }
     }
     assertTrue(connectedToHumanInput);
   }
 
+  @Test
+  public void testInputLinkage() {
+    spriteLinkageFactory.linkSprites();
+    for (Sprite sprite : pgs.getSprites()) {
+      if (!sprite.getInputString().equals("NONE")
+          && !sprite.getInputString().contains("TELEPORTER")) {
+        assertNotNull(sprite.getInputSource());
+      }
+    }
+  }
+
+  @Test
+  public void testTeleporterLinkage() {
+    spriteLinkageFactory.linkSprites();
+    Map<String, List<Sprite>> teleporterOverlayMap = new HashMap<>();
+    for (Sprite sprite : pgs.getSprites()) {
+      if (sprite.getInputString().contains("TELEPORTER")) {
+        TeleporterOverlay teleporterOverlay = (TeleporterOverlay) sprite;
+        teleporterOverlayMap.putIfAbsent(teleporterOverlay.getInputString(), new ArrayList<>());
+        teleporterOverlayMap
+            .get(teleporterOverlay.getInputString())
+            .addAll(teleporterOverlay.getConnectedTeleporters());
+      }
+    }
+
+    for(String key : teleporterOverlayMap.keySet()) {
+      assertEquals(teleporterOverlayMap.get(key).size(), 2);
+    }
+  }
 }

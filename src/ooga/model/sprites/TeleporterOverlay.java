@@ -46,6 +46,15 @@ public class TeleporterOverlay extends Sprite {
   }
 
   /**
+   * Get this TeleporterOverlay's List of connectedTeleporters.
+   *
+   * @return This TeleporterOverlay's List of connectedTeleporters.
+   */
+  public List<Sprite> getConnectedTeleporters() {
+    return connectedTeleporters;
+  }
+
+  /**
    * Changes the position of the Sprite that collides with this.  This object can not be modified by
    * collision by other Sprites.  An object entering this teleporter will leave the teleporter
    * moving in the same direction.  The teleporter that the entering Sprite leaves is randomly
