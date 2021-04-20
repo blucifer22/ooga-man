@@ -1,13 +1,11 @@
 package ooga.view.views;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
+import java.util.Set;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
@@ -17,6 +15,21 @@ public class LabeledComboboxCard extends StackPane {
   public LabeledComboboxCard(UIServiceProvider serviceProvider, String labelBundleIdentifier,
       Map<String, String> options, OptionSelectionHandler selectionHandler) {
     super();
+    configure(serviceProvider, labelBundleIdentifier, options, selectionHandler);
+  }
+
+  public LabeledComboboxCard(UIServiceProvider serviceProvider, String labelBundleIdentifier,
+      Set<String> options, OptionSelectionHandler selectionHandler) {
+    super();
+    LinkedHashMap<String, String> orderedOptions = new LinkedHashMap<>();
+    for (String option: options) {
+      orderedOptions.put(option, option);
+    }
+    configure(serviceProvider, labelBundleIdentifier, orderedOptions, selectionHandler);
+  }
+
+  private void configure(UIServiceProvider serviceProvider, String labelBundleIdentifier,
+      Map<String, String> options, OptionSelectionHandler selectionHandler) {
     Label dropdownLabel = new Label();
     dropdownLabel.textProperty().bind(serviceProvider.languageService().getLocalizedString(labelBundleIdentifier));
     dropdownLabel.getStyleClass().add("dropdown-label");

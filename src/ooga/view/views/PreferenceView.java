@@ -47,6 +47,14 @@ public class PreferenceView implements ThemedObject, View {
     );
     this.primaryView.add(languageSelectCard, 0, 0);
 
+    LabeledComboboxCard themeSelectCard = new LabeledComboboxCard(
+        this.serviceProvider,
+        "theme",
+        this.preferenceService.themeSelectionService().getAvailableThemes(),
+        selectedOption -> this.preferenceService.themeSelectionService().setTheme(selectedOption)
+    );
+    this.primaryView.add(themeSelectCard, 0, 1);
+
     // Labeled Combobox; TODO: refactor!
     Button returnToMenu = new Button();
     returnToMenu.textProperty().bind(this.serviceProvider.languageService().getLocalizedString("previousMenu"));
@@ -58,7 +66,7 @@ public class PreferenceView implements ThemedObject, View {
         returnToMenu
     );
     backButtonCard.setAlignment(Pos.CENTER);
-    this.primaryView.add(backButtonCard, 0, 1);
+    this.primaryView.add(backButtonCard, 0, 2);
   }
 
   @Override
