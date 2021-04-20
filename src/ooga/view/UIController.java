@@ -87,12 +87,7 @@ public class UIController implements MainMenuResponder, ViewStackManager {
   }
 
   private void showGameView() {
-    Scene gameViewScene = this.gameView.getRenderingNode().getScene();
-
-    if (gameViewScene == null) {
-      gameViewScene = new Scene(this.gameView.getRenderingNode());
-    }
-
+    Scene gameViewScene = new Scene(this.gameView.getRenderingNode());
     showScene(gameViewScene, true);
   }
 
