@@ -46,6 +46,7 @@ public class JSONController implements GameStateController {
 
       pgs.loadPacmanLevel(loadLevelFromJSON("data/levels/test_level_1.json"));
       spriteLinkageFactory = new SpriteLinkageFactory(pgs, player1, player2);
+      spriteLinkageFactory.linkSprites();
 
       pgs.setPlayers(new Player(1, player1), null);
 
@@ -56,6 +57,7 @@ public class JSONController implements GameStateController {
       animation.getKeyFrames().add(frame);
       animation.play();
     } catch (IOException e) {
+      // TODO: Pop-up exception handling!
       System.err.println(e.getMessage());
     }
   }

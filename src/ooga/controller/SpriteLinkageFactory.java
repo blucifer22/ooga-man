@@ -21,6 +21,7 @@ import ooga.model.sprites.TeleporterOverlay;
  */
 public class SpriteLinkageFactory {
 
+  private PacmanGameState pgs;
   private final List<Sprite> ghostList;
   private Sprite pacman;
   private HumanInputManager player1;
@@ -28,6 +29,7 @@ public class SpriteLinkageFactory {
 
   public SpriteLinkageFactory(
       PacmanGameState pgs, HumanInputManager player1, HumanInputManager player2) {
+    this.pgs = pgs;
     this.player1 = player1;
     this.player2 = player2;
     ghostList = new ArrayList<>();
@@ -40,6 +42,9 @@ public class SpriteLinkageFactory {
         ghostList.add(sprite);
       }
     }
+  }
+
+  public void linkSprites() {
     attachGhostTargets();
     attachPacmanTargets();
     attachTeleporters(pgs.getSprites());
