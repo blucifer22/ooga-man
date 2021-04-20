@@ -14,19 +14,28 @@ import ooga.model.sprites.SwapClass;
 import ooga.model.sprites.TeleporterOverlay;
 
 /**
- * This class contains methods that handle the attachment of targets to InputSources.
+ * This class contains methods that handle the attachment of all related entities to Sprites. This
+ * means the attachment of targets to AIs, teleporters to other teleporters, etc.
  *
  * @author Marc Chmielewski
  * @author George Hong
  */
 public class SpriteLinkageFactory {
 
-  private PacmanGameState pgs;
   private final List<Sprite> ghostList;
+  private final PacmanGameState pgs;
   private Sprite pacman;
-  private HumanInputManager player1;
-  private HumanInputManager player2;
+  private final HumanInputManager player1;
+  private final HumanInputManager player2;
 
+  /**
+   * This constructor constructs a new SpriteLinkageFactory that will handle the association of
+   * Sprites with their necessary related entities.
+   *
+   * @param pgs The PacmanGameState unto which to complete the linking operation.
+   * @param player1 The HumanInputManager for Player 1
+   * @param player2 The HumanInputManager for Player 2
+   */
   public SpriteLinkageFactory(
       PacmanGameState pgs, HumanInputManager player1, HumanInputManager player2) {
     this.pgs = pgs;
@@ -44,6 +53,11 @@ public class SpriteLinkageFactory {
     }
   }
 
+  /**
+   * This method will handle the linking of the Sprites in a given PacmanGameState to their
+   * respective related entities. This means that Sprites that need InputSources will be linked to
+   * their InputSources, and Sprites that need targets linked will have their targets linked here.
+   */
   public void linkSprites() {
     attachGhostTargets();
     attachPacmanTargets();
