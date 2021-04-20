@@ -14,31 +14,29 @@ import ooga.view.internal_api.View;
 import ooga.view.language.api.LanguageService;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.api.ThemedObject;
+import ooga.view.uiservice.UIServiceProvider;
 
 public class MenuView implements View, ThemedObject {
 
   private final GridPane primaryView;
-  private final ThemeService themeService;
-  private final LanguageService languageService;
   private final MainMenuResponder menuResponder;
+  private final UIServiceProvider serviceProvider;
 
-  public MenuView(MainMenuResponder menuResponder, ThemeService themeService,
-      LanguageService languageService) {
+  public MenuView(UIServiceProvider serviceProvider, MainMenuResponder menuResponder) {
+    this.serviceProvider = serviceProvider;
     this.menuResponder = menuResponder;
-    this.themeService = themeService;
-    this.languageService = languageService;
     this.primaryView = new GridPane();
     this.primaryView.setGridLinesVisible(true);
     this.primaryView.setAlignment(Pos.CENTER);
     this.primaryView.getStyleClass().add("view");
-    this.themeService.addThemedObject(this);
+    this.serviceProvider.themeService().addThemedObject(this);
     buildScene();
   }
 
   private void buildScene() {
     Label title = new Label();
     title.getStyleClass().add("menu-title");
-    title.textProperty().bind(languageService.getLocalizedString("pacman"));
+    title.textProperty().bind(serviceProvider.languageService().getLocalizedString("pacman"));
     GridPane.setHalignment(title, HPos.CENTER);
     this.primaryView.add(title, 0, 0);
 
@@ -56,7 +54,7 @@ public class MenuView implements View, ThemedObject {
     Button button = new Button();
     button.getStyleClass().add("menu-button");
     button.setId("menu-button-" + labelKey);
-    button.textProperty().bind(languageService.getLocalizedString(labelKey));
+    button.textProperty().bind(serviceProvider.languageService().getLocalizedString(labelKey));
     button.setOnMouseClicked(onClickHandler);
     button.setMaxWidth(Double.MAX_VALUE);
     return button;
@@ -70,6 +68,6 @@ public class MenuView implements View, ThemedObject {
   @Override
   public void onThemeChange() {
     this.primaryView.getStylesheets().clear();
-    this.primaryView.getStylesheets().add(themeService.getTheme().getStylesheet());
+    this.primaryView.getStylesheets().add(serviceProvider.themeService().getTheme().getStylesheet());
   }
 }
