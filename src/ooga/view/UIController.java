@@ -72,8 +72,8 @@ public class UIController implements MainMenuResponder, ViewStackManager {
 
   @Override
   public void openPreferences() {
-    showScene(new Scene((new PreferenceView(this.serviceProvider, this.preferenceService).getRenderingNode())),
-        true);
+    PreferenceView prefView = new PreferenceView(this.serviceProvider, this.preferenceService);
+    showScene(new Scene((prefView.getRenderingNode())), true);
   }
 
   @Override
