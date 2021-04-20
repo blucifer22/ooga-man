@@ -1,21 +1,11 @@
 package ooga.view.views;
 
-import java.util.ArrayList;
-import java.util.Map;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.util.Pair;
-import ooga.view.internal_api.PreferenceResponder;
 import ooga.view.internal_api.View;
-import ooga.view.internal_api.ViewStackManager;
-import ooga.view.language.api.LanguageSelectionService;
-import ooga.view.language.api.LanguageService;
-import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.api.ThemedObject;
 import ooga.view.uiservice.UIPreferenceService;
 import ooga.view.uiservice.UIServiceProvider;
