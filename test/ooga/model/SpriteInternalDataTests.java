@@ -7,6 +7,7 @@ import java.util.List;
 import ooga.controller.HumanInputManager;
 import ooga.controller.KeybindingType;
 import ooga.model.sprites.PacMan;
+import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -64,6 +65,16 @@ public class SpriteInternalDataTests {
       public boolean isActionPressed() {
         return false;
       }
+
+      /**
+       * Adds a Sprite target to the InputSource.
+       *
+       * @param target The Sprite to add to the InputSource.
+       */
+      @Override
+      public void addTarget(Sprite target) {
+
+      }
     }
     TestInputSource input = new TestInputSource() {
     };
@@ -105,6 +116,16 @@ public class SpriteInternalDataTests {
       @Override
       public boolean isActionPressed() {
         return false;
+      }
+
+      /**
+       * Adds a Sprite target to the InputSource.
+       *
+       * @param target The Sprite to add to the InputSource.
+       */
+      @Override
+      public void addTarget(Sprite target) {
+
       }
     }
     TestInputSource input = new TestInputSource() {
@@ -150,6 +171,16 @@ public class SpriteInternalDataTests {
       public boolean isActionPressed() {
         return false;
       }
+
+      /**
+       * Adds a Sprite target to the InputSource.
+       *
+       * @param target The Sprite to add to the InputSource.
+       */
+      @Override
+      public void addTarget(Sprite target) {
+
+      }
     }
     TestInputSource input = new TestInputSource() {
     };
@@ -186,6 +217,16 @@ public class SpriteInternalDataTests {
       @Override
       public boolean isActionPressed() {
         return false;
+      }
+
+      /**
+       * Adds a Sprite target to the InputSource.
+       *
+       * @param target The Sprite to add to the InputSource.
+       */
+      @Override
+      public void addTarget(Sprite target) {
+
       }
     }
     TestInputSource input = new TestInputSource() {

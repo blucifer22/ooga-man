@@ -1,15 +1,14 @@
-package ooga.model;
+package ooga.model.ai;
 
+import ooga.model.PacmanGrid;
 import ooga.model.sprites.Ghost;
-import ooga.model.sprites.Home;
-import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 
 public class PinkyAI extends GhostAI {
 
-  public PinkyAI(PacmanGrid grid, Ghost ghost, Sprite target, Sprite home) {
-    super(grid, ghost, target, home);
+  public PinkyAI(PacmanGrid grid, Sprite ghost) {
+    super(grid, ghost);
   }
 
   /**

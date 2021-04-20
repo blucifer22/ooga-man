@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import javafx.scene.input.KeyCode;
 import ooga.model.InputSource;
+import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 import ooga.view.io.HumanInputConsumer;
 
@@ -117,5 +118,15 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
   @Override
   public boolean isActionPressed() {
     return pressedKeys.contains(keybinding.get("ACTION"));
+  }
+
+  /**
+   * Adds a Sprite target to the InputSource.
+   *
+   * @param target The Sprite to add to the InputSource.
+   */
+  @Override
+  public void addTarget(Sprite target) {
+    // Do nothing
   }
 }

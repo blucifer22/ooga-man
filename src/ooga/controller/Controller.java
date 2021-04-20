@@ -4,23 +4,20 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import ooga.model.GhostAI;
-import ooga.model.PacmanBasicAI;
+import ooga.model.ai.GhostAI;
 import ooga.model.PacmanGameState;
-import ooga.model.PinkyAI;
+import ooga.model.ai.PinkyAI;
 import ooga.model.Player;
 import ooga.model.SpriteCoordinates;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Clyde;
 import ooga.model.sprites.Dot;
-import ooga.model.sprites.Home;
 import ooga.model.sprites.Inky;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Pinky;
 import ooga.model.sprites.PowerPill;
 import ooga.model.sprites.TeleporterOverlay;
-import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
 import ooga.view.UIController;
 import ooga.view.views.GameView;
@@ -63,8 +60,6 @@ public class Controller implements GameStateController {
     Pinky pinky = new Pinky(new SpriteCoordinates(new Vec2(11.5, 11.5)), new Vec2(0, 0), 5.0);
     Clyde clyde = new Clyde(new SpriteCoordinates(new Vec2(11.5, 11.5)), new Vec2(0, 0), 5.0);
 
-    Home home = new Home(new SpriteCoordinates(new Vec2(8.5, 9.5)), new Vec2(0, 0));
-
     Dot dot1 = new Dot(new SpriteCoordinates(new Vec2(4.5, 4.5)), new Vec2(0, 0));
     Dot dot2 = new Dot(new SpriteCoordinates(new Vec2(1.5, 3.5)), new Vec2(0, 0));
     Dot dot3 = new Dot(new SpriteCoordinates(new Vec2(1.5, 8.5)), new Vec2(0, 0));
@@ -73,20 +68,24 @@ public class Controller implements GameStateController {
 
     pacman.setInputSource(this.inputManager);
 
-//    PacmanBasicAI pacmanBasicAI = new PacmanBasicAI(pgs.getGrid(), pacman);
+//    PacmanAI pacmanBasicAI = new PacmanAI(pgs.getGrid(), pacman);
 //    pacmanBasicAI.addTarget(blinky);
 //    pacmanBasicAI.addTarget(pinky);
 //    pacmanBasicAI.addTarget(clyde);
 //    pacmanBasicAI.addTarget(inky);
 //    pacman.setInputSource(pacmanBasicAI);
 
-    this.blinkyAI = new GhostAI(pgs.getGrid(), blinky, pacman, home);
+    this.blinkyAI = new GhostAI(pgs.getGrid(), blinky);
+    blinkyAI.setTarget(pacman);
     blinky.setInputSource(this.blinkyAI);
-    this.inkyAI = new PinkyAI(pgs.getGrid(), inky, pacman, home);
+    this.inkyAI = new PinkyAI(pgs.getGrid(), inky);
+    inkyAI.setTarget(pacman);
     inky.setInputSource(this.inkyAI);
-    this.pinkyAI = new GhostAI(pgs.getGrid(), pinky, pacman, home);
+    this.pinkyAI = new GhostAI(pgs.getGrid(), pinky);
+    pinkyAI.setTarget(pacman);
     pinky.setInputSource(this.pinkyAI);
-    this.clydeAI = new PinkyAI(pgs.getGrid(), clyde, pacman, home);
+    this.clydeAI = new PinkyAI(pgs.getGrid(), clyde);
+    clydeAI.setTarget(pacman);
     clyde.setInputSource(this.clydeAI);
 
     TeleporterOverlay teleporter1 = new TeleporterOverlay(new SpriteCoordinates(new Vec2(1.5, 8.5)));
