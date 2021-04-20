@@ -12,11 +12,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import ooga.model.api.GameStateObservationComposite;
 import ooga.model.api.GridRebuildObserver;
 import ooga.model.api.SpriteExistenceObserver;
 import ooga.view.internal_api.View;
-import ooga.view.internal_api.ViewStackManager;
-import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.api.ThemedObject;
 import ooga.view.uiservice.UIServiceProvider;
 
@@ -24,7 +23,7 @@ import ooga.view.uiservice.UIServiceProvider;
  * GameView lays out how a round appears (the GridView in the center, information about
  * lives/round/score above and below).
  */
-public class GameView implements View, ThemedObject {
+public class GameView implements View, ThemedObject, GameStateObservationComposite {
 
   private final GridPane primaryView;
   private final GameGridView gridView;
@@ -66,11 +65,13 @@ public class GameView implements View, ThemedObject {
 
   }
 
-  public SpriteExistenceObserver getSpriteExistenceObserver() {
+  @Override
+  public SpriteExistenceObserver spriteExistenceObserver() {
     return this.gridView;
   }
 
-  public GridRebuildObserver getGridRebuildObserver() {
+  @Override
+  public GridRebuildObserver gridRebuildObserver() {
     return this.gridView;
   }
 

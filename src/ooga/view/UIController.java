@@ -3,6 +3,7 @@ package ooga.view;
 import java.util.Stack;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ooga.model.api.GameStateObservationComposite;
 import ooga.view.internal_api.ViewStackManager;
 import ooga.controller.GameStateController;
 import ooga.view.internal_api.MainMenuResponder;
@@ -60,24 +61,8 @@ public class UIController implements MainMenuResponder, ViewStackManager {
     this.primaryStage.show();
   }
 
-  public void showGameView() {
-    Scene gameViewScene = this.gameView.getRenderingNode().getScene();
-
-    if (gameViewScene == null) {
-      gameViewScene = new Scene(this.gameView.getRenderingNode());
-    }
-
-    showScene(gameViewScene, true);
-  }
-
-  // TODO: abstract GameView to an interface here
-  public GameView getGameView() {
+  public GameStateObservationComposite rootObserver() {
     return this.gameView;
-  }
-
-  private void redirectInput(Scene s) {
-    s.setOnKeyPressed(e -> inputConsumer.onKeyPress(e.getCode()));
-    s.setOnKeyReleased(e -> inputConsumer.onKeyRelease(e.getCode()));
   }
 
   @Override
@@ -100,6 +85,21 @@ public class UIController implements MainMenuResponder, ViewStackManager {
   @Override
   public void unwind() {
     showScene(viewStack.pop(), false);
+  }
+
+  private void redirectInput(Scene s) {
+    s.setOnKeyPressed(e -> inputConsumer.onKeyPress(e.getCode()));
+    s.setOnKeyReleased(e -> inputConsumer.onKeyRelease(e.getCode()));
+  }
+
+  private void showGameView() {
+    Scene gameViewScene = this.gameView.getRenderingNode().getScene();
+
+    if (gameViewScene == null) {
+      gameViewScene = new Scene(this.gameView.getRenderingNode());
+    }
+
+    showScene(gameViewScene, true);
   }
 
   private void showScene(Scene s, boolean addToStack) {
