@@ -203,7 +203,7 @@ public abstract class Ghost extends MoveableSprite {
 
   @Override
   public boolean hasMultiplicativeScoring() {
-    return true;
+    return ghostBehavior.equals(GhostBehavior.CHASE);
   }
 
   @Override

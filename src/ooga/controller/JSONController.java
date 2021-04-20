@@ -26,7 +26,6 @@ public class JSONController implements GameStateController {
   private final JSONDescriptionFactory jsonDescriptionFactory;
   private final HumanInputManager player1;
   private final HumanInputManager player2;
-  private SpriteLinkageFactory spriteLinkageFactory;
 
   public JSONController(Stage primaryStage) {
     this.player1 = new HumanInputManager(KeybindingType.PLAYER_1);
@@ -45,7 +44,8 @@ public class JSONController implements GameStateController {
       pgs.addGridRebuildObserver(gv.getGridRebuildObserver());
 
       pgs.loadPacmanLevel(loadLevelFromJSON("data/levels/test_level_1.json"));
-      spriteLinkageFactory = new SpriteLinkageFactory(pgs, player1, player2);
+      SpriteLinkageFactory spriteLinkageFactory = new SpriteLinkageFactory(pgs, player1, player2);
+      spriteLinkageFactory.linkSprites();
 
       pgs.setPlayers(new Player(1, player1), null);
 
@@ -56,6 +56,7 @@ public class JSONController implements GameStateController {
       animation.getKeyFrames().add(frame);
       animation.play();
     } catch (IOException e) {
+      // TODO: Pop-up exception handling!
       System.err.println(e.getMessage());
     }
   }
