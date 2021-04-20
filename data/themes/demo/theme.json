@@ -170,56 +170,56 @@
       "bottomHeavy" : true
     },
     "clyde_up_1" : {
-      "fill" : "themes/demo/images/a7.png",
+      "fill" : "themes/demo/images/windows.png",
       "imageFill" : true,
       "scale" : 1.5,
       "bottomHeavy" : true,
       "rotates" : false
     },
     "clyde_up_2" : {
-      "fill" : "themes/demo/images/a7.png",
+      "fill" : "themes/demo/images/windows.png",
       "imageFill" : true,
       "scale" : 1.5,
       "bottomHeavy" : true,
       "rotates" : false
     },
     "clyde_down_1" : {
-      "fill" : "themes/demo/images/a7.png",
+      "fill" : "themes/demo/images/windows.png",
       "imageFill" : true,
       "scale" : 1.5,
       "bottomHeavy" : true,
       "rotates" : false
     },
     "clyde_down_2" : {
-      "fill" : "themes/demo/images/a7.png",
+      "fill" : "themes/demo/images/windows.png",
       "imageFill" : true,
       "scale" : 1.5,
       "bottomHeavy" : true,
       "rotates" : false
     },
     "clyde_left_1" : {
-      "fill" : "themes/demo/images/a7.png",
+      "fill" : "themes/demo/images/windows.png",
       "imageFill" : true,
       "scale" : 1.5,
       "bottomHeavy" : true,
       "rotates" : false
     },
     "clyde_left_2" : {
-      "fill" : "themes/demo/images/a7.png",
+      "fill" : "themes/demo/images/windows.png",
       "imageFill" : true,
       "scale" : 1.5,
       "bottomHeavy" : true,
       "rotates" : false
     },
     "clyde_right_1" : {
-      "fill" : "themes/demo/images/a7.png",
+      "fill" : "themes/demo/images/windows.png",
       "imageFill" : true,
       "scale" : 1.5,
       "bottomHeavy" : true,
       "rotates" : false
     },
     "clyde_right_2" : {
-      "fill" : "themes/demo/images/a7.png",
+      "fill" : "themes/demo/images/windows.png",
       "imageFill" : true,
       "scale" : 1.5,
       "bottomHeavy" : true,
