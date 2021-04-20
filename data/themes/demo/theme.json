@@ -343,7 +343,7 @@
       "rotates" : false
     },
     "cherry_still_1" : {
-      "fill" : "themes/turtle/images/consumables/cherries.png",
+      "fill" : "themes/demo/images/c.png",
       "imageFill" : true,
       "scale" : 0.5,
       "bottomHeavy" : false,
