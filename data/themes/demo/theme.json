@@ -289,15 +289,15 @@
       "rotates" : true
     },
     "tile" : {
-      "fill" : "WHITE",
+      "fill" : "BEIGE",
       "imageFill" : false,
-      "scale" : 1.5,
+      "scale" : 1.0,
       "bottomHeavy" : false
     },
     "tileclosed" : {
-      "fill" : "GRAY",
+      "fill" : "BLACK",
       "imageFill" : false,
-      "scale" : 1.5,
+      "scale" : 1.0,
       "bottomHeavy" : false
     },
     "pacman_chomp_1" : {
