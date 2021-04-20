@@ -61,13 +61,9 @@ public class UIController implements MainMenuResponder, ViewStackManager {
     this.primaryStage.show();
   }
 
-  public GameStateObservationComposite rootObserver() {
-    return this.gameView;
-  }
-
   @Override
   public void startGame() {
-    gameController.startGame();
+    gameController.startGame(this.gameView);
     showGameView();
   }
 

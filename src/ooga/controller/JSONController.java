@@ -36,13 +36,12 @@ public class JSONController implements GameStateController {
   }
 
   @Override
-  public void startGame() {
+  public void startGame(GameStateObservationComposite rootObserver) {
     try {
       PacmanGameState pgs = new PacmanGameState();
-      GameStateObservationComposite gv = uiController.rootObserver(); // TODO: abstract GameView to an interface here
 
-      pgs.addSpriteExistenceObserver(gv.spriteExistenceObserver());
-      pgs.addGridRebuildObserver(gv.gridRebuildObserver());
+      pgs.addSpriteExistenceObserver(rootObserver.spriteExistenceObserver());
+      pgs.addGridRebuildObserver(rootObserver.gridRebuildObserver());
 
       pgs.loadPacmanLevel(loadLevelFromJSON("data/levels/test_level_1.json"));
       SpriteLinkageFactory spriteLinkageFactory = new SpriteLinkageFactory(pgs, player1, player2);

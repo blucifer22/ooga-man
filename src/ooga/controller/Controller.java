@@ -39,12 +39,12 @@ public class Controller implements GameStateController {
     // startGame();
   }
 
-  public void startGame() {
+  @Override
+  public void startGame(GameStateObservationComposite rootObserver) {
     PacmanGameState pgs = new PacmanGameState();
-    GameStateObservationComposite gv = uiController.rootObserver(); // TODO: abstract GameView to an interface here
 
-    pgs.addSpriteExistenceObserver(gv.spriteExistenceObserver());
-    pgs.addGridRebuildObserver(gv.gridRebuildObserver());
+    pgs.addSpriteExistenceObserver(rootObserver.spriteExistenceObserver());
+    pgs.addGridRebuildObserver(rootObserver.gridRebuildObserver());
 
     try {
       pgs.loadGrid(
