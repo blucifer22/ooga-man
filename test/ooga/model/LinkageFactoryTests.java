@@ -16,6 +16,7 @@ import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.LevelDescription;
 import ooga.model.sprites.Sprite;
 import ooga.model.sprites.TeleporterOverlay;
+import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -42,6 +43,17 @@ public class LinkageFactoryTests {
     pgs.loadPacmanLevel(loadLevelFromJSON("data/levels/test_json_linkage_factory.json"));
     spriteLinkageFactory = new SpriteLinkageFactory(pgs, player1, player2);
     pgs.setPlayers(new Player(1, player1), null);
+  }
+
+  @Test
+  public void resetTest() {
+    spriteLinkageFactory.linkSprites();
+    for (int k = 0; k < 90; k++) {
+      pgs.step(1 / 60.);
+    }
+    pgs.resetLevel();
+    Sprite blinkySprite = pgs.getSprites().get(0);
+    assertEquals(new Vec2(8.5, 8.5), blinkySprite.getCoordinates().getPosition());
   }
 
   @Test
@@ -85,7 +97,7 @@ public class LinkageFactoryTests {
       }
     }
 
-    for(String key : teleporterOverlayMap.keySet()) {
+    for (String key : teleporterOverlayMap.keySet()) {
       assertEquals(teleporterOverlayMap.get(key).size(), 2);
     }
   }

@@ -68,6 +68,28 @@ public class GhostAITest {
     assertEquals(GhostBehavior.CHASE, blinky.getGhostBehavior());
   }
 
+  @Test
+  public void testResetInitialWait() {
+    blinky = new Blinky(new SpriteCoordinates(new Vec2(1.5, 1.9)), new Vec2(0, -1), 4);
+    GhostAI AI = new GhostAI(grid, blinky);
+    AI.setTarget(pacMan);
+    blinky.setInputSource(AI);
+    for (int k = 0; k < 30; k++) {
+      blinky.step(1 / 60., state);
+    }
+    assertEquals(GhostBehavior.WAIT, blinky.getGhostBehavior());
+    for (int k = 0; k < 240; k++) {
+      blinky.step(1 / 60., state);
+    }
+    assertEquals(GhostBehavior.CHASE, blinky.getGhostBehavior());
+
+    for (int k = 0; k < 30; k++) {
+      blinky.step(1 / 60., state);
+    }
+    blinky.reset();
+    assertEquals(GhostBehavior.WAIT, blinky.getGhostBehavior());
+  }
+
 
   @Test
   public void testParallelSort() {
