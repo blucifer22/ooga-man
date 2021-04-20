@@ -1,6 +1,6 @@
 {
   "name": "Demo",
-  "stylesheet": "themes/turtle/theme.css",
+  "stylesheet": "themes/demo/theme.css",
   "costumes" : {
     "blinky_up_1" : {
       "fill" : "themes/demo/images/a7.png",

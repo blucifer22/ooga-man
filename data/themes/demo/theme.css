@@ -7,14 +7,14 @@
 .menu-title {
   -fx-font-size: 80px;
   -fx-font-weight: bold;
-  -fx-text-fill: linear-gradient(#ffa500, #f5dc00);
+  -fx-text-fill: linear-gradient(#ff0500, #f5ac00);
   -fx-corner-radius: 5px;
 }
 
 .menu-button {
   -fx-font-size: 40px;
   -fx-font-weight: bold;
-  -fx-background-color: linear-gradient(#ffa500, #f5dc00);
+  -fx-background-color: linear-gradient(#ff0500, #f5ac00);
   -fx-text-fill: white;
   -fx-border-radius: 5px;
   -fx-background-radius: 10px;
