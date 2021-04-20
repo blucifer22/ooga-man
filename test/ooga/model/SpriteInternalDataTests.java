@@ -45,39 +45,13 @@ public class SpriteInternalDataTests {
 
   @Test
   public void moveLeftTest() {
-    class TestInputSource implements InputSource {
-
-      private final List<Vec2> prepopulatedActions = new ArrayList<>();
-      private int dex = 0;
-
-      public TestInputSource() {
-        for (int j = 0; j < 1000; j++) {
-          prepopulatedActions.add(new Vec2(-1, 0));
-        }
-      }
-
-      @Override
-      public Vec2 getRequestedDirection() {
-        return prepopulatedActions.get(dex++);
-      }
-
-      @Override
-      public boolean isActionPressed() {
-        return false;
-      }
-
-      /**
-       * Adds a Sprite target to the InputSource.
-       *
-       * @param target The Sprite to add to the InputSource.
-       */
-      @Override
-      public void addTarget(Sprite target) {
-
-      }
+    List<Vec2> prepopulatedActions = new ArrayList<>();
+    for (int j = 0; j < 1000; j++) {
+      prepopulatedActions.add(new Vec2(-1, 0));
     }
-    TestInputSource input = new TestInputSource() {
-    };
+    SeededTestInputSource input = new SeededTestInputSource();
+    input.addActions(prepopulatedActions);
+
     pacMan.setInputSource(input);
 
     // Check that the defaultInputSource is set correctly
@@ -92,44 +66,17 @@ public class SpriteInternalDataTests {
 
   @Test
   public void cannotMoveUpRightDownTest() {
-    class TestInputSource implements InputSource {
-
-      private final List<Vec2> prepopulatedActions = new ArrayList<>();
-      private int dex = 0;
-
-      public TestInputSource() {
-        prepopulatedActions.add(new Vec2(1, 0));  // RIGHT
-        prepopulatedActions.add(new Vec2(0, -1)); // UP
-        prepopulatedActions.add(new Vec2(1, 0));  // RIGHT
-        prepopulatedActions.add(new Vec2(0, 1));  // DOWN
-        prepopulatedActions.add(new Vec2(-1, 0)); // LEFT
-        for (int k = 0; k < 50; k++) {
-          prepopulatedActions.add(Vec2.ZERO);
-        }
-      }
-
-      @Override
-      public Vec2 getRequestedDirection() {
-        return prepopulatedActions.get(dex++);
-      }
-
-      @Override
-      public boolean isActionPressed() {
-        return false;
-      }
-
-      /**
-       * Adds a Sprite target to the InputSource.
-       *
-       * @param target The Sprite to add to the InputSource.
-       */
-      @Override
-      public void addTarget(Sprite target) {
-
-      }
+    List<Vec2> prepopulatedActions = new ArrayList<>();
+    prepopulatedActions.add(new Vec2(1, 0));  // RIGHT
+    prepopulatedActions.add(new Vec2(0, -1)); // UP
+    prepopulatedActions.add(new Vec2(1, 0));  // RIGHT
+    prepopulatedActions.add(new Vec2(0, 1));  // DOWN
+    prepopulatedActions.add(new Vec2(-1, 0)); // LEFT
+    for (int k = 0; k < 50; k++) {
+      prepopulatedActions.add(Vec2.ZERO);
     }
-    TestInputSource input = new TestInputSource() {
-    };
+    SeededTestInputSource input = new SeededTestInputSource();
+    input.addActions(prepopulatedActions);
     pacMan.setInputSource(input);
 
     for (int k = 0; k < 4; k++) {
@@ -147,43 +94,16 @@ public class SpriteInternalDataTests {
 
   @Test
   public void moveUpStickyTest() {
-    class TestInputSource implements InputSource {
-
-      private final List<Vec2> prepopulatedActions = new ArrayList<>();
-      private int dex = 0;
-
-      public TestInputSource() {
-        for (int j = 0; j < 4; j++) {
-          prepopulatedActions.add(new Vec2(-1, 0));
-        }
-        prepopulatedActions.add(new Vec2(0, -1));
-        for (int j = 0; j < 100; j++) {
-          prepopulatedActions.add(new Vec2(-1, 0));
-        }
-      }
-
-      @Override
-      public Vec2 getRequestedDirection() {
-        return prepopulatedActions.get(dex++);
-      }
-
-      @Override
-      public boolean isActionPressed() {
-        return false;
-      }
-
-      /**
-       * Adds a Sprite target to the InputSource.
-       *
-       * @param target The Sprite to add to the InputSource.
-       */
-      @Override
-      public void addTarget(Sprite target) {
-
-      }
+    List<Vec2> prepopulatedActions = new ArrayList<>();
+    for (int j = 0; j < 4; j++) {
+      prepopulatedActions.add(new Vec2(-1, 0));
     }
-    TestInputSource input = new TestInputSource() {
-    };
+    prepopulatedActions.add(new Vec2(0, -1));
+    for (int j = 0; j < 100; j++) {
+      prepopulatedActions.add(new Vec2(-1, 0));
+    }
+    SeededTestInputSource input = new SeededTestInputSource();
+    input.addActions(prepopulatedActions);
     pacMan.setInputSource(input);
 
     for (int k = 0; k < 100; k++) {
@@ -195,42 +115,16 @@ public class SpriteInternalDataTests {
 
   @Test
   public void immediateLeftRightTest() {
-    class TestInputSource implements InputSource {
-
-      private final List<Vec2> prepopulatedActions = new ArrayList<>();
-      private int dex = 0;
-
-      public TestInputSource() {
-        for (int j = 0; j < 2; j++) {
-          prepopulatedActions.add(new Vec2(-1, 0));
-        }
-        for (int j = 0; j < 2; j++) {
-          prepopulatedActions.add(new Vec2(1, 0));
-        }
-      }
-
-      @Override
-      public Vec2 getRequestedDirection() {
-        return prepopulatedActions.get(dex++);
-      }
-
-      @Override
-      public boolean isActionPressed() {
-        return false;
-      }
-
-      /**
-       * Adds a Sprite target to the InputSource.
-       *
-       * @param target The Sprite to add to the InputSource.
-       */
-      @Override
-      public void addTarget(Sprite target) {
-
-      }
+    List<Vec2> prepopulatedActions = new ArrayList<>();
+    for (int j = 0; j < 2; j++) {
+      prepopulatedActions.add(new Vec2(-1, 0));
     }
-    TestInputSource input = new TestInputSource() {
-    };
+    for (int j = 0; j < 2; j++) {
+      prepopulatedActions.add(new Vec2(1, 0));
+    }
+    SeededTestInputSource input = new SeededTestInputSource();
+    input.addActions(prepopulatedActions);
+
     pacMan.setInputSource(input);
 
     for (int k = 0; k < 4; k++) {

@@ -20,12 +20,12 @@ public abstract class Ghost extends MoveableSprite {
 
   private final Clock ghostClock;
   private final SpriteCoordinates spawn;
+  private final Map<Integer, Integer> activeFrightentedPowerups = new HashMap<>();
   private boolean isDeadly = true;
   private boolean isEaten;
   private int baseGhostScore = 200;
   private int activateFrightenedID;
   private int deactivateFrightenedID;
-  private Map<Integer, Integer> activeFrightentedPowerups = new HashMap<>();
   private GhostBehavior ghostBehavior;
   private boolean forceAnimationUpdate;
 
@@ -58,15 +58,6 @@ public abstract class Ghost extends MoveableSprite {
         new Vec2(1, 0), 1);
   }
 
-  protected enum GhostAnimationType {
-    NORMAL,
-    EYES,
-    FRIGHTENED,
-    FRIGHTENED_END
-  }
-
-  ;
-
   protected static SpriteAnimationFactory.SpriteAnimationType directionToAnimationType(
       Vec2 direction, GhostAnimationType type) {
     return switch (type) {
@@ -90,6 +81,23 @@ public abstract class Ghost extends MoveableSprite {
             .valueOf("GHOST_" + directionName + (type == EYES ? "_EYES" : ""));
       }
     };
+  }
+
+  /**
+   * Resets the ghosts to their starting positions
+   */
+  @Override
+  public void reset() {
+    super.reset();
+    ghostClock.clear();
+    ghostClock.reset();
+    ghostBehavior = GhostBehavior.WAIT;
+    ghostClock.addTimer(new Timer(getInitialWaitTime(), state -> {
+      if (ghostBehavior == GhostBehavior.WAIT) {
+        ghostBehavior = GhostBehavior.CHASE;
+      }
+    }));
+    forceAnimationUpdate = false;
   }
 
   /**
@@ -252,6 +260,13 @@ public abstract class Ghost extends MoveableSprite {
       case POINT_BONUS_ACTIVATED -> baseGhostScore *= 2;
       case POINT_BONUS_DEACTIVATED -> baseGhostScore *= 0.5;
     }
+  }
+
+  protected enum GhostAnimationType {
+    NORMAL,
+    EYES,
+    FRIGHTENED,
+    FRIGHTENED_END
   }
 
   /* TODO: perhaps refactor? */

@@ -25,6 +25,20 @@ public class Clock {
   }
 
   /**
+   * Removes all pending Timers from this Clock
+   */
+  public void clear() {
+    activeTimers.clear();
+  }
+
+  /**
+   * Sets the Clock to 0
+   */
+  public void reset() {
+    seconds = 0;
+  }
+
+  /**
    * Adds a timer for execution
    *
    * @param timer
@@ -50,7 +64,7 @@ public class Clock {
    * @param gameState state of the game that may need to be modified.
    */
   public void checkTimerStatus(MutableGameState gameState) {
-    while (!activeTimers.isEmpty()){
+    while (!activeTimers.isEmpty()) {
       Timer timer = activeTimers.peek();
       if (seconds >= timer.getExpirationTime()) {
         activeTimers.remove();
