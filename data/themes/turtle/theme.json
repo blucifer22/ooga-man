@@ -289,13 +289,13 @@
       "rotates": true
     },
     "tile" : {
-      "fill" : "WHITE",
+      "fill" : "NAVY",
       "imageFill" : false,
       "scale" : 1.5,
       "bottomHeavy" : false
     },
     "tileclosed" : {
-      "fill" : "GRAY",
+      "fill" : "TAN",
       "imageFill" : false,
       "scale" : 1.5,
       "bottomHeavy" : false

@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Seaweed+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap');
 
 .view * {
-  -fx-font-family: "Seaweed Script";
+  -fx-font-family: "Lobster Two";
 }
 
 .menu-title {
