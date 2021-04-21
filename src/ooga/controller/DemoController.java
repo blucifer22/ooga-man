@@ -22,7 +22,6 @@ import ooga.model.sprites.PowerPill;
 import ooga.model.sprites.TeleporterOverlay;
 import ooga.util.Vec2;
 import ooga.view.UIController;
-import ooga.view.views.GameView;
 
 public class DemoController implements GameStateController {
 
@@ -110,7 +109,9 @@ public class DemoController implements GameStateController {
 
     pgs.setPlayers(new Player(1, new HumanInputManager(KeybindingType.PLAYER_1)), null);
 
-    KeyFrame frame = new KeyFrame(Duration.seconds(TIMESTEP), e -> pgs.step(TIMESTEP)); //
+    KeyFrame frame = new KeyFrame(Duration.seconds(TIMESTEP), e -> {
+      pgs.step(TIMESTEP);
+    }); //
     // TODO: remove grid from step parameter
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);

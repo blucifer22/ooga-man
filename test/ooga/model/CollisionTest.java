@@ -6,11 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import ooga.controller.HumanInputManager;
 import ooga.controller.KeybindingType;
-import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Dot;
-import ooga.model.sprites.Ghost;
 import ooga.model.sprites.PacMan;
-import ooga.model.sprites.Sprite;
 import ooga.model.sprites.TeleporterOverlay;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,20 +37,23 @@ public class CollisionTest {
       }
     }
     state = new PacmanGameState();
-    Vec2 position = new Vec2(1.5, 2.5);
-    Vec2 direction = new Vec2(-1, 0);
-    SpriteCoordinates spriteCoordinates = new SpriteCoordinates(position);
-    pacMan = new PacMan(spriteCoordinates, direction, 11);
     dot = new Dot(new SpriteCoordinates(new Vec2(1.5, 1.5)), Vec2.ZERO);
+    Dot otherDot = new Dot(new SpriteCoordinates(new Vec2(3.5, 0.5)), Vec2.ZERO);
     state.loadGrid(grid);
-    state.addSprite(pacMan);
     state.addSprite(dot);
+    state.addSprite(otherDot);
     state.setPlayers(new Player(1, new HumanInputManager(KeybindingType.PLAYER_1)), null);
 
   }
 
   @Test
   public void collisionWithDotIncrementsScore() {
+
+    Vec2 position = new Vec2(1.5, 2.5);
+    Vec2 direction = new Vec2(-1, 0);
+    SpriteCoordinates spriteCoordinates = new SpriteCoordinates(position);
+    pacMan = new PacMan(spriteCoordinates, direction, 11);
+    state.addSprite(pacMan);
 
     List<Vec2> prepopulatedActions = new ArrayList<>();
 
@@ -69,12 +69,11 @@ public class CollisionTest {
       state.step(1 / 60.);
     }
     assertTrue(state.getScore() > 0);
-    assertTrue(state.getSprites().size() == 1);
+    assertTrue(state.getSprites().size() == 2);
   }
 
   @Test
   public void teleporterBasicTest() {
-
     List<Vec2> prepopulatedActions = new ArrayList<>();
 
     for (int j = 0; j < 10; j++) {
@@ -88,9 +87,6 @@ public class CollisionTest {
     SpriteCoordinates spriteCoordinates = new SpriteCoordinates(position);
     pacMan = new PacMan(spriteCoordinates, direction, 5);
     pacMan.setInputSource(input);
-
-    state = new PacmanGameState();
-    state.loadGrid(grid);
     state.addSprite(pacMan);
 
     TeleporterOverlay teleporter1 = new TeleporterOverlay(

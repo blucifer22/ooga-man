@@ -21,7 +21,6 @@ import ooga.model.sprites.PowerPill;
 import ooga.model.sprites.TeleporterOverlay;
 import ooga.util.Vec2;
 import ooga.view.UIController;
-import ooga.view.views.GameView;
 
 public class Controller implements GameStateController {
 
@@ -89,8 +88,10 @@ public class Controller implements GameStateController {
     clydeAI.setTarget(pacman);
     clyde.setInputSource(this.clydeAI);
 
-    TeleporterOverlay teleporter1 = new TeleporterOverlay(new SpriteCoordinates(new Vec2(1.5, 8.5)));
-    TeleporterOverlay teleporter2 = new TeleporterOverlay(new SpriteCoordinates(new Vec2(15.5, 8.5)));
+    TeleporterOverlay teleporter1 = new TeleporterOverlay(
+        new SpriteCoordinates(new Vec2(1.5, 8.5)));
+    TeleporterOverlay teleporter2 = new TeleporterOverlay(
+        new SpriteCoordinates(new Vec2(15.5, 8.5)));
     teleporter1.connectTeleporter(teleporter2);
     teleporter2.connectTeleporter(teleporter1);
     pgs.addSprite(teleporter1);
@@ -112,7 +113,9 @@ public class Controller implements GameStateController {
     //    pgs.step(TIMESTEP);
     pgs.setPlayers(new Player(1, new HumanInputManager(KeybindingType.PLAYER_1)), null);
 
-    KeyFrame frame = new KeyFrame(Duration.seconds(TIMESTEP), e -> pgs.step(TIMESTEP)); //
+    KeyFrame frame = new KeyFrame(Duration.seconds(TIMESTEP), e -> {
+      pgs.step(TIMESTEP);
+    }); //
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
