@@ -1,5 +1,7 @@
 package ooga.model;
 
+import java.io.IOException;
+
 /**
  * The rules for Pac-Man: Adversarial Mode are given by
  * <ol>
@@ -20,13 +22,17 @@ public class PacmanGameStateAdversarial extends PacmanGameState {
    * level are not satisfied.
    */
   @Override
-  protected void endLevel() {
+  protected void checkProceedToNextLevel() {
     if (isPacmanConsumed()) {
-      if (getLevelNumber() == TOTAL_ROUNDS) {
+      if (getRoundNumber() == TOTAL_ROUNDS) {
         // TODO: PRESENT WIN SCREEN LOGIC FOR WINNER
       } else {
         incrementLevel();
-        loadNextLevel();
+        try {
+          loadNextLevel();
+        } catch (IOException e) {
+
+        }
         swapPlayerControls();
       }
     }

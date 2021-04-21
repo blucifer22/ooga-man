@@ -32,9 +32,9 @@ import ooga.util.Clock;
  */
 public class PacmanGameState
     implements SpriteExistenceObservable,
-        GridRebuildObservable,
-        MutableGameState,
-        GameStateObservable {
+    GridRebuildObservable,
+    MutableGameState,
+    GameStateObservable {
 
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
@@ -47,8 +47,13 @@ public class PacmanGameState
   private PacmanGrid grid;
   private Player pacmanPlayer;
   private Player ghostsPlayer;
+
+  private HumanInputManager player1;
+  private HumanInputManager player2;
+  private String jsonFileName;
+
   private int pacmanLivesRemaining;
-  private int levelNumber;
+  private int roundNumber = 1;
   private boolean pacmanConsumed;
 
   public PacmanGameState() {
@@ -81,8 +86,20 @@ public class PacmanGameState
     loadGrid(level.getGrid());
   }
 
-  public void loadPacmanLevelFromJSON(
+  /**
+   * Initializes Pac-Man game state from a JSON file.  Performs all of the AI/human input linkages
+   * and sets up teleporters and other map elements.
+   *
+   * @param filepath
+   * @param player1
+   * @param player2
+   * @throws IOException
+   */
+  public void initPacmanLevelFromJSON(
       String filepath, HumanInputManager player1, HumanInputManager player2) throws IOException {
+    jsonFileName = filepath;
+    this.player1 = player1;
+    this.player2 = player2;
     PacmanLevel level = loadLevelFromJSON(filepath);
 
     for (Sprite sprite : level.getSprites()) {
@@ -101,16 +118,35 @@ public class PacmanGameState
     return new PacmanLevel(levelDescription);
   }
 
-  protected void loadNextLevel() {
-    // TODO: Implement
+  /**
+   * This method adds the level defined by the JSON file and populates the game state with the
+   * Sprites, level elements, and corresponding Sprite controllers.
+   *
+   * @throws IOException
+   */
+  protected void loadNextLevel() throws IOException {
+    for (Sprite sprite : sprites) {
+      notifySpriteDestruction(sprite);
+    }
+    sprites.clear();
+    clock.reset();
+    clock.clear();
+
+    PacmanLevel level = loadLevelFromJSON(jsonFileName);
+    for (Sprite sprite : level.getSprites()) {
+      addSprite(sprite);
+    }
+    loadGrid(level.getGrid());
+    SpriteLinkageFactory spriteLinkageFactory = new SpriteLinkageFactory(this, player1, player2);
+    spriteLinkageFactory.linkSprites();
   }
 
   protected void incrementLevel() {
-    levelNumber++;
+    roundNumber++;
   }
 
-  protected int getLevelNumber() {
-    return levelNumber;
+  protected int getRoundNumber() {
+    return roundNumber;
   }
 
   protected boolean isPacmanConsumed() {
@@ -124,8 +160,10 @@ public class PacmanGameState
    */
   // advance game state by `dt' seconds
   public void step(double dt) {
+    // Moves through Sprites, determines collisions
     stepThroughSprites(dt);
-    endLevel();
+    // All Dots have been eaten
+    checkProceedToNextLevel();
   }
 
   protected void stepThroughSprites(double dt) {
@@ -255,15 +293,22 @@ public class PacmanGameState
     spriteDescriptions.forEach(spriteDescription -> addSprite(spriteDescription.toSprite()));
   }
 
-  protected void endLevel() {
+  protected void checkProceedToNextLevel() {
     // Next level, all consumables eaten
     if (getRemainingConsumablesCount() == 0) {
-      // notifyGridRebuildObservers();
       // TODO: add some consumables and implement round progression logic
+      try {
+        roundNumber++;
+        System.out.println(roundNumber);
+        loadNextLevel();
+        //System.exit(0);
+      } catch (IOException e) {
+
+      }
     }
   }
 
-  private int getRemainingConsumablesCount() {
+  public int getRemainingConsumablesCount() {
     int count = 0;
     for (Sprite sprite : getSprites()) {
       if (sprite.mustBeConsumed()) {
@@ -309,7 +354,8 @@ public class PacmanGameState
     return grid;
   }
 
-  public void advanceLevel() {}
+  public void advanceLevel() {
+  }
 
   protected void notifySpriteDestruction(Sprite sprite) {
     for (SpriteExistenceObserver observer : spriteExistenceObservers) {
