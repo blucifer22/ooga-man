@@ -36,6 +36,7 @@ public class JSONController implements GameStateController {
   @Override
   public void startGame(GameStateObservationComposite rootObserver) {
     try {
+      //TODO: Implement a mode picker and file picker to handle mode-select and level-select
       //PacmanGameState pgs = new PacmanGameState();
       PacmanGameStateChase pgs = new PacmanGameStateChase();
 
