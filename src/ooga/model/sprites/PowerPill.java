@@ -83,7 +83,5 @@ public class PowerPill extends Sprite {
   }
 
   @Override
-  public void respondToPowerEvent(PacmanPowerupEvent event) {
-
-  }
+  public void respondToPowerEvent(PacmanPowerupEvent event) { }
 }

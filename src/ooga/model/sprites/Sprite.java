@@ -272,6 +272,7 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
     getCurrentAnimation().step(dt);
   }
 
+  // TODO: Make not abstract to give a default
   public abstract boolean mustBeConsumed();
 
   public abstract boolean isDeadlyToPacMan();
@@ -286,6 +287,7 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
 
   public abstract int getScore();
 
+  // TODO: Make non-abtract and do nothing to override in repsonders classes
   @Override
   public abstract void respondToPowerEvent(PacmanPowerupEvent event);
 

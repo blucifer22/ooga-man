@@ -24,6 +24,7 @@ public abstract class Ghost extends MoveableSprite {
   private GhostAnimationState animationState;
   private boolean forceAnimationUpdate;
 
+  // TODO: Delete "protected" to make Ghost classes package private
   protected Ghost(
       String spriteAnimationPrefix,
       SpriteCoordinates position,
@@ -34,7 +35,7 @@ public abstract class Ghost extends MoveableSprite {
     spawn = position;
     swapClass = SwapClass.GHOST;
     animationState = GhostAnimationState.WAIT;
-    mapAnimationStateToBehavior(animationState);
+    changeBehaviorBasedOnAnimationState(animationState);
     ghostClock = new Clock();
 
     ghostClock.addTimer(new Timer(getInitialWaitTime(), state -> {
@@ -54,6 +55,7 @@ public abstract class Ghost extends MoveableSprite {
         new Vec2(1, 0), 1);
   }
 
+  //TODO: Ask if i can move this code
   protected static SpriteAnimationFactory.SpriteAnimationType directionToAnimationType(
       Vec2 direction, GhostAnimationType type) {
     return switch (type) {
@@ -96,6 +98,7 @@ public abstract class Ghost extends MoveableSprite {
     forceAnimationUpdate = false;
   }
 
+  // TODO: Delete "protected" to make Ghost classes package private
   /**
    * Defines how long this ghost takes before leaving the pen at the start of the game
    *
@@ -118,6 +121,7 @@ public abstract class Ghost extends MoveableSprite {
     return spawn;
   }
 
+  // TODO: Delete "protected" to make Ghost classes package private
   @Override
   protected boolean canMoveTo(Tile tile) {
     return tile.isOpenToGhosts();
@@ -174,10 +178,10 @@ public abstract class Ghost extends MoveableSprite {
     }
   }
 
+  //TODO: MAKE ONE LINE IF NEEDED -> Make these default by changing them to non-abstract since some are superflouous
+
   @Override
-  public boolean mustBeConsumed() {
-    return false;
-  }
+  public boolean mustBeConsumed() { return false; }
 
   @Override
   public boolean isDeadlyToPacMan() {
@@ -220,13 +224,13 @@ public abstract class Ghost extends MoveableSprite {
   private void changeAnimationState(GhostAnimationState state) {
     GhostAnimationType oldAnimType = stateToAnimationType(animationState);
     animationState = state;
-    mapAnimationStateToBehavior(animationState);
+    changeBehaviorBasedOnAnimationState(animationState);
     if (stateToAnimationType(animationState) != oldAnimType) {
       forceAnimationUpdate = true;
     }
   }
 
-  private void mapAnimationStateToBehavior(GhostAnimationState state){
+  private void changeBehaviorBasedOnAnimationState(GhostAnimationState state){
     switch (state) {
       case CHASE -> changeBehavior(GhostBehavior.CHASE);
       case WAIT, FRIGHTENED_WAIT_BLINKING, FRIGHTENED_WAIT -> changeBehavior(GhostBehavior.WAIT);
@@ -241,6 +245,7 @@ public abstract class Ghost extends MoveableSprite {
       case GHOST_SLOWDOWN_ACTIVATED -> setMovementSpeed(getMovementSpeed() * 0.5);
       case GHOST_SLOWDOWN_DEACTIVATED -> setMovementSpeed(getMovementSpeed() * 2);
       case FRIGHTEN_ACTIVATED -> {
+        // TODO: Refactor into a singular method call
         frightenedBank++;
         if (getGhostBehavior().equals(GhostBehavior.CHASE)) {
           changeAnimationState(GhostAnimationState.FRIGHTENED);
@@ -265,11 +270,14 @@ public abstract class Ghost extends MoveableSprite {
           }
         }
       }
+      //TODO: Map<Enum, Runnable>
       case POINT_BONUS_ACTIVATED -> baseGhostScore *= 2;
       case POINT_BONUS_DEACTIVATED -> baseGhostScore *= 0.5;
     }
   }
 
+  // TODO: Delete "protected" to make Ghost classes package private
+  // TODO: Make each ENUM its own class
   protected enum GhostAnimationType {
     NORMAL,
     EYES,

@@ -144,7 +144,7 @@ public class PacmanGameState
     PacmanLevel level = loadLevelFromJSON(jsonFileName);
     for (Sprite sprite : level.getSprites()) {
       if (sprite.getSwapClass() == SwapClass.GHOST){
-        // TODO: Change to not downcast
+        // TODO: Change to not downcast -> Create a seperate lists of MoveableSprites
         MoveableSprite mover = (MoveableSprite) sprite;
         mover.setMovementSpeed(Math.min(mover.getMovementSpeed() + (0.5 * roundNumber), 6));
       }
