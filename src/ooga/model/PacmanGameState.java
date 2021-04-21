@@ -1,11 +1,13 @@
 package ooga.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import ooga.controller.HumanInputManager;
+import ooga.controller.SpriteLinkageFactory;
 import ooga.model.api.GameStateObservable;
 import ooga.model.api.GameStateObserver;
 import ooga.model.api.GridRebuildObservable;
@@ -14,6 +16,8 @@ import ooga.model.api.PowerupEventObserver;
 import ooga.model.api.SpriteExistenceObservable;
 import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.leveldescription.GridDescription;
+import ooga.model.leveldescription.JSONDescriptionFactory;
+import ooga.model.leveldescription.LevelDescription;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.Sprite;
 import ooga.util.Clock;
@@ -27,8 +31,10 @@ import ooga.util.Clock;
  * @author Franklin Wei
  */
 public class PacmanGameState
-    implements SpriteExistenceObservable, GridRebuildObservable, MutableGameState,
-    GameStateObservable {
+    implements SpriteExistenceObservable,
+        GridRebuildObservable,
+        MutableGameState,
+        GameStateObservable {
 
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
@@ -42,7 +48,7 @@ public class PacmanGameState
   private Player pacmanPlayer;
   private Player ghostsPlayer;
   private int pacmanLivesRemaining;
-  private int level;
+  private int levelNumber;
   private boolean pacmanConsumed;
 
   public PacmanGameState() {
@@ -56,8 +62,8 @@ public class PacmanGameState
   }
 
   /**
-   * This method is called to reset a level.  Sprites that have been consumed (such as Dots or
-   * Power-Pills) do not respawn.  Other Sprites are reset to their initial positions.  Finally, the
+   * This method is called to reset a level. Sprites that have been consumed (such as Dots or
+   * Power-Pills) do not respawn. Other Sprites are reset to their initial positions. Finally, the
    * clock restarts.
    */
   public void resetLevel() {
@@ -75,16 +81,36 @@ public class PacmanGameState
     loadGrid(level.getGrid());
   }
 
+  public void loadPacmanLevelFromJSON(
+      String filepath, HumanInputManager player1, HumanInputManager player2) throws IOException {
+    PacmanLevel level = loadLevelFromJSON(filepath);
+
+    for (Sprite sprite : level.getSprites()) {
+      addSprite(sprite);
+    }
+    loadGrid(level.getGrid());
+
+    SpriteLinkageFactory spriteLinkageFactory = new SpriteLinkageFactory(this, player1, player2);
+    spriteLinkageFactory.linkSprites();
+  }
+
+  private PacmanLevel loadLevelFromJSON(String filepath) throws IOException {
+    JSONDescriptionFactory jsonDescriptionFactory = new JSONDescriptionFactory();
+    LevelDescription levelDescription =
+        jsonDescriptionFactory.getLevelDescriptionFromJSON(filepath);
+    return new PacmanLevel(levelDescription);
+  }
+
   protected void loadNextLevel() {
     // TODO: Implement
   }
 
   protected void incrementLevel() {
-    level++;
+    levelNumber++;
   }
 
-  protected int getLevel() {
-    return level;
+  protected int getLevelNumber() {
+    return levelNumber;
   }
 
   protected boolean isPacmanConsumed() {
@@ -158,11 +184,11 @@ public class PacmanGameState
   }
 
   /**
-   * Sets up the Players associated with a PacMan game mode.  These players are responsible for
+   * Sets up the Players associated with a PacMan game mode. These players are responsible for
    * keeping score.
    *
-   * @param pacmanPlayer Player controlling Pac-Man.  Null if single player during hunt mode.
-   * @param ghostsPlayer Player controlling the ghosts.  Null if single player during classic mode.
+   * @param pacmanPlayer Player controlling Pac-Man. Null if single player during hunt mode.
+   * @param ghostsPlayer Player controlling the ghosts. Null if single player during classic mode.
    */
   public void setPlayers(Player pacmanPlayer, Player ghostsPlayer) {
     this.pacmanPlayer = pacmanPlayer;
@@ -179,14 +205,14 @@ public class PacmanGameState
   }
 
   /**
-   * Increases the game score, corresponding to Pac-Man's consumption of game elements.  Only
-   * Pac-Man and its player has an associated score.
+   * Increases the game score, corresponding to Pac-Man's consumption of game elements. Only Pac-Man
+   * and its player has an associated score.
    *
    * @param score
    */
   @Override
   public void incrementScore(int score) {
-    //pacManScore += score;
+    // pacManScore += score;
     pacmanPlayer.setScore(pacmanPlayer.getScore() + score);
     notifyGameStateObservers();
   }
@@ -198,7 +224,7 @@ public class PacmanGameState
    */
   @Override
   public int getScore() {
-    //return pacManScore;
+    // return pacManScore;
     return pacmanPlayer.getScore();
   }
 
@@ -229,7 +255,6 @@ public class PacmanGameState
     spriteDescriptions.forEach(spriteDescription -> addSprite(spriteDescription.toSprite()));
   }
 
-
   protected void endLevel() {
     // Next level, all consumables eaten
     if (getRemainingConsumablesCount() == 0) {
@@ -259,8 +284,9 @@ public class PacmanGameState
     TileCoordinates tc = sprite.getCoordinates().getTileCoordinates();
     List<Sprite> collidingSprites = new ArrayList<>();
     for (Sprite otherSprite : sprites) {
-      if (!toDelete.contains(otherSprite) && sprite != otherSprite && otherSprite.getCoordinates()
-          .getTileCoordinates().equals(tc)) {
+      if (!toDelete.contains(otherSprite)
+          && sprite != otherSprite
+          && otherSprite.getCoordinates().getTileCoordinates().equals(tc)) {
         collidingSprites.add(otherSprite);
       }
     }
@@ -283,8 +309,7 @@ public class PacmanGameState
     return grid;
   }
 
-  public void advanceLevel() {
-  }
+  public void advanceLevel() {}
 
   protected void notifySpriteDestruction(Sprite sprite) {
     for (SpriteExistenceObserver observer : spriteExistenceObservers) {

@@ -22,7 +22,7 @@ public class PacmanGameStateAdversarial extends PacmanGameState {
   @Override
   protected void endLevel() {
     if (isPacmanConsumed()) {
-      if (getLevel() == TOTAL_ROUNDS) {
+      if (getLevelNumber() == TOTAL_ROUNDS) {
         // TODO: PRESENT WIN SCREEN LOGIC FOR WINNER
       } else {
         incrementLevel();
