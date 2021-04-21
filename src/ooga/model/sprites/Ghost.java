@@ -22,9 +22,7 @@ public abstract class Ghost extends MoveableSprite {
   private boolean isDeadly = true;
   private boolean isEaten;
   private int baseGhostScore = 200;
-  private int activateFrightenedID;
-  private int deactivateFrightenedID;
-  private Map<Integer, Integer> activeFrightentedPowerups = new HashMap<>();
+  private int frightenedBank;
   private GhostBehavior ghostBehavior;
   private boolean forceAnimationUpdate;
 
@@ -204,8 +202,7 @@ public abstract class Ghost extends MoveableSprite {
       case GHOST_SLOWDOWN_ACTIVATED -> setMovementSpeed(getMovementSpeed() * 0.5);
       case GHOST_SLOWDOWN_DEACTIVATED -> setMovementSpeed(getMovementSpeed() * 2);
       case FRIGHTEN_ACTIVATED -> {
-        activateFrightenedID++;
-        activeFrightentedPowerups.put(activateFrightenedID, activateFrightenedID);
+        frightenedBank++;
         if (getGhostBehavior().equals(GhostBehavior.CHASE)){
           changeBehavior(GhostBehavior.FRIGHTENED);
           isDeadly = false;
@@ -215,10 +212,8 @@ public abstract class Ghost extends MoveableSprite {
         }
       }
       case FRIGHTEN_DEACTIVATED -> {
-        deactivateFrightenedID++;
-        if(!isEaten && activeFrightentedPowerups.get(deactivateFrightenedID) == activateFrightenedID) {
-          activateFrightenedID = 0;
-          deactivateFrightenedID = 0;
+        frightenedBank--;
+        if(!isEaten && frightenedBank == 0) {
           if (!getGhostBehavior().equals(GhostBehavior.WAIT)) {
             changeBehavior(GhostBehavior.CHASE);
             isDeadly = true;
