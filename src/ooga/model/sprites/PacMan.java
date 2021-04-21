@@ -38,8 +38,7 @@ public class PacMan extends MoveableSprite {
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
     if (other.isDeadlyToPacMan()) {
-      delete(state);
-      System.out.println("GAMEOVER");
+      state.isPacmanDead(true);
     } else if (other.hasMultiplicativeScoring()) {
       ghostsEaten++;
       state.incrementScore(other.getScore() * ghostsEaten);

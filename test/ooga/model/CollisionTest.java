@@ -74,8 +74,6 @@ public class CollisionTest {
 
   @Test
   public void teleporterBasicTest() {
-    System.out.println("REMAINING CONSUMABLES:" + state.getRemainingConsumablesCount());
-
     List<Vec2> prepopulatedActions = new ArrayList<>();
 
     for (int j = 0; j < 10; j++) {
@@ -99,8 +97,6 @@ public class CollisionTest {
     teleporter2.connectTeleporter(teleporter1);
     state.addSprite(teleporter1);
     state.addSprite(teleporter2);
-
-    System.out.println("REMAINING CONSUMABLES:" + state.getRemainingConsumablesCount());
 
     for (int k = 0; k < 6; k++) {
       state.step(1 / 60.);

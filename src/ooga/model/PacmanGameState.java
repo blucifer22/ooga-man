@@ -32,10 +32,12 @@ import ooga.util.Clock;
  */
 public class PacmanGameState
     implements SpriteExistenceObservable,
-    GridRebuildObservable,
-    MutableGameState,
-    GameStateObservable {
+        GridRebuildObservable,
+        MutableGameState,
+        GameStateObservable {
 
+  public static final int STARTING_ROUND_NUMBER = 1;
+  public static final int STARTING_LIVE_COUNT = 3;
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
   private final Set<PowerupEventObserver> pacmanPowerupObservers;
@@ -53,7 +55,9 @@ public class PacmanGameState
   private String jsonFileName;
 
   private int pacmanLivesRemaining;
-  private int roundNumber = 1;
+  private boolean isPacmanDead;
+  private int roundNumber;
+  private boolean isGameOver;
   private boolean pacmanConsumed;
 
   public PacmanGameState() {
@@ -64,6 +68,9 @@ public class PacmanGameState
     sprites = new LinkedList<>();
     pacmanPowerupObservers = new HashSet<>();
     clock = new Clock();
+    roundNumber = STARTING_ROUND_NUMBER;
+    pacmanLivesRemaining = STARTING_LIVE_COUNT;
+    isGameOver = false;
   }
 
   /**
@@ -87,7 +94,7 @@ public class PacmanGameState
   }
 
   /**
-   * Initializes Pac-Man game state from a JSON file.  Performs all of the AI/human input linkages
+   * Initializes Pac-Man game state from a JSON file. Performs all of the AI/human input linkages
    * and sets up teleporters and other map elements.
    *
    * @param filepath
@@ -160,10 +167,30 @@ public class PacmanGameState
    */
   // advance game state by `dt' seconds
   public void step(double dt) {
-    // Moves through Sprites, determines collisions
-    stepThroughSprites(dt);
-    // All Dots have been eaten
-    checkProceedToNextLevel();
+    if (!isGameOver) {
+      // Moves through Sprites, determines collisions
+      stepThroughSprites(dt);
+      // Check if Pac-Man is dead
+      checkPacmanDead();
+      // All Dots have been eaten
+      checkProceedToNextLevel();
+    } else {
+      System.out.println("GAME OVER!");
+      // TODO: Implement game over score screen
+    }
+  }
+
+  protected void checkPacmanDead() {
+    if (isPacmanDead) {
+      decrementPacmanLivesRemaining();
+      if (pacmanLivesRemaining > 0) {
+        resetLevel();
+        isPacmanDead(false);
+      }
+      else {
+        isGameOver = true;
+      }
+    }
   }
 
   protected void stepThroughSprites(double dt) {
@@ -215,6 +242,10 @@ public class PacmanGameState
   @Override
   public int getPacmanLivesRemaining() {
     return pacmanLivesRemaining;
+  }
+
+  public void isPacmanDead(boolean isPacmanDead) {
+    this.isPacmanDead = isPacmanDead;
   }
 
   protected ImmutablePlayer getPacmanPlayer() {
@@ -301,14 +332,14 @@ public class PacmanGameState
         roundNumber++;
         System.out.println(roundNumber);
         loadNextLevel();
-        //System.exit(0);
+        // System.exit(0);
       } catch (IOException e) {
 
       }
     }
   }
 
-  public int getRemainingConsumablesCount() {
+  private int getRemainingConsumablesCount() {
     int count = 0;
     for (Sprite sprite : getSprites()) {
       if (sprite.mustBeConsumed()) {
@@ -354,8 +385,7 @@ public class PacmanGameState
     return grid;
   }
 
-  public void advanceLevel() {
-  }
+  public void advanceLevel() {}
 
   protected void notifySpriteDestruction(Sprite sprite) {
     for (SpriteExistenceObserver observer : spriteExistenceObservers) {
@@ -431,6 +461,10 @@ public class PacmanGameState
     if (!attemptSwapExecution(spriteToSwapOut, backList)) {
       attemptSwapExecution(spriteToSwapOut, frontList);
     }
+  }
+
+  public void decrementPacmanLivesRemaining() {
+    pacmanLivesRemaining--;
   }
 
   private boolean attemptSwapExecution(Sprite spriteToSwapOut, List<Sprite> spriteList) {
