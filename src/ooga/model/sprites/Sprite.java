@@ -81,6 +81,14 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
   }
 
   /**
+   * Sprites can change properties based on the current round.
+   * @param roundNumber
+   */
+  public void adjustSpritePropertyWithLevel(int roundNumber) {
+    // Does nothing (Overriden in specific child classes)
+  }
+
+  /**
    * This method resets the Sprite to its initial configuration at the start of a level.  This
    * method can be called to reset to the start of a new level.
    */

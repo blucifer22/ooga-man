@@ -43,7 +43,7 @@ public class JSONController implements GameStateController {
       pgs.addSpriteExistenceObserver(rootObserver.spriteExistenceObserver());
       pgs.addGridRebuildObserver(rootObserver.gridRebuildObserver());
 
-      pgs.initPacmanLevelFromJSON("data/levels/test_level_2.json", player1, player2);
+      pgs.initPacmanLevelFromJSON("data/levels/test_level_1.json", player1, player2);
 //      pgs.initPacmanLevelFromJSON("data/levels/test_chase_level.json", player1, player2);
 
 
