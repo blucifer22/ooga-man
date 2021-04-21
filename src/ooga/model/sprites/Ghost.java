@@ -1,7 +1,5 @@
 package ooga.model.sprites;
 
-import java.util.HashMap;
-import java.util.Map;
 import ooga.model.*;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
@@ -20,8 +18,6 @@ public abstract class Ghost extends MoveableSprite {
 
   private final Clock ghostClock;
   private final SpriteCoordinates spawn;
-  private boolean isDeadly = true;
-  private boolean isEaten;
   private int baseGhostScore = 200;
   private int frightenedBank;
   private GhostBehavior ghostBehavior;
@@ -127,11 +123,9 @@ public abstract class Ghost extends MoveableSprite {
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    if (!isDeadly && !isEaten && isConsumable() && other.eatsGhosts()) {
+    if (!isDeadlyToPacMan() && isConsumable() && other.eatsGhosts()) {
       this.setMovementSpeed(this.getMovementSpeed() * 1.5);
       changeBehavior(GhostBehavior.EATEN);
-      isEaten = true;
-      isDeadly = false;
       // isConsumable() -> false
     }
   }
@@ -162,8 +156,6 @@ public abstract class Ghost extends MoveableSprite {
       pacmanGameState.getClock().addTimer(new Timer(0.25, mutableGameState -> {
         this.setCurrentSpeed(getMovementSpeed());
         this.changeBehavior(GhostBehavior.CHASE);
-        isDeadly = true;
-        isEaten = false;
         // isConsumable() -> false
         setDirection(getDirection().scalarMult(-1));
       }));
@@ -201,7 +193,7 @@ public abstract class Ghost extends MoveableSprite {
 
   @Override
   public boolean hasMultiplicativeScoring() {
-    return ghostBehavior.equals(GhostBehavior.CHASE);
+    return ghostBehavior.equals(GhostBehavior.FRIGHTENED);
   }
 
   @Override
@@ -243,19 +235,15 @@ public abstract class Ghost extends MoveableSprite {
         frightenedBank++;
         if (getGhostBehavior().equals(GhostBehavior.CHASE)) {
           changeBehavior(GhostBehavior.FRIGHTENED);
-          isDeadly = false;
-          isEaten = false;
           // isConsumable() -> true
           setDirection(getDirection().scalarMult(-1));
         }
       }
       case FRIGHTEN_DEACTIVATED -> {
         frightenedBank--;
-        if(!isEaten && frightenedBank == 0) {
+        if(!isConsumable() && frightenedBank == 0) {
           if (!getGhostBehavior().equals(GhostBehavior.WAIT)) {
             changeBehavior(GhostBehavior.CHASE);
-            isDeadly = true;
-            isEaten = false;
             // isConsumable() -> false
             setDirection(getDirection().scalarMult(-1));
           }
