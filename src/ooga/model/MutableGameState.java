@@ -33,4 +33,6 @@ public interface MutableGameState {
   void registerEventListener(Sprite listener);
 
   void notifyPowerupListeners(PacmanPowerupEvent type);
+
+  void isPacmanDead(boolean isPacmanDead);
 }

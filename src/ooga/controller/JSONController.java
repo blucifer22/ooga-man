@@ -6,13 +6,11 @@ import javafx.animation.Timeline;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import ooga.model.PacmanGameState;
-import ooga.model.PacmanLevel;
+import ooga.model.PacmanGameStateChase;
 import ooga.model.Player;
 import ooga.model.api.GameStateObservationComposite;
 import ooga.model.leveldescription.JSONDescriptionFactory;
-import ooga.model.leveldescription.LevelDescription;
 import ooga.view.UIController;
-import ooga.view.views.GameView;
 
 /**
  * This is a controller implementation that is able to load Pac-Man levels from JSON!
@@ -38,18 +36,22 @@ public class JSONController implements GameStateController {
   @Override
   public void startGame(GameStateObservationComposite rootObserver) {
     try {
+      //TODO: Implement a mode picker and file picker to handle mode-select and level-select
       PacmanGameState pgs = new PacmanGameState();
+      //PacmanGameStateChase pgs = new PacmanGameStateChase();
 
       pgs.addSpriteExistenceObserver(rootObserver.spriteExistenceObserver());
       pgs.addGridRebuildObserver(rootObserver.gridRebuildObserver());
 
-      pgs.loadPacmanLevel(loadLevelFromJSON("data/levels/test_level_1.json"));
-      SpriteLinkageFactory spriteLinkageFactory = new SpriteLinkageFactory(pgs, player1, player2);
-      spriteLinkageFactory.linkSprites();
+      pgs.initPacmanLevelFromJSON("data/levels/test_level_2.json", player1, player2);
+//      pgs.initPacmanLevelFromJSON("data/levels/test_chase_level.json", player1, player2);
+
 
       pgs.setPlayers(new Player(1, player1), null);
 
-      KeyFrame frame = new KeyFrame(Duration.seconds(TIMESTEP), e -> pgs.step(TIMESTEP)); //
+      KeyFrame frame = new KeyFrame(Duration.seconds(TIMESTEP), e -> {
+        pgs.step(TIMESTEP);
+      }); //
       // TODO: remove grid from step parameter
       Timeline animation = new Timeline();
       animation.setCycleCount(Timeline.INDEFINITE);
@@ -61,9 +63,5 @@ public class JSONController implements GameStateController {
     }
   }
 
-  private PacmanLevel loadLevelFromJSON(String filepath) throws IOException {
-    LevelDescription levelDescription =
-        jsonDescriptionFactory.getLevelDescriptionFromJSON(filepath);
-    return new PacmanLevel(levelDescription);
-  }
+
 }

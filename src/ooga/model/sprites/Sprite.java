@@ -298,7 +298,7 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
   }
 
   public boolean needsSwap() {
-    return false;
+    return inputSource.isActionPressed();
   }
 
   public InputSource getInputSource() {
