@@ -159,7 +159,7 @@ public abstract class Ghost extends MoveableSprite {
       this.setCoordinates(new SpriteCoordinates(getSpawn().getTileCenter()));
       this.setMovementSpeed(this.getMovementSpeed() * (2.0 / 3.0));
       changeBehavior(GhostBehavior.WAIT);
-      pacmanGameState.getClock().addTimer(new Timer(10, mutableGameState -> {
+      pacmanGameState.getClock().addTimer(new Timer(0.25, mutableGameState -> {
         this.setCurrentSpeed(getMovementSpeed());
         this.changeBehavior(GhostBehavior.CHASE);
         isDeadly = true;
@@ -222,6 +222,18 @@ public abstract class Ghost extends MoveableSprite {
     }
   }
 
+  private void mapAnimationStateToBehavior(GhostAnimationState state){
+    switch (state){
+      case CHASE -> changeBehavior(GhostBehavior.CHASE);
+      case WAIT -> changeBehavior(GhostBehavior.WAIT);
+      case FRIGHTENED_WAIT -> changeBehavior(GhostBehavior.WAIT);
+      case FRIGHTENED_WAIT_BLINKING -> changeBehavior(GhostBehavior.WAIT);
+      case FRIGHTENED -> changeBehavior(GhostBehavior.FRIGHTENED);
+      case FRIGHTENED_BLINKING -> changeBehavior(GhostBehavior.FRIGHTENED);
+      case EATEN -> changeBehavior(GhostBehavior.EATEN);
+    }
+  }
+
   @Override
   public void respondToPowerEvent(PacmanPowerupEvent event) {
     switch (event) {
@@ -263,12 +275,21 @@ public abstract class Ghost extends MoveableSprite {
     FRIGHTENED_END
   }
 
-  /* TODO: perhaps refactor? */
   public enum GhostBehavior {
     FRIGHTENED,
     SCATTER,
     CHASE,
     EATEN,
     WAIT
+  }
+
+  public enum GhostAnimationState {
+    WAIT,
+    FRIGHTENED_WAIT,
+    FRIGHTENED_WAIT_BLINKING,
+    FRIGHTENED,
+    FRIGHTENED_BLINKING,
+    CHASE,
+    EATEN
   }
 }
