@@ -2,6 +2,7 @@ package ooga.view.theme.serialized;
 
 import java.util.HashMap;
 import java.util.Map;
+import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import ooga.view.theme.api.Costume;
@@ -21,6 +22,11 @@ public class SerializedTheme implements Theme {
     for (String key : description.getCostumes().keySet()) {
       costumes.put(key, description.getCostumes().get(key).toCostume());
     }
+  }
+
+  @Override
+  public Media getSoundFromIdentifier(String identifier) {
+    return null;
   }
 
   @Override
