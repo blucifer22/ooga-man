@@ -20,6 +20,7 @@ import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.LevelDescription;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.Sprite;
+import ooga.model.sprites.SwapClass;
 import ooga.util.Clock;
 
 /**
@@ -446,7 +447,7 @@ public class PacmanGameState
   public void handleSwaps() {
     Sprite spriteToSwapOut = null;
     for (Sprite sprite : sprites) {
-      if (sprite.needsSwap()) {
+      if (sprite.getInputSource() != null && sprite.needsSwap()) {
         spriteToSwapOut = sprite;
         break;
       }
