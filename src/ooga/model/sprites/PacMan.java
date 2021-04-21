@@ -44,12 +44,17 @@ public class PacMan extends MoveableSprite {
   public void uponHitBy(Sprite other, MutableGameState state) {
     if (other.isDeadlyToPacMan()) {
       state.isPacmanDead(true);
-    } else if (other.hasMultiplicativeScoring()) {
-      ghostsEaten++;
-      state.incrementScore(other.getScore() * ghostsEaten);
-      System.out.println("SCORE: " + state.getScore());
     } else if (other.isConsumable()) {
-      state.incrementScore(other.getScore());
+      int pointsToAdd = 0;
+
+      if(other.hasMultiplicativeScoring()) {
+        ghostsEaten++;
+        pointsToAdd = other.getScore() * ghostsEaten;
+      } else {
+        pointsToAdd = other.getScore();
+      }
+
+      state.incrementScore(pointsToAdd);
       System.out.println("SCORE: " + state.getScore());
     }
   }
