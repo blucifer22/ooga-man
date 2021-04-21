@@ -25,7 +25,7 @@ public class SerializedTheme implements Theme {
   }
 
   @Override
-  public Media getSoundFromIdentifier(String identifier) {
+  public Media getSoundByIdentifier(String identifier) {
     return null;
   }
 

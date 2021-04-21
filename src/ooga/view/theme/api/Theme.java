@@ -4,7 +4,7 @@ import javafx.scene.media.Media;
 
 public interface Theme {
 
-  Media getSoundFromIdentifier(String identifier);
+  Media getSoundByIdentifier(String identifier);
 
   Costume getCostumeForObjectOfType(String type);
 

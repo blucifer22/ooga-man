@@ -20,7 +20,7 @@ public class ThemedAudioService implements AudioService {
   @Override
   public void playOnce(String soundIdentifier) {
     activeAudio.putIfAbsent(soundIdentifier, new HashSet<>());
-    Media singlePlayAudio = dataSource.getTheme().getSoundFromIdentifier(soundIdentifier);
+    Media singlePlayAudio = dataSource.getTheme().getSoundByIdentifier(soundIdentifier);
     MediaPlayer spaPlayer = new MediaPlayer(singlePlayAudio);
     activeAudio.get(soundIdentifier).add(spaPlayer);
     spaPlayer.setOnEndOfMedia(() -> {
@@ -32,7 +32,7 @@ public class ThemedAudioService implements AudioService {
   @Override
   public void playIndefinitely(String soundIdentifier) {
     activeAudio.putIfAbsent(soundIdentifier, new HashSet<>());
-    Media singlePlayAudio = dataSource.getTheme().getSoundFromIdentifier(soundIdentifier);
+    Media singlePlayAudio = dataSource.getTheme().getSoundByIdentifier(soundIdentifier);
     MediaPlayer spaPlayer = new MediaPlayer(singlePlayAudio);
     activeAudio.get(soundIdentifier).add(spaPlayer);
     spaPlayer.setOnEndOfMedia(() -> {
