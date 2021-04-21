@@ -50,34 +50,6 @@ public class PowerPill extends Sprite {
   }
 
   @Override
-  public boolean mustBeConsumed() {
-    return false;
-  }
-
-  @Override
-  public boolean isDeadlyToPacMan() {
-    return false;
-  }
-
-  @Override
-  public boolean eatsGhosts() {
-    return false;
-  }
-
-  @Override
-  public boolean isConsumable() {
-    return true;
-  }
-
-  @Override
-  public boolean isRespawnTarget() { return false; }
-
-  @Override
-  public boolean hasMultiplicativeScoring() {
-    return false;
-  }
-
-  @Override
   public int getScore() {
     return 0;
   }

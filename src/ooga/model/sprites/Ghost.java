@@ -181,16 +181,8 @@ public abstract class Ghost extends MoveableSprite {
   //TODO: MAKE ONE LINE IF NEEDED -> Make these default by changing them to non-abstract since some are superflouous
 
   @Override
-  public boolean mustBeConsumed() { return false; }
-
-  @Override
   public boolean isDeadlyToPacMan() {
     return ghostBehavior.equals(GhostBehavior.CHASE);
-  }
-
-  @Override
-  public boolean eatsGhosts() {
-    return false;
   }
 
   @Override
@@ -201,11 +193,6 @@ public abstract class Ghost extends MoveableSprite {
   @Override
   public boolean hasMultiplicativeScoring() {
     return ghostBehavior.equals(GhostBehavior.FRIGHTENED);
-  }
-
-  @Override
-  public boolean isRespawnTarget() {
-    return false;
   }
 
   @Override

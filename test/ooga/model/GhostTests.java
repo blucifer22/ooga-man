@@ -105,7 +105,6 @@ public class GhostTests {
 
     // Invariants
     assertFalse(blinky.mustBeConsumed());
-    assertFalse(blinky.isRespawnTarget());
     assertFalse(blinky.eatsGhosts());
 
     // Defaults
@@ -115,7 +114,7 @@ public class GhostTests {
     assertEquals(blinky.getScore(), 200);
   }
 
-//  @Test
+  @Test
   public void testGhostPowerUpResponses() {
     PacmanGameState pgs = new PacmanGameState();
     try {

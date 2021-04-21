@@ -45,29 +45,6 @@ public class Dot extends Sprite {
   }
 
   @Override
-  public boolean isDeadlyToPacMan() {
-    return false;
-  }
-
-  @Override
-  public boolean eatsGhosts() {
-    return false;
-  }
-
-  @Override
-  public boolean isConsumable() {
-    return true;
-  }
-
-  @Override
-  public boolean isRespawnTarget() { return false; }
-
-  @Override
-  public boolean hasMultiplicativeScoring() {
-    return false;
-  }
-
-  @Override
   public int getScore() {
     return dotScoreIncrement;
   }

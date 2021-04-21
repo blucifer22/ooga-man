@@ -59,31 +59,8 @@ public class PacMan extends MoveableSprite {
   }
 
   @Override
-  public boolean mustBeConsumed() {
-    return false;
-  }
-
-  @Override
-  public boolean isDeadlyToPacMan() {
-    return false;
-  }
-
-  @Override
   public boolean eatsGhosts() {
     return true;
-  }
-
-  @Override
-  public boolean isConsumable() {
-    return false;
-  }
-
-  @Override
-  public boolean isRespawnTarget() { return false; }
-
-  @Override
-  public boolean hasMultiplicativeScoring() {
-    return false;
   }
 
   @Override

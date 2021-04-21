@@ -48,34 +48,13 @@ public class Cherry extends Sprite {
   // TODO: See if I dont need to override since it does nothing if not just add a DO NOTHING comment
   @Override
   public void step(double dt, MutableGameState pacmanGameState) {
-
-  }
-
-  @Override
-  public boolean mustBeConsumed() {
-    return false;
-  }
-
-  @Override
-  public boolean isDeadlyToPacMan() {
-    return false;
-  }
-
-  @Override
-  public boolean eatsGhosts() {
-    return false;
+    // Do Nothing since cherries do not move
   }
 
   @Override
   public boolean isConsumable() {
     return isEdible;
   }
-
-  @Override
-  public boolean isRespawnTarget() { return false; }
-
-  @Override
-  public boolean hasMultiplicativeScoring() { return false; }
 
   @Override
   public int getScore() {

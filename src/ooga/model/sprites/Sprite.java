@@ -281,17 +281,25 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
   }
 
   // TODO: Make not abstract to give a default
-  public abstract boolean mustBeConsumed();
+  public boolean mustBeConsumed(){
+    return false;
+  };
 
-  public abstract boolean isDeadlyToPacMan();
+  public boolean isDeadlyToPacMan(){
+    return false;
+  };
 
-  public abstract boolean eatsGhosts();
+  public boolean eatsGhosts(){
+    return false;
+  };
 
-  public abstract boolean isConsumable();
+  public boolean isConsumable(){
+    return true;
+  };
 
-  public abstract boolean isRespawnTarget();
-
-  public abstract boolean hasMultiplicativeScoring();
+  public boolean hasMultiplicativeScoring(){
+    return false;
+  };
 
   public abstract int getScore();
 
