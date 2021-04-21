@@ -27,31 +27,36 @@ import static ooga.model.api.SpriteEvent.EventType.*;
  */
 public abstract class Sprite implements ObservableSprite, PowerupEventObserver, AnimationObserver {
 
+  private final SpriteAnimationFactory animationFactory;
+  private final SpriteCoordinates initialPosition;
+  private final Vec2 initialDirection;
   protected SwapClass swapClass;
   protected InputSource inputSource;
   protected InputSource defaultInputSource;
+  protected String inputString;
   private SpriteCoordinates position;
   private Vec2 direction;
   private Map<SpriteEvent.EventType, Set<SpriteObserver>> observers;
-
-  private final SpriteAnimationFactory animationFactory;
   private ObservableAnimation currentAnimation;
 
   /**
-   * Initialize a sprite.
+   * Initialize a Sprite
    *
-   * @param currentAnimation List of costumes as strings.
-   * @param position Starting position.
+   * @param spriteAnimationPrefix
+   * @param startingAnimation
+   * @param position
    * @param direction
    */
   protected Sprite(String spriteAnimationPrefix,
-                   SpriteAnimationFactory.SpriteAnimationType startingAnimation,
-                   SpriteCoordinates position,
-                   Vec2 direction) {
+      SpriteAnimationFactory.SpriteAnimationType startingAnimation,
+      SpriteCoordinates position,
+      Vec2 direction) {
     this.position = position;
     this.direction = direction;
     this.animationFactory = new SpriteAnimationFactory(spriteAnimationPrefix);
 
+    this.initialPosition = new SpriteCoordinates(position.getPosition());
+    this.initialDirection = new Vec2(direction.getX(), direction.getY());
     initializeObserverMap();
     defaultInputSource = null;
 
@@ -59,20 +64,29 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
   }
 
   protected Sprite(String spriteAnimationPrefix,
-                   SpriteAnimationFactory.SpriteAnimationType startingAnimation,
-                   SpriteDescription description) {
+      SpriteAnimationFactory.SpriteAnimationType startingAnimation,
+      SpriteDescription description) {
     this(spriteAnimationPrefix,
-         startingAnimation,
-         description.getCoordinates(),
-         new Vec2(1,0));
+        startingAnimation,
+        description.getCoordinates(),
+        new Vec2(1, 0));
   }
 
   protected Sprite(String spriteAnimationPrefix,
-                   SpriteAnimationFactory.SpriteAnimationType startingAnimation) {
+      SpriteAnimationFactory.SpriteAnimationType startingAnimation) {
     this(spriteAnimationPrefix,
-         startingAnimation,
-         new SpriteCoordinates(),
-         new Vec2(1,0));
+        startingAnimation,
+        new SpriteCoordinates(),
+        new Vec2(1, 0));
+  }
+
+  /**
+   * This method resets the Sprite to its initial configuration at the start of a level.  This
+   * method can be called to reset to the start of a new level.
+   */
+  public void reset() {
+    position = initialPosition;
+    direction = initialDirection;
   }
 
   private void initializeObserverMap() {
@@ -91,12 +105,10 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
 
   /**
    * Returns the type of this Sprite.
+   * <p>
+   * Cannot be overridden -- type changes must go through setCostumeIndex().
    *
-   * Cannot be overridden -- type changes must go through
-   * setCostumeIndex().
-   *
-   * @return Current costume type, as a string, like
-   * "pacman_halfopen".
+   * @return Current costume type, as a string, like "pacman_halfopen".
    */
   public final String getCostume() {
     return currentAnimation.getCurrentCostume();
@@ -106,24 +118,25 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
     return currentAnimation;
   }
 
+  private void setCurrentAnimation(ObservableAnimation newAnimation) {
+    ObservableAnimation oldAnimation = currentAnimation;
+
+    if (oldAnimation != null) {
+      oldAnimation.removeObserver(this);
+    }
+
+    currentAnimation = newAnimation;
+    notifyObservers(TYPE_CHANGE);
+
+    newAnimation.addObserver(this);
+  }
+
   protected SpriteAnimationFactory getAnimationFactory() {
     return animationFactory;
   }
 
   protected void setCurrentAnimationType(SpriteAnimationFactory.SpriteAnimationType type) {
     setCurrentAnimation(getAnimationFactory().createAnimation(type));
-  }
-
-  private void setCurrentAnimation(ObservableAnimation newAnimation) {
-    ObservableAnimation oldAnimation = currentAnimation;
-
-    if(oldAnimation != null)
-      oldAnimation.removeObserver(this);
-
-    currentAnimation = newAnimation;
-    notifyObservers(TYPE_CHANGE);
-
-    newAnimation.addObserver(this);
   }
 
   @Override
@@ -295,4 +308,11 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
   public void setInputSource(InputSource s) {
   }
 
+  public String getInputString() {
+    return inputString;
+  }
+
+  public void setInputString(String inputString) {
+    this.inputString = inputString;
+  }
 }

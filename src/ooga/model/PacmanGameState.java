@@ -55,6 +55,19 @@ public class PacmanGameState
     clock = new Clock();
   }
 
+  /**
+   * This method is called to reset a level.  Sprites that have been consumed (such as Dots or
+   * Power-Pills) do not respawn.  Other Sprites are reset to their initial positions.  Finally, the
+   * clock restarts.
+   */
+  public void resetLevel() {
+    for (Sprite sprite : sprites) {
+      sprite.reset();
+    }
+    clock.clear();
+    clock.reset();
+  }
+
   public void loadPacmanLevel(PacmanLevel level) {
     for (Sprite sprite : level.getSprites()) {
       addSprite(sprite);

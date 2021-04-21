@@ -5,19 +5,17 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import ooga.model.BlinkyAI;
-import ooga.model.InputSource;
-import ooga.model.PacmanBasicAI;
+import ooga.model.ai.BlinkyAI;
 import ooga.model.PacmanGameState;
-import ooga.model.PinkyAI;
+import ooga.model.ai.PinkyAI;
 import ooga.model.Player;
 import ooga.model.SpriteCoordinates;
+import ooga.model.api.GameStateObservationComposite;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Cherry;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Dot;
-import ooga.model.sprites.Home;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Pinky;
 import ooga.model.sprites.PowerPill;
@@ -37,12 +35,12 @@ public class DemoController implements GameStateController {
     this.uiController = new UIController(primaryStage, this, this.inputManager);
   }
 
-  public void startGame() {
+  @Override
+  public void startGame(GameStateObservationComposite rootObserver) {
     PacmanGameState pgs = new PacmanGameState();
-    GameView gv = uiController.getGameView(); // TODO: abstract GameView to an interface here
 
-    pgs.addSpriteExistenceObserver(gv.getSpriteExistenceObserver());
-    pgs.addGridRebuildObserver(gv.getGridRebuildObserver());
+    pgs.addSpriteExistenceObserver(rootObserver.spriteExistenceObserver());
+    pgs.addGridRebuildObserver(rootObserver.gridRebuildObserver());
 
     try {
       pgs.loadGrid(new JSONDescriptionFactory()
@@ -62,7 +60,6 @@ public class DemoController implements GameStateController {
     PowerPill powerPill4 = new PowerPill(new SpriteCoordinates(new Vec2(6.5, 6.5)), new Vec2(0, 0));
     Cherry cherry1 = new Cherry(new SpriteCoordinates(new Vec2(4.5, 8.5)), new Vec2(0, 0));
     Cherry cherry2 = new Cherry(new SpriteCoordinates(new Vec2(8.5, 1.5)), new Vec2(0, 0));
-    Home home = new Home(new SpriteCoordinates(new Vec2(8.5, 8.5)), new Vec2(0, 0));
 
     TeleporterOverlay teleporter1 = new TeleporterOverlay(new SpriteCoordinates(new Vec2(1.5, 8.5)));
     TeleporterOverlay teleporter2 = new TeleporterOverlay(new SpriteCoordinates(new Vec2(15.5, 8.5)));
@@ -72,14 +69,17 @@ public class DemoController implements GameStateController {
     pgs.addSprite(teleporter2);
 
 
-//    PacmanBasicAI pacmanBasicAI = new PacmanBasicAI(pgs.getGrid(), pacman);
+//    PacmanAI pacmanBasicAI = new PacmanAI(pgs.getGrid(), pacman);
 //    pacmanBasicAI.addTarget(blinky);
 //    pacmanBasicAI.addTarget(pinky);
 //    pacman.setInputSource(pacmanBasicAI);
 
     pacman.setInputSource(this.inputManager);
-    InputSource inBlinky = new BlinkyAI(pgs.getGrid(), blinky, pacman, home);
-    InputSource inPinky = new PinkyAI(pgs.getGrid(), pinky, pacman, home);
+    BlinkyAI inBlinky = new BlinkyAI(pgs.getGrid(), blinky);
+    PinkyAI inPinky = new PinkyAI(pgs.getGrid(), pinky);
+
+    inBlinky.setTarget(pacman);
+    inPinky.setTarget(pacman);
 
     blinky.setInputSource(inBlinky);
     pinky.setInputSource(inPinky);
@@ -91,9 +91,6 @@ public class DemoController implements GameStateController {
     //pgs.registerEventListener(blinky);
     pgs.addSprite(pinky);
     //pgs.registerEventListener(pinky);
-
-    pgs.addSprite(home);
-    //pgs.registerEventListener(home);
 
     pgs.addSprite(dot1);
     //pgs.registerEventListener(dot1);

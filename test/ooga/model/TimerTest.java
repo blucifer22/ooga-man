@@ -55,4 +55,39 @@ public class TimerTest {
     assertEquals(5, state.getScore());
   }
 
+  @Test
+  public void testClearTimer() {
+    clock.addTimer(new Timer(4, x -> {
+      x.incrementScore(1);
+    }));
+    clock.clear();
+    for (int k = 0; k < 360; k++){
+      clock.step(DT, state);
+    }
+    assertEquals(0, state.getScore());
+  }
+
+  @Test
+  public void testResetTimer() {
+    for (int k = 0; k < 60; k++){
+      clock.step(DT, state);
+    }
+    clock.addTimer(new Timer(1, x -> {
+      x.incrementScore(1);
+    }));
+    clock.reset();
+    for (int k = 0; k < 30; k++){
+      clock.step(DT, state);
+    }
+    clock.reset();
+    for (int k = 0; k < 30; k++){
+      clock.step(DT, state);
+    }
+    clock.reset();
+    for (int k = 0; k < 30; k++){
+      clock.step(DT, state);
+    }
+    assertEquals(0, state.getScore());
+  }
+
 }

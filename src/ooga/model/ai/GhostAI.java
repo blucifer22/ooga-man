@@ -1,4 +1,4 @@
-package ooga.model;
+package ooga.model.ai;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,10 +9,11 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
 import java.util.function.Supplier;
+import ooga.model.InputSource;
+import ooga.model.PacmanGrid;
+import ooga.model.TileCoordinates;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Ghost.GhostBehavior;
-import ooga.model.sprites.Home;
-import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 import org.jetbrains.annotations.NotNull;
@@ -28,15 +29,13 @@ public class GhostAI implements InputSource {
 
   private final Ghost ghost;
   private final PacmanGrid pacmanGrid;
-  private final Sprite target;
-  private final Sprite home;
-  private Map<GhostBehavior, Supplier<Vec2>> movementOptions= new HashMap<>();
+  private Sprite target;
+  private Map<GhostBehavior, Supplier<Vec2>> movementOptions = new HashMap<>();
 
-  public GhostAI(PacmanGrid grid, Ghost ghost, Sprite target, Sprite home) {
+  public GhostAI(PacmanGrid grid, Sprite ghost) {
     this.pacmanGrid = grid;
-    this.ghost = ghost;
-    this.target = target;
-    this.home = home;
+    this.ghost = (Ghost)ghost;
+    this.target = null;
     movementOptions.put(GhostBehavior.CHASE, this::chaseBehavior);
     movementOptions.put(GhostBehavior.WAIT, this::waitBehavior);
     movementOptions.put(GhostBehavior.EATEN, this::eatenBehavior);
@@ -44,7 +43,13 @@ public class GhostAI implements InputSource {
     movementOptions.put(GhostBehavior.SCATTER, this::scatterBehavior);
   }
 
-  protected Sprite getTarget() { return target; }
+  protected Sprite getTarget() {
+    return target;
+  }
+
+  public void setTarget(Sprite target) {
+    this.target = target;
+  }
 
   protected Ghost getGhost() {
     return ghost;
@@ -54,12 +59,11 @@ public class GhostAI implements InputSource {
     return pacmanGrid;
   }
 
-  protected Sprite getHome() {
-    return home;
-  }
-
   @Override
   public Vec2 getRequestedDirection() {
+    if (target == null) {
+      throw new IllegalArgumentException("AI has no Target");
+    }
     Supplier<Vec2> getAI = movementOptions.get(getGhost().getGhostBehavior());
     return getAI.get();
   }
@@ -71,12 +75,13 @@ public class GhostAI implements InputSource {
 
   /**
    * This mode corresponds to the ghost seeking home
+   *
    * @return
    */
   protected Vec2 eatenBehavior() {
     // TODO: Implement
     Vec2 currentTilePos = getGhost().getCoordinates().getTileCoordinates().toVec2();
-    Vec2 homeTilePos = getHome().getCoordinates().getTileCoordinates().toVec2();
+    Vec2 homeTilePos = getGhost().getSpawn().getTileCoordinates().toVec2();
 
     return reduceDistance(homeTilePos, currentTilePos);
   }
@@ -93,7 +98,7 @@ public class GhostAI implements InputSource {
 
   /**
    * This mode coincides with classic Pac-Man where ghosts periodically give up the chase and choose
-   * to wander around for a few seconds.  This is emulated by default by using a random direction
+   * to wander around for a few seconds. This is emulated by default by using a random direction
    * generator.
    *
    * @return direction to queue for ghost to move to
@@ -116,8 +121,8 @@ public class GhostAI implements InputSource {
   }
 
   /**
-   * This behavior can be overridden to define the most aggressive modes for Pac-Man.  Targeting can
-   * be used here to follow a tracked Sprite, such as Pac-Man.  The default GhostAI defaults to
+   * This behavior can be overridden to define the most aggressive modes for Pac-Man. Targeting can
+   * be used here to follow a tracked Sprite, such as Pac-Man. The default GhostAI defaults to
    * random behavior to "track" Pac-Man.
    *
    * @return direction to queue for ghost to move to
@@ -130,18 +135,14 @@ public class GhostAI implements InputSource {
   }
 
   private boolean isOpenToGhosts(Vec2 target) {
-    return getPacmanGrid().getTile(new TileCoordinates((int) target.getX(), (int) target.getY()))
+    return getPacmanGrid()
+        .getTile(new TileCoordinates((int) target.getX(), (int) target.getY()))
         .isOpenToGhosts();
   }
 
   @NotNull
   protected Vec2 reduceDistance(Vec2 targetTilePos, Vec2 currentTilePos) {
-    Vec2[] directions = {
-        new Vec2(-1, 0),
-        new Vec2(1, 0),
-        new Vec2(0, 1),
-        new Vec2(0, -1)
-    };
+    Vec2[] directions = {new Vec2(-1, 0), new Vec2(1, 0), new Vec2(0, 1), new Vec2(0, -1)};
 
     List<DirectionDistanceWrapper> distances = new ArrayList<>();
     for (Vec2 direction : directions) {
@@ -163,6 +164,22 @@ public class GhostAI implements InputSource {
     return Vec2.ZERO;
   }
 
+  @Override
+  public boolean isActionPressed() {
+    // TODO: Implement this!
+    return false;
+  }
+
+  /**
+   * Adds a Sprite target to the InputSource.
+   *
+   * @param target The Sprite to add to the InputSource.
+   */
+  @Override
+  public void addTarget(Sprite target) {
+    setTarget(target);
+  }
+
   class DirectionDistanceWrapper implements Comparable<GhostAI.DirectionDistanceWrapper> {
 
     private final Vec2 vec;
@@ -182,11 +199,4 @@ public class GhostAI implements InputSource {
       return Double.compare(this.dis, o.dis);
     }
   }
-
-  @Override
-  public boolean isActionPressed() {
-    // TODO: Implement this!
-    return false;
-  }
-
 }

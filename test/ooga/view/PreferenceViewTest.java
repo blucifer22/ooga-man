@@ -2,36 +2,33 @@ package ooga.view;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.ResourceBundle;
-import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-import ooga.view.internal_api.PreferenceResponder;
 import ooga.view.internal_api.ViewStackManager;
+import ooga.view.language.api.LanguageSelectionService;
 import ooga.view.language.api.LanguageService;
 import ooga.view.language.bundled.BundledLanguageService;
 import ooga.view.theme.api.Theme;
+import ooga.view.theme.api.ThemeSelectionService;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.api.ThemedObject;
 import ooga.view.theme.serialized.SerializedThemeService;
+import ooga.view.uiservice.UIPreferenceService;
+import ooga.view.uiservice.UIServiceProvider;
 import ooga.view.views.PreferenceView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class PreferenceViewTest extends CustomApplicationTest {
 
-  private class TestHarness extends BundledLanguageService implements PreferenceResponder,
-      ThemeService, LanguageService, ViewStackManager {
-    private ThemeService ts = new SerializedThemeService();
+  private class TestHarness extends BundledLanguageService implements ThemeService,
+      LanguageService, ViewStackManager, UIServiceProvider, UIPreferenceService {
+    private SerializedThemeService ts = new SerializedThemeService();
     private final int[] state = new int[2];
     private String language = null;
 
@@ -60,6 +57,31 @@ public class PreferenceViewTest extends CustomApplicationTest {
     public int[] getState() {
       return this.state;
     }
+
+    @Override
+    public ThemeService themeService() {
+      return this;
+    }
+
+    @Override
+    public LanguageService languageService() {
+      return this;
+    }
+
+    @Override
+    public ViewStackManager viewStackManager() {
+      return this;
+    }
+
+    @Override
+    public LanguageSelectionService languageSelectionService() {
+      return this;
+    }
+
+    @Override
+    public ThemeSelectionService themeSelectionService() {
+      return this.ts;
+    }
   }
 
   private Stage primaryStage;
@@ -76,7 +98,8 @@ public class PreferenceViewTest extends CustomApplicationTest {
   public void reset() throws InterruptedException {
     syncFXRun(() -> {
       this.harness = new TestHarness();
-      this.primaryStage.setScene(new Scene(new PreferenceView(harness, harness, harness, harness).getRenderingNode(), 600, 600));
+      this.primaryStage.setScene(new Scene(new PreferenceView(this.harness, this.harness).getRenderingNode(), 600,
+          600));
     });
   }
 
@@ -99,7 +122,7 @@ public class PreferenceViewTest extends CustomApplicationTest {
   public void testLangChange() throws InterruptedException {
     Thread.sleep(500);
 
-    ComboBox<Pair<String, String>> cbox = lookup("#menu-combo-lang-select").query();
+    ComboBox<Pair<String, String>> cbox = lookup("#language-select-dropdown").query();
     syncFXRun(() -> {
       moveTo(cbox);
       cbox.getSelectionModel().select(0);

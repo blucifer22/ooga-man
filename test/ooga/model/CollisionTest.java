@@ -10,6 +10,7 @@ import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Dot;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.PacMan;
+import ooga.model.sprites.Sprite;
 import ooga.model.sprites.TeleporterOverlay;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,29 +55,13 @@ public class CollisionTest {
   @Test
   public void collisionWithDotIncrementsScore() {
 
-    class TestInputSource implements InputSource {
+    List<Vec2> prepopulatedActions = new ArrayList<>();
 
-      private final List<Vec2> prepopulatedActions = new ArrayList<>();
-      private int dex = 0;
-
-      public TestInputSource() {
-        for (int j = 0; j < 1000; j++) {
-          prepopulatedActions.add(new Vec2(0, -1));
-        }
-      }
-
-      @Override
-      public Vec2 getRequestedDirection() {
-        return prepopulatedActions.get(dex++);
-      }
-
-      @Override
-      public boolean isActionPressed() {
-        return false;
-      }
+    for (int j = 0; j < 1000; j++) {
+      prepopulatedActions.add(new Vec2(0, -1));
     }
-    TestInputSource input = new TestInputSource() {
-    };
+    SeededTestInputSource input = new SeededTestInputSource();
+    input.addActions(prepopulatedActions);
     pacMan.setInputSource(input);
 
     for (int k = 0; k < 1000; k++) {
@@ -90,33 +75,19 @@ public class CollisionTest {
   @Test
   public void teleporterBasicTest() {
 
-    class TestInputSource implements InputSource {
+    List<Vec2> prepopulatedActions = new ArrayList<>();
 
-      private final List<Vec2> prepopulatedActions = new ArrayList<>();
-      private int dex = 0;
-
-      public TestInputSource() {
-        for (int j = 0; j < 10; j++) {
-          prepopulatedActions.add(new Vec2(-1, 0));
-        }
-      }
-
-      @Override
-      public Vec2 getRequestedDirection() {
-        return prepopulatedActions.get(dex++);
-      }
-
-      @Override
-      public boolean isActionPressed() {
-        return false;
-      }
+    for (int j = 0; j < 10; j++) {
+      prepopulatedActions.add(new Vec2(-1, 0));
     }
+    SeededTestInputSource input = new SeededTestInputSource();
+    input.addActions(prepopulatedActions);
 
     Vec2 position = new Vec2(2.5, 2.5);
     Vec2 direction = new Vec2(-1, 0);
     SpriteCoordinates spriteCoordinates = new SpriteCoordinates(position);
     pacMan = new PacMan(spriteCoordinates, direction, 5);
-    pacMan.setInputSource(new TestInputSource());
+    pacMan.setInputSource(input);
 
     state = new PacmanGameState();
     state.loadGrid(grid);
@@ -131,8 +102,8 @@ public class CollisionTest {
     state.addSprite(teleporter1);
     state.addSprite(teleporter2);
 
-    for (int k = 0; k < 6; k++){
-      state.step(1/60.);
+    for (int k = 0; k < 6; k++) {
+      state.step(1 / 60.);
     }
     assertTrue(pacMan.getCoordinates().getPosition().getX() > 2.5);
   }
