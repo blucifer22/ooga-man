@@ -1,5 +1,7 @@
 package ooga.model.sprites;
 
+import java.util.HashMap;
+import java.util.Map;
 import ooga.model.*;
 import ooga.model.api.PowerupEventObserver;
 import ooga.model.leveldescription.SpriteDescription;
@@ -20,14 +22,17 @@ public class PacMan extends MoveableSprite {
 
   public PacMan(SpriteCoordinates position, Vec2 direction, double speed) {
     super("pacman",
-            SpriteAnimationFactory.SpriteAnimationType.PACMAN_CHOMP,
-            position, direction, speed);
+        SpriteAnimationFactory.SpriteAnimationType.PACMAN_CHOMP,
+        position, direction, speed);
     swapClass = SwapClass.PACMAN;
+    powerupOptions = Map
+        .of(PacmanPowerupEvent.SPEED_UP_ACTIVATED, this::activateSpeedUp,
+            PacmanPowerupEvent.SPEED_UP_DEACTIVATED, this::deactivateSpeedUp);
   }
 
   public PacMan(SpriteDescription spriteDescription) {
     this(spriteDescription.getCoordinates(),
-            new Vec2(1,0), 5.0);
+        new Vec2(1, 0), 5.0);
   }
 
   @Override
@@ -43,7 +48,7 @@ public class PacMan extends MoveableSprite {
       ghostsEaten++;
       state.incrementScore(other.getScore() * ghostsEaten);
       System.out.println("SCORE: " + state.getScore());
-    } else if (other.isConsumable()){
+    } else if (other.isConsumable()) {
       state.incrementScore(other.getScore());
       System.out.println("SCORE: " + state.getScore());
     }
@@ -59,31 +64,8 @@ public class PacMan extends MoveableSprite {
   }
 
   @Override
-  public boolean mustBeConsumed() {
-    return false;
-  }
-
-  @Override
-  public boolean isDeadlyToPacMan() {
-    return false;
-  }
-
-  @Override
   public boolean eatsGhosts() {
     return true;
-  }
-
-  @Override
-  public boolean isConsumable() {
-    return false;
-  }
-
-  @Override
-  public boolean isRespawnTarget() { return false; }
-
-  @Override
-  public boolean hasMultiplicativeScoring() {
-    return false;
   }
 
   @Override
@@ -91,17 +73,13 @@ public class PacMan extends MoveableSprite {
     return 0;
   }
 
-  @Override
-  public void respondToPowerEvent(PacmanPowerupEvent event) {
-    switch (event){
-      case SPEED_UP_ACTIVATED -> {
-        setMovementSpeed(getMovementSpeed() * 2);
-        getCurrentAnimation().setRelativeSpeed(getCurrentAnimation().getRelativeSpeed() * 2);
-      }
-      case SPEED_UP_DEACTIVATED -> {
-        setMovementSpeed(getMovementSpeed() * 0.5);
-        getCurrentAnimation().setRelativeSpeed(getCurrentAnimation().getRelativeSpeed() * 0.5);
-      }
-    }
+  private void deactivateSpeedUp() {
+    setMovementSpeed(getMovementSpeed() * 0.5);
+    getCurrentAnimation().setRelativeSpeed(getCurrentAnimation().getRelativeSpeed() * 0.5);
+  }
+
+  private void activateSpeedUp() {
+    setMovementSpeed(getMovementSpeed() * 2);
+    getCurrentAnimation().setRelativeSpeed(getCurrentAnimation().getRelativeSpeed() * 2);
   }
 }

@@ -121,9 +121,6 @@ class TestObservableSprite extends Sprite {
   }
 
   @Override
-  public boolean isRespawnTarget() { return false; }
-
-  @Override
   public boolean hasMultiplicativeScoring() {
     return false;
   }
@@ -131,10 +128,5 @@ class TestObservableSprite extends Sprite {
   @Override
   public int getScore() {
     return 0;
-  }
-
-  @Override
-  public void respondToPowerEvent(PacmanPowerupEvent event) {
-
   }
 }

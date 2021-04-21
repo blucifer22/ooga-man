@@ -14,6 +14,7 @@ import ooga.util.Vec2;
 
 public abstract class MoveableSprite extends Sprite {
 
+  public static final int UNIVERSAL_MAX_MOVEMENT_SPEED = 6;
   private InputSource inputSource;
   private double currentSpeed;
   private double movementSpeed;
@@ -73,6 +74,18 @@ public abstract class MoveableSprite extends Sprite {
       defaultInputSource = s;
     }
     inputSource = s;
+  }
+
+  /**
+   * Moveable Sprites can update their speed with every new round to increase the difficulty of the
+   * Pac-Man game.  Additionally, a maximum movement speed is present to cap Sprites from moving too
+   * quickly.
+   *
+   * @param roundNumber current round of Pac-Man.
+   */
+  @Override
+  public void adjustSpritePropertyWithLevel(int roundNumber) {
+    movementSpeed = Math.min(movementSpeed + 0.5 * roundNumber, UNIVERSAL_MAX_MOVEMENT_SPEED);
   }
 
   protected abstract boolean canMoveTo(Tile tile);
