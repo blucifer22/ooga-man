@@ -2689,7 +2689,7 @@
         "inputSource": "NONE",
         "coordinates": {
           "position": {
-            "x": 1.5,
+            "x": 2.5,
             "y": 1.5
           }
         }
@@ -2699,8 +2699,8 @@
         "inputSource": "PacmanAI",
         "coordinates": {
           "position": {
-            "x": 10.5,
-            "y": 10.5
+            "x": 1.5,
+            "y": 1.5
           }
         }
       },
@@ -2741,26 +2741,6 @@
           "position": {
             "x": 15.5,
             "y": 8.5
-          }
-        }
-      },
-      {
-        "className": "TeleporterOverlay",
-        "inputSource": "TELEPORTER_B",
-        "coordinates": {
-          "position": {
-            "x": 1.5,
-            "y": 4.5
-          }
-        }
-      },
-      {
-        "className": "TeleporterOverlay",
-        "inputSource": "TELEPORTER_B",
-        "coordinates": {
-          "position": {
-            "x": 15.5,
-            "y": 4.5
           }
         }
       }

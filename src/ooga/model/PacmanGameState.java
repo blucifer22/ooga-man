@@ -56,7 +56,7 @@ public class PacmanGameState
   private String jsonFileName;
 
   private int pacmanLivesRemaining;
-  private boolean isPacmanDead;
+  protected boolean isPacmanDead;
   private int roundNumber;
   private boolean isGameOver;
   private boolean pacmanConsumed;
@@ -175,6 +175,7 @@ public class PacmanGameState
       checkPacmanDead();
       // All Dots have been eaten
       checkProceedToNextLevel();
+      handleSwaps();
     } else {
       System.out.println("GAME OVER!");
       // TODO: Implement game over score screen
@@ -445,6 +446,7 @@ public class PacmanGameState
    * expected in the adversarial Pac-Man game mode.
    */
   public void handleSwaps() {
+    System.out.println("Entering handle swap routine");
     Sprite spriteToSwapOut = null;
     for (Sprite sprite : sprites) {
       if (sprite.getInputSource() != null && sprite.needsSwap()) {
@@ -474,6 +476,7 @@ public class PacmanGameState
         continue;
       }
       if (spriteToSwapOut.getSwapClass().equals(sprite.getSwapClass())) {
+        System.out.println("Swapping input from: " + spriteToSwapOut + " to " + sprite);
         sprite.setInputSource(spriteToSwapOut.getInputSource());
         spriteToSwapOut.setInputSource(spriteToSwapOut.getDefaultInputSource());
         return true;
