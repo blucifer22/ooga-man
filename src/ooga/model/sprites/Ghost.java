@@ -131,7 +131,7 @@ public abstract class Ghost extends MoveableSprite {
     }
   }
 
-  // TODO: Change type of input variable from GhostBehavior to GhostAnimationState
+  // TODO: Add other animation types
   private GhostAnimationType stateToAnimationType(GhostAnimationState animationState) {
     return switch (animationState) {
       case WAIT -> NORMAL;
@@ -168,7 +168,6 @@ public abstract class Ghost extends MoveableSprite {
 
     if (forceAnimationUpdate || !getDirection().equals(oldDirection)) {
       forceAnimationUpdate = false;
-      // TODO: change input to behaviorToAnimationType to animationState
       setCurrentAnimationType(directionToAnimationType(getDirection(),
           stateToAnimationType(animationState)
       ));
@@ -218,7 +217,6 @@ public abstract class Ghost extends MoveableSprite {
     }
   }
 
-  // TODO: Change type of oldAnimType from GhostBehavior to GhostAnimationState and pass in state
   private void changeAnimationState(GhostAnimationState state) {
     GhostAnimationType oldAnimType = stateToAnimationType(animationState);
     animationState = state;
@@ -263,11 +261,8 @@ public abstract class Ghost extends MoveableSprite {
         if(isConsumable() && frightenedBank == 0) {
           if (!getGhostBehavior().equals(GhostBehavior.WAIT)) {
             changeAnimationState(GhostAnimationState.CHASE);
-            // isConsumable() -> false
             setDirection(getDirection().scalarMult(-1));
           }
-
-//          isDeadly = true;
         }
       }
       case POINT_BONUS_ACTIVATED -> baseGhostScore *= 2;
