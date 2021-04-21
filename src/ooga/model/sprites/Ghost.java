@@ -186,7 +186,7 @@ public abstract class Ghost extends MoveableSprite {
 
   @Override
   public boolean isDeadlyToPacMan() {
-    return isDeadly;
+    return ghostBehavior.equals(GhostBehavior.CHASE);
   }
 
   @Override
@@ -196,7 +196,7 @@ public abstract class Ghost extends MoveableSprite {
 
   @Override
   public boolean isConsumable() {
-    return !isDeadly && !isEaten;
+    return ghostBehavior.equals(GhostBehavior.FRIGHTENED);
   }
 
   @Override
