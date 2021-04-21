@@ -19,6 +19,7 @@ import static ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimatio
 public abstract class Ghost extends MoveableSprite {
 
   private final Clock ghostClock;
+  private final SpriteCoordinates spawn;
   private boolean isDeadly = true;
   private boolean isEaten;
   private int baseGhostScore = 200;
@@ -31,14 +32,17 @@ public abstract class Ghost extends MoveableSprite {
       SpriteCoordinates position,
       Vec2 direction,
       double speed) {
-    super(spriteAnimationPrefix, directionToAnimationType(direction, NORMAL), position, direction, speed);
+    super(spriteAnimationPrefix, directionToAnimationType(direction, NORMAL), position, direction,
+        speed);
+    spawn = position;
     swapClass = SwapClass.GHOST;
     ghostBehavior = GhostBehavior.WAIT;
     ghostClock = new Clock();
 
     ghostClock.addTimer(new Timer(getInitialWaitTime(), state -> {
-      if(ghostBehavior == GhostBehavior.WAIT)
+      if (ghostBehavior == GhostBehavior.WAIT) {
         ghostBehavior = GhostBehavior.CHASE;
+      }
     }));
 
     forceAnimationUpdate = false;
@@ -48,37 +52,50 @@ public abstract class Ghost extends MoveableSprite {
       String spriteAnimationPrefix,
       SpriteDescription spriteDescription) {
     this(spriteAnimationPrefix,
-         spriteDescription.getCoordinates(),
-         new Vec2(1, 0), 1);
+        spriteDescription.getCoordinates(),
+        new Vec2(1, 0), 1);
   }
 
-  protected enum GhostAnimationType {
-    NORMAL,
-    EYES,
-    FRIGHTENED,
-    FRIGHTENED_END
-  };
-
-  protected static SpriteAnimationFactory.SpriteAnimationType directionToAnimationType(Vec2 direction, GhostAnimationType type) {
-    return switch(type) {
+  protected static SpriteAnimationFactory.SpriteAnimationType directionToAnimationType(
+      Vec2 direction, GhostAnimationType type) {
+    return switch (type) {
       case FRIGHTENED -> GHOST_FRIGHTENED;
       case FRIGHTENED_END -> GHOST_FRIGHTENED_END;
       default -> {
         String directionName = "RIGHT";
-        if(direction.getMagnitude() > Vec2.EPSILON) {
+        if (direction.getMagnitude() > Vec2.EPSILON) {
           Vec2 unitDirection = direction.normalize();
-          if(Vec2.RIGHT.dot(unitDirection) > 0.5)
+          if (Vec2.RIGHT.dot(unitDirection) > 0.5) {
             directionName = "RIGHT";
-          else if(Vec2.LEFT.dot(unitDirection) > 0.5)
+          } else if (Vec2.LEFT.dot(unitDirection) > 0.5) {
             directionName = "LEFT";
-          else if(Vec2.UP.dot(unitDirection) > 0.5)
+          } else if (Vec2.UP.dot(unitDirection) > 0.5) {
             directionName = "UP";
-          else if(Vec2.DOWN.dot(unitDirection) > 0.5)
+          } else if (Vec2.DOWN.dot(unitDirection) > 0.5) {
             directionName = "DOWN";
+          }
         }
-        yield SpriteAnimationFactory.SpriteAnimationType.valueOf("GHOST_" + directionName + (type == EYES ? "_EYES" : ""));
+        yield SpriteAnimationFactory.SpriteAnimationType
+            .valueOf("GHOST_" + directionName + (type == EYES ? "_EYES" : ""));
       }
     };
+  }
+
+  /**
+   * Resets the ghosts to their starting positions
+   */
+  @Override
+  public void reset() {
+    super.reset();
+    ghostClock.clear();
+    ghostClock.reset();
+    ghostBehavior = GhostBehavior.WAIT;
+    ghostClock.addTimer(new Timer(getInitialWaitTime(), state -> {
+      if (ghostBehavior == GhostBehavior.WAIT) {
+        ghostBehavior = GhostBehavior.CHASE;
+      }
+    }));
+    forceAnimationUpdate = false;
   }
 
   /**
@@ -99,6 +116,10 @@ public abstract class Ghost extends MoveableSprite {
     return ghostBehavior;
   }
 
+  public SpriteCoordinates getSpawn() {
+    return spawn;
+  }
+
   @Override
   protected boolean canMoveTo(Tile tile) {
     return tile.isOpenToGhosts();
@@ -106,24 +127,12 @@ public abstract class Ghost extends MoveableSprite {
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    if (!isDeadly && !isEaten && isConsumable() && other.eatsGhosts()){
+    if (!isDeadly && !isEaten && isConsumable() && other.eatsGhosts()) {
       this.setMovementSpeed(this.getMovementSpeed() * 1.5);
       changeBehavior(GhostBehavior.EATEN);
       isEaten = true;
       isDeadly = false;
       // isConsumable() -> false
-    }
-    if (other.isRespawnTarget() && ghostBehavior.equals(GhostBehavior.EATEN)){
-      this.setMovementSpeed(this.getMovementSpeed() * (2.0/3.0));
-      changeBehavior(GhostBehavior.WAIT);
-      state.getClock().addTimer(new Timer(10, mutableGameState -> {
-        this.setCurrentSpeed(getMovementSpeed());
-        this.changeBehavior(GhostBehavior.CHASE);
-        isDeadly = true;
-        isEaten = false;
-        // isConsumable() -> false
-        setDirection(getDirection().scalarMult(-1));
-      }));
     }
   }
 
@@ -144,13 +153,29 @@ public abstract class Ghost extends MoveableSprite {
     ghostClock.step(dt, pacmanGameState);
     super.step(dt, pacmanGameState);
     move(dt, pacmanGameState.getGrid());
+
+    if (getCoordinates().getTileCoordinates().equals(getSpawn().getTileCoordinates())
+        && ghostBehavior.equals(GhostBehavior.EATEN)) {
+      this.setCoordinates(new SpriteCoordinates(getSpawn().getTileCenter()));
+      this.setMovementSpeed(this.getMovementSpeed() * (2.0 / 3.0));
+      changeBehavior(GhostBehavior.WAIT);
+      pacmanGameState.getClock().addTimer(new Timer(10, mutableGameState -> {
+        this.setCurrentSpeed(getMovementSpeed());
+        this.changeBehavior(GhostBehavior.CHASE);
+        isDeadly = true;
+        isEaten = false;
+        // isConsumable() -> false
+        setDirection(getDirection().scalarMult(-1));
+      }));
+    }
+
     handleCollisions(pacmanGameState);
 
-    if(forceAnimationUpdate || !getDirection().equals(oldDirection)) {
+    if (forceAnimationUpdate || !getDirection().equals(oldDirection)) {
       forceAnimationUpdate = false;
       setCurrentAnimationType(directionToAnimationType(getDirection(),
-              behaviorToAnimationType(ghostBehavior)
-              ));
+          behaviorToAnimationType(ghostBehavior)
+      ));
     }
   }
 
@@ -192,8 +217,9 @@ public abstract class Ghost extends MoveableSprite {
   private void changeBehavior(GhostBehavior behavior) {
     GhostAnimationType oldAnimType = behaviorToAnimationType(ghostBehavior);
     ghostBehavior = behavior;
-    if(behaviorToAnimationType(ghostBehavior) != oldAnimType)
+    if (behaviorToAnimationType(ghostBehavior) != oldAnimType) {
       forceAnimationUpdate = true;
+    }
   }
 
   @Override
@@ -203,7 +229,7 @@ public abstract class Ghost extends MoveableSprite {
       case GHOST_SLOWDOWN_DEACTIVATED -> setMovementSpeed(getMovementSpeed() * 2);
       case FRIGHTEN_ACTIVATED -> {
         frightenedBank++;
-        if (getGhostBehavior().equals(GhostBehavior.CHASE)){
+        if (getGhostBehavior().equals(GhostBehavior.CHASE)) {
           changeBehavior(GhostBehavior.FRIGHTENED);
           isDeadly = false;
           isEaten = false;
@@ -228,6 +254,13 @@ public abstract class Ghost extends MoveableSprite {
       case POINT_BONUS_ACTIVATED -> baseGhostScore *= 2;
       case POINT_BONUS_DEACTIVATED -> baseGhostScore *= 0.5;
     }
+  }
+
+  protected enum GhostAnimationType {
+    NORMAL,
+    EYES,
+    FRIGHTENED,
+    FRIGHTENED_END
   }
 
   /* TODO: perhaps refactor? */

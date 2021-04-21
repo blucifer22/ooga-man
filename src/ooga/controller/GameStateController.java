@@ -1,5 +1,7 @@
 package ooga.controller;
 
+import ooga.model.api.GameStateObservationComposite;
+
 public interface GameStateController {
-  void startGame();
+  void startGame(GameStateObservationComposite rootObserver);
 }

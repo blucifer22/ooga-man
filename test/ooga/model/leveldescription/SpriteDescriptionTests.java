@@ -68,5 +68,6 @@ public class SpriteDescriptionTests {
     Sprite pacmanSprite = pacmanDescription.toSprite();
     assertEquals(pacmanSprite.getCoordinates().getTileCoordinates().getX(), 5);
     assertEquals(pacmanSprite.getCoordinates().getTileCoordinates().getY(), 5);
+    assertEquals(pacmanSprite.getInputString(), "HUMAN");
   }
 }
