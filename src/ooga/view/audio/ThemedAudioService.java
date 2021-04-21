@@ -7,12 +7,12 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import ooga.view.theme.api.ThemeService;
 
-public class SerializedAudioService implements AudioService {
+public class ThemedAudioService implements AudioService {
 
   private final ThemeService dataSource;
   private final HashMap<String, HashSet<MediaPlayer>> activeAudio;
 
-  public SerializedAudioService(ThemeService dataSource) {
+  public ThemedAudioService(ThemeService dataSource) {
     this.dataSource = dataSource;
     this.activeAudio = new HashMap<>();
   }
