@@ -19,6 +19,7 @@ import ooga.model.leveldescription.GridDescription;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.LevelDescription;
 import ooga.model.leveldescription.SpriteDescription;
+import ooga.model.sprites.MoveableSprite;
 import ooga.model.sprites.Sprite;
 import ooga.model.sprites.SwapClass;
 import ooga.util.Clock;
@@ -142,6 +143,11 @@ public class PacmanGameState
 
     PacmanLevel level = loadLevelFromJSON(jsonFileName);
     for (Sprite sprite : level.getSprites()) {
+      if (sprite.getSwapClass() == SwapClass.GHOST){
+        // TODO: Change to not downcast
+        MoveableSprite mover = (MoveableSprite) sprite;
+        mover.setMovementSpeed(Math.min(mover.getMovementSpeed() + (0.5 * roundNumber), 6));
+      }
       addSprite(sprite);
     }
     loadGrid(level.getGrid());
@@ -446,7 +452,6 @@ public class PacmanGameState
    * expected in the adversarial Pac-Man game mode.
    */
   public void handleSwaps() {
-    System.out.println("Entering handle swap routine");
     Sprite spriteToSwapOut = null;
     for (Sprite sprite : sprites) {
       if (sprite.getInputSource() != null && sprite.needsSwap()) {
