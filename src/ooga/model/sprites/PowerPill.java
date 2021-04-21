@@ -54,6 +54,4 @@ public class PowerPill extends Sprite {
     return 0;
   }
 
-  @Override
-  public void respondToPowerEvent(PacmanPowerupEvent event) { }
 }

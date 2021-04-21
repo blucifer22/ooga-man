@@ -1,5 +1,7 @@
 package ooga.model.sprites;
 
+import java.util.HashMap;
+import java.util.Map;
 import ooga.model.*;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
@@ -37,12 +39,21 @@ public abstract class Ghost extends MoveableSprite {
     animationState = GhostAnimationState.WAIT;
     changeBehaviorBasedOnAnimationState(animationState);
     ghostClock = new Clock();
-
     ghostClock.addTimer(new Timer(getInitialWaitTime(), state -> {
       if (ghostBehavior == GhostBehavior.WAIT) {
         changeAnimationState(GhostAnimationState.CHASE);
       }
     }));
+
+    powerupOptions = Map
+        .of(PacmanPowerupEvent.FRIGHTEN_ACTIVATED, this::activateFrightened,
+            PacmanPowerupEvent.FRIGHTEN_DEACTIVATED, this::deactivateFrightened,
+            PacmanPowerupEvent.GHOST_SLOWDOWN_ACTIVATED,
+            () -> setMovementSpeed(getMovementSpeed() * 0.5),
+            PacmanPowerupEvent.GHOST_SLOWDOWN_DEACTIVATED,
+            () -> setMovementSpeed(getMovementSpeed() * 2), PacmanPowerupEvent.POINT_BONUS_ACTIVATED,
+            () -> baseGhostScore *= 2, PacmanPowerupEvent.POINT_BONUS_DEACTIVATED,
+            () -> baseGhostScore *= 0.5);
 
     forceAnimationUpdate = false;
   }
@@ -99,6 +110,7 @@ public abstract class Ghost extends MoveableSprite {
   }
 
   // TODO: Delete "protected" to make Ghost classes package private
+
   /**
    * Defines how long this ghost takes before leaving the pen at the start of the game
    *
@@ -200,6 +212,7 @@ public abstract class Ghost extends MoveableSprite {
     return baseGhostScore;
   }
 
+  //TODO: Might be able to delete this method
   private void changeBehavior(GhostBehavior behavior) {
     GhostAnimationType oldAnimType = stateToAnimationType(animationState);
     ghostBehavior = behavior;
@@ -217,7 +230,7 @@ public abstract class Ghost extends MoveableSprite {
     }
   }
 
-  private void changeBehaviorBasedOnAnimationState(GhostAnimationState state){
+  private void changeBehaviorBasedOnAnimationState(GhostAnimationState state) {
     switch (state) {
       case CHASE -> changeBehavior(GhostBehavior.CHASE);
       case WAIT, FRIGHTENED_WAIT_BLINKING, FRIGHTENED_WAIT -> changeBehavior(GhostBehavior.WAIT);
@@ -226,41 +239,30 @@ public abstract class Ghost extends MoveableSprite {
     }
   }
 
-  @Override
-  public void respondToPowerEvent(PacmanPowerupEvent event) {
-    switch (event) {
-      case GHOST_SLOWDOWN_ACTIVATED -> setMovementSpeed(getMovementSpeed() * 0.5);
-      case GHOST_SLOWDOWN_DEACTIVATED -> setMovementSpeed(getMovementSpeed() * 2);
-      case FRIGHTEN_ACTIVATED -> {
-        // TODO: Refactor into a singular method call
-        frightenedBank++;
-        if (getGhostBehavior().equals(GhostBehavior.CHASE)) {
-          changeAnimationState(GhostAnimationState.FRIGHTENED);
-          //TODO: Needs timer to go for 6 sections before doing
-          // changeAnimationState(GhostAnimationState.FRIGHTENED_BLINKING);
-          setDirection(getDirection().scalarMult(-1));
-        }
-        if (getGhostBehavior().equals(GhostBehavior.CHASE)){
-          changeAnimationState(GhostAnimationState.FRIGHTENED_WAIT);
-          //TODO: Needs timer to go for 6 sections before doing
-          // changeAnimationState(GhostAnimationState.FRIGHTENED_WAIT_BLINKING);
-        }
+  private void deactivateFrightened() {
+    frightenedBank--;
+    if (isConsumable() && frightenedBank == 0) {
+      if (!getGhostBehavior().equals(GhostBehavior.WAIT)) {
+        changeAnimationState(GhostAnimationState.CHASE);
+        setDirection(getDirection().scalarMult(-1));
       }
-      case FRIGHTEN_DEACTIVATED -> {
-        frightenedBank--;
-        System.out.println(isConsumable());
-        System.out.println(frightenedBank);
-        if(isConsumable() && frightenedBank == 0) {
-          if (!getGhostBehavior().equals(GhostBehavior.WAIT)) {
-            changeAnimationState(GhostAnimationState.CHASE);
-            setDirection(getDirection().scalarMult(-1));
-          }
-        }
-      }
-      //TODO: Map<Enum, Runnable>
-      case POINT_BONUS_ACTIVATED -> baseGhostScore *= 2;
-      case POINT_BONUS_DEACTIVATED -> baseGhostScore *= 0.5;
     }
+  }
+
+  private Runnable activateFrightened() {
+    frightenedBank++;
+    if (getGhostBehavior().equals(GhostBehavior.CHASE)) {
+      changeAnimationState(GhostAnimationState.FRIGHTENED);
+      //TODO: Needs timer to go for 6 sections before doing
+      // changeAnimationState(GhostAnimationState.FRIGHTENED_BLINKING);
+      setDirection(getDirection().scalarMult(-1));
+    }
+    if (getGhostBehavior().equals(GhostBehavior.CHASE)) {
+      changeAnimationState(GhostAnimationState.FRIGHTENED_WAIT);
+      //TODO: Needs timer to go for 6 sections before doing
+      // changeAnimationState(GhostAnimationState.FRIGHTENED_WAIT_BLINKING);
+    }
+    return null;
   }
 
   // TODO: Delete "protected" to make Ghost classes package private

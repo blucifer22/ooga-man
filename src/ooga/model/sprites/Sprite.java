@@ -32,6 +32,7 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
   private final Vec2 initialDirection;
   protected SwapClass swapClass;
   protected InputSource inputSource;
+  protected Map<PacmanPowerupEvent, Runnable> powerupOptions = new HashMap<>();
   protected InputSource defaultInputSource;
   protected String inputString;
   private SpriteCoordinates position;
@@ -303,9 +304,12 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
 
   public abstract int getScore();
 
-  // TODO: Make non-abtract and do nothing to override in repsonders classes
   @Override
-  public abstract void respondToPowerEvent(PacmanPowerupEvent event);
+  public final void respondToPowerEvent(PacmanPowerupEvent event){
+    if (powerupOptions.containsKey(event)){
+      powerupOptions.get(event).run();
+    }
+  }
 
   public SwapClass getSwapClass() {
     return swapClass;

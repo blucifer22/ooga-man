@@ -129,9 +129,4 @@ class TestObservableSprite extends Sprite {
   public int getScore() {
     return 0;
   }
-
-  @Override
-  public void respondToPowerEvent(PacmanPowerupEvent event) {
-
-  }
 }
