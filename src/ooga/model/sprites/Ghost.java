@@ -130,7 +130,8 @@ public abstract class Ghost extends MoveableSprite {
     }
   }
 
-  private GhostAnimationType behaviorToAnimationType(GhostBehavior b) {
+  // TODO: Change type of input variable from GhostBehavior to GhostAnimationState
+  private GhostAnimationType behaviorToAnimationType(GhostBehavior animationState) {
     return switch (ghostBehavior) {
       case FRIGHTENED -> FRIGHTENED;
       case EATEN -> EYES;
