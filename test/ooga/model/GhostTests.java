@@ -11,6 +11,7 @@ import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Clyde;
+import ooga.model.sprites.Dot;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Ghost.GhostBehavior;
 import ooga.model.sprites.Inky;
@@ -126,10 +127,16 @@ public class GhostTests {
     pacMan.setInputSource(new HumanInputManager(KeybindingType.PLAYER_1));
 
     Ghost blinky = new Blinky(blinkySpriteDescription);
-    blinky.setInputSource(new BlinkyAI(pgs.getGrid(), blinky));
+    BlinkyAI blinkyAI = new BlinkyAI(pgs.getGrid(), blinky);
+
+    Dot dot = new Dot(blinky.getCoordinates(), Vec2.ZERO);
+
+    blinkyAI.addTarget(pacMan);
+    blinky.setInputSource(blinkyAI);
 
     pgs.addSprite(pacMan);
     pgs.addSprite(blinky);
+    pgs.addSprite(dot);
 
     // Make sure we're starting off on the right foot
     assertEquals(blinky.getGhostBehavior(), GhostBehavior.WAIT);
