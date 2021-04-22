@@ -37,6 +37,20 @@ public class GameView implements View, ThemedObject, GameStateObservationComposi
 
     this.gridView = new GameGridView(this.serviceProvider.themeService());
 
+    configureGridConstraints();
+
+    Button backButton = new StyledButton(this.serviceProvider, "mainMenu",
+        e -> this.serviceProvider.viewStackManager().unwind());
+
+    VBox backButtonBox = new VBox(
+        backButton
+    );
+    backButtonBox.setAlignment(Pos.CENTER);
+
+    this.primaryView.add(backButtonBox, 1, 2, 3, 1);
+  }
+
+  private void configureGridConstraints() {
     ColumnConstraints cc = new ColumnConstraints();
     cc.setPercentWidth(80);
 
@@ -51,17 +65,6 @@ public class GameView implements View, ThemedObject, GameStateObservationComposi
     this.primaryView.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY,
         Insets.EMPTY)));
     this.primaryView.getStyleClass().add("view");
-
-    Button backButton = new StyledButton(this.serviceProvider, "mainMenu",
-        e -> this.serviceProvider.viewStackManager().unwind());
-
-    VBox backButtonBox = new VBox(
-        backButton
-    );
-    backButtonBox.setAlignment(Pos.CENTER);
-
-    this.primaryView.add(backButtonBox, 1, 2, 3, 1);
-
   }
 
   @Override
