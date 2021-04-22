@@ -22,7 +22,7 @@ import ooga.view.theme.api.ThemedObject;
 import ooga.view.theme.serialized.SerializedThemeService;
 import ooga.view.uiservice.UIPreferenceService;
 import ooga.view.uiservice.UIServiceProvider;
-import ooga.view.views.PreferenceView;
+import ooga.view.views.sceneroots.PreferenceView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

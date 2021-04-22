@@ -3,7 +3,6 @@ package ooga.view;
 import java.util.Stack;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import ooga.model.api.GameStateObservationComposite;
 import ooga.view.audio.AudioService;
 import ooga.view.audio.ThemedAudioService;
 import ooga.view.internal_api.ViewStackManager;
@@ -16,9 +15,9 @@ import ooga.view.uiservice.PreferenceService;
 import ooga.view.uiservice.ServiceProvider;
 import ooga.view.uiservice.UIPreferenceService;
 import ooga.view.uiservice.UIServiceProvider;
-import ooga.view.views.GameView;
-import ooga.view.views.MenuView;
-import ooga.view.views.PreferenceView;
+import ooga.view.views.sceneroots.GameView;
+import ooga.view.views.sceneroots.MenuView;
+import ooga.view.views.sceneroots.PreferenceView;
 
 public class UIController implements MainMenuResponder, ViewStackManager {
 

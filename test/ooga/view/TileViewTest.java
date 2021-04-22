@@ -17,7 +17,7 @@ import ooga.model.api.TileObserver;
 import ooga.util.Vec2;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.serialized.SerializedThemeService;
-import ooga.view.views.TileView;
+import ooga.view.views.components.TileView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

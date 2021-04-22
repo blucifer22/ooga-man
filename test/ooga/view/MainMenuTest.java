@@ -10,13 +10,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import ooga.view.audio.ThemedAudioService;
 import ooga.view.internal_api.MainMenuResponder;
-import ooga.view.internal_api.ViewStackManager;
 import ooga.view.language.bundled.BundledLanguageService;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.serialized.SerializedThemeService;
 import ooga.view.uiservice.ServiceProvider;
 import ooga.view.uiservice.UIServiceProvider;
-import ooga.view.views.MenuView;
+import ooga.view.views.sceneroots.MenuView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

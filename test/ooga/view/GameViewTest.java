@@ -2,11 +2,8 @@ package ooga.view;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.lang.reflect.Field;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import ooga.view.audio.ThemedAudioService;
 import ooga.view.internal_api.ViewStackManager;
@@ -14,7 +11,7 @@ import ooga.view.language.bundled.BundledLanguageService;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.serialized.SerializedThemeService;
 import ooga.view.uiservice.ServiceProvider;
-import ooga.view.views.GameView;
+import ooga.view.views.sceneroots.GameView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
