@@ -330,6 +330,16 @@
     }
   },
   "sounds": {
-    "button-click": "themes/classic/sounds/button.mp3"
+    "button-click": "themes/classic/sounds/button.mp3",
+    "frightened-loop": "themes/classic/sounds/frightened_loop.wav",
+    "fruit-eaten": "themes/classic/sounds/fruit_eaten.wav",
+    "ghost-eaten": "themes/classic/sounds/ghost_eaten.wav",
+    "ghost-eyes": "themes/classic/sounds/ghost_eyes.wav",
+    "normal-loop": "themes/classic/sounds/normal_loop.wav",
+    "pacman-chomp1": "themes/classic/sounds/pacman_chomp1.wav",
+    "pacman-chomp2": "themes/classic/sounds/pacman_chomp2.wav",
+    "pacman-death": "themes/classic/sounds/pacman_death.wav",
+    "start-classic": "themes/classic/sounds/start_classic.wav",
+    "start-mspacman": "themes/classic/sounds/start_mspacman.wav"
   }
 }
