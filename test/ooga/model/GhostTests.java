@@ -110,7 +110,7 @@ public class GhostTests {
 
     // Defaults
     assertEquals(blinky.getMovementSpeed(), 4.0);
-    assertEquals(blinky.hasMultiplicativeScoring(), blinky.getGhostBehavior().equals(GhostBehavior.CHASE));
+    assertEquals(blinky.getGhostBehavior(), GhostBehavior.WAIT);
     assertFalse(blinky.isConsumable());
     assertEquals(blinky.getScore(), 200);
   }
@@ -174,7 +174,7 @@ public class GhostTests {
     //blinky.changeBehavior(GhostBehavior.CHASE);
     blinky.respondToPowerEvent(PacmanPowerupEvent.FRIGHTEN_ACTIVATED);
     pgs.step(DT);
-    assertEquals(blinky.getGhostBehavior(), GhostBehavior.FRIGHTENED);
+    assertEquals(blinky.getGhostBehavior(), GhostBehavior.RUNAWAY);
     assertEquals(blinky.getCurrentAnimation().getCurrentCostume(), "frightened_1");
 
     // TODO: Implement a test to check for de-activation!
