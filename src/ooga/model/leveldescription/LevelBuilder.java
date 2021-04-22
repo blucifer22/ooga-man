@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import ooga.model.PacmanGrid;
+import ooga.model.PacmanLevel;
 import ooga.model.Tile;
 import ooga.model.TileCoordinates;
 import ooga.model.api.GridRebuildObservable;
@@ -18,20 +19,20 @@ import ooga.model.sprites.Sprite;
  * This allows for similar rendering.
  *
  * @author George Hong
+ * @author Marc Chmielewski
  */
-public class StageBuilder implements SpriteExistenceObservable, GridRebuildObservable {
+public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObservable {
 
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
-  private final Set<Sprite> sprites;
   private final Set<Sprite> toDelete;
   private String jsonFileName;
-  private PacmanGrid grid;
+  private PacmanLevel level;
 
-  public StageBuilder() {
+  public LevelBuilder() {
     spriteExistenceObservers = new HashSet<>();
     gridRebuildObservers = new HashSet<>();
-    sprites = new HashSet<>();
+    level = new PacmanLevel();
     toDelete = new HashSet<>();
   }
 
@@ -47,7 +48,7 @@ public class StageBuilder implements SpriteExistenceObservable, GridRebuildObser
     double xCenter = x + 0.5;
     double yCenter = y + 0.5;
     Sprite sprite = null;
-    sprites.add(sprite);
+    level.getSprites().add(sprite);
     notifySpriteCreation(sprite);
   }
 
@@ -60,7 +61,7 @@ public class StageBuilder implements SpriteExistenceObservable, GridRebuildObser
   public void addTile(int x, int y) {
     // TODO: Get currently active Tile, feed x, y as inputs
     Tile tile = null;
-    grid.setTile(x, y, tile);
+    level.getGrid().setTile(x, y, tile);
     notifyGridRebuildObservers();
   }
 
@@ -72,6 +73,7 @@ public class StageBuilder implements SpriteExistenceObservable, GridRebuildObser
    */
   public void clearSpritesOnTile(int x, int y) {
     TileCoordinates tileToClear = new TileCoordinates(x, y);
+    List<Sprite> sprites = level.getSprites();
     for (Sprite sprite : sprites) {
       TileCoordinates spriteTile = sprite.getCoordinates().getTileCoordinates();
       if (tileToClear.equals(spriteTile)) {
@@ -93,7 +95,7 @@ public class StageBuilder implements SpriteExistenceObservable, GridRebuildObser
    * @param width  width of the grid
    */
   public void setGridSize(int height, int width) {
-    grid = new PacmanGrid(height, width);
+    PacmanGrid grid = new PacmanGrid(height, width);
     List<List<Tile>> tileList = new ArrayList<>();
     for (int y = 0; y < height; y++) {
       List<Tile> outputRow = new ArrayList<>();
@@ -105,6 +107,7 @@ public class StageBuilder implements SpriteExistenceObservable, GridRebuildObser
       }
       tileList.add(outputRow);
     }
+    level.setGrid(grid);
   }
 
 
@@ -132,7 +135,7 @@ public class StageBuilder implements SpriteExistenceObservable, GridRebuildObser
 
   protected void notifyGridRebuildObservers() {
     for (GridRebuildObserver observers : gridRebuildObservers) {
-      observers.onGridRebuild(grid);
+      observers.onGridRebuild(level.getGrid());
     }
   }
 }
