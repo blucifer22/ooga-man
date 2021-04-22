@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import ooga.view.audio.AudioService;
 import ooga.view.audio.ThemedAudioService;
 import ooga.view.internal_api.ViewStackManager;
 import ooga.view.language.bundled.BundledLanguageService;
@@ -45,8 +46,8 @@ public class GameViewTest extends CustomApplicationTest {
     syncFXRun(() -> {
       this.testHarness = new TestHarness();
       ThemeService ts = new SerializedThemeService();
-      ServiceProvider provider = new ServiceProvider(new ThemedAudioService(ts), ts,
-          new BundledLanguageService(), testHarness);
+      AudioService as = new DoNothingAudioService();
+      ServiceProvider provider = new ServiceProvider(as, ts, new BundledLanguageService(), testHarness);
       this.gameView = new GameView(provider);
       this.primaryStage.setScene(new Scene(this.gameView.getRenderingNode(), 600, 600));
     });
