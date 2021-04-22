@@ -38,6 +38,7 @@ public class SerializedTheme implements Theme {
        */
 
       String os = System.getProperty("os.name").toLowerCase();
+      System.out.println(os);
 
       String encoded = "file://"+
           new File(description.getAudioFilePaths().get(key)).getAbsoluteFile().getAbsolutePath()
@@ -46,7 +47,7 @@ public class SerializedTheme implements Theme {
               .replace("\\", "/"); // fix for Windows systems :(
 
       if (os.contains("win")) { // yet another required fix for Windows systems
-        encoded = encoded.replace("C://", "/C://");
+        encoded = encoded.replace("C:/", "/C:/");
       }
 
       sounds.put(key, new Media(encoded));
