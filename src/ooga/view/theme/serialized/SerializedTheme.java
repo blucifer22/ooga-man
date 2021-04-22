@@ -44,7 +44,7 @@ public class SerializedTheme implements Theme {
           new File(description.getAudioFilePaths().get(key)).getAbsoluteFile().getAbsolutePath()
               .replace(" ", "%20") // Java doesn't attempt to URI-encode these :(
               .replace("\\", "/") // fix for Windows systems :(
-              .replace("/themes", "/data/themes") // workaround for Java bug
+              .replace("/themes", "/data/themes"); // workaround for Java bug
 
       if (os.contains("win")) { // yet another required fix for Windows systems
         encoded = encoded.replace("C:/", "/C:/");
