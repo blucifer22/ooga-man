@@ -32,7 +32,7 @@ public class SerializedTheme implements Theme {
 
     for (String key : description.getAudioFilePaths().keySet()) {
       /*
-       * getAbsoluteFile().getAbsolutePath() doesn't actually return the absolue path!
+       * getAbsoluteFile().getAbsolutePath() doesn't actually return the absolute path!
        * It (for whatever internal buggy Java reason) omits the /data from the filepath!
        * The Media class also ~requires~ an absolute filepath (why, Java?!)
        */
