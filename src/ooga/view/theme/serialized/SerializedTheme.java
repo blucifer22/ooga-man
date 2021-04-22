@@ -41,15 +41,8 @@ public class SerializedTheme implements Theme {
         String os = System.getProperty("os.name").toLowerCase();
         System.out.println(os);
 
-        String encoded = "file://"+
-            new File(description.getAudioFilePaths().get(key)).getAbsoluteFile().getAbsolutePath()
-                .replace(" ", "%20") // Java doesn't attempt to URI-encode these :(
-                .replace("\\", "/") // fix for Windows systems :(
-                .replace("/themes", "/data/themes"); // workaround for Java bug
-
-        if (os.contains("win")) { // yet another required fix for Windows systems
-          encoded = encoded.replace("C:/", "/C:/");
-        }
+        String encoded = (new File(description.getAudioFilePaths().get(key)).toURI().toString())
+                          .replace("/themes/", "/data/themes/");
 
         sounds.put(key, new Media(encoded));
       } catch (Exception e) {
