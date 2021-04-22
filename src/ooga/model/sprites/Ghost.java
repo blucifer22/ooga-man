@@ -282,7 +282,7 @@ public abstract class Ghost extends MoveableSprite {
     WAIT
   }
 
-  public enum GhostAnimationState {
+  private enum GhostState {
     WAIT,
     FRIGHTENED_WAIT,
     FRIGHTENED_WAIT_BLINKING,
