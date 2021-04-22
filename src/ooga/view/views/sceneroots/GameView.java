@@ -34,9 +34,7 @@ public class GameView implements View, ThemedObject, GameStateObservationComposi
     this.primaryView = new GridPane();
     this.serviceProvider = serviceProvider;
     this.serviceProvider.themeService().addThemedObject(this);
-
     this.gridView = new GameGridView(this.serviceProvider.themeService());
-
     configureGridConstraints();
 
     Button backButton = new StyledButton(this.serviceProvider, "mainMenu",
