@@ -23,7 +23,8 @@ public class ServiceProvider implements UIServiceProvider {
     this.languageService = languageService;
     this.viewStackService = viewStackService;
 
-    if (themeService == null || languageService == null || viewStackService == null) {
+    if (exceptionService == null || audioService == null || themeService == null ||
+        languageService == null || viewStackService == null) {
       throw new NullPointerException();
     }
   }
