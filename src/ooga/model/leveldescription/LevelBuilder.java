@@ -3,7 +3,9 @@ package ooga.model.leveldescription;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
 import ooga.model.PacmanGrid;
 import ooga.model.PacmanLevel;
 import ooga.model.Tile;
@@ -20,6 +22,7 @@ import ooga.model.sprites.Sprite;
  *
  * @author George Hong
  * @author Marc Chmielewski
+ * @author Matthew Belissary
  */
 public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObservable {
 
@@ -38,9 +41,9 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
     palette = new Palette();
   }
 
-  public Palette getPalette(){
-    return palette;
-  }
+  public Palette getPalette() { return palette; }
+
+  public PacmanLevel getLevel() { return level; }
 
   /**
    * Adds a selected Sprite (from the Palette) to the given location
@@ -65,14 +68,29 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
   /**
    * Adds a selected Tile (from the Palette) to the given location
    *
-   * @param x x-coordinate of grid to add Tile to
-   * @param y y-coordinate of grid to add Tile to
+   * @param tile to cycle state
    */
-  public void addTile(int x, int y) {
+  public void pokeTile(Tile tile) {
     // TODO: Get currently active Tile, feed x, y as inputs
-    Tile tile = null;
-    level.getGrid().setTile(x, y, tile);
+    level.getGrid().setTile(tile.getCoordinates().getX(), tile.getCoordinates().getY(), updateTileState(tile));
     notifyGridRebuildObservers();
+  }
+
+  private Tile updateTileState(Tile tile) {
+    List<String> tileOptions = List.of("tileclosed", "tile", "tilepermeable");
+    Map<String, Boolean> pacmanTileMap = Map
+        .of("tileclosed", false, "tile", true, "tilepermeable", false);
+    Map<String, Boolean> ghostTileMap = Map
+        .of("tileclosed", false, "tile", true, "tilepermeable", true);
+
+    int currentTileTypeIndex = tileOptions.indexOf(tile.getType());
+    String nextTileType = tileOptions.get((currentTileTypeIndex + 1) % tileOptions.size());
+
+    tile.setIsOpenToPacman(pacmanTileMap.get(nextTileType));
+    tile.setIsOpenToGhosts(ghostTileMap.get(nextTileType));
+    tile.setType(nextTileType);
+
+    return tile;
   }
 
   /**

@@ -272,6 +272,12 @@
       "scale" : 1.0,
       "bottomHeavy" : false
     },
+    "tilepermeable" : {
+      "fill" : "RED",
+      "imageFill" : false,
+      "scale" : 1.0,
+      "bottomHeavy" : false
+    },
     "pacman_chomp_1" : {
       "fill" : "themes/classic/images/pacman/pacman_chomp_1.png",
       "imageFill" : true,
