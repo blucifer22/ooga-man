@@ -27,13 +27,19 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
   private final Set<GridRebuildObserver> gridRebuildObservers;
   private final Set<Sprite> toDelete;
   private String jsonFileName;
-  private PacmanLevel level;
+  private final PacmanLevel level;
+  private Palette palette;
 
   public LevelBuilder() {
     spriteExistenceObservers = new HashSet<>();
     gridRebuildObservers = new HashSet<>();
     level = new PacmanLevel();
     toDelete = new HashSet<>();
+    palette = new Palette();
+  }
+
+  public Palette getPalette(){
+    return palette;
   }
 
   /**
@@ -45,6 +51,10 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
   public void addSprite(int x, int y) {
     // TODO: Get currently active Sprite, feed x, y as inputs.  Load from properties files?
     // TODO: Pair Sprite descriptions to become a metadata + representation class?
+    // list of (Sprite + InputSource) + (coordinate) ==> SpriteDescription ==> Sprite.  When ready, Sprite ==> SpriteDescription
+    /*
+    Option: Use property file of (className : inputSource)
+     */
     double xCenter = x + 0.5;
     double yCenter = y + 0.5;
     Sprite sprite = null;
