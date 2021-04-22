@@ -44,6 +44,19 @@ public class PaletteTest {
   }
 
   @Test
+  public void testPalette(){
+    levelBuilder.setGridSize(5, 5);
+    levelBuilder.addSprite(3,3);
+    assertEquals(1, levelBuilder.getLevel().getSprites().size());
+    for (int i=1; i < 10; i++){
+      levelBuilder.addSprite(3,3);
+      assertEquals(i + 1, levelBuilder.getLevel().getSprites().size());
+    }
+    levelBuilder.clearSpritesOnTile(3,3);
+    assertEquals(0, levelBuilder.getLevel().getSprites().size());
+  }
+
+  @Test
   public void testPokeTile() {
     levelBuilder.setGridSize(5, 5);
     Tile tile = new Tile(new TileCoordinates(3, 3), "tileclosed", false, false);
@@ -54,9 +67,9 @@ public class PaletteTest {
     List<Boolean> pacmanTileOptions = List.of(false, true, false);
     List<Boolean> ghostTileOptions = List.of(false, true, true);
 
-    // Validate that inital conditions are true
-    assertEquals(tile.getCoordinates(), new TileCoordinates(3, 3));
-    assertEquals(tile.getType(), "tileclosed");
+    // Validate that initial conditions are true
+    assertEquals(new TileCoordinates(3, 3), tile.getCoordinates());
+    assertEquals("tileclosed", tile.getType());
     assertFalse(tile.isOpenToPacman());
     assertFalse(tile.isOpenToGhosts());
 
@@ -64,13 +77,11 @@ public class PaletteTest {
       levelBuilder.pokeTile(tile);
 
       // Validate that poking increments
-      assertEquals(tile.getCoordinates(), new TileCoordinates(3, 3));
-      assertEquals(tile.getType(), tileOptions.get((i + 1) % tileOptions.size()));
-      assertEquals(tile.isOpenToPacman(), pacmanTileOptions.get((i + 1) % tileOptions.size()));
-      assertEquals(tile.isOpenToGhosts(), ghostTileOptions.get((i + 1) % tileOptions.size()));
+      assertEquals(new TileCoordinates(3, 3), tile.getCoordinates());
+      assertEquals(tileOptions.get((i + 1) % tileOptions.size()), tile.getType());
+      assertEquals(pacmanTileOptions.get((i + 1) % tileOptions.size()), tile.isOpenToPacman());
+      assertEquals(ghostTileOptions.get((i + 1) % tileOptions.size()), tile.isOpenToGhosts());
     }
-
-
   }
 
 }

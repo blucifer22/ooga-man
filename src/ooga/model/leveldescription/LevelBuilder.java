@@ -60,7 +60,7 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
      */
     double xCenter = x + 0.5;
     double yCenter = y + 0.5;
-    Sprite sprite = null;
+    Sprite sprite = palette.getSprite(xCenter, yCenter);
     level.getSprites().add(sprite);
     notifySpriteCreation(sprite);
   }

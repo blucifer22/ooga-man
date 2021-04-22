@@ -23,6 +23,7 @@ public class Palette {
     for (String name : bundle.keySet()) {
       spriteOptions.add(name);
     }
+    setActiveSprite(spriteOptions.get(0));
   }
 
   /**
