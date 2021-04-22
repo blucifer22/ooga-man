@@ -45,12 +45,7 @@ public class PreferenceView implements ThemedObject, View {
     );
     this.primaryView.add(themeSelectCard, 0, 1);
 
-    // Labeled Combobox; TODO: refactor!
-    Button returnToMenu = new Button();
-    returnToMenu.textProperty().bind(this.serviceProvider.languageService().getLocalizedString("previousMenu"));
-    returnToMenu.setOnMouseClicked(e -> this.serviceProvider.viewStackManager().unwind());
-    returnToMenu.getStyleClass().add("menu-button");
-    returnToMenu.setId("menu-button-previousMenu");
+    Button returnToMenu = new StyledButton(this.serviceProvider, "previousMenu", e -> this.serviceProvider.viewStackManager().unwind());
 
     VBox backButtonCard = new VBox(
         returnToMenu

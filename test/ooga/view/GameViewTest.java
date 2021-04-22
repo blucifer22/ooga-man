@@ -59,7 +59,7 @@ public class GameViewTest extends CustomApplicationTest {
   public void testUnwind() throws InterruptedException {
     Thread.sleep(500);
     assertEquals(0, testHarness.getUnwindCount());
-    Button mainMenuButton = lookup("#gameview-main-menu-button").queryButton();
+    Button mainMenuButton = lookup("#button-mainMenu").queryButton();
     moveTo(mainMenuButton);
     mainMenuButton.getOnMouseClicked().handle(null);
     assertEquals(1, testHarness.getUnwindCount());

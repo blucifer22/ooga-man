@@ -112,7 +112,7 @@ public class MainMenuTest extends CustomApplicationTest {
   private HashMap<String, Node> buttons() {
     HashMap<String, Node> nodes = new HashMap<>();
     for (String s: new String[] {"startGame", "openLevelBuilder", "openPreferences"}) {
-      nodes.put(s, lookup("#menu-button-"+s).query());
+      nodes.put(s, lookup("#button-"+s).query());
     }
     return nodes;
   }

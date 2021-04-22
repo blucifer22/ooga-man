@@ -51,10 +51,8 @@ public class GameView implements View, ThemedObject, GameStateObservationComposi
         Insets.EMPTY)));
     this.primaryView.getStyleClass().add("view");
 
-    Button backButton = new Button("Main Menu");
-    backButton.getStyleClass().add("menu-button");
-    backButton.setId("gameview-main-menu-button");
-    backButton.setOnMouseClicked(e -> this.serviceProvider.viewStackManager().unwind());
+    Button backButton = new StyledButton(this.serviceProvider, "mainMenu",
+        e -> this.serviceProvider.viewStackManager().unwind());
 
     VBox backButtonBox = new VBox(
         backButton
