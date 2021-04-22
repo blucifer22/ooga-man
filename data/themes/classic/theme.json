@@ -327,6 +327,20 @@
       "scale" : 1.0,
       "bottomHeavy" : false,
       "rotates" : false
+    },
+    "game_over_1" : {
+      "fill" : "themes/classic/images/general/game_over_1.png",
+      "imageFill" : true,
+      "scale" : 5,
+      "bottomHeavy" : false,
+      "rotates": false
+    },
+    "game_over_2" : {
+      "fill" : "themes/classic/images/general/game_over_2.png",
+      "imageFill" : true,
+      "scale" : 5,
+      "bottomHeavy" : false,
+      "rotates": false
     }
   }
 }

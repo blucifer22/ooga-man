@@ -40,6 +40,7 @@ public class SpriteAnimationFactory {
     POWER_PILL_BLINK(true, "blink", 2, 1.0 / 6.0, FrameOrder.SAWTOOTH),
     DOT_STILL(true, "still", 1),
     CHERRY_STILL(true, "still", 1),
+    GAME_OVER_FLASH(false, "game_over", 2, 1.0 / 2.0, FrameOrder.SAWTOOTH),
     BLANK(false, "blank", 1);
 
     private static final double DEFAULT_FRAME_PERIOD = 1.0 / 8.0;

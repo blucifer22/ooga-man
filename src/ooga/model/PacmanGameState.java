@@ -19,10 +19,11 @@ import ooga.model.leveldescription.GridDescription;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.LevelDescription;
 import ooga.model.leveldescription.SpriteDescription;
-import ooga.model.sprites.MoveableSprite;
+import ooga.model.sprites.GameOver;
 import ooga.model.sprites.Sprite;
 import ooga.model.sprites.SwapClass;
 import ooga.util.Clock;
+import ooga.util.Vec2;
 
 /**
  * This class contains all the state of a in-progress pacman game and serves as the top-level class
@@ -48,16 +49,14 @@ public class PacmanGameState
   private final List<Sprite> sprites;
   private final Set<Sprite> toDelete;
   private final Clock clock;
+  protected boolean isPacmanDead;
   private PacmanGrid grid;
   private Player pacmanPlayer;
   private Player ghostsPlayer;
-
   private HumanInputManager player1;
   private HumanInputManager player2;
   private String jsonFileName;
-
   private int pacmanLivesRemaining;
-  protected boolean isPacmanDead;
   private int roundNumber;
   private boolean isGameOver;
   private boolean pacmanConsumed;
@@ -87,8 +86,6 @@ public class PacmanGameState
     clock.clear();
     clock.reset();
   }
-
-
 
   public void loadPacmanLevel(PacmanLevel level) {
     for (Sprite sprite : level.getSprites()) {
@@ -145,7 +142,7 @@ public class PacmanGameState
 
     PacmanLevel level = loadLevelFromJSON(jsonFileName);
     for (Sprite sprite : level.getSprites()) {
-      if (sprite.getSwapClass() == SwapClass.GHOST){
+      if (sprite.getSwapClass() == SwapClass.GHOST) {
         sprite.adjustSpritePropertyWithLevel(roundNumber);
       }
       addSprite(sprite);
@@ -179,7 +176,9 @@ public class PacmanGameState
       checkProceedToNextLevel();
       handleSwaps();
     } else {
+      stepThroughSprites(dt);
       System.out.println("GAME OVER!");
+
       // TODO: Implement game over score screen
     }
   }
@@ -190,9 +189,13 @@ public class PacmanGameState
       if (pacmanLivesRemaining > 0) {
         resetLevel();
         isPacmanDead(false);
-      }
-      else {
+      } else {
         isGameOver = true;
+        addSprite(
+            new GameOver(
+                new SpriteCoordinates(
+                    new Vec2(getGrid().getWidth() / 2.0, getGrid().getHeight() / 2.0)),
+                new Vec2(1, 0)));
       }
     }
   }

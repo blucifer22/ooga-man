@@ -18,7 +18,7 @@ import ooga.model.sprites.SwapClass;
  */
 public class PacmanGameStateChase extends PacmanGameState {
 
-  public static final int TIME_LIMIT = 15;
+  public static final int TIME_LIMIT = 30;
 
   /**
    * Initializes Pac-Man game state from a JSON file. Performs all of the AI/human input linkages
