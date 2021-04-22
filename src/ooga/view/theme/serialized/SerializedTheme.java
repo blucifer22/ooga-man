@@ -1,5 +1,10 @@
 package ooga.view.theme.serialized;
 
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.scene.media.Media;
@@ -26,7 +31,15 @@ public class SerializedTheme implements Theme {
     }
 
     for (String key : description.getAudioFilePaths().keySet()) {
-      sounds.put(key, new Media(description.getAudioFilePaths().get(key)));
+      /*
+       * getAbsoluteFile().getAbsolutePath() doesn't actually return the absolue path!
+       * It (for whatever internal buggy Java reason) omits the /data from the filepath!
+       */
+      String encoded = "file://"+
+          new File(description.getAudioFilePaths().get(key)).getAbsoluteFile().getAbsolutePath()
+              .replace(" ", "%20")
+              .replace("/themes", "/data/themes");
+      sounds.put(key, new Media(encoded));
     }
   }
 
