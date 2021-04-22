@@ -191,6 +191,8 @@ public class PacmanGameState
         isPacmanDead(false);
       } else {
         isGameOver = true;
+        toDelete.addAll(sprites);
+        sprites.forEach(this::notifySpriteDestruction);
         addSprite(
             new GameOver(
                 new SpriteCoordinates(
