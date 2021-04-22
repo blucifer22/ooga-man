@@ -36,7 +36,7 @@ public class PreferenceViewTest extends CustomApplicationTest {
     private String language = null;
 
     public TestHarness() {
-      this.as = new DoNothingAudioService();
+      this.as = new ThemedAudioService(ts);
     }
 
     @Override
