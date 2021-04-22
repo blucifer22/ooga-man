@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import ooga.model.PacmanGrid;
+import ooga.model.PacmanLevel;
 import ooga.model.SpriteCoordinates;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Sprite;
@@ -27,8 +28,10 @@ public class DescriptionConstructorTests {
   public void testGridFromGridDescription() {
     PacmanGrid grid = null;
     try {
-      grid = new JSONDescriptionFactory()
-          .getGridDescriptionFromJSON("data/levels/grids/demo_grid.json").toGrid();
+      grid =
+          new JSONDescriptionFactory()
+              .getGridDescriptionFromJSON("data/levels/grids/demo_grid.json")
+              .toGrid();
     } catch (IOException e) {
       fail();
     }
@@ -38,4 +41,19 @@ public class DescriptionConstructorTests {
     assertEquals(gridDescription.getWidth(), grid.getWidth());
   }
 
+  @Test
+  public void testLevelToLevelDescription() {
+    JSONDescriptionFactory factory = new JSONDescriptionFactory();
+    LevelDescription levelDescription = null;
+    try {
+      levelDescription = factory.getLevelDescriptionFromJSON("data/levels/test_level_1.json");
+    } catch (IOException e) {
+      fail();
+    }
+
+    PacmanLevel level = new PacmanLevel(levelDescription);
+    assertEquals(
+        level.getSprites().size(),
+        levelDescription.getSpriteLayoutDescription().getSprites().size());
+  }
 }

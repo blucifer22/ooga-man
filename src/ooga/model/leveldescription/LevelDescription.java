@@ -3,7 +3,7 @@ package ooga.model.leveldescription;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import ooga.model.PacmanGameState;
+import java.util.stream.Collectors;
 import ooga.model.PacmanLevel;
 
 /**
@@ -34,6 +34,16 @@ public class LevelDescription extends JSONDescription {
     this.levelName = levelName;
     this.gridDescription = gridDescription;
     this.spriteLayoutDescription = spriteLayoutDescription;
+  }
+
+  public LevelDescription(PacmanLevel pacmanLevel) {
+    this(
+        "",
+        new GridDescription(pacmanLevel.getGrid()),
+        new SpriteLayoutDescription(
+            pacmanLevel.getSprites().stream()
+                .map(SpriteDescription::new)
+                .collect(Collectors.toList())));
   }
 
   /**
