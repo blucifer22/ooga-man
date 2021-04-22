@@ -35,11 +35,14 @@ public class PreferenceViewTest extends CustomApplicationTest {
     private final int[] state = new int[2];
     private String language = null;
 
+    public TestHarness() {
+      this.as = new ThemedAudioService(ts);
+    }
+
     @Override
     public void setLanguage(String language) {
       super.setLanguage(language);
       this.language = language;
-      this.as = new ThemedAudioService(ts);
     }
 
     @Override
@@ -116,7 +119,7 @@ public class PreferenceViewTest extends CustomApplicationTest {
   public void testUnwind() throws InterruptedException {
     Thread.sleep(500);
 
-    Node backButton = lookup("#menu-button-previousMenu").query();
+    Node backButton = lookup("#button-previousMenu").query();
     syncFXRun(() -> {
       moveTo(backButton);
       backButton.getOnMouseClicked().handle(null);
