@@ -14,9 +14,9 @@ public class ServiceProvider implements UIServiceProvider {
   private final ViewStackService viewStackService;
   private final AudioService audioService;
 
-  public ServiceProvider(ExceptionService exceptionService,
-      AudioService audioService, ThemeService themeService,
-      LanguageService languageService, ViewStackService viewStackService) {
+  public ServiceProvider(ExceptionService exceptionService, AudioService audioService,
+      ThemeService themeService, LanguageService languageService,
+      ViewStackService viewStackService) {
     this.exceptionService = exceptionService;
     this.audioService = audioService;
     this.themeService = themeService;
