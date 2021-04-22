@@ -8,13 +8,17 @@ import java.util.Comparator;
 import java.util.List;
 import ooga.controller.HumanInputManager;
 import ooga.controller.KeybindingType;
+import ooga.model.ai.ClydeAI;
 import ooga.model.ai.GhostAI;
+import ooga.model.ai.InkyAI;
 import ooga.model.ai.PinkyAI;
 import ooga.model.sprites.Blinky;
+import ooga.model.sprites.Clyde;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Ghost.GhostBehavior;
 import ooga.model.sprites.Inky;
 import ooga.model.sprites.PacMan;
+import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,9 +33,9 @@ public class GhostAITest {
   @BeforeEach
   public void setupPacMan() {
     pacMan = new PacMan(new SpriteCoordinates(new Vec2(4.5, 0.5)), new Vec2(0, -1), 5);
-    PacmanGrid grid = new PacmanGrid(6, 2);
+    PacmanGrid grid = new PacmanGrid(12, 2);
     for (int y = 0; y < 2; y++) {
-      for (int x = 0; x < 6; x++) {
+      for (int x = 0; x < 12; x++) {
         grid.setTile(x, y, new Tile(new TileCoordinates(x, y), "", true, true));
       }
     }
@@ -50,6 +54,34 @@ public class GhostAITest {
     inky.step(1 / 60., state);
     Vec2 req = in.getRequestedDirection();
     assertEquals(new Vec2(0, 0), req);
+  }
+
+  @Test
+  public void testClydeNarrowDistance() {
+    pacMan = new PacMan(new SpriteCoordinates(new Vec2(1.5, 0.5)), new Vec2(0, 0), 5);
+    Clyde clyde = new Clyde(new SpriteCoordinates(new Vec2(10.5, 0.5)), new Vec2(1, 0), 2);
+    ClydeAI in = new ClydeAI(grid, clyde);
+    in.setTarget(pacMan);
+    clyde.setInputSource(in);
+    for (int k = 0; k < 481; k++) {
+      clyde.step(1 / 60., state);
+    }
+    Vec2 req = in.getRequestedDirection();
+    assertEquals(new Vec2(-1, 0), req);
+  }
+
+  @Test
+  public void testInkyNarrowDistance() {
+    pacMan = new PacMan(new SpriteCoordinates(new Vec2(1.5, 0.5)), new Vec2(0, 0), 5);
+    Inky clyde = new Inky(new SpriteCoordinates(new Vec2(6.5, 0.5)), new Vec2(1, 0), 2);
+    InkyAI in = new InkyAI(grid, clyde);
+    in.setTarget(pacMan);
+    clyde.setInputSource(in);
+    for (int k = 0; k < 361; k++) {
+      clyde.step(1 / 60., state);
+    }
+    Vec2 req = in.getRequestedDirection();
+    assertEquals(new Vec2(-1, 0), req);
   }
 
   @Test

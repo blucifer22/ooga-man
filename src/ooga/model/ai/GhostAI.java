@@ -39,7 +39,7 @@ public class GhostAI implements InputSource {
     movementOptions.put(GhostBehavior.CHASE, this::chaseBehavior);
     movementOptions.put(GhostBehavior.WAIT, this::waitBehavior);
     movementOptions.put(GhostBehavior.EATEN, this::eatenBehavior);
-    movementOptions.put(GhostBehavior.FRIGHTENED, this::frightenedBehavior);
+    movementOptions.put(GhostBehavior.RUNAWAY, this::runawayBehavior);
     movementOptions.put(GhostBehavior.SCATTER, this::scatterBehavior);
   }
 
@@ -91,7 +91,7 @@ public class GhostAI implements InputSource {
    *
    * @return
    */
-  protected Vec2 frightenedBehavior() {
+  protected Vec2 runawayBehavior() {
     // TODO: Implement
     return scatterBehavior();
   }

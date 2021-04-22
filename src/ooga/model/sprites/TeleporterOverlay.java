@@ -77,40 +77,12 @@ public class TeleporterOverlay extends Sprite {
   }
 
   @Override
-  public boolean mustBeConsumed() {
-    return false;
-  }
-
-  @Override
-  public boolean isDeadlyToPacMan() {
-    return false;
-  }
-
-  @Override
-  public boolean eatsGhosts() {
-    return false;
-  }
-
-  @Override
-  public boolean isConsumable() {
-    return false;
-  }
-
-  @Override
-  public boolean isRespawnTarget() { return false; }
-
-  @Override
-  public boolean hasMultiplicativeScoring() {
-    return false;
-  }
-
-  @Override
   public int getScore() {
     return 0;
   }
 
   @Override
-  public void respondToPowerEvent(PacmanPowerupEvent event) {
-
+  public boolean isConsumable() {
+    return false;
   }
 }

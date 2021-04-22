@@ -11,6 +11,7 @@ import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Clyde;
+import ooga.model.sprites.Dot;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Ghost.GhostBehavior;
 import ooga.model.sprites.Inky;
@@ -105,17 +106,16 @@ public class GhostTests {
 
     // Invariants
     assertFalse(blinky.mustBeConsumed());
-    assertFalse(blinky.isRespawnTarget());
     assertFalse(blinky.eatsGhosts());
 
     // Defaults
     assertEquals(blinky.getMovementSpeed(), 4.0);
-    assertEquals(blinky.hasMultiplicativeScoring(), blinky.getGhostBehavior().equals(GhostBehavior.CHASE));
+    assertEquals(blinky.getGhostBehavior(), GhostBehavior.WAIT);
     assertFalse(blinky.isConsumable());
     assertEquals(blinky.getScore(), 200);
   }
 
-//  @Test
+  @Test
   public void testGhostPowerUpResponses() {
     PacmanGameState pgs = new PacmanGameState();
     try {
@@ -127,10 +127,16 @@ public class GhostTests {
     pacMan.setInputSource(new HumanInputManager(KeybindingType.PLAYER_1));
 
     Ghost blinky = new Blinky(blinkySpriteDescription);
-    blinky.setInputSource(new BlinkyAI(pgs.getGrid(), blinky));
+    BlinkyAI blinkyAI = new BlinkyAI(pgs.getGrid(), blinky);
+
+    Dot dot = new Dot(blinky.getCoordinates(), Vec2.ZERO);
+
+    blinkyAI.addTarget(pacMan);
+    blinky.setInputSource(blinkyAI);
 
     pgs.addSprite(pacMan);
     pgs.addSprite(blinky);
+    pgs.addSprite(dot);
 
     // Make sure we're starting off on the right foot
     assertEquals(blinky.getGhostBehavior(), GhostBehavior.WAIT);
@@ -168,7 +174,7 @@ public class GhostTests {
     //blinky.changeBehavior(GhostBehavior.CHASE);
     blinky.respondToPowerEvent(PacmanPowerupEvent.FRIGHTEN_ACTIVATED);
     pgs.step(DT);
-    assertEquals(blinky.getGhostBehavior(), GhostBehavior.FRIGHTENED);
+    assertEquals(blinky.getGhostBehavior(), GhostBehavior.RUNAWAY);
     assertEquals(blinky.getCurrentAnimation().getCurrentCostume(), "frightened_1");
 
     // TODO: Implement a test to check for de-activation!

@@ -242,6 +242,18 @@
       "scale" : 1.0,
       "bottomHeavy" : true
     },
+    "frightened_end_3" : {
+      "fill" : "themes/classic/images/ghosts/frightened/frightened_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "frightened_end_4" : {
+      "fill" : "themes/classic/images/ghosts/frightened/frightened_2.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
     "ghost" : {
       "fill" : "themes/classic/images/ghosts/blinky.png",
       "imageFill" : true,

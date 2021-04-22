@@ -32,6 +32,7 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
   private final Vec2 initialDirection;
   protected SwapClass swapClass;
   protected InputSource inputSource;
+  protected Map<PacmanPowerupEvent, Runnable> powerupOptions = new HashMap<>();
   protected InputSource defaultInputSource;
   protected String inputString;
   private SpriteCoordinates position;
@@ -78,6 +79,14 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
         startingAnimation,
         new SpriteCoordinates(),
         new Vec2(1, 0));
+  }
+
+  /**
+   * Sprites can change properties based on the current round.
+   * @param roundNumber
+   */
+  public void adjustSpritePropertyWithLevel(int roundNumber) {
+    // Does nothing (Overriden in specific child classes)
   }
 
   /**
@@ -272,22 +281,35 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
     getCurrentAnimation().step(dt);
   }
 
-  public abstract boolean mustBeConsumed();
+  // TODO: Make not abstract to give a default
+  public boolean mustBeConsumed(){
+    return false;
+  };
 
-  public abstract boolean isDeadlyToPacMan();
+  public boolean isDeadlyToPacMan(){
+    return false;
+  };
 
-  public abstract boolean eatsGhosts();
+  public boolean eatsGhosts(){
+    return false;
+  };
 
-  public abstract boolean isConsumable();
+  public boolean isConsumable(){
+    return true;
+  };
 
-  public abstract boolean isRespawnTarget();
-
-  public abstract boolean hasMultiplicativeScoring();
+  public boolean hasMultiplicativeScoring(){
+    return false;
+  };
 
   public abstract int getScore();
 
   @Override
-  public abstract void respondToPowerEvent(PacmanPowerupEvent event);
+  public final void respondToPowerEvent(PacmanPowerupEvent event){
+    if (powerupOptions.containsKey(event)){
+      powerupOptions.get(event).run();
+    }
+  }
 
   public SwapClass getSwapClass() {
     return swapClass;
@@ -298,7 +320,7 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
   }
 
   public boolean needsSwap() {
-    return false;
+    return inputSource.isActionPressed();
   }
 
   public InputSource getInputSource() {
