@@ -1,7 +1,8 @@
 package ooga.model.sprites;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+
 import ooga.model.*;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
@@ -9,7 +10,6 @@ import ooga.util.Clock;
 import ooga.util.Timer;
 import ooga.util.Vec2;
 
-import static ooga.model.sprites.Ghost.GhostAnimationType.*;
 import static ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimationType.GHOST_FRIGHTENED;
 import static ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimationType.GHOST_FRIGHTENED_END;
 
@@ -22,8 +22,7 @@ public abstract class Ghost extends MoveableSprite {
   private final SpriteCoordinates spawn;
   private int baseGhostScore = 200;
   private int frightenedBank;
-  private GhostBehavior ghostBehavior;
-  private GhostAnimationState animationState;
+  private GhostState currentState;
   private boolean forceAnimationUpdate;
 
   // TODO: Delete "protected" to make Ghost classes package private
@@ -32,28 +31,30 @@ public abstract class Ghost extends MoveableSprite {
       SpriteCoordinates position,
       Vec2 direction,
       double speed) {
-    super(spriteAnimationPrefix, directionToAnimationType(direction, NORMAL), position, direction,
+    super(spriteAnimationPrefix, directionToAnimationType(direction, GhostAnimationType.ANIM_NORMAL), position, direction,
         speed);
     spawn = position;
     swapClass = SwapClass.GHOST;
-    animationState = GhostAnimationState.WAIT;
-    changeBehaviorBasedOnAnimationState(animationState);
+    currentState = GhostState.WAIT;
     ghostClock = new Clock();
     ghostClock.addTimer(new Timer(getInitialWaitTime(), state -> {
-      if (ghostBehavior == GhostBehavior.WAIT) {
-        changeAnimationState(GhostAnimationState.CHASE);
+          GhostState nextState = switch(currentState) {
+            case FRIGHTENED_WAIT -> GhostState.FRIGHTENED;
+            case FRIGHTENED_WAIT_BLINKING -> GhostState.FRIGHTENED_BLINKING;
+            default -> GhostState.CHASE; // includes normal WAIT -> CHASE transition
+          };
+
+          changeState(nextState);
       }
-    }));
+    ));
 
     powerupOptions = Map
         .of(PacmanPowerupEvent.FRIGHTEN_ACTIVATED, this::activateFrightened,
             PacmanPowerupEvent.FRIGHTEN_DEACTIVATED, this::deactivateFrightened,
-            PacmanPowerupEvent.GHOST_SLOWDOWN_ACTIVATED,
-            () -> setMovementSpeed(getMovementSpeed() * 0.5),
-            PacmanPowerupEvent.GHOST_SLOWDOWN_DEACTIVATED,
-            () -> setMovementSpeed(getMovementSpeed() * 2), PacmanPowerupEvent.POINT_BONUS_ACTIVATED,
-            () -> baseGhostScore *= 2, PacmanPowerupEvent.POINT_BONUS_DEACTIVATED,
-            () -> baseGhostScore *= 0.5);
+            PacmanPowerupEvent.GHOST_SLOWDOWN_ACTIVATED, () -> setMovementSpeed(getMovementSpeed() * 0.5),
+            PacmanPowerupEvent.GHOST_SLOWDOWN_DEACTIVATED, () -> setMovementSpeed(getMovementSpeed() * 2),
+            PacmanPowerupEvent.POINT_BONUS_ACTIVATED, () -> baseGhostScore *= 2,
+            PacmanPowerupEvent.POINT_BONUS_DEACTIVATED, () -> baseGhostScore *= 0.5);
 
     forceAnimationUpdate = false;
   }
@@ -70,8 +71,8 @@ public abstract class Ghost extends MoveableSprite {
   protected static SpriteAnimationFactory.SpriteAnimationType directionToAnimationType(
       Vec2 direction, GhostAnimationType type) {
     return switch (type) {
-      case FRIGHTENED -> GHOST_FRIGHTENED;
-      case FRIGHTENED_END -> GHOST_FRIGHTENED_END;
+      case ANIM_FRIGHTENED -> GHOST_FRIGHTENED;
+      case ANIM_FRIGHTENED_BLINKING -> GHOST_FRIGHTENED_END;
       default -> {
         String directionName = "RIGHT";
         if (direction.getMagnitude() > Vec2.EPSILON) {
@@ -87,7 +88,7 @@ public abstract class Ghost extends MoveableSprite {
           }
         }
         yield SpriteAnimationFactory.SpriteAnimationType
-            .valueOf("GHOST_" + directionName + (type == EYES ? "_EYES" : ""));
+            .valueOf("GHOST_" + directionName + (type == GhostAnimationType.ANIM_EYES ? "_EYES" : ""));
       }
     };
   }
@@ -100,10 +101,10 @@ public abstract class Ghost extends MoveableSprite {
     super.reset();
     ghostClock.clear();
     ghostClock.reset();
-    changeAnimationState(GhostAnimationState.WAIT);
+    changeState(GhostState.WAIT);
     ghostClock.addTimer(new Timer(getInitialWaitTime(), state -> {
-      if (ghostBehavior == GhostBehavior.WAIT) {
-        changeAnimationState(GhostAnimationState.CHASE);
+      if (getGhostBehavior() == GhostBehavior.WAIT) {
+        changeState(GhostState.CHASE);
       }
     }));
     forceAnimationUpdate = false;
@@ -126,7 +127,12 @@ public abstract class Ghost extends MoveableSprite {
    * @return
    */
   public GhostBehavior getGhostBehavior() {
-    return ghostBehavior;
+    return switch (currentState) {
+      case CHASE -> GhostBehavior.CHASE;
+      case WAIT, FRIGHTENED_WAIT_BLINKING, FRIGHTENED_WAIT -> GhostBehavior.WAIT;
+      case FRIGHTENED, FRIGHTENED_BLINKING -> GhostBehavior.RUNAWAY;
+      case EATEN -> GhostBehavior.EATEN;
+    };
   }
 
   public SpriteCoordinates getSpawn() {
@@ -143,20 +149,20 @@ public abstract class Ghost extends MoveableSprite {
   public void uponHitBy(Sprite other, MutableGameState state) {
     if (!isDeadlyToPacMan() && isConsumable() && other.eatsGhosts()) {
       this.setMovementSpeed(this.getMovementSpeed() * 1.5);
-      changeAnimationState(GhostAnimationState.EATEN);
+      changeState(GhostState.EATEN);
     }
   }
 
   // TODO: Add other animations for: FRIGHTENED_WAIT, FRIGHTENED_WAIT_BLINKING, and FRIGHTENED_BLINKING
-  private GhostAnimationType stateToAnimationType(GhostAnimationState animationState) {
-    return switch (animationState) {
-      case WAIT -> NORMAL;
-      case FRIGHTENED_WAIT -> NORMAL;
-      case FRIGHTENED_WAIT_BLINKING -> NORMAL;
-      case FRIGHTENED -> FRIGHTENED;
-      case FRIGHTENED_BLINKING -> FRIGHTENED;
-      case EATEN -> EYES;
-      case CHASE -> NORMAL;
+  private GhostAnimationType stateToAnimationType(GhostState currentState) {
+    return switch (currentState) {
+      case WAIT -> GhostAnimationType.ANIM_NORMAL;
+      case FRIGHTENED_WAIT -> GhostAnimationType.ANIM_FRIGHTENED;
+      case FRIGHTENED_WAIT_BLINKING -> GhostAnimationType.ANIM_FRIGHTENED_BLINKING;
+      case FRIGHTENED -> GhostAnimationType.ANIM_FRIGHTENED;
+      case FRIGHTENED_BLINKING -> GhostAnimationType.ANIM_FRIGHTENED_BLINKING;
+      case EATEN -> GhostAnimationType.ANIM_EYES;
+      case CHASE -> GhostAnimationType.ANIM_NORMAL;
     };
   }
 
@@ -169,13 +175,13 @@ public abstract class Ghost extends MoveableSprite {
     move(dt, pacmanGameState.getGrid());
 
     if (getCoordinates().getTileCoordinates().equals(getSpawn().getTileCoordinates())
-        && ghostBehavior.equals(GhostBehavior.EATEN)) {
+        && getGhostBehavior() == GhostBehavior.EATEN) {
       this.setCoordinates(new SpriteCoordinates(getSpawn().getTileCenter()));
       this.setMovementSpeed(this.getMovementSpeed() * (2.0 / 3.0));
-      changeAnimationState(GhostAnimationState.WAIT);
+      changeState(GhostState.WAIT);
       pacmanGameState.getClock().addTimer(new Timer(0.25, mutableGameState -> {
         this.setCurrentSpeed(getMovementSpeed());
-        this.changeAnimationState(GhostAnimationState.CHASE);
+        this.changeState(GhostState.CHASE);
         setDirection(getDirection().scalarMult(-1));
       }));
     }
@@ -185,7 +191,7 @@ public abstract class Ghost extends MoveableSprite {
     if (forceAnimationUpdate || !getDirection().equals(oldDirection)) {
       forceAnimationUpdate = false;
       setCurrentAnimationType(directionToAnimationType(getDirection(),
-          stateToAnimationType(animationState)
+          stateToAnimationType(currentState)
       ));
     }
   }
@@ -194,17 +200,20 @@ public abstract class Ghost extends MoveableSprite {
 
   @Override
   public boolean isDeadlyToPacMan() {
-    return ghostBehavior.equals(GhostBehavior.CHASE);
+    return getGhostBehavior() == GhostBehavior.CHASE;
   }
 
   @Override
   public boolean isConsumable() {
-    return ghostBehavior.equals(GhostBehavior.FRIGHTENED);
+    return Set.of(GhostState.FRIGHTENED,
+                  GhostState.FRIGHTENED_BLINKING,
+                  GhostState.FRIGHTENED_WAIT,
+                  GhostState.FRIGHTENED_WAIT_BLINKING).contains(currentState);
   }
 
   @Override
   public boolean hasMultiplicativeScoring() {
-    return ghostBehavior.equals(GhostBehavior.FRIGHTENED);
+    return true;
   }
 
   @Override
@@ -212,30 +221,14 @@ public abstract class Ghost extends MoveableSprite {
     return baseGhostScore;
   }
 
-  //TODO: Might be able to delete this method
-  private void changeBehavior(GhostBehavior behavior) {
-    GhostAnimationType oldAnimType = stateToAnimationType(animationState);
-    ghostBehavior = behavior;
-    if (stateToAnimationType(animationState) != oldAnimType) {
-      forceAnimationUpdate = true;
-    }
-  }
+  private void changeState(GhostState state) {
+    System.out.printf("Ghost %s state transition: %s -> %s\n", this.getCurrentAnimation().getCurrentCostume(),
+            currentState.toString(), state.toString());
 
-  private void changeAnimationState(GhostAnimationState state) {
-    GhostAnimationType oldAnimType = stateToAnimationType(animationState);
-    animationState = state;
-    changeBehaviorBasedOnAnimationState(animationState);
-    if (stateToAnimationType(animationState) != oldAnimType) {
+    GhostAnimationType oldAnimType = stateToAnimationType(currentState);
+    currentState = state;
+    if (stateToAnimationType(currentState) != oldAnimType) {
       forceAnimationUpdate = true;
-    }
-  }
-
-  private void changeBehaviorBasedOnAnimationState(GhostAnimationState state) {
-    switch (state) {
-      case CHASE -> changeBehavior(GhostBehavior.CHASE);
-      case WAIT, FRIGHTENED_WAIT_BLINKING, FRIGHTENED_WAIT -> changeBehavior(GhostBehavior.WAIT);
-      case FRIGHTENED, FRIGHTENED_BLINKING -> changeBehavior(GhostBehavior.FRIGHTENED);
-      case EATEN -> changeBehavior(GhostBehavior.EATEN);
     }
   }
 
@@ -243,7 +236,7 @@ public abstract class Ghost extends MoveableSprite {
     frightenedBank--;
     if (isConsumable() && frightenedBank == 0) {
       if (!getGhostBehavior().equals(GhostBehavior.WAIT)) {
-        changeAnimationState(GhostAnimationState.CHASE);
+        changeState(GhostState.CHASE);
         setDirection(getDirection().scalarMult(-1));
       }
     }
@@ -252,37 +245,37 @@ public abstract class Ghost extends MoveableSprite {
   private Runnable activateFrightened() {
     frightenedBank++;
     if (getGhostBehavior().equals(GhostBehavior.CHASE)) {
-      changeAnimationState(GhostAnimationState.FRIGHTENED);
+      changeState(GhostState.FRIGHTENED);
       //TODO: Needs timer to go for 6 sections before doing
-      // changeAnimationState(GhostAnimationState.FRIGHTENED_BLINKING);
+      // changeState(GhostState.FRIGHTENED_BLINKING);
       setDirection(getDirection().scalarMult(-1));
     }
-    if (getGhostBehavior().equals(GhostBehavior.CHASE)) {
-      changeAnimationState(GhostAnimationState.FRIGHTENED_WAIT);
+    if (getGhostBehavior().equals(GhostBehavior.WAIT)) {
+      changeState(GhostState.FRIGHTENED_WAIT);
       //TODO: Needs timer to go for 6 sections before doing
-      // changeAnimationState(GhostAnimationState.FRIGHTENED_WAIT_BLINKING);
+      // changeState(GhostState.FRIGHTENED_WAIT_BLINKING);
     }
     return null;
   }
 
   // TODO: Delete "protected" to make Ghost classes package private
   // TODO: Make each ENUM its own class
-  protected enum GhostAnimationType {
-    NORMAL,
-    EYES,
-    FRIGHTENED,
-    FRIGHTENED_END
+  private enum GhostAnimationType {
+    ANIM_NORMAL,
+    ANIM_EYES,
+    ANIM_FRIGHTENED,
+    ANIM_FRIGHTENED_BLINKING
   }
 
   public enum GhostBehavior {
-    FRIGHTENED,
+    RUNAWAY,
     SCATTER,
     CHASE,
     EATEN,
     WAIT
   }
 
-  public enum GhostAnimationState {
+  private enum GhostState {
     WAIT,
     FRIGHTENED_WAIT,
     FRIGHTENED_WAIT_BLINKING,

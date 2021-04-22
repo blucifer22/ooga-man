@@ -29,7 +29,7 @@ public class SpriteAnimationFactory {
     GHOST_LEFT(true, "left", 2),
     GHOST_RIGHT(true, "right", 2),
     GHOST_FRIGHTENED(false, "frightened", 2),
-    GHOST_FRIGHTENED_END(false, "frightened_end", 2),
+    GHOST_FRIGHTENED_END(false, "frightened_end", 4),
     GHOST_UP_EYES(false, "eyes_up", 1),
     GHOST_DOWN_EYES(false, "eyes_down", 1),
     GHOST_LEFT_EYES(false, "eyes_left", 1),
@@ -42,7 +42,7 @@ public class SpriteAnimationFactory {
     CHERRY_STILL(true, "still", 1),
     BLANK(false, "blank", 1);
 
-    private static final double DEFAULT_FRAME_PERIOD = 1.0 / 15.0;
+    private static final double DEFAULT_FRAME_PERIOD = 1.0 / 8.0;
     private final boolean spriteSpecific;
     private final String costumeBaseName;
     private final int frameCount;
