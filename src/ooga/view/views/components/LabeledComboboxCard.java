@@ -1,4 +1,4 @@
-package ooga.view.views;
+package ooga.view.views.components;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

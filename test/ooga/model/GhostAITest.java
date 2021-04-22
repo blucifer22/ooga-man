@@ -10,6 +10,7 @@ import ooga.controller.HumanInputManager;
 import ooga.controller.KeybindingType;
 import ooga.model.ai.ClydeAI;
 import ooga.model.ai.GhostAI;
+import ooga.model.ai.InkyAI;
 import ooga.model.ai.PinkyAI;
 import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Clyde;
@@ -67,8 +68,20 @@ public class GhostAITest {
     }
     Vec2 req = in.getRequestedDirection();
     assertEquals(new Vec2(-1, 0), req);
+  }
 
-
+  @Test
+  public void testInkyNarrowDistance() {
+    pacMan = new PacMan(new SpriteCoordinates(new Vec2(1.5, 0.5)), new Vec2(0, 0), 5);
+    Inky clyde = new Inky(new SpriteCoordinates(new Vec2(6.5, 0.5)), new Vec2(1, 0), 2);
+    InkyAI in = new InkyAI(grid, clyde);
+    in.setTarget(pacMan);
+    clyde.setInputSource(in);
+    for (int k = 0; k < 361; k++) {
+      clyde.step(1 / 60., state);
+    }
+    Vec2 req = in.getRequestedDirection();
+    assertEquals(new Vec2(-1, 0), req);
   }
 
   @Test

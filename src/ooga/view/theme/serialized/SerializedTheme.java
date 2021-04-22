@@ -1,5 +1,10 @@
 package ooga.view.theme.serialized;
 
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.scene.media.Media;
@@ -11,22 +16,41 @@ import ooga.view.theme.api.Theme;
 public class SerializedTheme implements Theme {
 
   private final Map<String, Costume> costumes;
+  private final Map<String, Media> sounds;
   private final String stylesheet;
   private final String name;
 
   protected SerializedTheme(ThemeDescription description) {
     this.stylesheet = description.getStylesheet();
     this.costumes = new HashMap<>();
+    this.sounds = new HashMap<>();
     this.name = description.getName();
 
     for (String key : description.getCostumes().keySet()) {
       costumes.put(key, description.getCostumes().get(key).toCostume());
     }
+
+    for (String key : description.getAudioFilePaths().keySet()) {
+      try {
+        /*
+         * getAbsoluteFile().getAbsolutePath() doesn't actually return the absolute path!
+         * It (for whatever internal buggy Java reason) omits the /data from the filepath!
+         * The Media class also ~requires~ an absolute filepath (why, Java?!)
+         */
+
+        String encoded = (new File(description.getAudioFilePaths().get(key)).toURI().toString())
+                          .replace("/themes/", "/data/themes/");
+
+        sounds.put(key, new Media(encoded));
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
   }
 
   @Override
   public Media getSoundByIdentifier(String identifier) {
-    return null;
+    return sounds.get(identifier);
   }
 
   @Override

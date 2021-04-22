@@ -25,4 +25,11 @@ public interface GameStateObservable {
    * @return number of lives remaining
    */
   int getPacmanLivesRemaining();
+
+  /**
+   * Returns the current Pac-Man level beginning at level 1.
+   *
+   * @return current Pac-Man level
+   */
+  int getRoundNumber();
 }

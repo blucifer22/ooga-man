@@ -1,4 +1,4 @@
-package ooga.view.views;
+package ooga.view.views.sceneroots;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -9,6 +9,8 @@ import ooga.view.internal_api.View;
 import ooga.view.theme.api.ThemedObject;
 import ooga.view.uiservice.UIPreferenceService;
 import ooga.view.uiservice.UIServiceProvider;
+import ooga.view.views.components.LabeledComboboxCard;
+import ooga.view.views.components.StyledButton;
 
 public class PreferenceView implements ThemedObject, View {
 
@@ -45,12 +47,7 @@ public class PreferenceView implements ThemedObject, View {
     );
     this.primaryView.add(themeSelectCard, 0, 1);
 
-    // Labeled Combobox; TODO: refactor!
-    Button returnToMenu = new Button();
-    returnToMenu.textProperty().bind(this.serviceProvider.languageService().getLocalizedString("previousMenu"));
-    returnToMenu.setOnMouseClicked(e -> this.serviceProvider.viewStackManager().unwind());
-    returnToMenu.getStyleClass().add("menu-button");
-    returnToMenu.setId("menu-button-previousMenu");
+    Button returnToMenu = new StyledButton(this.serviceProvider, "previousMenu", e -> this.serviceProvider.viewStackManager().unwind());
 
     VBox backButtonCard = new VBox(
         returnToMenu

@@ -1,4 +1,4 @@
-package ooga.view.views;
+package ooga.view.views.sceneroots;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,6 +18,7 @@ import ooga.model.api.SpriteExistenceObserver;
 import ooga.view.internal_api.View;
 import ooga.view.theme.api.ThemedObject;
 import ooga.view.uiservice.UIServiceProvider;
+import ooga.view.views.components.StyledButton;
 
 /**
  * GameView lays out how a round appears (the GridView in the center, information about
@@ -33,9 +34,21 @@ public class GameView implements View, ThemedObject, GameStateObservationComposi
     this.primaryView = new GridPane();
     this.serviceProvider = serviceProvider;
     this.serviceProvider.themeService().addThemedObject(this);
-
     this.gridView = new GameGridView(this.serviceProvider.themeService());
+    configureGridConstraints();
 
+    Button backButton = new StyledButton(this.serviceProvider, "mainMenu",
+        e -> this.serviceProvider.viewStackManager().unwind());
+
+    VBox backButtonBox = new VBox(
+        backButton
+    );
+    backButtonBox.setAlignment(Pos.CENTER);
+
+    this.primaryView.add(backButtonBox, 1, 2, 3, 1);
+  }
+
+  private void configureGridConstraints() {
     ColumnConstraints cc = new ColumnConstraints();
     cc.setPercentWidth(80);
 
@@ -50,19 +63,6 @@ public class GameView implements View, ThemedObject, GameStateObservationComposi
     this.primaryView.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY,
         Insets.EMPTY)));
     this.primaryView.getStyleClass().add("view");
-
-    Button backButton = new Button("Main Menu");
-    backButton.getStyleClass().add("menu-button");
-    backButton.setId("gameview-main-menu-button");
-    backButton.setOnMouseClicked(e -> this.serviceProvider.viewStackManager().unwind());
-
-    VBox backButtonBox = new VBox(
-        backButton
-    );
-    backButtonBox.setAlignment(Pos.CENTER);
-
-    this.primaryView.add(backButtonBox, 1, 2, 3, 1);
-
   }
 
   @Override

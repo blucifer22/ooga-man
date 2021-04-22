@@ -1,4 +1,4 @@
-package ooga.view.views;
+package ooga.view.views.sceneroots;
 
 import java.util.HashMap;
 import javafx.beans.binding.Bindings;
@@ -14,6 +14,8 @@ import ooga.model.api.SpriteExistenceObserver;
 import ooga.view.internal_api.View;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.api.ThemedObject;
+import ooga.view.views.components.SpriteView;
+import ooga.view.views.components.TileView;
 
 /**
  * GameGridView lays out the grid and the Sprites on the grid (a necessary combination because only

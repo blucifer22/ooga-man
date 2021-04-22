@@ -7,6 +7,8 @@ import ooga.model.PacmanGameState;
 import ooga.model.PacmanPowerupEvent;
 import ooga.model.SpriteCoordinates;
 import ooga.model.leveldescription.SpriteDescription;
+import ooga.model.powerups.PowerUp;
+import ooga.model.powerups.PowerUpFactory;
 import ooga.model.sprites.animation.FreeRunningPeriodicAnimation;
 import ooga.model.sprites.animation.PeriodicAnimation;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
@@ -20,27 +22,34 @@ import ooga.util.Vec2;
  */
 public class PowerPill extends Sprite {
 
+  private final PowerUpFactory powerUpFactory;
+
   public PowerPill(SpriteCoordinates position, Vec2 direction) {
-    super("powerpill", SpriteAnimationFactory.SpriteAnimationType.POWER_PILL_BLINK, position, direction);
+    super("powerpill", SpriteAnimationFactory.SpriteAnimationType.POWER_PILL_BLINK, position,
+        direction);
+    powerUpFactory = new PowerUpFactory();
   }
 
   public PowerPill(SpriteDescription description) {
-    this(description.getCoordinates(), new Vec2(1,0));
+    this(description.getCoordinates(), new Vec2(1, 0));
   }
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    if (other.eatsGhosts()){
+    if (other.eatsGhosts()) {
       delete(state);
-      // PacmanPowerupEvent has cases for activation of powerups (Even indices) and deactivates them for odd indices
-      // int evenIndex = new Random().nextInt(PacmanPowerupEvent.values().length / 2) * 2;
-      int evenIndex = 4;
-      state.notifyPowerupListeners(PacmanPowerupEvent.values()[evenIndex]);
-      System.out.println(PacmanPowerupEvent.values()[evenIndex]);
-      state.getClock().addTimer(new Timer(9, mutableGameState -> {
-        state.notifyPowerupListeners(PacmanPowerupEvent.values()[evenIndex + 1]);
-        System.out.println(PacmanPowerupEvent.values()[evenIndex + 1]);
-      }));
+//      // PacmanPowerupEvent has cases for activation of powerups (Even indices) and deactivates them for odd indices
+//      // int evenIndex = new Random().nextInt(PacmanPowerupEvent.values().length / 2) * 2;
+//      int evenIndex = 4;
+//      state.notifyPowerupListeners(PacmanPowerupEvent.values()[evenIndex]);
+//      System.out.println(PacmanPowerupEvent.values()[evenIndex]);
+//      state.getClock().addTimer(new Timer(9, mutableGameState -> {
+//        state.notifyPowerupListeners(PacmanPowerupEvent.values()[evenIndex + 1]);
+//        System.out.println(PacmanPowerupEvent.values()[evenIndex + 1]);
+//      }));
+      PowerUp power = powerUpFactory.getRandomPowerUp();
+      power.executePowerUp(state);
+
     }
   }
 
@@ -50,40 +59,8 @@ public class PowerPill extends Sprite {
   }
 
   @Override
-  public boolean mustBeConsumed() {
-    return false;
-  }
-
-  @Override
-  public boolean isDeadlyToPacMan() {
-    return false;
-  }
-
-  @Override
-  public boolean eatsGhosts() {
-    return false;
-  }
-
-  @Override
-  public boolean isConsumable() {
-    return true;
-  }
-
-  @Override
-  public boolean isRespawnTarget() { return false; }
-
-  @Override
-  public boolean hasMultiplicativeScoring() {
-    return false;
-  }
-
-  @Override
   public int getScore() {
     return 0;
   }
 
-  @Override
-  public void respondToPowerEvent(PacmanPowerupEvent event) {
-
-  }
 }

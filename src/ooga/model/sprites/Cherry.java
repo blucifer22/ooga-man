@@ -1,5 +1,6 @@
 package ooga.model.sprites;
 
+import java.util.Map;
 import ooga.model.MutableGameState;
 import ooga.model.PacmanPowerupEvent;
 import ooga.model.SpriteCoordinates;
@@ -27,6 +28,9 @@ public class Cherry extends Sprite {
     super("cherry",
             SpriteAnimationFactory.SpriteAnimationType.CHERRY_STILL,
             position, direction);
+    powerupOptions = Map
+        .of(PacmanPowerupEvent.POINT_BONUS_ACTIVATED, () -> cherryScoreIncrement *= 2,
+            PacmanPowerupEvent.POINT_BONUS_DEACTIVATED, () -> cherryScoreIncrement *= 0.5);
   }
 
   public Cherry(SpriteDescription spriteDescription) {
@@ -45,24 +49,10 @@ public class Cherry extends Sprite {
     }
   }
 
+  // TODO: See if I dont need to override since it does nothing if not just add a DO NOTHING comment
   @Override
   public void step(double dt, MutableGameState pacmanGameState) {
-
-  }
-
-  @Override
-  public boolean mustBeConsumed() {
-    return false;
-  }
-
-  @Override
-  public boolean isDeadlyToPacMan() {
-    return false;
-  }
-
-  @Override
-  public boolean eatsGhosts() {
-    return false;
+    // Do Nothing since cherries do not move
   }
 
   @Override
@@ -71,21 +61,8 @@ public class Cherry extends Sprite {
   }
 
   @Override
-  public boolean isRespawnTarget() { return false; }
-
-  @Override
-  public boolean hasMultiplicativeScoring() { return false; }
-
-  @Override
   public int getScore() {
     return cherryScoreIncrement;
   }
 
-  @Override
-  public void respondToPowerEvent(PacmanPowerupEvent event) {
-    switch (event){
-      case POINT_BONUS_ACTIVATED -> cherryScoreIncrement *= 2;
-      case POINT_BONUS_DEACTIVATED -> cherryScoreIncrement *= 0.5;
-    }
-  }
 }

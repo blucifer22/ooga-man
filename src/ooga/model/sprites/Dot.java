@@ -1,5 +1,6 @@
 package ooga.model.sprites;
 
+import java.util.Map;
 import ooga.model.MutableGameState;
 import ooga.model.PacmanPowerupEvent;
 import ooga.model.SpriteCoordinates;
@@ -21,6 +22,9 @@ public class Dot extends Sprite {
     super("dot",
             SpriteAnimationFactory.SpriteAnimationType.DOT_STILL,
             position, direction);
+    powerupOptions = Map
+        .of(PacmanPowerupEvent.POINT_BONUS_ACTIVATED, () -> dotScoreIncrement *= 2,
+            PacmanPowerupEvent.POINT_BONUS_DEACTIVATED, () -> dotScoreIncrement *= 0.5);
   }
 
   public Dot(SpriteDescription spriteDescription) {
@@ -45,38 +49,8 @@ public class Dot extends Sprite {
   }
 
   @Override
-  public boolean isDeadlyToPacMan() {
-    return false;
-  }
-
-  @Override
-  public boolean eatsGhosts() {
-    return false;
-  }
-
-  @Override
-  public boolean isConsumable() {
-    return true;
-  }
-
-  @Override
-  public boolean isRespawnTarget() { return false; }
-
-  @Override
-  public boolean hasMultiplicativeScoring() {
-    return false;
-  }
-
-  @Override
   public int getScore() {
     return dotScoreIncrement;
   }
 
-  @Override
-  public void respondToPowerEvent(PacmanPowerupEvent event) {
-    switch (event){
-      case POINT_BONUS_ACTIVATED -> dotScoreIncrement *= 2;
-      case POINT_BONUS_DEACTIVATED -> dotScoreIncrement *= 0.5;
-    }
-  }
 }

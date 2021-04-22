@@ -88,6 +88,8 @@ public class PacmanGameState
     clock.reset();
   }
 
+
+
   public void loadPacmanLevel(PacmanLevel level) {
     for (Sprite sprite : level.getSprites()) {
       addSprite(sprite);
@@ -144,9 +146,7 @@ public class PacmanGameState
     PacmanLevel level = loadLevelFromJSON(jsonFileName);
     for (Sprite sprite : level.getSprites()) {
       if (sprite.getSwapClass() == SwapClass.GHOST){
-        // TODO: Change to not downcast
-        MoveableSprite mover = (MoveableSprite) sprite;
-        mover.setMovementSpeed(Math.min(mover.getMovementSpeed() + (0.5 * roundNumber), 6));
+        sprite.adjustSpritePropertyWithLevel(roundNumber);
       }
       addSprite(sprite);
     }
@@ -157,10 +157,6 @@ public class PacmanGameState
 
   protected void incrementLevel() {
     roundNumber++;
-  }
-
-  protected int getRoundNumber() {
-    return roundNumber;
   }
 
   protected boolean isPacmanConsumed() {
@@ -250,6 +246,11 @@ public class PacmanGameState
   @Override
   public int getPacmanLivesRemaining() {
     return pacmanLivesRemaining;
+  }
+
+  @Override
+  public int getRoundNumber() {
+    return roundNumber;
   }
 
   public void isPacmanDead(boolean isPacmanDead) {

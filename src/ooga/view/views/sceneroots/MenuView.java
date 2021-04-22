@@ -1,4 +1,4 @@
-package ooga.view.views;
+package ooga.view.views.sceneroots;
 
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -11,10 +11,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import ooga.view.internal_api.MainMenuResponder;
 import ooga.view.internal_api.View;
-import ooga.view.language.api.LanguageService;
-import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.api.ThemedObject;
 import ooga.view.uiservice.UIServiceProvider;
+import ooga.view.views.components.StyledButton;
 
 public class MenuView implements View, ThemedObject {
 
@@ -51,11 +50,7 @@ public class MenuView implements View, ThemedObject {
   }
 
   private Button menuButton(String labelKey, EventHandler<MouseEvent> onClickHandler) {
-    Button button = new Button();
-    button.getStyleClass().add("menu-button");
-    button.setId("menu-button-" + labelKey);
-    button.textProperty().bind(serviceProvider.languageService().getLocalizedString(labelKey));
-    button.setOnMouseClicked(onClickHandler);
+    Button button = new StyledButton(this.serviceProvider, labelKey, onClickHandler);
     button.setMaxWidth(Double.MAX_VALUE);
     return button;
   }
