@@ -7,7 +7,10 @@ import java.util.concurrent.ThreadLocalRandom;
 public class PowerUpFactory {
 
   private static final List<PowerUp> powerUpList = List.of(
-      new FrightenPowerUp()
+//      new FrightenPowerUp(),
+//      new SpeedUpPowerUp(),
+//      new PointBonusPowerUp(),
+      new GhostSlowdownPowerUp()
   );
 
   public PowerUp getRandomPowerUp() {

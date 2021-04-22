@@ -31,28 +31,35 @@ public abstract class Ghost extends MoveableSprite {
       SpriteCoordinates position,
       Vec2 direction,
       double speed) {
-    super(spriteAnimationPrefix, directionToAnimationType(direction, GhostAnimationType.ANIM_NORMAL), position, direction,
+    super(spriteAnimationPrefix,
+        directionToAnimationType(direction, GhostAnimationType.ANIM_NORMAL), position, direction,
         speed);
     spawn = position;
     swapClass = SwapClass.GHOST;
     currentState = GhostState.WAIT;
     ghostClock = new Clock();
     ghostClock.addTimer(new Timer(getInitialWaitTime(), state -> {
-          GhostState nextState = switch(currentState) {
-            case FRIGHTENED_WAIT -> GhostState.FRIGHTENED;
-            case FRIGHTENED_WAIT_BLINKING -> GhostState.FRIGHTENED_BLINKING;
-            default -> GhostState.CHASE; // includes normal WAIT -> CHASE transition
-          };
+      GhostState nextState = switch (currentState) {
+        case FRIGHTENED_WAIT -> GhostState.FRIGHTENED;
+        case FRIGHTENED_WAIT_BLINKING -> GhostState.FRIGHTENED_BLINKING;
+        default -> GhostState.CHASE; // includes normal WAIT -> CHASE transition
+      };
 
-          changeState(nextState);
-      }
+      changeState(nextState);
+    }
     ));
 
     powerupOptions = Map
         .of(PacmanPowerupEvent.FRIGHTEN_ACTIVATED, this::activateFrightened,
             PacmanPowerupEvent.FRIGHTEN_DEACTIVATED, this::deactivateFrightened,
-            PacmanPowerupEvent.GHOST_SLOWDOWN_ACTIVATED, () -> setMovementSpeed(getMovementSpeed() * 0.5),
-            PacmanPowerupEvent.GHOST_SLOWDOWN_DEACTIVATED, () -> setMovementSpeed(getMovementSpeed() * 2),
+            PacmanPowerupEvent.GHOST_SLOWDOWN_ACTIVATED, () -> {
+              setMovementSpeed(getMovementSpeed() * 0.5);
+              System.out.println(getMovementSpeed());
+            },
+            PacmanPowerupEvent.GHOST_SLOWDOWN_DEACTIVATED, () -> {
+              setMovementSpeed(getMovementSpeed() * 2);
+              System.out.println(getMovementSpeed());
+            },
             PacmanPowerupEvent.POINT_BONUS_ACTIVATED, () -> baseGhostScore *= 2,
             PacmanPowerupEvent.POINT_BONUS_DEACTIVATED, () -> baseGhostScore *= 0.5);
 
@@ -88,7 +95,8 @@ public abstract class Ghost extends MoveableSprite {
           }
         }
         yield SpriteAnimationFactory.SpriteAnimationType
-            .valueOf("GHOST_" + directionName + (type == GhostAnimationType.ANIM_EYES ? "_EYES" : ""));
+            .valueOf(
+                "GHOST_" + directionName + (type == GhostAnimationType.ANIM_EYES ? "_EYES" : ""));
       }
     };
   }
@@ -206,9 +214,9 @@ public abstract class Ghost extends MoveableSprite {
   @Override
   public boolean isConsumable() {
     return Set.of(GhostState.FRIGHTENED,
-                  GhostState.FRIGHTENED_BLINKING,
-                  GhostState.FRIGHTENED_WAIT,
-                  GhostState.FRIGHTENED_WAIT_BLINKING).contains(currentState);
+        GhostState.FRIGHTENED_BLINKING,
+        GhostState.FRIGHTENED_WAIT,
+        GhostState.FRIGHTENED_WAIT_BLINKING).contains(currentState);
   }
 
   @Override
@@ -222,8 +230,9 @@ public abstract class Ghost extends MoveableSprite {
   }
 
   private void changeState(GhostState state) {
-    System.out.printf("Ghost %s state transition: %s -> %s\n", this.getCurrentAnimation().getCurrentCostume(),
-            currentState.toString(), state.toString());
+    System.out.printf("Ghost %s state transition: %s -> %s\n",
+        this.getCurrentAnimation().getCurrentCostume(),
+        currentState.toString(), state.toString());
 
     GhostAnimationType oldAnimType = stateToAnimationType(currentState);
     currentState = state;
