@@ -328,5 +328,8 @@
       "bottomHeavy" : false,
       "rotates" : false
     }
+  },
+  "sounds": {
+    "button-click": "themes/classic/sounds/button.mp3"
   }
 }

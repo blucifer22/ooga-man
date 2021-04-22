@@ -2,17 +2,17 @@ package ooga.view;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.lang.reflect.Field;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import ooga.view.audio.AudioService;
+import ooga.view.audio.ThemedAudioService;
 import ooga.view.internal_api.ViewStackManager;
 import ooga.view.language.bundled.BundledLanguageService;
+import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.serialized.SerializedThemeService;
 import ooga.view.uiservice.ServiceProvider;
-import ooga.view.views.GameView;
+import ooga.view.views.sceneroots.GameView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -45,8 +45,9 @@ public class GameViewTest extends CustomApplicationTest {
   public void reset() throws InterruptedException {
     syncFXRun(() -> {
       this.testHarness = new TestHarness();
-      ServiceProvider provider = new ServiceProvider(new SerializedThemeService(),
-          new BundledLanguageService(), testHarness);
+      ThemeService ts = new SerializedThemeService();
+      AudioService as = new DoNothingAudioService();
+      ServiceProvider provider = new ServiceProvider(as, ts, new BundledLanguageService(), testHarness);
       this.gameView = new GameView(provider);
       this.primaryStage.setScene(new Scene(this.gameView.getRenderingNode(), 600, 600));
     });
@@ -56,7 +57,7 @@ public class GameViewTest extends CustomApplicationTest {
   public void testUnwind() throws InterruptedException {
     Thread.sleep(500);
     assertEquals(0, testHarness.getUnwindCount());
-    Button mainMenuButton = lookup("#gameview-main-menu-button").queryButton();
+    Button mainMenuButton = lookup("#button-mainMenu").queryButton();
     moveTo(mainMenuButton);
     mainMenuButton.getOnMouseClicked().handle(null);
     assertEquals(1, testHarness.getUnwindCount());
