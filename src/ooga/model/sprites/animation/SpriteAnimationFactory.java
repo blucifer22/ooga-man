@@ -42,7 +42,7 @@ public class SpriteAnimationFactory {
     CHERRY_STILL(true, "still", 1),
     BLANK(false, "blank", 1);
 
-    private static final double DEFAULT_FRAME_PERIOD = 1.0 / 15.0;
+    private static final double DEFAULT_FRAME_PERIOD = 1.0 / 8.0;
     private final boolean spriteSpecific;
     private final String costumeBaseName;
     private final int frameCount;
