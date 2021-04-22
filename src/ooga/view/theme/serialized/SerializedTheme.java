@@ -11,22 +11,28 @@ import ooga.view.theme.api.Theme;
 public class SerializedTheme implements Theme {
 
   private final Map<String, Costume> costumes;
+  private final Map<String, Media> sounds;
   private final String stylesheet;
   private final String name;
 
   protected SerializedTheme(ThemeDescription description) {
     this.stylesheet = description.getStylesheet();
     this.costumes = new HashMap<>();
+    this.sounds = new HashMap<>();
     this.name = description.getName();
 
     for (String key : description.getCostumes().keySet()) {
       costumes.put(key, description.getCostumes().get(key).toCostume());
     }
+
+    for (String key : description.getAudioFilePaths().keySet()) {
+      sounds.put(key, new Media(description.getAudioFilePaths().get(key)));
+    }
   }
 
   @Override
   public Media getSoundByIdentifier(String identifier) {
-    return null;
+    return sounds.get(identifier);
   }
 
   @Override

@@ -8,8 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import ooga.view.audio.ThemedAudioService;
 import ooga.view.internal_api.ViewStackManager;
 import ooga.view.language.bundled.BundledLanguageService;
+import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.serialized.SerializedThemeService;
 import ooga.view.uiservice.ServiceProvider;
 import ooga.view.views.GameView;
@@ -45,7 +47,8 @@ public class GameViewTest extends CustomApplicationTest {
   public void reset() throws InterruptedException {
     syncFXRun(() -> {
       this.testHarness = new TestHarness();
-      ServiceProvider provider = new ServiceProvider(new SerializedThemeService(),
+      ThemeService ts = new SerializedThemeService();
+      ServiceProvider provider = new ServiceProvider(new ThemedAudioService(ts), ts,
           new BundledLanguageService(), testHarness);
       this.gameView = new GameView(provider);
       this.primaryStage.setScene(new Scene(this.gameView.getRenderingNode(), 600, 600));

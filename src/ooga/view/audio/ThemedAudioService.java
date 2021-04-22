@@ -21,25 +21,31 @@ public class ThemedAudioService implements AudioService {
   public void playOnce(String soundIdentifier) {
     activeAudio.putIfAbsent(soundIdentifier, new HashSet<>());
     Media singlePlayAudio = dataSource.getTheme().getSoundByIdentifier(soundIdentifier);
-    MediaPlayer spaPlayer = new MediaPlayer(singlePlayAudio);
-    activeAudio.get(soundIdentifier).add(spaPlayer);
-    spaPlayer.setOnEndOfMedia(() -> {
-      activeAudio.get(soundIdentifier).remove(spaPlayer);
-    });
-    spaPlayer.play();
+
+    if (singlePlayAudio != null) {
+      MediaPlayer spaPlayer = new MediaPlayer(singlePlayAudio);
+      activeAudio.get(soundIdentifier).add(spaPlayer);
+      spaPlayer.setOnEndOfMedia(() -> {
+        activeAudio.get(soundIdentifier).remove(spaPlayer);
+      });
+      spaPlayer.play();
+    }
   }
 
   @Override
   public void playIndefinitely(String soundIdentifier) {
     activeAudio.putIfAbsent(soundIdentifier, new HashSet<>());
-    Media singlePlayAudio = dataSource.getTheme().getSoundByIdentifier(soundIdentifier);
-    MediaPlayer spaPlayer = new MediaPlayer(singlePlayAudio);
-    activeAudio.get(soundIdentifier).add(spaPlayer);
-    spaPlayer.setOnEndOfMedia(() -> {
-      spaPlayer.seek(Duration.ZERO);
+    Media infinitePlayAudio = dataSource.getTheme().getSoundByIdentifier(soundIdentifier);
+
+    if (infinitePlayAudio != null) {
+      MediaPlayer spaPlayer = new MediaPlayer(infinitePlayAudio);
+      activeAudio.get(soundIdentifier).add(spaPlayer);
+      spaPlayer.setOnEndOfMedia(() -> {
+        spaPlayer.seek(Duration.ZERO);
+        spaPlayer.play();
+      });
       spaPlayer.play();
-    });
-    spaPlayer.play();
+    }
   }
 
   @Override

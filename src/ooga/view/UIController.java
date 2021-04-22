@@ -4,6 +4,8 @@ import java.util.Stack;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ooga.model.api.GameStateObservationComposite;
+import ooga.view.audio.AudioService;
+import ooga.view.audio.ThemedAudioService;
 import ooga.view.internal_api.ViewStackManager;
 import ooga.controller.GameStateController;
 import ooga.view.internal_api.MainMenuResponder;
@@ -44,7 +46,8 @@ public class UIController implements MainMenuResponder, ViewStackManager {
     // initialize shared dependencies
     BundledLanguageService languageService = new BundledLanguageService();
     SerializedThemeService themeService = new SerializedThemeService();
-    this.serviceProvider = new ServiceProvider(themeService, languageService, this);
+    AudioService audioService = new ThemedAudioService(themeService);
+    this.serviceProvider = new ServiceProvider(audioService, themeService, languageService, this);
     this.preferenceService = new PreferenceService(themeService, languageService);
 
     // Stage Prep

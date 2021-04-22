@@ -328,5 +328,8 @@
       "bottomHeavy" : false,
       "rotates" : false
     }
+  },
+  "sounds": {
+
   }
 }
