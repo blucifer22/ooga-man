@@ -10,8 +10,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import ooga.view.audio.AudioService;
-import ooga.view.audio.ThemedAudioService;
-import ooga.view.internal_api.ViewStackManager;
+import ooga.view.exceptions.ExceptionService;
+import ooga.view.exceptions.GraphicalExceptionService;
+import ooga.view.internal_api.ViewStackService;
 import ooga.view.language.api.LanguageSelectionService;
 import ooga.view.language.api.LanguageService;
 import ooga.view.language.bundled.BundledLanguageService;
@@ -29,7 +30,7 @@ import org.junit.jupiter.api.Test;
 public class PreferenceViewTest extends CustomApplicationTest {
 
   private class TestHarness extends BundledLanguageService implements ThemeService,
-      LanguageService, ViewStackManager, UIServiceProvider, UIPreferenceService {
+      LanguageService, ViewStackService, UIServiceProvider, UIPreferenceService {
     private SerializedThemeService ts = new SerializedThemeService();
     private AudioService as;
     private final int[] state = new int[2];
@@ -71,6 +72,11 @@ public class PreferenceViewTest extends CustomApplicationTest {
     }
 
     @Override
+    public ExceptionService exceptionService() {
+      return new GraphicalExceptionService();
+    }
+
+    @Override
     public ThemeService themeService() {
       return this;
     }
@@ -81,7 +87,7 @@ public class PreferenceViewTest extends CustomApplicationTest {
     }
 
     @Override
-    public ViewStackManager viewStackManager() {
+    public ViewStackService viewStackManager() {
       return this;
     }
 

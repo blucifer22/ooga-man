@@ -9,10 +9,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import ooga.view.audio.AudioService;
-import ooga.view.audio.ThemedAudioService;
+import ooga.view.exceptions.GraphicalExceptionService;
 import ooga.view.internal_api.MainMenuResponder;
 import ooga.view.language.bundled.BundledLanguageService;
-import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.serialized.SerializedThemeService;
 import ooga.view.uiservice.ServiceProvider;
 import ooga.view.uiservice.UIServiceProvider;
@@ -72,7 +71,7 @@ public class MainMenuTest extends CustomApplicationTest {
       AudioService as = new DoNothingAudioService();
 
       UIServiceProvider serviceProvider =
-          new ServiceProvider(as, new SerializedThemeService(), new BundledLanguageService(), () -> {});
+          new ServiceProvider(new GraphicalExceptionService(), as, new SerializedThemeService(), new BundledLanguageService(), () -> {});
       this.mainMenu = new MenuView(serviceProvider, this.testHarness);
       this.primaryStage.setScene(new Scene(mainMenu.getRenderingNode(), 600, 600));
     });

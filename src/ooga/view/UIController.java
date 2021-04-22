@@ -5,7 +5,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ooga.view.audio.AudioService;
 import ooga.view.audio.ThemedAudioService;
-import ooga.view.internal_api.ViewStackManager;
+import ooga.view.exceptions.GraphicalExceptionService;
+import ooga.view.internal_api.ViewStackService;
 import ooga.controller.GameStateController;
 import ooga.view.internal_api.MainMenuResponder;
 import ooga.view.io.HumanInputConsumer;
@@ -19,7 +20,7 @@ import ooga.view.views.sceneroots.GameView;
 import ooga.view.views.sceneroots.MenuView;
 import ooga.view.views.sceneroots.PreferenceView;
 
-public class UIController implements MainMenuResponder, ViewStackManager {
+public class UIController implements MainMenuResponder, ViewStackService {
 
   // constants
   private static final double DEFAULT_STAGE_SIZE = 600;
@@ -46,7 +47,7 @@ public class UIController implements MainMenuResponder, ViewStackManager {
     BundledLanguageService languageService = new BundledLanguageService();
     SerializedThemeService themeService = new SerializedThemeService();
     AudioService audioService = new ThemedAudioService(themeService);
-    this.serviceProvider = new ServiceProvider(audioService, themeService, languageService, this);
+    this.serviceProvider = new ServiceProvider(new GraphicalExceptionService(), audioService, themeService, languageService, this);
     this.preferenceService = new PreferenceService(themeService, languageService);
 
     // Stage Prep
