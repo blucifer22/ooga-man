@@ -31,26 +31,30 @@ public class SerializedTheme implements Theme {
     }
 
     for (String key : description.getAudioFilePaths().keySet()) {
-      /*
-       * getAbsoluteFile().getAbsolutePath() doesn't actually return the absolute path!
-       * It (for whatever internal buggy Java reason) omits the /data from the filepath!
-       * The Media class also ~requires~ an absolute filepath (why, Java?!)
-       */
+      try {
+        /*
+         * getAbsoluteFile().getAbsolutePath() doesn't actually return the absolute path!
+         * It (for whatever internal buggy Java reason) omits the /data from the filepath!
+         * The Media class also ~requires~ an absolute filepath (why, Java?!)
+         */
 
-      String os = System.getProperty("os.name").toLowerCase();
-      System.out.println(os);
+        String os = System.getProperty("os.name").toLowerCase();
+        System.out.println(os);
 
-      String encoded = "file://"+
-          new File(description.getAudioFilePaths().get(key)).getAbsoluteFile().getAbsolutePath()
-              .replace(" ", "%20") // Java doesn't attempt to URI-encode these :(
-              .replace("\\", "/") // fix for Windows systems :(
-              .replace("/themes", "/data/themes"); // workaround for Java bug
+        String encoded = "file://"+
+            new File(description.getAudioFilePaths().get(key)).getAbsoluteFile().getAbsolutePath()
+                .replace(" ", "%20") // Java doesn't attempt to URI-encode these :(
+                .replace("\\", "/") // fix for Windows systems :(
+                .replace("/themes", "/data/themes"); // workaround for Java bug
 
-      if (os.contains("win")) { // yet another required fix for Windows systems
-        encoded = encoded.replace("C:/", "/C:/");
+        if (os.contains("win")) { // yet another required fix for Windows systems
+          encoded = encoded.replace("C:/", "/C:/");
+        }
+
+        sounds.put(key, new Media(encoded));
+      } catch (Exception e) {
+        e.printStackTrace();
       }
-
-      sounds.put(key, new Media(encoded));
     }
   }
 
