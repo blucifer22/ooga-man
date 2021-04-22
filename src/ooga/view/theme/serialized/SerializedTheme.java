@@ -38,9 +38,6 @@ public class SerializedTheme implements Theme {
          * The Media class also ~requires~ an absolute filepath (why, Java?!)
          */
 
-        String os = System.getProperty("os.name").toLowerCase();
-        System.out.println(os);
-
         String encoded = (new File(description.getAudioFilePaths().get(key)).toURI().toString())
                           .replace("/themes/", "/data/themes/");
 
