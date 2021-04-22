@@ -80,4 +80,9 @@ public class TeleporterOverlay extends Sprite {
   public int getScore() {
     return 0;
   }
+
+  @Override
+  public boolean isConsumable() {
+    return false;
+  }
 }
