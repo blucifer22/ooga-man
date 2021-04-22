@@ -36,11 +36,19 @@ public class SerializedTheme implements Theme {
        * It (for whatever internal buggy Java reason) omits the /data from the filepath!
        * The Media class also ~requires~ an absolute filepath (why, Java?!)
        */
+
+      String os = System.getProperty("os.name").toLowerCase();
+
       String encoded = "file://"+
           new File(description.getAudioFilePaths().get(key)).getAbsoluteFile().getAbsolutePath()
               .replace(" ", "%20") // Java doesn't attempt to URI-encode these :(
               .replace("/themes", "/data/themes") // workaround for Java bug
               .replace("\\", "/"); // fix for Windows systems :(
+
+      if (os.contains("win")) { // yet another required fix for Windows systems
+        encoded = encoded.replace("C://", "/C://");
+      }
+
       sounds.put(key, new Media(encoded));
     }
   }
