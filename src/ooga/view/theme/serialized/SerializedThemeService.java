@@ -91,7 +91,7 @@ public class SerializedThemeService implements ThemeService, ThemeSelectionServi
   }
 
   private void loadThemeFromFile(File f) throws IOException {
-    Theme t = (new ObjectMapper()).readValue(f, ThemeDescription.class).toTheme();
+    Theme t = (new ObjectMapper()).readValue(f, ThemeDescription.class).toTheme(this.exceptionService);
 
     if (t.getName() == null) {
       throw new IllegalArgumentException();

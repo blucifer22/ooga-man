@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
 import java.util.Map;
 import ooga.model.leveldescription.JSONDescription;
+import ooga.view.exceptions.ExceptionService;
 import ooga.view.theme.api.Theme;
 
 public class ThemeDescription extends JSONDescription {
@@ -46,7 +47,7 @@ public class ThemeDescription extends JSONDescription {
     return this.stylesheet;
   }
 
-  public Theme toTheme() {
-    return new SerializedTheme(this);
+  public Theme toTheme(ExceptionService exceptionService) {
+    return new SerializedTheme(this, exceptionService);
   }
 }

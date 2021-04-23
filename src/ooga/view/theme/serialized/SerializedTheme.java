@@ -1,15 +1,12 @@
 package ooga.view.theme.serialized;
 
 import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import ooga.view.exceptions.ExceptionService;
 import ooga.view.theme.api.Costume;
 import ooga.view.theme.api.Theme;
 
@@ -19,9 +16,12 @@ public class SerializedTheme implements Theme {
   private final Map<String, Media> sounds;
   private final String stylesheet;
   private final String name;
+  private final ExceptionService exceptionService;
 
-  protected SerializedTheme(ThemeDescription description) {
+  protected SerializedTheme(ThemeDescription description,
+      ExceptionService exceptionService) {
     this.stylesheet = description.getStylesheet();
+    this.exceptionService = exceptionService;
     this.costumes = new HashMap<>();
     this.sounds = new HashMap<>();
     this.name = description.getName();
