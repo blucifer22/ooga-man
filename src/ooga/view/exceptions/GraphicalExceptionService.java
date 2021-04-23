@@ -49,10 +49,7 @@ public class GraphicalExceptionService implements ExceptionService {
     if (alertType == AlertType.ERROR) {
       a.showAndWait();
       Platform.exit();
-    } else {
-      if (mute) {
-        return;
-      }
+    } else if (!mute) {
       String muteButtonText = languageService != null ?
           languageService.getLocalizedString("muteWarnings").get() : "Mute Warnings";
       a.getButtonTypes().add(new ButtonType(!muteButtonText.equals("") ? muteButtonText : "Mute "
