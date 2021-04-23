@@ -249,4 +249,63 @@ public class GridDescriptionTests {
       fail();
     }
   }
+  @Test
+  public void generateChaseGrid() {
+    String path = "data/levels/grids/open_grid.json";
+    String name = "testGrid";
+    int[][] gridConfig = {
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+        {0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0},
+        {0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0},
+        {0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0},
+        {0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0},
+        {0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0},
+        {0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0},
+        {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+        {0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0},
+        {0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0},
+        {0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0},
+        {0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0},
+        {0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0},
+        {0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0},
+        {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    };
+
+    int width = gridConfig[0].length;
+    int height = gridConfig.length;
+
+    List<List<Tile>> tileList = new ArrayList<>();
+
+    for (int y = 0; y < height; y++) {
+      List<Tile> outputRow = new ArrayList<>();
+
+      for (int x = 0; x < width; x++) {
+        boolean asBool = gridConfig[y][x] != 0;
+        String mazeTile = gridConfig[y][x] != 0 ? "tile" : "tileclosed";
+        outputRow.add(new Tile(new TileCoordinates(x, y), mazeTile, asBool, asBool));
+      }
+      tileList.add(outputRow);
+    }
+
+    GridDescription gridDescription = new GridDescription(name, width, height, tileList);
+
+    try {
+      gridDescription.toJSON(path);
+    } catch (IOException e) {
+      System.err.println(e.getMessage());
+      fail();
+    }
+
+    JSONDescriptionFactory JSONDescriptionFactory = new JSONDescriptionFactory();
+    GridDescription description = null;
+
+    try {
+      description = JSONDescriptionFactory.getGridDescriptionFromJSON(path);
+    } catch (IOException e) {
+      System.err.println(e.getMessage());
+      fail();
+    }
+  }
 }

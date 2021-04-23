@@ -72,22 +72,25 @@ public class PacmanAI implements InputSource {
         new Vec2(0, -1)
     };
 
+    Vec2 currentReverseDirection = getPacMan().getDirection().scalarMult(-1);
     List<DirectionDistanceWrapper> distances = new ArrayList<>();
     for (Vec2 direction : directions) {
       Vec2 nextPos = currentTilePos.add(direction);
+      if (!isOpenToPacman(nextPos)) {
+        continue;
+      }
       double closestDistance = Double.MAX_VALUE;
       for (Sprite target : targets) {
         Vec2 targetTilePos = target.getCoordinates().getTileCoordinates().toVec2();
 //        double candDistance = getDistanceBFS(new TileCoordinates(nextPos),
 //            new TileCoordinates(targetTilePos));
-        double candDistance = getCandDistance(nextPos,targetTilePos);
+        double candDistance = getCandDistance(nextPos, targetTilePos);
         closestDistance = Math.min(candDistance, closestDistance);
       }
       distances.add(new DirectionDistanceWrapper(direction, closestDistance));
     }
 
     Collections.sort(distances, Collections.reverseOrder());
-    //Vec2 currentReverseDirection = getGhost().getDirection().scalarMult(-1);
     Queue<DirectionDistanceWrapper> queue = new LinkedList<>(distances);
 
     while (!queue.isEmpty()) {
@@ -107,7 +110,7 @@ public class PacmanAI implements InputSource {
 
   protected boolean isOpenToPacman(Vec2 target) {
     return pacmanGrid.getTile(new TileCoordinates((int) target.getX(), (int) target.getY()))
-        .isOpenToGhosts();
+        .isOpenToPacman();
   }
 
   @Override

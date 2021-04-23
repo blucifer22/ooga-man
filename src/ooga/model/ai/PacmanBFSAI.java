@@ -19,7 +19,7 @@ public class PacmanBFSAI extends PacmanAI {
     super(grid, pacMan);
   }
 
-  private int getDistanceBFS(TileCoordinates start, TileCoordinates target) {
+  public int getDistanceBFS(TileCoordinates start, TileCoordinates target) {
     Vec2[] directions = {
         new Vec2(-1, 0),
         new Vec2(1, 0),
@@ -31,11 +31,13 @@ public class PacmanBFSAI extends PacmanAI {
     qu.add(start);
     int distance = 0;
     while (!qu.isEmpty()) {
-      Set<TileCoordinates> nextLevel = new HashSet<>();
-      for (int k = 0; k < qu.size(); k++) {
+      int levelSize = qu.size();
+      for (int k = 0; k < levelSize; k++) {
         TileCoordinates current = qu.remove();
+        if (visited.contains(current)) {
+          continue;
+        }
         visited.add(current);
-
         if (current.equals(target)) {
           return distance;
         }
@@ -44,18 +46,13 @@ public class PacmanBFSAI extends PacmanAI {
           TileCoordinates coord = new TileCoordinates(adjPosition);
           if (getPacmanGrid().inBoundaries(coord) && isOpenToPacman(
               adjPosition)) {
-            nextLevel.add(coord);
+            qu.add(coord);
           }
         }
       }
       distance++;
-      for (TileCoordinates next : nextLevel) {
-        if (!visited.contains(next)) {
-          qu.add(next);
-        }
-      }
     }
-    return -1;
+    return Integer.MAX_VALUE;
   }
 
   @Override
