@@ -25,6 +25,8 @@ public abstract class Ghost extends MoveableSprite {
   private GhostState currentState;
   private boolean forceAnimationUpdate;
 
+  private static final GhostState INITIAL_STATE = GhostState.WAIT;
+
   // TODO: Delete "protected" to make Ghost classes package private
   protected Ghost(
       String spriteAnimationPrefix,
@@ -32,11 +34,11 @@ public abstract class Ghost extends MoveableSprite {
       Vec2 direction,
       double speed) {
     super(spriteAnimationPrefix,
-        directionToAnimationType(direction, GhostAnimationType.ANIM_NORMAL), position, direction,
+          directionToAnimationType(direction, stateToAnimationType(INITIAL_STATE)), position, direction,
         speed);
     spawn = position;
     swapClass = SwapClass.GHOST;
-    currentState = GhostState.WAIT;
+    currentState = INITIAL_STATE;
     ghostClock = new Clock();
     ghostClock.addTimer(new Timer(getInitialWaitTime(), state -> {
       GhostState nextState = switch (currentState) {
@@ -157,7 +159,7 @@ public abstract class Ghost extends MoveableSprite {
   }
 
   // TODO: Add other animations for: FRIGHTENED_WAIT, FRIGHTENED_WAIT_BLINKING, and FRIGHTENED_BLINKING
-  private GhostAnimationType stateToAnimationType(GhostState currentState) {
+  private static GhostAnimationType stateToAnimationType(GhostState currentState) {
     return switch (currentState) {
       case WAIT -> GhostAnimationType.ANIM_NORMAL;
       case FRIGHTENED_WAIT -> GhostAnimationType.ANIM_FRIGHTENED;
@@ -167,6 +169,13 @@ public abstract class Ghost extends MoveableSprite {
       case EATEN -> GhostAnimationType.ANIM_EYES;
       case CHASE -> GhostAnimationType.ANIM_NORMAL;
     };
+  }
+
+  private void updateAnimationState() {
+    setCurrentAnimationType(
+        directionToAnimationType(getDirection(),
+                                 stateToAnimationType(currentState)));
+
   }
 
   @Override
@@ -193,9 +202,7 @@ public abstract class Ghost extends MoveableSprite {
 
     if (forceAnimationUpdate || !getDirection().equals(oldDirection)) {
       forceAnimationUpdate = false;
-      setCurrentAnimationType(directionToAnimationType(getDirection(),
-          stateToAnimationType(currentState)
-      ));
+      updateAnimationState();
     }
   }
 
