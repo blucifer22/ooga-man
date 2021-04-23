@@ -12,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import ooga.model.api.AudioObserver;
 import ooga.model.api.GameStateObservationComposite;
 import ooga.model.api.GridRebuildObserver;
 import ooga.model.api.SpriteExistenceObserver;
@@ -19,6 +20,7 @@ import ooga.view.internal_api.View;
 import ooga.view.theme.api.ThemedObject;
 import ooga.view.uiservice.UIServiceProvider;
 import ooga.view.views.components.StyledButton;
+import ooga.view.views.components.ViewBoundAudioPlayer;
 
 /**
  * GameView lays out how a round appears (the GridView in the center, information about
@@ -28,6 +30,7 @@ public class GameView implements View, ThemedObject, GameStateObservationComposi
 
   private final GridPane primaryView;
   private final GameGridView gridView;
+  private final ViewBoundAudioPlayer audioPlayer;
   private final UIServiceProvider serviceProvider;
 
   public GameView(UIServiceProvider serviceProvider) {
@@ -35,6 +38,7 @@ public class GameView implements View, ThemedObject, GameStateObservationComposi
     this.serviceProvider = serviceProvider;
     this.serviceProvider.themeService().addThemedObject(this);
     this.gridView = new GameGridView(this.serviceProvider.themeService());
+    this.audioPlayer = new ViewBoundAudioPlayer(serviceProvider.audioService());
     configureGridConstraints();
 
     Button backButton = new StyledButton(this.serviceProvider, "mainMenu",
@@ -73,6 +77,11 @@ public class GameView implements View, ThemedObject, GameStateObservationComposi
   @Override
   public GridRebuildObserver gridRebuildObserver() {
     return this.gridView;
+  }
+
+  @Override
+  public AudioObserver audioObserver() {
+    return this.audioPlayer;
   }
 
   @Override
