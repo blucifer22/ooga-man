@@ -45,14 +45,20 @@ public class SerializedTheme implements Theme {
 
         sounds.put(key, new Media(encoded));
       } catch (Exception e) {
-        exceptionService.handleWarning(new UIServicedException("missingAudioFileError", encoded));
+        exceptionService.handleWarning(new UIServicedException("badAudioFileError", name, encoded));
       }
     }
   }
 
   @Override
   public Media getSoundByIdentifier(String identifier) {
-    return sounds.get(identifier);
+    if (sounds.get(identifier) == null) {
+      exceptionService.handleWarning(new UIServicedException("missingAudioFileError",
+          name, identifier));
+      return null;
+    } else {
+      return sounds.get(identifier);
+    }
   }
 
   @Override
@@ -60,6 +66,7 @@ public class SerializedTheme implements Theme {
     Costume ret = costumes.get(type);
 
     if (ret == null) {
+      exceptionService.handleWarning(new UIServicedException("missingCostumeError", name, type));
       return new Costume() {
         @Override
         public Paint getFill() {
