@@ -58,7 +58,14 @@ public abstract class Ghost extends MoveableSprite {
             PacmanPowerupEvent.GHOST_SLOWDOWN_DEACTIVATED, () -> setMovementSpeed(getMovementSpeed() * 2),
             PacmanPowerupEvent.POINT_BONUS_ACTIVATED, () -> baseGhostScore *= 2,
             PacmanPowerupEvent.POINT_BONUS_DEACTIVATED, () -> baseGhostScore *= 0.5,
-            PacmanPowerupEvent.FRIGHTEN_WARNING, () -> changeState(GhostState.FRIGHTENED_BLINKING));
+            PacmanPowerupEvent.FRIGHTEN_WARNING, () -> {
+              changeState(switch(currentState) {
+                  case FRIGHTENED -> GhostState.FRIGHTENED_BLINKING;
+                  case FRIGHTENED_WAIT -> GhostState.FRIGHTENED_WAIT_BLINKING;
+                  default -> currentState;
+                });
+            }
+            );
 
     forceAnimationUpdate = false;
   }
