@@ -11,6 +11,7 @@ import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import ooga.view.exceptions.ExceptionService;
+import ooga.view.exceptions.UIServicedException;
 import ooga.view.language.api.LanguageSelectionService;
 import ooga.view.language.api.LanguageService;
 
@@ -63,15 +64,8 @@ public class BundledLanguageService implements LanguageService, LanguageSelectio
       keysToUpdate.removeAll(newLang.keySet());
 
       if (!keysToUpdate.isEmpty()) {
-        try {
-          throw new IllegalArgumentException(String.format(newLang.getString("missingvalerror"),
-              languageName, keysToUpdate));
-        } catch (MissingResourceException e) {
-          // THIS VALUE MUST BE HARD-CODED: the EXCEPTION here is that resource bundle error
-          // messages are are missing
-          throw new IllegalArgumentException(String.format("Error while handling error: corrupted "
-              + "or incomplete resource bundle: %s.", languageName));
-        }
+        exceptionService.handleWarning(new UIServicedException("missingvalerror", languageName,
+            keysToUpdate.toString()));
       }
     }
 
@@ -85,18 +79,10 @@ public class BundledLanguageService implements LanguageService, LanguageSelectio
 
   @Override
   public ReadOnlyStringProperty getLocalizedString(String s) {
-    try {
-      if (!strings.containsKey(s)) {
-        throw new IllegalArgumentException(String.format(strings.get("missingvalerror").getValue(),
-            languageName, s));
-      }
-    } catch (MissingResourceException m) {
-      // THIS VALUE MUST BE HARD-CODED: the EXCEPTION here is that resource bundle error
-      // messages are are missing
-      throw new IllegalArgumentException(String.format("Error while handling error: corrupted "
-          + "or incomplete resource bundle: %s.", languageName));
+    if (!strings.containsKey(s)) {
+      exceptionService.handleWarning(new UIServicedException(strings.get("missingvalerror").getValue(),
+          languageName, s));
     }
-
     return strings.get(s);
   }
 }

@@ -45,8 +45,9 @@ public class UIController implements MainMenuResponder, ViewStackService {
     this.viewStack = new Stack<>();
 
     // initialize shared dependencies
-    ExceptionService exceptionService = new GraphicalExceptionService();
+    GraphicalExceptionService exceptionService = new GraphicalExceptionService();
     BundledLanguageService languageService = new BundledLanguageService(exceptionService);
+    exceptionService.setLanguageService(languageService);
     SerializedThemeService themeService = new SerializedThemeService(exceptionService);
     AudioService audioService = new ThemedAudioService(themeService, exceptionService);
     this.serviceProvider = new ServiceProvider(exceptionService, audioService, themeService,
