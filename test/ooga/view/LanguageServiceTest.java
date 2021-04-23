@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import ooga.view.exceptions.ExceptionService;
+import ooga.view.exceptions.GraphicalExceptionService;
 import ooga.view.language.bundled.BundledLanguageService;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
@@ -21,7 +23,8 @@ public class LanguageServiceTest extends ApplicationTest {
   public void start(Stage stage) throws Exception {
     super.start(stage);
     this.label = new Text();
-    this.bls = new BundledLanguageService();
+    ExceptionService es = new GraphicalExceptionService();
+    this.bls = new BundledLanguageService(es);
     this.label.textProperty().bind(bls.getLocalizedString("pacman"));
     stage.setScene(new Scene(new StackPane(label), 400, 400));
     stage.show();

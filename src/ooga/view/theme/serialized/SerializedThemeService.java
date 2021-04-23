@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import ooga.view.exceptions.ExceptionService;
 import ooga.view.theme.api.Theme;
 import ooga.view.theme.api.ThemeSelectionService;
 import ooga.view.theme.api.ThemeService;
@@ -21,13 +22,15 @@ public class SerializedThemeService implements ThemeService, ThemeSelectionServi
   private static final String DEFAULT_THEME_NAME = "Classic";
   private final HashSet<ThemedObject> observers;
   private final HashMap<String, Theme> availableThemes;
+  private final ExceptionService exceptionService;
   private Theme theme;
 
-  public SerializedThemeService() {
-    observers = new HashSet<>();
-    availableThemes = new HashMap<>();
-    refreshAvailableThemes();
-    setTheme(DEFAULT_THEME_NAME);
+  public SerializedThemeService(ExceptionService exceptionService) {
+    this.exceptionService = exceptionService;
+    this.observers = new HashSet<>();
+    this.availableThemes = new HashMap<>();
+    this.refreshAvailableThemes();
+    this.setTheme(DEFAULT_THEME_NAME);
   }
 
   @Override

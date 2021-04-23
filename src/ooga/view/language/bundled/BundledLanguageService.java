@@ -10,11 +10,13 @@ import java.util.TreeMap;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import ooga.view.exceptions.ExceptionService;
 import ooga.view.language.api.LanguageSelectionService;
 import ooga.view.language.api.LanguageService;
 
 public class BundledLanguageService implements LanguageService, LanguageSelectionService {
 
+  private final ExceptionService exceptionService;
   private static final String DEFAULT_LANGUAGE_ROOT = "resources.languages/";
   private static final String DEFAULT_LANGUAGE = "english";
 
@@ -22,10 +24,11 @@ public class BundledLanguageService implements LanguageService, LanguageSelectio
   private final HashMap<String, StringProperty> strings;
   private String languageName;
 
-  public BundledLanguageService() {
+  public BundledLanguageService(ExceptionService exceptionService) {
     this.strings = new HashMap<>();
     this.availableLanguages = new TreeMap<>();
     this.loadDefaultLanguage();
+    this.exceptionService = exceptionService;
   }
 
   @Override

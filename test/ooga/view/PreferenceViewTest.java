@@ -31,13 +31,13 @@ public class PreferenceViewTest extends CustomApplicationTest {
 
   private class TestHarness extends BundledLanguageService implements ThemeService,
       LanguageService, ViewStackService, UIServiceProvider, UIPreferenceService {
-    private SerializedThemeService ts = new SerializedThemeService();
-    private AudioService as;
+    private SerializedThemeService ts = new SerializedThemeService(new GraphicalExceptionService());
+    private AudioService as = new DoNothingAudioService();
     private final int[] state = new int[2];
     private String language = null;
 
     public TestHarness() {
-      this.as = new DoNothingAudioService();
+      super(new GraphicalExceptionService());
     }
 
     @Override
