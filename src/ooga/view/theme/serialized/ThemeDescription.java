@@ -24,10 +24,6 @@ public class ThemeDescription extends JSONDescription {
     this.audioFilePaths = (audioFilePaths == null) ? new HashMap<>() : audioFilePaths;
     this.costumes = (costumes == null) ? new HashMap<>() : costumes;
     this.stylesheet = stylesheet;
-
-    if (name == null || stylesheet == null) {
-      throw new RuntimeException(); // theme failed to load
-    }
   }
 
   @JsonGetter("name")

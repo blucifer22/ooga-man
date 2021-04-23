@@ -68,6 +68,7 @@ public class SerializedThemeService implements ThemeService, ThemeSelectionServi
       loadThemeFromFile(defaultTheme);
     } catch (IOException | IllegalArgumentException e) {
       exceptionService.handleWarning(new UIServicedException("defaultThemeMissingError", DEFAULT_THEME_NAME));
+      e.printStackTrace();
     }
 
     File base = new File(USER_THEME_PATH);
@@ -80,6 +81,7 @@ public class SerializedThemeService implements ThemeService, ThemeSelectionServi
         loadThemeFromFile(base);
       } catch (Exception e) {
         exceptionService.handleWarning(new UIServicedException("corruptedThemeError", base.getAbsolutePath()));
+        e.printStackTrace();
       }
     } else if (base.isDirectory() && base.exists()) {
       for (File f : Objects.requireNonNull(base.listFiles())) {
