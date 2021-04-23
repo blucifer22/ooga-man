@@ -1,5 +1,6 @@
 package ooga.controller;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import javafx.scene.input.KeyCode;
 import ooga.view.io.HumanInputConsumer;
@@ -8,12 +9,20 @@ public class HumanInputConsumerComposite implements HumanInputConsumer {
 
   private final HashSet<HumanInputConsumer> components = new HashSet<>();
 
-  public void addConsumer(HumanInputConsumer consumer) {
-    components.add(consumer);
+  public HumanInputConsumerComposite(HumanInputConsumer... consumers) {
+    components.addAll(Arrays.asList(consumers));
   }
 
-  public void removeConsumer(HumanInputConsumer consumer) {
-    components.remove(consumer);
+  public void addConsumers(HumanInputConsumer... consumers) {
+    components.addAll(Arrays.asList(consumers));
+  }
+
+  public void removeConsumers(HumanInputConsumer... consumers) {
+    Arrays.asList(consumers).forEach(components::remove);
+  }
+
+  public void clearConsumers() {
+    components.clear();
   }
 
   /**
