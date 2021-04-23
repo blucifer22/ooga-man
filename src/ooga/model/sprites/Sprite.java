@@ -39,6 +39,7 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
   private Vec2 direction;
   private Map<SpriteEvent.EventType, Set<SpriteObserver>> observers;
   private ObservableAnimation currentAnimation;
+  private SpriteAnimationFactory.SpriteAnimationType currentAnimationType;
 
   /**
    * Initialize a Sprite
@@ -61,7 +62,7 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
     initializeObserverMap();
     defaultInputSource = null;
 
-    setCurrentAnimation(animationFactory.createAnimation(startingAnimation));
+    setCurrentAnimationType(startingAnimation);
   }
 
   protected Sprite(String spriteAnimationPrefix,
@@ -145,7 +146,10 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
   }
 
   protected void setCurrentAnimationType(SpriteAnimationFactory.SpriteAnimationType type) {
-    setCurrentAnimation(getAnimationFactory().createAnimation(type));
+    if(type != currentAnimationType) {
+      setCurrentAnimation(getAnimationFactory().createAnimation(type));
+      currentAnimationType = type;
+    }
   }
 
   @Override
