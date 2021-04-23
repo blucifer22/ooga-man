@@ -2,6 +2,7 @@ package ooga.view.exceptions;
 
 import java.util.Arrays;
 import java.util.Stack;
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import ooga.view.language.api.LanguageService;
@@ -42,6 +43,11 @@ public class GraphicalExceptionService implements ExceptionService {
   private void handle(AlertType alertType, String text) {
     Alert a = new Alert(alertType);
     a.setContentText(text);
-    a.show();
+    if (alertType == AlertType.ERROR) {
+      a.showAndWait();
+      Platform.exit();
+    } else {
+      a.show();
+    }
   }
 }

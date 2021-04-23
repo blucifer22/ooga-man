@@ -44,8 +44,15 @@ public class BundledLanguageService implements LanguageService, LanguageSelectio
   }
 
   private void updateAvailableLanguages() {
-    ResourceBundle languageManifest = ResourceBundle.getBundle(DEFAULT_LANGUAGE_ROOT + "manifest");
     availableLanguages.clear();
+
+    ResourceBundle languageManifest;
+    try {
+      languageManifest = ResourceBundle.getBundle(DEFAULT_LANGUAGE_ROOT + "manifest");
+    } catch (MissingResourceException e) {
+      exceptionService.handleFatalError(new UIServicedException("langManifestError"));
+      return;
+    }
 
     for (String key : languageManifest.keySet()) {
       availableLanguages.put(key, languageManifest.getString(key));
@@ -57,14 +64,21 @@ public class BundledLanguageService implements LanguageService, LanguageSelectio
   }
 
   private void updatePropertyValues(String languageName, boolean initial) {
-    ResourceBundle newLang = ResourceBundle.getBundle(DEFAULT_LANGUAGE_ROOT + "/" + languageName);
+    ResourceBundle newLang;
+
+    try {
+      newLang = ResourceBundle.getBundle(DEFAULT_LANGUAGE_ROOT + "/" + languageName);
+    } catch (MissingResourceException e) {
+      exceptionService.handleWarning(new UIServicedException("missingLangError", languageName));
+      return;
+    }
 
     if (!initial) {
       HashSet<String> keysToUpdate = new HashSet<>(strings.keySet());
       keysToUpdate.removeAll(newLang.keySet());
 
       if (!keysToUpdate.isEmpty()) {
-        exceptionService.handleWarning(new UIServicedException("missingvalerror", languageName,
+        exceptionService.handleWarning(new UIServicedException("missingValError", languageName,
             keysToUpdate.toString()));
       }
     }
@@ -80,9 +94,9 @@ public class BundledLanguageService implements LanguageService, LanguageSelectio
   @Override
   public ReadOnlyStringProperty getLocalizedString(String s) {
     if (!strings.containsKey(s)) {
-      exceptionService.handleWarning(new UIServicedException(strings.get("missingvalerror").getValue(),
+      exceptionService.handleWarning(new UIServicedException(strings.get("missingValError").getValue(),
           languageName, s));
     }
-    return strings.get(s);
+    return strings.get(s) != null ? strings.get(s) : new SimpleStringProperty("");
   }
 }
