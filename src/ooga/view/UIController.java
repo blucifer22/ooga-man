@@ -5,7 +5,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ooga.view.audio.AudioService;
 import ooga.view.audio.ThemedAudioService;
-import ooga.view.exceptions.ExceptionService;
 import ooga.view.exceptions.GraphicalExceptionService;
 import ooga.view.internal_api.ViewStackService;
 import ooga.controller.GameStateController;
@@ -49,7 +48,7 @@ public class UIController implements MainMenuResponder, ViewStackService {
     BundledLanguageService languageService = new BundledLanguageService(exceptionService);
     exceptionService.setLanguageService(languageService);
     SerializedThemeService themeService = new SerializedThemeService(exceptionService);
-    AudioService audioService = new ThemedAudioService(themeService, exceptionService);
+    AudioService audioService = new ThemedAudioService(themeService);
     this.serviceProvider = new ServiceProvider(exceptionService, audioService, themeService,
         languageService, this);
     this.preferenceService = new PreferenceService(themeService, languageService);

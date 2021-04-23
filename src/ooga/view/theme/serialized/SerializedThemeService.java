@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import ooga.view.exceptions.ExceptionService;
+import ooga.view.exceptions.UIServicedException;
 import ooga.view.theme.api.Theme;
 import ooga.view.theme.api.ThemeSelectionService;
 import ooga.view.theme.api.ThemeService;
@@ -65,9 +66,8 @@ public class SerializedThemeService implements ThemeService, ThemeSelectionServi
     File defaultTheme = new File(DEFAULT_THEME_PATH);
     try {
       loadThemeFromFile(defaultTheme);
-    } catch (IOException e) {
-      // VERY BAD: means default theme is missing! This should never happen!!
-      e.printStackTrace();
+    } catch (IOException | IllegalArgumentException e) {
+      exceptionService.handleWarning(new UIServicedException("defaultThemeMissingError", DEFAULT_THEME_NAME));
     }
 
     File base = new File(USER_THEME_PATH);
@@ -79,8 +79,7 @@ public class SerializedThemeService implements ThemeService, ThemeSelectionServi
       try {
         loadThemeFromFile(base);
       } catch (Exception e) {
-        // TODO: handle exception
-        e.printStackTrace();
+        exceptionService.handleWarning(new UIServicedException("corruptedThemeError", base.getAbsolutePath()));
       }
     } else if (base.isDirectory() && base.exists()) {
       for (File f : Objects.requireNonNull(base.listFiles())) {
@@ -91,6 +90,11 @@ public class SerializedThemeService implements ThemeService, ThemeSelectionServi
 
   private void loadThemeFromFile(File f) throws IOException {
     Theme t = (new ObjectMapper()).readValue(f, ThemeDescription.class).toTheme();
+
+    if (t.getName() == null) {
+      throw new IllegalArgumentException();
+    }
+
     availableThemes.put(t.getName(), t);
   }
 }

@@ -11,11 +11,9 @@ import ooga.view.theme.api.ThemeService;
 public class ThemedAudioService implements AudioService {
 
   private final ThemeService dataSource;
-  private final ExceptionService exceptionService;
   private final HashMap<String, HashSet<MediaPlayer>> activeAudio;
 
-  public ThemedAudioService(ThemeService dataSource, ExceptionService exceptionService) {
-    this.exceptionService = exceptionService;
+  public ThemedAudioService(ThemeService dataSource) {
     this.dataSource = dataSource;
     this.activeAudio = new HashMap<>();
   }
