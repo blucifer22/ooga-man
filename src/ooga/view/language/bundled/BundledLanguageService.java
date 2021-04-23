@@ -94,9 +94,9 @@ public class BundledLanguageService implements LanguageService, LanguageSelectio
   @Override
   public ReadOnlyStringProperty getLocalizedString(String s) {
     if (!strings.containsKey(s)) {
-      exceptionService.handleWarning(new UIServicedException(strings.get("missingValError").getValue(),
-          languageName, s));
+      strings.put(s, new SimpleStringProperty(""));
+      exceptionService.handleWarning(new UIServicedException("missingValError", languageName, s));
     }
-    return strings.get(s) != null ? strings.get(s) : new SimpleStringProperty("");
+    return strings.get(s);
   }
 }
