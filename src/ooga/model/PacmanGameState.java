@@ -9,6 +9,7 @@ import java.util.Set;
 import ooga.controller.HumanInputManager;
 import ooga.controller.SpriteLinkageFactory;
 import ooga.model.api.*;
+import ooga.model.audio.AudioManager;
 import ooga.model.leveldescription.GridDescription;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.LevelDescription;
@@ -50,6 +51,8 @@ public class PacmanGameState
   private HumanInputManager player2;
   private String jsonFileName;
 
+  private AudioManager audioManager;
+
   private int pacmanLivesRemaining;
   protected boolean isPacmanDead;
   private int roundNumber;
@@ -64,9 +67,13 @@ public class PacmanGameState
     sprites = new LinkedList<>();
     pacmanPowerupObservers = new HashSet<>();
     clock = new Clock();
+
     roundNumber = STARTING_ROUND_NUMBER;
     pacmanLivesRemaining = STARTING_LIVE_COUNT;
     isGameOver = false;
+
+    audioManager = new AudioManager();
+    registerEventListener(audioManager);
   }
 
   /**
@@ -136,6 +143,7 @@ public class PacmanGameState
     sprites.clear();
     clock.reset();
     clock.clear();
+    audioManager.reset();
 
     PacmanLevel level = loadLevelFromJSON(jsonFileName);
     for (Sprite sprite : level.getSprites()) {
@@ -420,7 +428,7 @@ public class PacmanGameState
    * @param listener
    */
   @Override
-  public void registerEventListener(Sprite listener) {
+  public void registerEventListener(PowerupEventObserver listener) {
     pacmanPowerupObservers.add(listener);
   }
 
@@ -486,6 +494,10 @@ public class PacmanGameState
   }
 
   public void addAudioObserver(AudioObserver obs) {
-    // TODO
+    getAudioManager().addObserver(obs);
+  }
+
+  public AudioManager getAudioManager()  {
+    return audioManager;
   }
 }
