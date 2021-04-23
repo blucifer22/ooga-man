@@ -23,19 +23,24 @@ public class JSONController implements GameStateController {
   private static final double TIMESTEP = 1.0 / 60.0;
   private final UIController uiController;
   private final JSONDescriptionFactory jsonDescriptionFactory;
-  private final HumanInputManager player1;
-  private final HumanInputManager player2;
+  private final HumanInputConsumerComposite compositeConsumer;
 
   public JSONController(Stage primaryStage) {
-    this.player1 = new HumanInputManager(KeybindingType.PLAYER_1);
-    player2 = new HumanInputManager(KeybindingType.PLAYER_2);
-    this.uiController = new UIController(primaryStage, this, this.player1);
+    // instantiate composite input receiver
+    this.compositeConsumer = new HumanInputConsumerComposite();
+
+    this.uiController = new UIController(primaryStage, this, compositeConsumer);
     jsonDescriptionFactory = new JSONDescriptionFactory();
   }
 
   @Override
   public void startGame(GameStateObservationComposite rootObserver) {
     try {
+      HumanInputManager player1 = new HumanInputManager(KeybindingType.PLAYER_1);
+      HumanInputManager player2 = new HumanInputManager(KeybindingType.PLAYER_2);
+      compositeConsumer.clearConsumers();
+      compositeConsumer.addConsumers(player1, player2);
+
       //TODO: Implement a mode picker and file picker to handle mode-select and level-select
       PacmanGameState pgs = new PacmanGameState();
       //PacmanGameStateChase pgs = new PacmanGameStateChase();
