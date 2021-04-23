@@ -7,6 +7,7 @@ import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import ooga.view.exceptions.ExceptionService;
+import ooga.view.exceptions.UIServicedException;
 import ooga.view.theme.api.Costume;
 import ooga.view.theme.api.Theme;
 
@@ -31,6 +32,7 @@ public class SerializedTheme implements Theme {
     }
 
     for (String key : description.getAudioFilePaths().keySet()) {
+      String encoded = null;
       try {
         /*
          * getAbsoluteFile().getAbsolutePath() doesn't actually return the absolute path!
@@ -38,12 +40,12 @@ public class SerializedTheme implements Theme {
          * The Media class also ~requires~ an absolute filepath (why, Java?!)
          */
 
-        String encoded = (new File(description.getAudioFilePaths().get(key)).toURI().toString())
+        encoded = (new File(description.getAudioFilePaths().get(key)).toURI().toString())
                           .replace("/themes/", "/data/themes/");
 
         sounds.put(key, new Media(encoded));
       } catch (Exception e) {
-        e.printStackTrace();
+        exceptionService.handleWarning(new UIServicedException("missingAudioFileError", encoded));
       }
     }
   }

@@ -3,6 +3,7 @@ package ooga.view;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
@@ -38,12 +39,14 @@ public class LanguageServiceTest extends ApplicationTest {
 
   @Test
   public void switchTest() {
-    String[] langs = new String[] {"english", "spanish"};
+    Platform.runLater(() -> {
+      String[] langs = new String[]{"english", "spanish"};
 
-    for (String lang: langs) {
-      this.bls.setLanguage(lang);
-      assertEquals(bundleFor(lang).getString("pacman"), this.label.getText());
-    }
+      for (String lang : langs) {
+        this.bls.setLanguage(lang);
+        assertEquals(bundleFor(lang).getString("pacman"), this.label.getText());
+      }
+    });
   }
 
   private ResourceBundle bundleFor(String language) {
