@@ -1,10 +1,10 @@
 package ooga.view.exceptions;
 
-public class UIServiceException extends Exception {
+public class UIServicedException extends Exception {
   private final String errorKey;
   private final String errorInformation;
 
-  public UIServiceException(String errorKey, String errorInformation) {
+  public UIServicedException(String errorKey, String errorInformation) {
     this.errorKey = errorKey;
     this.errorInformation = errorInformation;
   }
