@@ -61,7 +61,7 @@ public class PacmanGrid implements Iterable<Tile>, ObservableGrid {
   public boolean inBoundaries(TileCoordinates tileCoordinates) {
     int x = tileCoordinates.getX();
     int y = tileCoordinates.getY();
-    return x < width || x >= 0 || y < height || y >= 0;
+    return x < width && x >= 0 && y < height && y >= 0;
   }
 
   public void setTile(int x, int y, Tile tile) {

@@ -22,8 +22,8 @@ public class PacmanAITest {
   @BeforeEach
   public void setup() {
     // Grid set-up:
-    // _ P _ _ _ G
     // _ _ _ _ _ G
+    // _ P _ _ _ G
 
     pacman = new PacMan(new SpriteCoordinates(new Vec2(1.5, 0.5)), new Vec2(0, -1), 5);
     PacmanGrid grid = new PacmanGrid(6, 2);
@@ -42,7 +42,8 @@ public class PacmanAITest {
   @Test
   public void testMaximizeDistanceMoveLeft() {
     // Pac-Man attempts to move left to maximize the distance between it and the ghosts
-    assertEquals(new Vec2(-1, 0), pacmanIn.getRequestedDirection());
+    Vec2 direction = pacmanIn.getRequestedDirection();
+    assertEquals(new Vec2(-1, 0), direction);
   }
 
   @Test

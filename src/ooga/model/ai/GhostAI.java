@@ -11,6 +11,7 @@ import java.util.Random;
 import java.util.function.Supplier;
 import ooga.model.InputSource;
 import ooga.model.PacmanGrid;
+import ooga.model.Tile;
 import ooga.model.TileCoordinates;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Ghost.GhostBehavior;
@@ -29,12 +30,12 @@ public class GhostAI implements InputSource {
 
   private final Ghost ghost;
   private final PacmanGrid pacmanGrid;
+  private final Map<GhostBehavior, Supplier<Vec2>> movementOptions = new HashMap<>();
   private Sprite target;
-  private Map<GhostBehavior, Supplier<Vec2>> movementOptions = new HashMap<>();
 
   public GhostAI(PacmanGrid grid, Sprite ghost) {
     this.pacmanGrid = grid;
-    this.ghost = (Ghost)ghost;
+    this.ghost = (Ghost) ghost;
     this.target = null;
     movementOptions.put(GhostBehavior.CHASE, this::chaseBehavior);
     movementOptions.put(GhostBehavior.WAIT, this::waitBehavior);
@@ -135,8 +136,10 @@ public class GhostAI implements InputSource {
   }
 
   private boolean isOpenToGhosts(Vec2 target) {
-    return getPacmanGrid()
-        .getTile(new TileCoordinates((int) target.getX(), (int) target.getY()))
+    if (!pacmanGrid.inBoundaries(new TileCoordinates(target))) {
+      return false;
+    }
+    return pacmanGrid.getTile(new TileCoordinates((int) target.getX(), (int) target.getY()))
         .isOpenToGhosts();
   }
 
@@ -178,25 +181,5 @@ public class GhostAI implements InputSource {
   @Override
   public void addTarget(Sprite target) {
     setTarget(target);
-  }
-
-  class DirectionDistanceWrapper implements Comparable<GhostAI.DirectionDistanceWrapper> {
-
-    private final Vec2 vec;
-    private final double dis;
-
-    public DirectionDistanceWrapper(Vec2 vec, double dis) {
-      this.vec = vec;
-      this.dis = dis;
-    }
-
-    public Vec2 getVec() {
-      return vec;
-    }
-
-    @Override
-    public int compareTo(@NotNull GhostAI.DirectionDistanceWrapper o) {
-      return Double.compare(this.dis, o.dis);
-    }
   }
 }

@@ -2,18 +2,15 @@ package ooga.model.ai;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.Set;
 import ooga.model.InputSource;
 import ooga.model.PacmanGrid;
+import ooga.model.Tile;
 import ooga.model.TileCoordinates;
-import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Basic AI for Pac-Man that focuses on maximizing distance between all included target Sprites
@@ -61,9 +58,11 @@ public class PacmanAI implements InputSource {
    * This AI can freely reverse, if necessary.
    *
    * @param currentTilePos current position of this AI
+   * @param targets
    * @return Direction to send to the Sprite
    */
-  protected Vec2 maximizeDistance(Vec2 currentTilePos) {
+  protected Vec2 maximizeDistance(Vec2 currentTilePos,
+      List<Sprite> targets) {
     Vec2[] directions = {
         new Vec2(0, 0),
         new Vec2(-1, 0),
@@ -71,8 +70,6 @@ public class PacmanAI implements InputSource {
         new Vec2(0, 1),
         new Vec2(0, -1)
     };
-
-    Vec2 currentReverseDirection = getPacMan().getDirection().scalarMult(-1);
     List<DirectionDistanceWrapper> distances = new ArrayList<>();
     for (Vec2 direction : directions) {
       Vec2 nextPos = currentTilePos.add(direction);
@@ -82,17 +79,13 @@ public class PacmanAI implements InputSource {
       double closestDistance = Double.MAX_VALUE;
       for (Sprite target : targets) {
         Vec2 targetTilePos = target.getCoordinates().getTileCoordinates().toVec2();
-//        double candDistance = getDistanceBFS(new TileCoordinates(nextPos),
-//            new TileCoordinates(targetTilePos));
         double candDistance = getCandDistance(nextPos, targetTilePos);
         closestDistance = Math.min(candDistance, closestDistance);
       }
       distances.add(new DirectionDistanceWrapper(direction, closestDistance));
     }
-
     Collections.sort(distances, Collections.reverseOrder());
     Queue<DirectionDistanceWrapper> queue = new LinkedList<>(distances);
-
     while (!queue.isEmpty()) {
       Vec2 cand = queue.remove().getVec();
       Vec2 target = currentTilePos.add(cand);
@@ -109,6 +102,9 @@ public class PacmanAI implements InputSource {
   }
 
   protected boolean isOpenToPacman(Vec2 target) {
+    if (!pacmanGrid.inBoundaries(new TileCoordinates(target))) {
+      return false;
+    }
     return pacmanGrid.getTile(new TileCoordinates((int) target.getX(), (int) target.getY()))
         .isOpenToPacman();
   }
@@ -116,7 +112,7 @@ public class PacmanAI implements InputSource {
   @Override
   public Vec2 getRequestedDirection() {
     Vec2 currentTilePos = pacMan.getCoordinates().getTileCoordinates().toVec2();
-    return maximizeDistance(currentTilePos);
+    return maximizeDistance(currentTilePos, targets);
   }
 
   @Override
