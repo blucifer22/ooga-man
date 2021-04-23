@@ -1,6 +1,10 @@
 package ooga.view.theme.api;
 
+import javafx.scene.media.Media;
+
 public interface Theme {
+
+  Media getSoundByIdentifier(String identifier);
 
   Costume getCostumeForObjectOfType(String type);
 

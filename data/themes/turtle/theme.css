@@ -11,7 +11,7 @@
   -fx-corner-radius: 5px;
 }
 
-.menu-button {
+.styled-button {
   -fx-font-size: 40px;
   -fx-font-weight: bold;
   -fx-background-color: linear-gradient(#00ffa5, #00ffdc);

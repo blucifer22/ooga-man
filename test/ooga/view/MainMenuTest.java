@@ -8,13 +8,15 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import ooga.view.audio.AudioService;
+import ooga.view.audio.ThemedAudioService;
 import ooga.view.internal_api.MainMenuResponder;
-import ooga.view.internal_api.ViewStackManager;
 import ooga.view.language.bundled.BundledLanguageService;
+import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.serialized.SerializedThemeService;
 import ooga.view.uiservice.ServiceProvider;
 import ooga.view.uiservice.UIServiceProvider;
-import ooga.view.views.MenuView;
+import ooga.view.views.sceneroots.MenuView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -67,8 +69,10 @@ public class MainMenuTest extends CustomApplicationTest {
   public void reset() throws InterruptedException {
     syncFXRun(() -> {
       this.testHarness = new TestHarness();
+      AudioService as = new DoNothingAudioService();
+
       UIServiceProvider serviceProvider =
-          new ServiceProvider(new SerializedThemeService(), new BundledLanguageService(), () -> {});
+          new ServiceProvider(as, new SerializedThemeService(), new BundledLanguageService(), () -> {});
       this.mainMenu = new MenuView(serviceProvider, this.testHarness);
       this.primaryStage.setScene(new Scene(mainMenu.getRenderingNode(), 600, 600));
     });
@@ -107,7 +111,7 @@ public class MainMenuTest extends CustomApplicationTest {
   private HashMap<String, Node> buttons() {
     HashMap<String, Node> nodes = new HashMap<>();
     for (String s: new String[] {"startGame", "openLevelBuilder", "openPreferences"}) {
-      nodes.put(s, lookup("#menu-button-"+s).query());
+      nodes.put(s, lookup("#button-"+s).query());
     }
     return nodes;
   }

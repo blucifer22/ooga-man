@@ -8,13 +8,7 @@ import java.util.List;
 import java.util.Set;
 import ooga.controller.HumanInputManager;
 import ooga.controller.SpriteLinkageFactory;
-import ooga.model.api.GameStateObservable;
-import ooga.model.api.GameStateObserver;
-import ooga.model.api.GridRebuildObservable;
-import ooga.model.api.GridRebuildObserver;
-import ooga.model.api.PowerupEventObserver;
-import ooga.model.api.SpriteExistenceObservable;
-import ooga.model.api.SpriteExistenceObserver;
+import ooga.model.api.*;
 import ooga.model.leveldescription.GridDescription;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.LevelDescription;
@@ -494,5 +488,9 @@ public class PacmanGameState
       }
     }
     return false;
+  }
+
+  public void addAudioObserver(AudioObserver obs) {
+    // TODO
   }
 }

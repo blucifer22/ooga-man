@@ -9,6 +9,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import ooga.view.audio.AudioService;
+import ooga.view.audio.ThemedAudioService;
 import ooga.view.internal_api.ViewStackManager;
 import ooga.view.language.api.LanguageSelectionService;
 import ooga.view.language.api.LanguageService;
@@ -20,7 +22,7 @@ import ooga.view.theme.api.ThemedObject;
 import ooga.view.theme.serialized.SerializedThemeService;
 import ooga.view.uiservice.UIPreferenceService;
 import ooga.view.uiservice.UIServiceProvider;
-import ooga.view.views.PreferenceView;
+import ooga.view.views.sceneroots.PreferenceView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,8 +31,13 @@ public class PreferenceViewTest extends CustomApplicationTest {
   private class TestHarness extends BundledLanguageService implements ThemeService,
       LanguageService, ViewStackManager, UIServiceProvider, UIPreferenceService {
     private SerializedThemeService ts = new SerializedThemeService();
+    private AudioService as;
     private final int[] state = new int[2];
     private String language = null;
+
+    public TestHarness() {
+      this.as = new DoNothingAudioService();
+    }
 
     @Override
     public void setLanguage(String language) {
@@ -56,6 +63,11 @@ public class PreferenceViewTest extends CustomApplicationTest {
 
     public int[] getState() {
       return this.state;
+    }
+
+    @Override
+    public AudioService audioService() {
+      return as;
     }
 
     @Override
@@ -107,7 +119,7 @@ public class PreferenceViewTest extends CustomApplicationTest {
   public void testUnwind() throws InterruptedException {
     Thread.sleep(500);
 
-    Node backButton = lookup("#menu-button-previousMenu").query();
+    Node backButton = lookup("#button-previousMenu").query();
     syncFXRun(() -> {
       moveTo(backButton);
       backButton.getOnMouseClicked().handle(null);
