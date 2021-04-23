@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
 import ooga.view.language.api.LanguageService;
 
 public class GraphicalExceptionService implements ExceptionService {
@@ -60,7 +61,8 @@ public class GraphicalExceptionService implements ExceptionService {
         }
         a.close();
       });
-      a.showAndWait();
+      a.show();
+      ((Stage) a.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
     }
   }
 }
