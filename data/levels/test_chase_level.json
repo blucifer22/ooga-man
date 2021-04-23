@@ -2666,7 +2666,7 @@
       },
       {
         "className": "Inky",
-        "inputSource": "BlinkyAI",
+        "inputSource": "InkyAI",
         "coordinates": {
           "position": {
             "x": 8.5,
@@ -2676,7 +2676,7 @@
       },
       {
         "className": "Clyde",
-        "inputSource": "PinkyAI",
+        "inputSource": "ClydeAI",
         "coordinates": {
           "position": {
             "x": 8.5,
@@ -2696,7 +2696,7 @@
       },
       {
         "className": "PacMan",
-        "inputSource": "PacmanAI",
+        "inputSource": "PacmanBFSAI",
         "coordinates": {
           "position": {
             "x": 1.5,

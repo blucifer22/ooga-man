@@ -339,9 +339,9 @@
             "x": 2,
             "y": 2
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -357,9 +357,9 @@
             "x": 4,
             "y": 2
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -384,9 +384,9 @@
             "x": 7,
             "y": 2
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -420,18 +420,18 @@
             "x": 11,
             "y": 2
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
             "x": 12,
             "y": 2
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -447,9 +447,9 @@
             "x": 14,
             "y": 2
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -521,9 +521,9 @@
             "x": 5,
             "y": 3
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -539,9 +539,9 @@
             "x": 7,
             "y": 3
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -557,9 +557,9 @@
             "x": 9,
             "y": 3
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -575,9 +575,9 @@
             "x": 11,
             "y": 3
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -649,9 +649,9 @@
             "x": 2,
             "y": 4
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -667,9 +667,9 @@
             "x": 4,
             "y": 4
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -694,9 +694,9 @@
             "x": 7,
             "y": 4
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -712,9 +712,9 @@
             "x": 9,
             "y": 4
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -739,9 +739,9 @@
             "x": 12,
             "y": 4
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -757,9 +757,9 @@
             "x": 14,
             "y": 4
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -831,27 +831,27 @@
             "x": 5,
             "y": 5
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
             "x": 6,
             "y": 5
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
             "x": 7,
             "y": 5
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -867,27 +867,27 @@
             "x": 9,
             "y": 5
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
             "x": 10,
             "y": 5
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
             "x": 11,
             "y": 5
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -959,9 +959,9 @@
             "x": 2,
             "y": 6
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -977,18 +977,18 @@
             "x": 4,
             "y": 6
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
             "x": 5,
             "y": 6
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -1040,18 +1040,18 @@
             "x": 11,
             "y": 6
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
             "x": 12,
             "y": 6
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -1067,9 +1067,9 @@
             "x": 14,
             "y": 6
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -1105,9 +1105,9 @@
             "x": 1,
             "y": 7
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -1141,9 +1141,9 @@
             "x": 5,
             "y": 7
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -1195,9 +1195,9 @@
             "x": 11,
             "y": 7
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -1231,9 +1231,9 @@
             "x": 15,
             "y": 7
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -1269,9 +1269,9 @@
             "x": 2,
             "y": 8
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -1287,9 +1287,9 @@
             "x": 4,
             "y": 8
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -1359,9 +1359,9 @@
             "x": 12,
             "y": 8
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -1377,9 +1377,9 @@
             "x": 14,
             "y": 8
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -1415,9 +1415,9 @@
             "x": 1,
             "y": 9
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -1451,9 +1451,9 @@
             "x": 5,
             "y": 9
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -1505,9 +1505,9 @@
             "x": 11,
             "y": 9
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -1541,9 +1541,9 @@
             "x": 15,
             "y": 9
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -1579,9 +1579,9 @@
             "x": 2,
             "y": 10
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -1597,18 +1597,18 @@
             "x": 4,
             "y": 10
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
             "x": 5,
             "y": 10
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -1660,18 +1660,18 @@
             "x": 11,
             "y": 10
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
             "x": 12,
             "y": 10
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -1687,9 +1687,9 @@
             "x": 14,
             "y": 10
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -1761,27 +1761,27 @@
             "x": 5,
             "y": 11
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
             "x": 6,
             "y": 11
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
             "x": 7,
             "y": 11
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -1797,27 +1797,27 @@
             "x": 9,
             "y": 11
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
             "x": 10,
             "y": 11
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
             "x": 11,
             "y": 11
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -1889,9 +1889,9 @@
             "x": 2,
             "y": 12
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -1907,9 +1907,9 @@
             "x": 4,
             "y": 12
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -1934,9 +1934,9 @@
             "x": 7,
             "y": 12
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -1952,9 +1952,9 @@
             "x": 9,
             "y": 12
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -1979,9 +1979,9 @@
             "x": 12,
             "y": 12
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -1997,9 +1997,9 @@
             "x": 14,
             "y": 12
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -2071,9 +2071,9 @@
             "x": 5,
             "y": 13
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -2089,9 +2089,9 @@
             "x": 7,
             "y": 13
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -2107,9 +2107,9 @@
             "x": 9,
             "y": 13
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -2125,9 +2125,9 @@
             "x": 11,
             "y": 13
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -2199,9 +2199,9 @@
             "x": 2,
             "y": 14
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -2217,9 +2217,9 @@
             "x": 4,
             "y": 14
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -2244,9 +2244,9 @@
             "x": 7,
             "y": 14
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
@@ -2280,18 +2280,18 @@
             "x": 11,
             "y": 14
           },
-          "type": "tileclosed",
-          "openToPacman": false,
-          "openToGhosts": false
+          "type": "tile",
+          "openToPacman": true,
+          "openToGhosts": true
         },
         {
           "coordinates": {
             "x": 12,
             "y": 14
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -2307,9 +2307,9 @@
             "x": 14,
             "y": 14
           },
-          "type": "tile",
-          "openToPacman": true,
-          "openToGhosts": true
+          "type": "tileclosed",
+          "openToPacman": false,
+          "openToGhosts": false
         },
         {
           "coordinates": {
@@ -2666,7 +2666,7 @@
       },
       {
         "className": "Inky",
-        "inputSource": "BlinkyAI",
+        "inputSource": "InkyAI",
         "coordinates": {
           "position": {
             "x": 8.5,
@@ -2676,7 +2676,7 @@
       },
       {
         "className": "Clyde",
-        "inputSource": "PinkyAI",
+        "inputSource": "ClydeAI",
         "coordinates": {
           "position": {
             "x": 8.5,
@@ -2699,7 +2699,7 @@
         "inputSource": "PacmanBFSAI",
         "coordinates": {
           "position": {
-            "x": 1.5,
+            "x": 2.5,
             "y": 1.5
           }
         }
@@ -2730,7 +2730,27 @@
         "coordinates": {
           "position": {
             "x": 1.5,
-            "y": 8.5
+            "y": 1.5
+          }
+        }
+      },
+      {
+        "className": "TeleporterOverlay",
+        "inputSource": "TELEPORTER_B",
+        "coordinates": {
+          "position": {
+            "x": 1.5,
+            "y": 15.5
+          }
+        }
+      },
+      {
+        "className": "TeleporterOverlay",
+        "inputSource": "TELEPORTER_B",
+        "coordinates": {
+          "position": {
+            "x": 15.5,
+            "y": 1.5
           }
         }
       },
@@ -2740,7 +2760,7 @@
         "coordinates": {
           "position": {
             "x": 15.5,
-            "y": 8.5
+            "y": 15.5
           }
         }
       }

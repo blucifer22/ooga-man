@@ -5,11 +5,9 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 import ooga.model.PacmanGrid;
-import ooga.model.Tile;
 import ooga.model.TileCoordinates;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
@@ -24,6 +22,7 @@ import ooga.util.Vec2;
 public class PacmanBFSAI extends PacmanAI {
 
   public static final int SENSITIVITY_RADIUS = 4;
+  public static final double STABLE_MOVEMENT = 0.5;
 
   public PacmanBFSAI(PacmanGrid grid, Sprite pacMan) {
     super(grid, pacMan);
@@ -47,6 +46,9 @@ public class PacmanBFSAI extends PacmanAI {
 
   protected Vec2 scatterBehavior() {
     ArrayList<Vec2> randomVectorOptions = new ArrayList<>();
+    if (ThreadLocalRandom.current().nextDouble(1) < STABLE_MOVEMENT) {
+      return Vec2.ZERO;
+    }
     Vec2 ret;
     randomVectorOptions.add(new Vec2(-1.0, 0));
     randomVectorOptions.add(new Vec2(1.0, 0));
