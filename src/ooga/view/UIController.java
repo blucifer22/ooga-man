@@ -48,7 +48,7 @@ public class UIController implements MainMenuResponder, ViewStackService {
     BundledLanguageService languageService = new BundledLanguageService(exceptionService);
     exceptionService.setLanguageService(languageService);
     SerializedThemeService themeService = new SerializedThemeService(exceptionService);
-    AudioService audioService = new ThemedAudioService(themeService, es);
+    AudioService audioService = new ThemedAudioService(themeService, exceptionService);
     this.serviceProvider = new ServiceProvider(exceptionService, audioService, themeService,
         languageService, this);
     this.preferenceService = new PreferenceService(themeService, languageService);
