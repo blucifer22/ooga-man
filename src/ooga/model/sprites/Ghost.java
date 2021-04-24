@@ -160,6 +160,8 @@ public abstract class Ghost extends MoveableSprite {
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
     if (!isDeadlyToPacMan() && isConsumable() && other.eatsGhosts()) {
+      state.getAudioManager().playSound("ghost-eaten");
+      state.getAudioManager().pushNewAmbience("ghost-eyes");
       this.setMovementSpeed(this.getMovementSpeed() * 1.5);
       changeState(GhostState.EATEN);
     }
@@ -198,6 +200,7 @@ public abstract class Ghost extends MoveableSprite {
       this.setCoordinates(new SpriteCoordinates(getSpawn().getTileCenter()));
       this.setMovementSpeed(this.getMovementSpeed() * (2.0 / 3.0));
       changeState(GhostState.WAIT);
+      pacmanGameState.getAudioManager().popAmbience();
       pacmanGameState.getClock().addTimer(new Timer(0.25, mutableGameState -> {
         this.setCurrentSpeed(getMovementSpeed());
         this.changeState(GhostState.CHASE);
