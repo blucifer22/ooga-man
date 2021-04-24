@@ -2719,8 +2719,148 @@
         "inputSource": "NONE",
         "coordinates": {
           "position": {
+            "x": 1.5,
+            "y": 15.5
+          }
+        }
+      },
+      {
+        "className": "Dot",
+        "inputSource": "NONE",
+        "coordinates": {
+          "position": {
+            "x": 2.5,
+            "y": 15.5
+          }
+        }
+      },
+      {
+        "className": "Dot",
+        "inputSource": "NONE",
+        "coordinates": {
+          "position": {
+            "x": 3.5,
+            "y": 15.5
+          }
+        }
+      },
+      {
+        "className": "Dot",
+        "inputSource": "NONE",
+        "coordinates": {
+          "position": {
+            "x": 4.5,
+            "y": 15.5
+          }
+        }
+      },
+      {
+        "className": "Dot",
+        "inputSource": "NONE",
+        "coordinates": {
+          "position": {
+            "x": 5.5,
+            "y": 15.5
+          }
+        }
+      },
+      {
+        "className": "Dot",
+        "inputSource": "NONE",
+        "coordinates": {
+          "position": {
+            "x": 6.5,
+            "y": 15.5
+          }
+        }
+      },
+      {
+        "className": "Dot",
+        "inputSource": "NONE",
+        "coordinates": {
+          "position": {
+            "x": 7.5,
+            "y": 15.5
+          }
+        }
+      },
+      {
+        "className": "Dot",
+        "inputSource": "NONE",
+        "coordinates": {
+          "position": {
+            "x": 8.5,
+            "y": 15.5
+          }
+        }
+      },
+      {
+        "className": "Dot",
+        "inputSource": "NONE",
+        "coordinates": {
+          "position": {
+            "x": 9.5,
+            "y": 15.5
+          }
+        }
+      },
+      {
+        "className": "Dot",
+        "inputSource": "NONE",
+        "coordinates": {
+          "position": {
+            "x": 10.5,
+            "y": 15.5
+          }
+        }
+      },
+      {
+        "className": "Dot",
+        "inputSource": "NONE",
+        "coordinates": {
+          "position": {
             "x": 11.5,
-            "y": 12.5
+            "y": 15.5
+          }
+        }
+      },
+      {
+        "className": "Dot",
+        "inputSource": "NONE",
+        "coordinates": {
+          "position": {
+            "x": 12.5,
+            "y": 15.5
+          }
+        }
+      },
+      {
+        "className": "Dot",
+        "inputSource": "NONE",
+        "coordinates": {
+          "position": {
+            "x": 13.5,
+            "y": 15.5
+          }
+        }
+      },
+      {
+        "className": "Dot",
+        "inputSource": "NONE",
+        "coordinates": {
+          "position": {
+            "x": 14.5,
+            "y": 15.5
+          }
+        }
+      },
+      {
+        "className": "Dot",
+        "inputSource": "NONE",
+        "coordinates": {
+          "position": {
+            "x": 15.5,
+            "y": 15.5
           }
         }
       },
