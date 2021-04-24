@@ -1,11 +1,9 @@
 package ooga.view.exceptions;
 
 import java.util.Arrays;
-import java.util.Stack;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import ooga.view.language.api.LanguageService;
