@@ -24,17 +24,20 @@ public class JSONController implements GameStateController {
   private final UIController uiController;
   private final JSONDescriptionFactory jsonDescriptionFactory;
   private final HumanInputConsumerComposite compositeConsumer;
+  private Timeline animation;
 
   public JSONController(Stage primaryStage) {
     // instantiate composite input receiver
     this.compositeConsumer = new HumanInputConsumerComposite();
-
     this.uiController = new UIController(primaryStage, this, compositeConsumer);
     jsonDescriptionFactory = new JSONDescriptionFactory();
   }
 
   @Override
   public void startGame(GameStateObservationComposite rootObserver) {
+    if (animation != null) {
+      animation.stop();
+    }
     try {
       HumanInputManager player1 = new HumanInputManager(KeybindingType.PLAYER_1);
       HumanInputManager player2 = new HumanInputManager(KeybindingType.PLAYER_2);
@@ -58,7 +61,7 @@ public class JSONController implements GameStateController {
         pgs.step(TIMESTEP);
       }); //
       // TODO: remove grid from step parameter
-      Timeline animation = new Timeline();
+      this.animation = new Timeline();
       animation.setCycleCount(Timeline.INDEFINITE);
       animation.getKeyFrames().add(frame);
       animation.play();
