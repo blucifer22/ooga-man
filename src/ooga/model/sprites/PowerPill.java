@@ -63,4 +63,8 @@ public class PowerPill extends Sprite {
     return 0;
   }
 
+  @Override
+  public boolean mustBeConsumed() {
+    return true;
+  }
 }
