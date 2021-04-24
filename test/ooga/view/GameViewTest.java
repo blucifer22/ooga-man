@@ -6,8 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import ooga.view.audio.AudioService;
-import ooga.view.audio.ThemedAudioService;
-import ooga.view.internal_api.ViewStackManager;
+import ooga.view.exceptions.ExceptionService;
+import ooga.view.exceptions.GraphicalExceptionService;
+import ooga.view.internal_api.ViewStackService;
 import ooga.view.language.bundled.BundledLanguageService;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.serialized.SerializedThemeService;
@@ -21,7 +22,7 @@ public class GameViewTest extends CustomApplicationTest {
   private GameView gameView;
   private TestHarness testHarness;
 
-  private static class TestHarness implements ViewStackManager {
+  private static class TestHarness implements ViewStackService {
     private int unwindCount;
 
     @Override
@@ -45,9 +46,10 @@ public class GameViewTest extends CustomApplicationTest {
   public void reset() throws InterruptedException {
     syncFXRun(() -> {
       this.testHarness = new TestHarness();
-      ThemeService ts = new SerializedThemeService();
+      ExceptionService es = new GraphicalExceptionService();
+      ThemeService ts = new SerializedThemeService(es);
       AudioService as = new DoNothingAudioService();
-      ServiceProvider provider = new ServiceProvider(as, ts, new BundledLanguageService(), testHarness);
+      ServiceProvider provider = new ServiceProvider(es, as, ts, new BundledLanguageService(es), testHarness);
       this.gameView = new GameView(provider);
       this.primaryStage.setScene(new Scene(this.gameView.getRenderingNode(), 600, 600));
     });

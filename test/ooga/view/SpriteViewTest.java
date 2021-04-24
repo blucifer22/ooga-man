@@ -19,6 +19,8 @@ import ooga.model.api.SpriteEvent;
 import ooga.model.api.SpriteEvent.EventType;
 import ooga.model.api.SpriteObserver;
 import ooga.util.Vec2;
+import ooga.view.exceptions.ExceptionService;
+import ooga.view.exceptions.GraphicalExceptionService;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.serialized.SerializedThemeService;
 import ooga.view.views.components.SpriteView;
@@ -113,7 +115,8 @@ public class SpriteViewTest extends CustomApplicationTest {
   @BeforeEach
   public void reset() throws InterruptedException {
     syncFXRun(() -> {
-      ts = new SerializedThemeService();
+      ExceptionService es = new GraphicalExceptionService();
+      ts = new SerializedThemeService(es);
       size = new SimpleDoubleProperty(50);
       harness = new SpriteHarness();
       sv = new SpriteView(harness, ts, size);
