@@ -6,16 +6,19 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import ooga.view.exceptions.ExceptionService;
+import ooga.view.exceptions.UIServicedException;
 import ooga.view.theme.api.ThemeService;
 
 public class ThemedAudioService implements AudioService {
 
   private final ThemeService dataSource;
+  private final ExceptionService exceptionService;
   private final HashMap<String, HashSet<MediaPlayer>> activeAudio;
   private final HashMap<String, HashSet<MediaPlayer>> reusablePlayers;
 
-  public ThemedAudioService(ThemeService dataSource) {
+  public ThemedAudioService(ThemeService dataSource, ExceptionService exceptionService) {
     this.dataSource = dataSource;
+    this.exceptionService = exceptionService;
     this.activeAudio = new HashMap<>();
     this.reusablePlayers = new HashMap<>();
   }
@@ -109,7 +112,9 @@ public class ThemedAudioService implements AudioService {
         return mediaPlayer;
       } catch (Exception e) {
         // missing audio drivers on some operating systems lead to MediaPlayer instantiation failure
-        // TODO: handle exception
+        exceptionService.handleWarning(new UIServicedException("audioBadOS", System.getProperty(
+            "os.name"), soundIdentifier, singlePlayAudio.getSource(), dataSource.getTheme()
+            .getName()));
       }
     }
     return null;
