@@ -1,6 +1,9 @@
 package ooga.model;
 
 import java.io.IOException;
+import ooga.controller.HumanInputManager;
+import ooga.model.sprites.Sprite;
+import ooga.model.sprites.SwapClass;
 
 /**
  * The rules for Pac-Man: Adversarial Mode are given by
@@ -16,6 +19,28 @@ import java.io.IOException;
 public class PacmanGameStateAdversarial extends PacmanGameState {
 
   public static final int TOTAL_ROUNDS = 6;
+
+  @Override
+  public void initPacmanLevelFromJSON(String filepath, HumanInputManager player1,
+      HumanInputManager player2) throws IOException {
+    Sprite initGhost = null;
+    Sprite initPacman = null;
+    super.initPacmanLevelFromJSON(filepath, player1, player2);
+    for (Sprite sprite : getSprites()) {
+      if (sprite.getSwapClass() == SwapClass.GHOST){
+        initGhost = sprite;
+        break;
+      } else if (sprite.getSwapClass() == SwapClass.PACMAN){
+        initPacman = sprite;
+        break;
+      }
+    }
+    if (initGhost == null || initPacman == null){
+      throw new IllegalArgumentException("Ghost or Pac-Man sprites not found");
+    }
+    initGhost.setInputSource(player1);
+    initPacman.setInputSource(player2);
+  }
 
   /**
    * Defines the logic used to determine round end/next level.  Does nothing if conditions to end
