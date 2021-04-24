@@ -18,7 +18,6 @@ import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Ghost.GhostBehavior;
 import ooga.model.sprites.Inky;
 import ooga.model.sprites.PacMan;
-import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -52,7 +51,7 @@ public class GhostAITest {
     in.setTarget(pacMan);
     inky.setInputSource(in);
     inky.step(1 / 60., state);
-    Vec2 req = in.getRequestedDirection();
+    Vec2 req = in.getRequestedDirection(1/60.0);
     assertEquals(new Vec2(0, 0), req);
   }
 
@@ -66,7 +65,7 @@ public class GhostAITest {
     for (int k = 0; k < 481; k++) {
       clyde.step(1 / 60., state);
     }
-    Vec2 req = in.getRequestedDirection();
+    Vec2 req = in.getRequestedDirection(1/60.0);
     assertEquals(new Vec2(-1, 0), req);
   }
 
@@ -80,7 +79,7 @@ public class GhostAITest {
     for (int k = 0; k < 361; k++) {
       clyde.step(1 / 60., state);
     }
-    Vec2 req = in.getRequestedDirection();
+    Vec2 req = in.getRequestedDirection(1/60.0);
     assertEquals(new Vec2(-1, 0), req);
   }
 

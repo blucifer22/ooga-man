@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import ooga.model.InputSource;
 import ooga.model.PacmanGrid;
-import ooga.model.Tile;
 import ooga.model.TileCoordinates;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Ghost.GhostBehavior;
@@ -30,8 +30,10 @@ public class GhostAI implements InputSource {
 
   private final Ghost ghost;
   private final PacmanGrid pacmanGrid;
-  private final Map<GhostBehavior, Supplier<Vec2>> movementOptions = new HashMap<>();
+  private final Map<GhostBehavior, Function<Double, Vec2>> movementOptions = new HashMap<>();
   private Sprite target;
+  private double wiggleTime;
+  private static final double WIGGLE_PERIOD = 0.5; // 2 Hz oscillation
 
   public GhostAI(PacmanGrid grid, Sprite ghost) {
     this.pacmanGrid = grid;
@@ -42,6 +44,7 @@ public class GhostAI implements InputSource {
     movementOptions.put(GhostBehavior.EATEN, this::eatenBehavior);
     movementOptions.put(GhostBehavior.RUNAWAY, this::runawayBehavior);
     movementOptions.put(GhostBehavior.SCATTER, this::scatterBehavior);
+    wiggleTime = (0.25 * WIGGLE_PERIOD);
   }
 
   protected Sprite getTarget() {
@@ -61,17 +64,18 @@ public class GhostAI implements InputSource {
   }
 
   @Override
-  public Vec2 getRequestedDirection() {
+  public Vec2 getRequestedDirection(double dt) {
     if (target == null) {
       throw new IllegalArgumentException("AI has no Target");
     }
-    Supplier<Vec2> getAI = movementOptions.get(getGhost().getGhostBehavior());
-    return getAI.get();
+    Function<Double, Vec2> getAI = movementOptions.get(getGhost().getGhostBehavior());
+    return getAI.apply(dt);
   }
 
-  protected Vec2 waitBehavior() {
-    getGhost().setCurrentSpeed(0);
-    return Vec2.ZERO;
+  protected Vec2 waitBehavior(double dt) {
+    getGhost().setMovementSpeed(ghost.getDefaultMoveSpeed());
+    wiggleTime += dt;
+    return (int) (wiggleTime / (WIGGLE_PERIOD / 2)) % 2 == 1 ? Vec2.UP : Vec2.DOWN;
   }
 
   /**
@@ -79,7 +83,7 @@ public class GhostAI implements InputSource {
    *
    * @return
    */
-  protected Vec2 eatenBehavior() {
+  protected Vec2 eatenBehavior(double dt) {
     // TODO: Implement
     Vec2 currentTilePos = getGhost().getCoordinates().getTileCoordinates().toVec2();
     Vec2 homeTilePos = getGhost().getSpawn().getTileCoordinates().toVec2();
@@ -92,9 +96,9 @@ public class GhostAI implements InputSource {
    *
    * @return
    */
-  protected Vec2 runawayBehavior() {
+  protected Vec2 runawayBehavior(double dt) {
     // TODO: Implement
-    return scatterBehavior();
+    return scatterBehavior(dt);
   }
 
   /**
@@ -104,7 +108,7 @@ public class GhostAI implements InputSource {
    *
    * @return direction to queue for ghost to move to
    */
-  protected Vec2 scatterBehavior() {
+  protected Vec2 scatterBehavior(double dt) {
     double scatterProbability = 0.9;
     Vec2 ret = Vec2.ZERO;
     ArrayList<Vec2> randomVectorOptions = new ArrayList<>();
@@ -128,7 +132,7 @@ public class GhostAI implements InputSource {
    *
    * @return direction to queue for ghost to move to
    */
-  protected Vec2 chaseBehavior() {
+  protected Vec2 chaseBehavior(double dt) {
     Vec2 targetTilePos = getTarget().getCoordinates().getTileCoordinates().toVec2();
     Vec2 currentTilePos = getGhost().getCoordinates().getTileCoordinates().toVec2();
 

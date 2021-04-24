@@ -16,14 +16,15 @@ public class InkyAI extends GhostAI {
    *
    * @return direction to move the ghost
    */
+
   @Override
-  protected Vec2 chaseBehavior() {
+  protected Vec2 chaseBehavior(double dt) {
     Vec2 targetTilePos = getTarget().getCoordinates().getTileCoordinates().toVec2();
     Vec2 currentTilePos = getGhost().getCoordinates().getTileCoordinates().toVec2();
     if (currentTilePos.distance(targetTilePos) < 8) {
       return reduceDistance(targetTilePos, currentTilePos);
     } else {
-      return scatterBehavior();
+      return scatterBehavior(dt);
     }
   }
 }
