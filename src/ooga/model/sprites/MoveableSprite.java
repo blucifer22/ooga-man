@@ -1,14 +1,7 @@
 package ooga.model.sprites;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import ooga.model.InputSource;
-import ooga.model.PacmanGrid;
-import ooga.model.SpriteCoordinates;
-import ooga.model.Tile;
-import ooga.model.TileCoordinates;
+import ooga.model.*;
 import ooga.model.leveldescription.SpriteDescription;
-import ooga.model.sprites.animation.ObservableAnimation;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Vec2;
 
@@ -82,9 +75,10 @@ public abstract class MoveableSprite extends Sprite {
    * quickly.
    *
    * @param roundNumber current round of Pac-Man.
+   * @param state
    */
   @Override
-  public void adjustSpritePropertyWithLevel(int roundNumber) {
+  public void uponNewLevel(int roundNumber, MutableGameState state) {
     movementSpeed = Math.min(movementSpeed + 0.5 * roundNumber, UNIVERSAL_MAX_MOVEMENT_SPEED);
   }
 

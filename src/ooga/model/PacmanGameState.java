@@ -14,7 +14,6 @@ import ooga.model.leveldescription.GridDescription;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.LevelDescription;
 import ooga.model.leveldescription.SpriteDescription;
-import ooga.model.sprites.MoveableSprite;
 import ooga.model.sprites.Sprite;
 import ooga.model.sprites.SwapClass;
 import ooga.util.Clock;
@@ -115,6 +114,7 @@ public class PacmanGameState
     PacmanLevel level = loadLevelFromJSON(filepath);
 
     for (Sprite sprite : level.getSprites()) {
+      sprite.uponNewLevel(roundNumber, this);
       addSprite(sprite);
     }
     loadGrid(level.getGrid());
@@ -147,9 +147,7 @@ public class PacmanGameState
 
     PacmanLevel level = loadLevelFromJSON(jsonFileName);
     for (Sprite sprite : level.getSprites()) {
-      if (sprite.getSwapClass() == SwapClass.GHOST){
-        sprite.adjustSpritePropertyWithLevel(roundNumber);
-      }
+      sprite.uponNewLevel(roundNumber, this);
       addSprite(sprite);
     }
     loadGrid(level.getGrid());
