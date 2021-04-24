@@ -94,6 +94,7 @@ public class UIController implements MainMenuResponder, ViewStackManager {
   }
 
   private void showScene(Scene s, boolean addToStack) {
+    serviceProvider.audioService().stopAll();
     double oldWidth = primaryStage.getWidth();
     double oldHeight = primaryStage.getHeight();
     if(addToStack) {
@@ -103,15 +104,5 @@ public class UIController implements MainMenuResponder, ViewStackManager {
     this.primaryStage.setWidth(oldWidth);
     this.primaryStage.setHeight(oldHeight);
     redirectInput(s);
-    delayedAudioStop();
-  }
-
-  private void delayedAudioStop() {
-    (new Thread(() -> {
-      try {
-        Thread.sleep(2000);
-      } catch (InterruptedException ignored) { }
-      serviceProvider.audioService().stopAll();
-    })).start();
   }
 }
