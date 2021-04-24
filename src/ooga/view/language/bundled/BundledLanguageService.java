@@ -10,11 +10,14 @@ import java.util.TreeMap;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import ooga.view.exceptions.ExceptionService;
+import ooga.view.exceptions.UIServicedException;
 import ooga.view.language.api.LanguageSelectionService;
 import ooga.view.language.api.LanguageService;
 
 public class BundledLanguageService implements LanguageService, LanguageSelectionService {
 
+  private final ExceptionService exceptionService;
   private static final String DEFAULT_LANGUAGE_ROOT = "resources.languages/";
   private static final String DEFAULT_LANGUAGE = "english";
 
@@ -22,10 +25,11 @@ public class BundledLanguageService implements LanguageService, LanguageSelectio
   private final HashMap<String, StringProperty> strings;
   private String languageName;
 
-  public BundledLanguageService() {
+  public BundledLanguageService(ExceptionService exceptionService) {
     this.strings = new HashMap<>();
     this.availableLanguages = new TreeMap<>();
     this.loadDefaultLanguage();
+    this.exceptionService = exceptionService;
   }
 
   @Override
@@ -40,8 +44,15 @@ public class BundledLanguageService implements LanguageService, LanguageSelectio
   }
 
   private void updateAvailableLanguages() {
-    ResourceBundle languageManifest = ResourceBundle.getBundle(DEFAULT_LANGUAGE_ROOT + "manifest");
     availableLanguages.clear();
+
+    ResourceBundle languageManifest;
+    try {
+      languageManifest = ResourceBundle.getBundle(DEFAULT_LANGUAGE_ROOT + "manifest");
+    } catch (MissingResourceException e) {
+      exceptionService.handleFatalError(new UIServicedException("langManifestError"));
+      return;
+    }
 
     for (String key : languageManifest.keySet()) {
       availableLanguages.put(key, languageManifest.getString(key));
@@ -53,22 +64,22 @@ public class BundledLanguageService implements LanguageService, LanguageSelectio
   }
 
   private void updatePropertyValues(String languageName, boolean initial) {
-    ResourceBundle newLang = ResourceBundle.getBundle(DEFAULT_LANGUAGE_ROOT + "/" + languageName);
+    ResourceBundle newLang;
+
+    try {
+      newLang = ResourceBundle.getBundle(DEFAULT_LANGUAGE_ROOT + "/" + languageName);
+    } catch (MissingResourceException e) {
+      exceptionService.handleWarning(new UIServicedException("missingLangError", languageName));
+      return;
+    }
 
     if (!initial) {
       HashSet<String> keysToUpdate = new HashSet<>(strings.keySet());
       keysToUpdate.removeAll(newLang.keySet());
 
       if (!keysToUpdate.isEmpty()) {
-        try {
-          throw new IllegalArgumentException(String.format(newLang.getString("missingvalerror"),
-              languageName, keysToUpdate));
-        } catch (MissingResourceException e) {
-          // THIS VALUE MUST BE HARD-CODED: the EXCEPTION here is that resource bundle error
-          // messages are are missing
-          throw new IllegalArgumentException(String.format("Error while handling error: corrupted "
-              + "or incomplete resource bundle: %s.", languageName));
-        }
+        exceptionService.handleWarning(new UIServicedException("missingValError", languageName,
+            keysToUpdate.toString()));
       }
     }
 
@@ -82,18 +93,10 @@ public class BundledLanguageService implements LanguageService, LanguageSelectio
 
   @Override
   public ReadOnlyStringProperty getLocalizedString(String s) {
-    try {
-      if (!strings.containsKey(s)) {
-        throw new IllegalArgumentException(String.format(strings.get("missingvalerror").getValue(),
-            languageName, s));
-      }
-    } catch (MissingResourceException m) {
-      // THIS VALUE MUST BE HARD-CODED: the EXCEPTION here is that resource bundle error
-      // messages are are missing
-      throw new IllegalArgumentException(String.format("Error while handling error: corrupted "
-          + "or incomplete resource bundle: %s.", languageName));
+    if (!strings.containsKey(s)) {
+      strings.put(s, new SimpleStringProperty(""));
+      exceptionService.handleWarning(new UIServicedException("missingValError", languageName, s));
     }
-
     return strings.get(s);
   }
 }
