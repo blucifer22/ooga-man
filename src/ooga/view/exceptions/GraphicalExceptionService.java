@@ -12,6 +12,8 @@ import ooga.view.language.api.LanguageService;
 
 public class GraphicalExceptionService implements ExceptionService {
 
+  private static final String MUTE_WARNINGS_FALLBACK = "Mute Warnings";
+  private static final String MUTE_WARNINGS_TYPE_CODE = "U";
   private LanguageService languageService;
   private boolean mute;
 
@@ -52,11 +54,10 @@ public class GraphicalExceptionService implements ExceptionService {
       Platform.exit();
     } else if (!mute) {
       String muteButtonText = languageService != null ?
-          languageService.getLocalizedString("muteWarnings").get() : "Mute Warnings";
-      a.getButtonTypes().add(new ButtonType(!muteButtonText.equals("") ? muteButtonText : "Mute "
-          + "Warnings"));
+          languageService.getLocalizedString("muteWarnings").get() : MUTE_WARNINGS_FALLBACK;
+      a.getButtonTypes().add(new ButtonType(!muteButtonText.equals("") ? muteButtonText : MUTE_WARNINGS_FALLBACK));
       a.setOnCloseRequest(e -> {
-        if(a.getResult().getButtonData().getTypeCode().equals("U")) {
+        if(a.getResult().getButtonData().getTypeCode().equals(MUTE_WARNINGS_TYPE_CODE)) {
           mute = true;
         }
         a.close();
