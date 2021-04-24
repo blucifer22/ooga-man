@@ -15,12 +15,14 @@ public class ThemedAudioService implements AudioService {
   private final ExceptionService exceptionService;
   private final HashMap<String, HashSet<MediaPlayer>> activeAudio;
   private final HashMap<String, HashSet<MediaPlayer>> reusablePlayers;
+  private boolean disabled;
 
   public ThemedAudioService(ThemeService dataSource, ExceptionService exceptionService) {
     this.dataSource = dataSource;
     this.exceptionService = exceptionService;
     this.activeAudio = new HashMap<>();
     this.reusablePlayers = new HashMap<>();
+    this.disabled = false;
   }
 
   @Override
@@ -91,6 +93,10 @@ public class ThemedAudioService implements AudioService {
   }
 
   private MediaPlayer getMediaPlayerForSound(String soundIdentifier) {
+    if (disabled) {
+      return null;
+    }
+
     activeAudio.putIfAbsent(soundIdentifier, new HashSet<>());
     reusablePlayers.putIfAbsent(soundIdentifier, new HashSet<>());
 
@@ -115,6 +121,7 @@ public class ThemedAudioService implements AudioService {
         exceptionService.handleWarning(new UIServicedException("audioBadOS", System.getProperty(
             "os.name"), soundIdentifier, singlePlayAudio.getSource(), dataSource.getTheme()
             .getName()));
+        disabled = true;
       }
     }
     return null;
