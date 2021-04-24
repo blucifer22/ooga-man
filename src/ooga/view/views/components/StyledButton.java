@@ -12,8 +12,8 @@ public class StyledButton extends Button {
     this.setId("button-" + labelKey);
     this.textProperty().bind(serviceProvider.languageService().getLocalizedString(labelKey));
     this.setOnMouseClicked(e -> {
-      serviceProvider.audioService().playOnce("button-click");
       onClickHandler.handle(e);
+      serviceProvider.audioService().playOnce("button-click");
     });
   }
 }

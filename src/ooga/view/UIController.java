@@ -98,6 +98,7 @@ public class UIController implements MainMenuResponder, ViewStackService {
   }
 
   private void showScene(Scene s, boolean addToStack) {
+    serviceProvider.audioService().stopAll();
     double oldWidth = primaryStage.getWidth();
     double oldHeight = primaryStage.getHeight();
     if(addToStack) {
