@@ -12,23 +12,28 @@ import ooga.model.api.GridRebuildObserver;
 import ooga.model.api.ObservableGrid;
 import ooga.model.api.ObservableSprite;
 import ooga.model.api.SpriteExistenceObserver;
+import ooga.model.leveldescription.LevelBuilder;
 import ooga.view.internal_api.View;
 import ooga.view.theme.api.ThemedObject;
 import ooga.view.uiservice.UIServiceProvider;
 import ooga.view.views.components.IntegerLockedSlider;
 import ooga.view.views.components.StyledBoundLabel;
 import ooga.view.views.components.StyledButton;
+import ooga.view.views.components.levelbuilder.GridDimensionPalette;
 
-public class LevelBuilderView implements SpriteExistenceObserver, GridRebuildObserver, View,
-    ThemedObject {
+public class LevelBuilderView implements  View, ThemedObject {
+  private final LevelBuilder levelBuilder;
   private final UIServiceProvider serviceProvider;
   private final GameGridView tileGridView;
   private final GridPane primaryView;
 
-  public LevelBuilderView(UIServiceProvider serviceProvider) {
+  public LevelBuilderView(UIServiceProvider serviceProvider, LevelBuilder levelBuilder) {
     this.serviceProvider = serviceProvider;
+    this.levelBuilder = levelBuilder;
     this.tileGridView = new GameGridView(this.serviceProvider.themeService());
     this.primaryView = new GridPane();
+    this.levelBuilder.addGridRebuildObserver(tileGridView);
+    this.levelBuilder.addSpriteExistenceObserver(tileGridView);
 
     this.configureConstraints();
     this.renderViews();
@@ -48,19 +53,8 @@ public class LevelBuilderView implements SpriteExistenceObserver, GridRebuildObs
   }
 
   private void renderViews() {
-    Slider rowDim = new IntegerLockedSlider(5, 25, 15);
-    Slider colDim = new IntegerLockedSlider(5, 25, 15);
-
-    VBox paletteBox = new VBox(
-        new StyledBoundLabel(this.serviceProvider.languageService().getLocalizedString(
-            "dimensions"), "heading"),
-        new StyledBoundLabel(this.serviceProvider.languageService().getLocalizedString(
-            "rows"), "body"),
-        rowDim,
-        new StyledBoundLabel(this.serviceProvider.languageService().getLocalizedString(
-            "columns"), "body"),
-        colDim
-    );
+    GridDimensionPalette dimensionPalette = new GridDimensionPalette(this.serviceProvider,
+        this.levelBuilder);
 
     VBox buttonBox = new VBox(
         new StyledButton(this.serviceProvider, "next",
@@ -69,25 +63,10 @@ public class LevelBuilderView implements SpriteExistenceObserver, GridRebuildObs
             e -> this.serviceProvider.viewStackManager().unwind())
     );
 
-    this.primaryView.add(paletteBox, 0, 0);
+    this.primaryView.add(dimensionPalette, 0, 0);
     this.primaryView.add(buttonBox, 0, 1);
     this.primaryView.add(this.tileGridView.getRenderingNode(), 1, 0, 1, 2);
     this.primaryView.getStyleClass().add("view");
-  }
-
-  @Override
-  public void onGridRebuild(ObservableGrid grid) {
-    this.tileGridView.onGridRebuild(grid);
-  }
-
-  @Override
-  public void onSpriteCreation(ObservableSprite so) {
-    this.tileGridView.onSpriteCreation(so);
-  }
-
-  @Override
-  public void onSpriteDestruction(ObservableSprite so) {
-    this.tileGridView.onSpriteDestruction(so);
   }
 
   @Override

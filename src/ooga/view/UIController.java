@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import ooga.model.leveldescription.LevelBuilder;
 import ooga.view.audio.AudioService;
 import ooga.view.audio.ThemedAudioService;
 import ooga.view.exceptions.GraphicalExceptionService;
@@ -78,7 +79,9 @@ public class UIController implements MainMenuResponder, ViewStackService {
 
   @Override
   public void openLevelBuilder() {
-    showScene(new Scene(new LevelBuilderView(this.serviceProvider).getRenderingNode()), true);
+    LevelBuilder builder = new LevelBuilder();
+    showScene(new Scene(new LevelBuilderView(this.serviceProvider, builder).getRenderingNode()),
+        true);
   }
 
   @Override
