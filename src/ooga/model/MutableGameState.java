@@ -1,5 +1,7 @@
 package ooga.model;
 
+import ooga.model.api.PowerupEventObserver;
+import ooga.model.audio.AudioManager;
 import ooga.model.sprites.Sprite;
 
 import java.util.List;
@@ -30,9 +32,11 @@ public interface MutableGameState {
 
   Clock getClock();
 
-  void registerEventListener(Sprite listener);
+  void registerEventListener(PowerupEventObserver listener);
 
   void notifyPowerupListeners(PacmanPowerupEvent type);
 
   void isPacmanDead(boolean isPacmanDead);
+
+  AudioManager getAudioManager();
 }
