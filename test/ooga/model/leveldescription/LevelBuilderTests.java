@@ -104,11 +104,11 @@ public class LevelBuilderTests {
 
   @Test
   public void saveLevelToFile() throws IOException {
-    // Emulate the naming and DIMENSIONING phase of the level builder
+    // Emulate the naming and dimensioning phase of the level builder
     File testFile = new File("data/levels/test_level_builder.json");
     int dimension = 50;
     levelBuilder.setGridSize(dimension, dimension);
-    assertEquals(levelBuilder.getBuilderState(), BuilderState.DIMENSIONING);
+    assertEquals(levelBuilder.getBuilderState(), BuilderState.TILING);
     assertEquals(levelBuilder.getLevel().getGrid().getHeight(), 50);
     assertEquals(levelBuilder.getLevel().getGrid().getWidth(), 50);
 
@@ -122,7 +122,6 @@ public class LevelBuilderTests {
         levelBuilder.getLevel().getGrid().getTile(new TileCoordinates(10, 10)).getType(), "tile");
 
     // Advance the state to TILING and drop a couple of tiles on the grid
-    levelBuilder.advanceState();
     assertEquals(levelBuilder.getBuilderState(), BuilderState.TILING);
 
     // Test a centrally located Tile
@@ -196,15 +195,13 @@ public class LevelBuilderTests {
 
   @Test
   public void generateMaxSizeGrid() throws IOException {
-    // Emulate the naming and DIMENSIONING phase of the level builder
+    // Emulate the naming and dimensioning phase of the level builder
     File testFile = new File("data/levels/test_max_level_builder.json");
     int dimension = 28;
     levelBuilder.setGridSize(dimension, dimension);
-    assertEquals(levelBuilder.getBuilderState(), BuilderState.DIMENSIONING);
     assertEquals(levelBuilder.getLevel().getGrid().getHeight(), 28);
     assertEquals(levelBuilder.getLevel().getGrid().getWidth(), 28);
 
-    levelBuilder.advanceState();
     assertEquals(levelBuilder.getBuilderState(), BuilderState.TILING);
     levelBuilder.advanceState();
     assertEquals(levelBuilder.getBuilderState(), BuilderState.SPRITE_PLACEMENT);
