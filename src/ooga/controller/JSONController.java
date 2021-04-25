@@ -11,6 +11,7 @@ import ooga.model.PacmanGameStateChase;
 import ooga.model.Player;
 import ooga.model.api.GameStateObservationComposite;
 import ooga.model.leveldescription.JSONDescriptionFactory;
+import ooga.model.leveldescription.LevelDescription;
 import ooga.view.UIController;
 
 /**
@@ -26,6 +27,8 @@ public class JSONController implements GameStateController {
   private final JSONDescriptionFactory jsonDescriptionFactory;
   private final HumanInputConsumerComposite compositeConsumer;
   private Timeline animation;
+
+  private static final String FILEPATH = "data/levels/test_chase_level_2.json";
 
   public JSONController(Stage primaryStage) {
     // instantiate composite input receiver
@@ -45,24 +48,26 @@ public class JSONController implements GameStateController {
       compositeConsumer.clearConsumers();
       compositeConsumer.addConsumers(player1, player2);
 
-      //TODO: Implement a mode picker and file picker to handle mode-select and level-select
-      //PacmanGameState pgs = new PacmanGameState();
-      //PacmanGameStateChase pgs = new PacmanGameStateChase();
-      PacmanGameStateAdversarial pgs = new PacmanGameStateAdversarial();
+      LevelDescription description = jsonDescriptionFactory.getLevelDescriptionFromJSON(FILEPATH);
+      PacmanGameState pgs = switch (description.getGameMode()) {
+        case "CLASSIC" -> new PacmanGameState();
+        case "CHASE" -> new PacmanGameStateChase();
+        case "ADVERSARIAL" -> new PacmanGameStateAdversarial();
+        default -> throw new IllegalArgumentException("YOU HAVE AN INVALID GAME MODE!");
+      };
 
       pgs.addSpriteExistenceObserver(rootObserver.spriteExistenceObserver());
       pgs.addGridRebuildObserver(rootObserver.gridRebuildObserver());
       pgs.addAudioObserver(rootObserver.audioObserver());
       pgs.addGameStateObserver(rootObserver.gameStateObserver());
 
-      //pgs.initPacmanLevelFromJSON("data/levels/test_level_1.json", player1, player2);
-      //pgs.initPacmanLevelFromJSON("data/levels/test_chase_level_2.json", player1, player2);
-      pgs.initPacmanLevelFromJSON("data/levels/test_adversarial_level.json", player1, player2);
+      pgs.initPacmanLevelFromJSON(FILEPATH, player1, player2);
 
       pgs.setPlayers(new Player(1, player1), null);
 
+      PacmanGameState finalPgs = pgs;
       KeyFrame frame = new KeyFrame(Duration.seconds(TIMESTEP), e -> {
-        pgs.step(TIMESTEP);
+        finalPgs.step(TIMESTEP);
       }); //
       // TODO: remove grid from step parameter
       this.animation = new Timeline();
