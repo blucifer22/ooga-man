@@ -13,7 +13,7 @@ import ooga.util.Vec2;
  */
 public class Dot extends Sprite {
 
-  private int dotScoreIncrement = 1;
+  private int dotScoreIncrement = 10;
 
   public Dot(SpriteCoordinates position, Vec2 direction) {
     super("dot",

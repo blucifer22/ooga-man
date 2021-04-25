@@ -41,28 +41,27 @@ public class ConsumablesTest {
 
     pacMan.uponHitBy(cherry1, pgs);
     cherry1.uponHitBy(pacMan, pgs);
-    assertEquals(50, pgs.getScore());
+    assertEquals(100, pgs.getScore());
 
     pgs.broadcastEvent(GameEvent.POINT_BONUS_ACTIVATED);
     pacMan.uponHitBy(cherry2, pgs);
     cherry2.uponHitBy(pacMan, pgs);
-    assertEquals(150, pgs.getScore());
+    assertEquals(300, pgs.getScore());
   }
 
   @Test
   public void testPowerPillConsumption() {
-    // Assumes power pill does not increase points at the moment.
     PowerPill powerPill = new PowerPill(new SpriteCoordinates(new Vec2(0.5, 0.5)), new Vec2(-1, 0));
     pgs.addSprite(powerPill);
     pgs.registerEventListener(powerPill);
     pacMan.uponHitBy(powerPill, pgs);
     powerPill.uponHitBy(pacMan, pgs);
-    assertEquals(0, pgs.getScore());
+    assertEquals(50, pgs.getScore());
 
     pgs.broadcastEvent(GameEvent.POINT_BONUS_ACTIVATED);
     pacMan.uponHitBy(powerPill, pgs);
     powerPill.uponHitBy(pacMan, pgs);
-    assertEquals(0, pgs.getScore());
+    assertEquals(100, pgs.getScore());
   }
 
   @Test
@@ -72,11 +71,11 @@ public class ConsumablesTest {
     pgs.registerEventListener(dot);
     pacMan.uponHitBy(dot, pgs);
     dot.uponHitBy(pacMan, pgs);
-    assertEquals(1, pgs.getScore());
+    assertEquals(10, pgs.getScore());
 
     pgs.broadcastEvent(GameEvent.POINT_BONUS_ACTIVATED);
     pacMan.uponHitBy(dot, pgs);
     dot.uponHitBy(pacMan, pgs);
-    assertEquals(3, pgs.getScore());
+    assertEquals(30, pgs.getScore());
   }
 }
