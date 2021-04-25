@@ -91,11 +91,11 @@ public abstract class MoveableSprite extends Sprite {
 
   protected abstract boolean canMoveTo(Tile tile);
 
-  protected void unfreeze() {
+  public void unfreeze() {
     frozen = false;
   }
 
-  protected void freeze() {
+  public void freeze() {
     frozen = true;
   }
 
