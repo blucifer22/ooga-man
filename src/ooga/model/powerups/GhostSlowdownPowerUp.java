@@ -4,6 +4,9 @@ import java.util.Map;
 
 import static ooga.model.GameEvent.*;
 
+/**
+ * @author George Hong
+ */
 public class GhostSlowdownPowerUp extends TimerBasedPowerUp {
 
   public GhostSlowdownPowerUp() {

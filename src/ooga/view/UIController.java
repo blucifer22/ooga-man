@@ -1,11 +1,15 @@
 package ooga.view;
 
+import java.io.File;
 import java.util.Stack;
 import javafx.scene.Scene;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import ooga.view.audio.AudioService;
 import ooga.view.audio.ThemedAudioService;
 import ooga.view.exceptions.GraphicalExceptionService;
+import ooga.view.exceptions.UIServicedException;
 import ooga.view.internal_api.ViewStackService;
 import ooga.controller.GameStateController;
 import ooga.view.internal_api.MainMenuResponder;
@@ -87,6 +91,19 @@ public class UIController implements MainMenuResponder, ViewStackService {
     showScene(viewStack.pop(), false);
   }
 
+  public File requestUserFile(File initialDirectory) {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.getExtensionFilters().add(new ExtensionFilter("JSON Files (*.json)", "*.json"));
+    if (initialDirectory != null && initialDirectory.exists() && initialDirectory.isDirectory()) {
+      fileChooser.setInitialDirectory(initialDirectory);
+    }
+    return fileChooser.showOpenDialog(new Stage());
+  }
+
+  public void handleException(String exceptionKey) {
+    this.serviceProvider.exceptionService().handleWarning(new UIServicedException(exceptionKey));
+  }
+
   private void redirectInput(Scene s) {
     s.setOnKeyPressed(e -> inputConsumer.onKeyPress(e.getCode()));
     s.setOnKeyReleased(e -> inputConsumer.onKeyRelease(e.getCode()));
@@ -98,6 +115,7 @@ public class UIController implements MainMenuResponder, ViewStackService {
   }
 
   private void showScene(Scene s, boolean addToStack) {
+    gameController.pauseGame();
     serviceProvider.audioService().stopAll();
     double oldWidth = primaryStage.getWidth();
     double oldHeight = primaryStage.getHeight();

@@ -58,6 +58,10 @@ public class GridDescription extends JSONDescription {
     this.grid = tileList;
   }
 
+  public GridDescription(PacmanGrid grid) {
+    this("", grid.getWidth(), grid.getHeight(), grid.getAllTiles());
+  }
+
   /**
    * Get the name of this GridDescription.
    *

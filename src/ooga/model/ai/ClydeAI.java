@@ -4,6 +4,9 @@ import ooga.model.PacmanGrid;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 
+/**
+ * @author George Hong
+ */
 public class ClydeAI extends GhostAI {
 
   public ClydeAI(PacmanGrid grid, Sprite ghost) {

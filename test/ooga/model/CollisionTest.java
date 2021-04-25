@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import ooga.controller.HumanInputManager;
 import ooga.controller.KeybindingType;
+import ooga.model.ai.BlinkyAI;
+import ooga.model.ai.PacmanBFSAI;
+import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Dot;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.TeleporterOverlay;
@@ -43,6 +46,44 @@ public class CollisionTest {
     state.addSprite(dot);
     state.addSprite(otherDot);
     state.setPlayers(new Player(1, new HumanInputManager(KeybindingType.PLAYER_1)), null);
+  }
+
+  @Test
+  public void doubleCollision() {
+    /*
+    X X X X X X
+    X _ X X X X
+    X P _ _ _ X
+    X X X X X X
+     */
+    pacMan = new PacMan(new SpriteCoordinates(new Vec2(1.5, 2.5)), new Vec2(-1, 0), 5);
+    Blinky blinky1 = new Blinky(new SpriteCoordinates(new Vec2(1.5, 2.5)), new Vec2(-1, 0), 5);
+    Blinky blinky2 = new Blinky(new SpriteCoordinates(new Vec2(1.5, 2.5)), new Vec2(-1, 0), 5);
+    BlinkyAI ai = new BlinkyAI(grid, blinky1);
+    ai.addTarget(pacMan);
+    blinky1.setInputSource(ai);
+    blinky2.setInputSource(ai);
+
+
+    SeededTestInputSource pacmanAI = new SeededTestInputSource();
+    for (int k = 0; k < 300; k++) {
+      pacmanAI.addActions(new Vec2(0, 0));
+    }
+    pacMan.setInputSource(pacmanAI);
+//    PacmanBFSAI pacmanBFSAI = new PacmanBFSAI(grid, pacMan);
+//    pacmanBFSAI.addTarget(blinky1);
+//    pacmanBFSAI.addTarget(blinky2);
+//    pacMan.setInputSource(pacmanBFSAI);
+
+    state.addSprite(pacMan);
+    state.addSprite(blinky1);
+    state.addSprite(blinky2);
+
+    for (int k = 0; k < 240; k++) {
+      state.step(1 / 60.);
+    }
+    state.step(1 / 60.);
+    assertEquals(1, state.getSprites().size());
   }
 
   @Test

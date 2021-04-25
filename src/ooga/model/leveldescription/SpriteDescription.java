@@ -39,6 +39,10 @@ public class SpriteDescription extends JSONDescription {
     this.coordinates = coordinates;
   }
 
+  public SpriteDescription(Sprite sprite) {
+    this(sprite.getClass().getSimpleName(), sprite.getInputString(), sprite.getCoordinates());
+  }
+
   @JsonGetter
   public String getClassName() {
     return spriteClassName;

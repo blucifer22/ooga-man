@@ -29,7 +29,7 @@ public class LevelDescriptionTests {
   public void testLevelDescriptionConstructor() {
     String gridDescriptionPath = "data/levels/grids/test_grid.json";
     String spriteLayoutDescriptionPath = "data/levels/sprite-layouts/test_sprite_layout.json";
-    String levelName = "Test Level";
+    String gameMode = "CLASSIC";
     GridDescription gridDescription = null;
     SpriteLayoutDescription spriteLayoutDescription = null;
 
@@ -43,9 +43,9 @@ public class LevelDescriptionTests {
     }
 
     LevelDescription levelDescription =
-        new LevelDescription(levelName, gridDescription, spriteLayoutDescription);
+        new LevelDescription(gameMode, gridDescription, spriteLayoutDescription);
 
-    assertEquals(levelDescription.getLevelName(), levelName);
+    assertEquals(levelDescription.getGameMode(), gameMode);
     assertEquals(levelDescription.getGridDescription().getGridName(), "testGrid");
     assertEquals(spriteLayoutDescription.getSprites().get(0).getClassName(), "Blinky");
   }
@@ -54,7 +54,7 @@ public class LevelDescriptionTests {
   public void testLevelDescriptionJSON() {
     String gridDescriptionPath = "data/levels/grids/test_grid.json";
     String spriteLayoutDescriptionPath = "data/levels/sprite-layouts/test_sprite_layout.json";
-    String levelName = "Test Level";
+    String gameMode = "CLASSIC";
     GridDescription gridDescription = null;
     SpriteLayoutDescription spriteLayoutDescription = null;
 
@@ -68,9 +68,9 @@ public class LevelDescriptionTests {
     }
 
     LevelDescription levelDescription =
-        new LevelDescription(levelName, gridDescription, spriteLayoutDescription);
+        new LevelDescription(gameMode, gridDescription, spriteLayoutDescription);
 
-    assertEquals(levelDescription.getLevelName(), levelName);
+    assertEquals(levelDescription.getGameMode(), gameMode);
     assertEquals(levelDescription.getGridDescription().getGridName(), "testGrid");
     assertEquals(spriteLayoutDescription.getSprites().get(0).getClassName(), "Blinky");
 
@@ -85,7 +85,7 @@ public class LevelDescriptionTests {
       fail();
     }
 
-    assertEquals(levelDescriptionFromJSON.getLevelName(), levelName);
+    assertEquals(levelDescriptionFromJSON.getGameMode(), gameMode);
     assertEquals(
         levelDescriptionFromJSON.getGridDescription().getHeight(), gridDescription.getHeight());
     assertEquals(
@@ -100,7 +100,7 @@ public class LevelDescriptionTests {
 
     String gridDescriptionPath = "data/levels/grids/test_grid.json";
     String spriteLayoutDescriptionPath = "data/levels/sprite-layouts/test_sprite_layout.json";
-    String levelName = "Test Level";
+    String gameMode = "CLASSIC";
     GridDescription gridDescription = null;
     SpriteLayoutDescription spriteLayoutDescription = null;
 
@@ -120,7 +120,7 @@ public class LevelDescriptionTests {
       fail();
     }
 
-    assertEquals(levelDescription.getLevelName(), levelName);
+    assertEquals(levelDescription.getGameMode(), gameMode);
     assertEquals(levelDescription.getGridDescription().getHeight(), gridDescription.getHeight());
     assertEquals(
         levelDescription.getSpriteLayoutDescription().getSprites().size(),

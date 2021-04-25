@@ -6,6 +6,8 @@ import ooga.model.MutableGameState;
 /**
  * The Game Clock is designed for use with a game loop update system to keep track of the current
  * time and provides utility for events
+ *
+ * @author George Hong
  */
 public class Clock {
 
