@@ -47,6 +47,10 @@
   -fx-vgap: 10px;
 }
 
+.scoreboard {
+  -fx-hgap: 5px;
+}
+
 .card {
   -fx-background-color: linear-gradient(#ffa500aa, #f5dc00aa);
   -fx-background-radius: 5px;

@@ -56,6 +56,7 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
       this.view.getColumnConstraints().add(cc);
     }
     this.view.setHgap(5);
+    this.view.getStyleClass().add("scoreboard");
   }
 
   private void populateData() {
