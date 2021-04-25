@@ -148,7 +148,7 @@ public class GhostTests {
     for (int i=0; i < 10000; i++){
       pgs.step(DT);
     }
-    blinky.respondToPowerEvent(PacmanPowerupEvent.GHOST_SLOWDOWN_ACTIVATED);
+    blinky.onGameEvent(GameEvent.GHOST_SLOWDOWN_ACTIVATED);
     pgs.step(DT);
     assertEquals(defaultMoveSpeed * .5, blinky.getMovementSpeed());
 
