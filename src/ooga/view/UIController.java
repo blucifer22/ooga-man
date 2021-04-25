@@ -1,7 +1,10 @@
 package ooga.view;
 
+import java.io.File;
 import java.util.Stack;
 import javafx.scene.Scene;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import ooga.view.audio.AudioService;
 import ooga.view.audio.ThemedAudioService;
@@ -85,6 +88,15 @@ public class UIController implements MainMenuResponder, ViewStackService {
   @Override
   public void unwind() {
     showScene(viewStack.pop(), false);
+  }
+
+  public File requestUserFile(File initialDirectory) {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.getExtensionFilters().add(new ExtensionFilter("JSON Files (*.json)", "*.json"));
+    if (initialDirectory != null && initialDirectory.exists() && initialDirectory.isDirectory()) {
+      fileChooser.setInitialDirectory(initialDirectory);
+    }
+    return fileChooser.showOpenDialog(new Stage());
   }
 
   private void redirectInput(Scene s) {

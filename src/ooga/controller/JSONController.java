@@ -1,5 +1,6 @@
 package ooga.controller;
 
+import java.io.File;
 import java.io.IOException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -39,6 +40,8 @@ public class JSONController implements GameStateController {
       animation.stop();
     }
     try {
+      File levelFile = uiController.requestUserFile(new File("data/levels"));
+
       HumanInputManager player1 = new HumanInputManager(KeybindingType.PLAYER_1);
       HumanInputManager player2 = new HumanInputManager(KeybindingType.PLAYER_2);
       compositeConsumer.clearConsumers();
