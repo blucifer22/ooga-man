@@ -43,7 +43,6 @@ public abstract class Ghost extends MoveableSprite {
     currentState = INITIAL_STATE;
     defaultMoveSpeed = speed;
     ghostClock = new Clock();
-    ghostClock.addTimer(new Timer(getInitialWaitTime(), this::waitTimerExpired));
 
     powerupOptions.putAll(Map
         .of(GameEvent.FRIGHTEN_ACTIVATED, this::activateFrightened,
@@ -59,7 +58,11 @@ public abstract class Ghost extends MoveableSprite {
                   default -> currentState;
                 });
             },
-            GameEvent.PACMAN_DEATH, () -> freeze()
+            GameEvent.PACMAN_DEATH, () -> freeze(),
+            GameEvent.SPRITES_UNFROZEN, () -> {
+                  ghostClock.addTimer(new Timer(getInitialWaitTime(), this::waitTimerExpired));
+                  unfreeze();
+                }
             ));
 
     forceAnimationUpdate = false;
@@ -120,11 +123,7 @@ public abstract class Ghost extends MoveableSprite {
     ghostClock.reset();
     changeState(GhostState.WAIT);
     unfreeze();
-    ghostClock.addTimer(new Timer(getInitialWaitTime(), state -> {
-      if (getGhostBehavior() == GhostBehavior.WAIT) {
-        changeState(GhostState.CHASE);
-      }
-    }));
+    ghostClock.addTimer(new Timer(getInitialWaitTime(), this::waitTimerExpired));
   }
 
   // TODO: Delete "protected" to make Ghost classes package private
