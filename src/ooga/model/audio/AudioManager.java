@@ -92,10 +92,6 @@ public class AudioManager implements GameEventObserver {
   public void stopAmbience() {
     if(currentAmbience != null)
       forEachObserver(obs -> obs.onStop(currentAmbience));
-  }
-
-  @Override
-  protected void finalize() throws Throwable {
-    stopAmbience();
+    currentAmbience = null;
   }
 }
