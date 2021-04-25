@@ -1,23 +1,14 @@
 package ooga.view.views.sceneroots;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
-import ooga.model.api.GridRebuildObserver;
-import ooga.model.api.ObservableGrid;
-import ooga.model.api.ObservableSprite;
-import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.leveldescription.LevelBuilder;
 import ooga.view.internal_api.View;
 import ooga.view.theme.api.ThemedObject;
 import ooga.view.uiservice.UIServiceProvider;
-import ooga.view.views.components.IntegerLockedSlider;
-import ooga.view.views.components.StyledBoundLabel;
 import ooga.view.views.components.StyledButton;
 import ooga.view.views.components.levelbuilder.GridDimensionPalette;
 
