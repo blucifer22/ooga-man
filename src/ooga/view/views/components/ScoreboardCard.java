@@ -3,8 +3,11 @@ package ooga.view.views.components;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.TreeMap;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.StringBinding;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Node;
@@ -32,14 +35,6 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
     public void update(ImmutablePlayer p) {
       scoreProperty.set(p.getScore());
       winProperty.set(p.getRoundWins());
-    }
-
-    public ReadOnlyIntegerProperty scoreProperty() {
-      return this.scoreProperty;
-    }
-
-    public ReadOnlyIntegerProperty winProperty() {
-      return this.winProperty;
     }
   }
 
@@ -72,7 +67,7 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
     int numPlayers = this.dataSource.getPlayers().size();
     for (int i = 0; i < numPlayers; i++) {
       RowConstraints rc = new RowConstraints();
-      rc.setPercentHeight(100.0/(numPlayers+1.0));
+      rc.setPercentHeight(100.0/(numPlayers+4.0));
       this.view.getRowConstraints().add(rc);
     }
     for (int i = 0; i < NUM_COLS; i++) {
@@ -80,30 +75,33 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
       cc.setPercentWidth(100.0/(NUM_COLS));
       this.view.getColumnConstraints().add(cc);
     }
+    this.view.setHgap(5);
   }
 
   private void populateData() {
-    this.view.add(new Label("PLAYER"), 0, 0);
-    this.view.add(new Label("SCORE"), 1, 0);
-    this.view.add(new Label("WINS"), 2, 0);
+    ReadOnlyStringProperty roundNum = stringFor("roundNumber");
+    StringBinding roundBinding = Bindings.createStringBinding(() ->
+        String.format(roundNum.get(), roundProperty.get()), roundNum, roundProperty);
+    this.view.add(new StyledBoundLabel(roundBinding, "heading"), 0, 0, NUM_COLS, 1);
+
+    ReadOnlyStringProperty livesRemaining = stringFor("livesRemaining");
+    StringBinding livesBinding = Bindings.createStringBinding(() ->
+        String.format(livesRemaining.get(), livesProperty.get()), livesRemaining, livesProperty);
+    this.view.add(new StyledBoundLabel(livesBinding, "heading"), 0, 1, NUM_COLS, 1);
+
+    this.view.add(new Label(), 0, 2, NUM_COLS, 1);
+
+    this.view.add(new StyledBoundLabel(stringFor("player") , "heading"), 0, 3);
+    this.view.add(new StyledBoundLabel(stringFor("score"), "heading"), 1, 3);
+    this.view.add(new StyledBoundLabel(stringFor("wins"), "heading"), 2, 3);
 
     for (ImmutablePlayer p: dataSource.getPlayers()) {
-      int rowNum = p.getID();
+      int rowNum = p.getID()+3;
       PlayerDataBindingContainer container = dataBindingContainers.get(p.getID());
-      this.view.add(new Label(String.format("%d", p.getID())), 0, rowNum);
-
-      Label score = new Label();
-      score.textProperty().bind(container.scoreProperty().asString("%d"));
-      this.view.add(score, 1, rowNum);
-
-      Label roundWins = new Label();
-      roundWins.textProperty().bind(container.winProperty().asString("%d"));
-      this.view.add(roundWins, 2, rowNum);
+      this.view.add(new StyledBoundLabel(new SimpleIntegerProperty(p.getID()).asString(), "body"), 0, rowNum);
+      this.view.add(new StyledBoundLabel(container.scoreProperty.asString(), "body"), 1, rowNum);
+      this.view.add(new StyledBoundLabel(container.winProperty.asString(), "body"), 2, rowNum);
     }
-
-    Label livesRemaining = new Label();
-    livesRemaining.textProperty().bind(livesProperty.asString("%d LIVES REMAINING"));
-    this.view.add(livesRemaining, 0, dataSource.getPlayers().size()+1, NUM_COLS, 1);
   }
 
   private void refresh() {
@@ -112,6 +110,10 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
     }
     livesProperty.setValue(dataSource.getPacmanLivesRemaining());
     roundProperty.setValue(dataSource.getRoundNumber());
+  }
+
+  private ReadOnlyStringProperty stringFor(String key) {
+    return this.serviceProvider.languageService().getLocalizedString(key);
   }
 
   /**
