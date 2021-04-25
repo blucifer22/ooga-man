@@ -109,12 +109,31 @@ public class LevelBuilderTests {
     assertEquals(levelBuilder.getLevel().getGrid().getHeight(), 50);
     assertEquals(levelBuilder.getLevel().getGrid().getWidth(), 50);
 
+    // Check that an edge Tile starts out blocked
+    assertEquals(
+        levelBuilder.getLevel().getGrid().getTile(new TileCoordinates(0, 0)).getType(),
+        "tileclosed");
+
+    // Check that a central Tile starts out empty
+    assertEquals(
+        levelBuilder.getLevel().getGrid().getTile(new TileCoordinates(10, 10)).getType(),
+        "tile");
+
     // Advance the state to TILING and drop a couple of tiles on the grid
     levelBuilder.advanceState();
     assertEquals(levelBuilder.getBuilderState(), BuilderState.TILING);
+
+    // Test a centrally located Tile
     levelBuilder.pokeTile(10, 10);
     assertEquals(
         levelBuilder.getLevel().getGrid().getTile(new TileCoordinates(10, 10)).getType(),
+        "tilepermeable");
+    assertEquals(levelBuilder.getBuilderState(), BuilderState.TILING);
+
+    // Test another centrally located Tile
+    levelBuilder.pokeTile(30, 40);
+    assertEquals(
+        levelBuilder.getLevel().getGrid().getTile(new TileCoordinates(30, 40)).getType(),
         "tilepermeable");
   }
 }

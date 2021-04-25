@@ -192,10 +192,9 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
     for (int y = 0; y < height; y++) {
       List<Tile> outputRow = new ArrayList<>();
       for (int x = 0; x < width; x++) {
-        boolean notBorderTile = x != 0 && y != 0 && x != width - 1 && y != height - 1;
-        boolean openTile = notBorderTile;
-        String tileName = notBorderTile ? "tile" : "tileclosed";
-        outputRow.add(new Tile(new TileCoordinates(x, y), tileName, openTile, openTile));
+        boolean borderTile = x == 0 || y == 0 || x == (width - 1) || y == (height -1);
+        String tileName = borderTile ? "tileclosed" : "tile";
+        outputRow.add(new Tile(new TileCoordinates(x, y), tileName, !borderTile, !borderTile));
       }
       tileList.add(outputRow);
     }
