@@ -17,7 +17,7 @@ import ooga.util.Vec2;
  */
 public class Cherry extends Sprite {
 
-  private int cherryScoreIncrement = 50;
+  private int cherryScoreIncrement = 100;
   private boolean isEdible = true;
 
   public Cherry(SpriteCoordinates position, Vec2 direction) {
