@@ -198,11 +198,11 @@ public class LevelBuilderTests {
   public void generateMaxSizeGrid() throws IOException {
     // Emulate the naming and DIMENSIONING phase of the level builder
     File testFile = new File("data/levels/test_max_level_builder.json");
-    int dimension = 25;
+    int dimension = 28;
     levelBuilder.setGridSize(dimension, dimension);
     assertEquals(levelBuilder.getBuilderState(), BuilderState.DIMENSIONING);
-    assertEquals(levelBuilder.getLevel().getGrid().getHeight(), 25);
-    assertEquals(levelBuilder.getLevel().getGrid().getWidth(), 25);
+    assertEquals(levelBuilder.getLevel().getGrid().getHeight(), 28);
+    assertEquals(levelBuilder.getLevel().getGrid().getWidth(), 28);
 
     levelBuilder.advanceState();
     assertEquals(levelBuilder.getBuilderState(), BuilderState.TILING);
