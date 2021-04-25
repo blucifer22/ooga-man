@@ -177,13 +177,10 @@ public abstract class Ghost extends MoveableSprite {
   // TODO: Add other animations for: FRIGHTENED_WAIT, FRIGHTENED_WAIT_BLINKING, and FRIGHTENED_BLINKING
   private static GhostAnimationType stateToAnimationType(GhostState currentState) {
     return switch (currentState) {
-      case WAIT -> GhostAnimationType.ANIM_NORMAL;
-      case FRIGHTENED_WAIT -> GhostAnimationType.ANIM_FRIGHTENED;
-      case FRIGHTENED_WAIT_BLINKING -> GhostAnimationType.ANIM_FRIGHTENED_BLINKING;
-      case FRIGHTENED -> GhostAnimationType.ANIM_FRIGHTENED;
-      case FRIGHTENED_BLINKING -> GhostAnimationType.ANIM_FRIGHTENED_BLINKING;
+      case WAIT, CHASE -> GhostAnimationType.ANIM_NORMAL;
+      case FRIGHTENED_WAIT, FRIGHTENED -> GhostAnimationType.ANIM_FRIGHTENED;
+      case FRIGHTENED_WAIT_BLINKING, FRIGHTENED_BLINKING -> GhostAnimationType.ANIM_FRIGHTENED_BLINKING;
       case EATEN -> GhostAnimationType.ANIM_EYES;
-      case CHASE -> GhostAnimationType.ANIM_NORMAL;
     };
   }
 
