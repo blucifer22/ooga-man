@@ -119,7 +119,6 @@ public abstract class Ghost extends MoveableSprite {
         changeState(GhostState.CHASE);
       }
     }));
-    forceAnimationUpdate = false;
   }
 
   // TODO: Delete "protected" to make Ghost classes package private
