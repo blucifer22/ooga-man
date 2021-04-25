@@ -42,7 +42,7 @@ public class SpriteAnimationFactory {
     CHERRY_STILL(true, "still", 1),
     GAME_OVER_FLASH(false, "game_over", 2, 1.0 / 4.0, FrameOrder.SAWTOOTH),
     PACMAN_WIN_FLASH(false, "pacman_win", 2, 1.0 / 4.0, FrameOrder.SAWTOOTH),
-    GHOST_WIN_FLASH(false, "ghost_win", 2, 1.0 / 4.0, FrameOrder.SAWTOOTH),
+    GHOST_WIN_FLASH(false, "ghosts_win", 2, 1.0 / 4.0, FrameOrder.SAWTOOTH),
     BLANK(false, "blank", 1);
 
     private static final double DEFAULT_FRAME_PERIOD = 1.0 / 8.0;

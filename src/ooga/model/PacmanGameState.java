@@ -23,6 +23,8 @@ import ooga.model.leveldescription.LevelDescription;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.Sprite;
 import ooga.model.sprites.status.GameOver;
+import ooga.model.sprites.status.GhostWin;
+import ooga.model.sprites.status.PacmanWin;
 import ooga.util.Clock;
 import ooga.util.Vec2;
 
@@ -523,5 +525,27 @@ public class PacmanGameState
 
   protected void setToDelete(Set<Sprite> toDelete) {
     this.toDelete = toDelete;
+  }
+
+  protected void showPacmanWin() {
+    setGameOver(true);
+    getToDelete().addAll(getSprites());
+    getSprites().forEach(this::notifySpriteDestruction);
+    addSprite(
+        new PacmanWin(
+            new SpriteCoordinates(
+                new Vec2(getGrid().getWidth() / 2.0, getGrid().getHeight() / 2.0)),
+            new Vec2(1, 0)));
+  }
+
+  protected void showGhostWin() {
+    setGameOver(true);
+    getToDelete().addAll(getSprites());
+    getSprites().forEach(this::notifySpriteDestruction);
+    addSprite(
+        new GhostWin(
+            new SpriteCoordinates(
+                new Vec2(getGrid().getWidth() / 2.0, getGrid().getHeight() / 2.0)),
+            new Vec2(1, 0)));
   }
 }

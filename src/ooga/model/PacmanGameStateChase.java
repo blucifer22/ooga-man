@@ -56,25 +56,11 @@ public class PacmanGameStateChase extends PacmanGameState {
     if (getClock().getTime() >= TIME_LIMIT) {
       System.out.println("PACMAN RAN AWAY!!!");
       // TODO: PRESENT LOSE SCREEN
-      setGameOver(true);
-      getToDelete().addAll(getSprites());
-      getSprites().forEach(this::notifySpriteDestruction);
-      addSprite(
-          new PacmanWin(
-              new SpriteCoordinates(
-                  new Vec2(getGrid().getWidth() / 2.0, getGrid().getHeight() / 2.0)),
-              new Vec2(1, 0)));
+      showPacmanWin();
     } else if (isPacmanDead()) {
       // TODO: PRESENT WIN SCREEN
       System.out.println("PACMAN WAS EATEN!!!!");
-      setGameOver(true);
-      getToDelete().addAll(getSprites());
-      getSprites().forEach(this::notifySpriteDestruction);
-      addSprite(
-          new GhostWin(
-              new SpriteCoordinates(
-                  new Vec2(getGrid().getWidth() / 2.0, getGrid().getHeight() / 2.0)),
-              new Vec2(1, 0)));
+      showGhostWin();
     }
   }
 }
