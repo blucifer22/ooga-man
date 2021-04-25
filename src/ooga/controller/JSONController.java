@@ -52,9 +52,7 @@ public class JSONController implements GameStateController {
    */
   @Override
   public void startGame(GameStateObservationComposite rootObserver) {
-    if (animation != null) {
-      animation.stop();
-    }
+    pauseGame();
     try {
       File levelFile = uiController.requestUserFile(new File("data/levels"));
       if (levelFile == null || !levelFile.exists() || !levelFile.isFile()) {
@@ -93,6 +91,13 @@ public class JSONController implements GameStateController {
       animation.play();
     } catch (Exception e) {
       uiController.handleException(e.getMessage());
+    }
+  }
+
+  @Override
+  public void pauseGame() {
+    if (animation != null) {
+      animation.stop();
     }
   }
 }
