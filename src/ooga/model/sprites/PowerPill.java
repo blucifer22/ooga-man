@@ -20,6 +20,7 @@ public class PowerPill extends Sprite {
   public PowerPill(SpriteCoordinates position, Vec2 direction) {
     super("powerpill", SpriteAnimationFactory.SpriteAnimationType.POWER_PILL_BLINK, position,
         direction);
+    setSwapClass(SwapClass.NONE);
     powerUpFactory = new PowerUpFactory();
   }
 

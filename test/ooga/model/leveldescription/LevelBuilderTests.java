@@ -10,6 +10,7 @@ import java.util.List;
 import ooga.model.Tile;
 import ooga.model.TileCoordinates;
 import ooga.model.leveldescription.LevelBuilder.BuilderState;
+import ooga.model.sprites.SwapClass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -116,24 +117,49 @@ public class LevelBuilderTests {
 
     // Check that a central Tile starts out empty
     assertEquals(
-        levelBuilder.getLevel().getGrid().getTile(new TileCoordinates(10, 10)).getType(),
-        "tile");
+        levelBuilder.getLevel().getGrid().getTile(new TileCoordinates(10, 10)).getType(), "tile");
 
     // Advance the state to TILING and drop a couple of tiles on the grid
     levelBuilder.advanceState();
     assertEquals(levelBuilder.getBuilderState(), BuilderState.TILING);
 
     // Test a centrally located Tile
-    levelBuilder.pokeTile(10, 10);
+    levelBuilder.select(10, 10);
     assertEquals(
         levelBuilder.getLevel().getGrid().getTile(new TileCoordinates(10, 10)).getType(),
         "tilepermeable");
     assertEquals(levelBuilder.getBuilderState(), BuilderState.TILING);
 
     // Test another centrally located Tile
-    levelBuilder.pokeTile(30, 40);
+    levelBuilder.select(30, 40);
     assertEquals(
         levelBuilder.getLevel().getGrid().getTile(new TileCoordinates(30, 40)).getType(),
         "tilepermeable");
+
+    // Test an edge Tile
+    levelBuilder.select(0, 0);
+    assertEquals(
+        levelBuilder.getLevel().getGrid().getTile(new TileCoordinates(0, 0)).getType(), "tile");
+
+    // Advance the state to SPRITE_PLACEMENT and place some Sprites using the Palette
+    levelBuilder.advanceState();
+    assertEquals(levelBuilder.getBuilderState(), BuilderState.SPRITE_PLACEMENT);
+
+    // Add a PacMan to an empty Tile
+    levelBuilder.getPalette().setActiveSprite("PacMan");
+    levelBuilder.select(1, 1);
+    assertEquals(levelBuilder.getLevel().getSprites().get(0).getSwapClass(), SwapClass.PACMAN);
+
+    // Add a Blinky to another empty Tile
+    levelBuilder.getPalette().setActiveSprite("Blinky");
+    levelBuilder.select(10, 30);
+    assertEquals(levelBuilder.getLevel().getSprites().get(1).getSwapClass(), SwapClass.GHOST);
+
+    // Add a bunch of Dots to the same Tile
+    levelBuilder.getPalette().setActiveSprite("Dot");
+    for(int i = 0; i < 15; i++) {
+      levelBuilder.select(20, 25);
+      assertEquals(levelBuilder.getLevel().getSprites().get(i + 2).getSwapClass(), SwapClass.NONE);
+    }
   }
 }
