@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import ooga.view.audio.AudioService;
 import ooga.view.audio.ThemedAudioService;
 import ooga.view.exceptions.GraphicalExceptionService;
+import ooga.view.exceptions.UIServicedException;
 import ooga.view.internal_api.ViewStackService;
 import ooga.controller.GameStateController;
 import ooga.view.internal_api.MainMenuResponder;
@@ -97,6 +98,10 @@ public class UIController implements MainMenuResponder, ViewStackService {
       fileChooser.setInitialDirectory(initialDirectory);
     }
     return fileChooser.showOpenDialog(new Stage());
+  }
+
+  public void handleException(String exceptionKey) {
+    this.serviceProvider.exceptionService().handleWarning(new UIServicedException(exceptionKey));
   }
 
   private void redirectInput(Scene s) {
