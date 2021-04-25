@@ -15,7 +15,6 @@ import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.LevelDescription;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.Sprite;
-import ooga.model.sprites.SwapClass;
 import ooga.util.Clock;
 
 /**
@@ -36,7 +35,7 @@ public class PacmanGameState
   public static final int STARTING_LIVE_COUNT = 3;
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
-  private final Set<PowerupEventObserver> pacmanPowerupObservers;
+  private final Set<GameEventObserver> pacmanPowerupObservers;
   private final Set<GameStateObserver> pacmanGameStateObservers;
 
   private final List<Sprite> sprites;
@@ -426,7 +425,7 @@ public class PacmanGameState
    * @param listener
    */
   @Override
-  public void registerEventListener(PowerupEventObserver listener) {
+  public void registerEventListener(GameEventObserver listener) {
     pacmanPowerupObservers.add(listener);
   }
 
@@ -436,9 +435,9 @@ public class PacmanGameState
    * @param type
    */
   @Override
-  public void notifyPowerupListeners(PacmanPowerupEvent type) {
-    for (PowerupEventObserver observer : pacmanPowerupObservers) {
-      observer.respondToPowerEvent(type);
+  public void broadcastEvent(GameEvent type) {
+    for (GameEventObserver observer : pacmanPowerupObservers) {
+      observer.onGameEvent(type);
     }
   }
 

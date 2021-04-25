@@ -8,7 +8,7 @@ import java.util.Set;
 
 import ooga.model.*;
 import ooga.model.api.ObservableSprite;
-import ooga.model.api.PowerupEventObserver;
+import ooga.model.api.GameEventObserver;
 import ooga.model.api.SpriteEvent;
 import ooga.model.api.SpriteObserver;
 import ooga.model.leveldescription.SpriteDescription;
@@ -25,14 +25,14 @@ import static ooga.model.api.SpriteEvent.EventType.*;
  *
  * @author George Hong
  */
-public abstract class Sprite implements ObservableSprite, PowerupEventObserver, AnimationObserver {
+public abstract class Sprite implements ObservableSprite, GameEventObserver, AnimationObserver {
 
   private final SpriteAnimationFactory animationFactory;
   private final SpriteCoordinates initialPosition;
   private final Vec2 initialDirection;
   protected SwapClass swapClass;
   protected InputSource inputSource;
-  protected Map<PacmanPowerupEvent, Runnable> powerupOptions = new HashMap<>();
+  protected Map<GameEvent, Runnable> powerupOptions = new HashMap<>();
   protected InputSource defaultInputSource;
   protected String inputString;
   private SpriteCoordinates position;
@@ -310,7 +310,7 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
   public abstract int getScore();
 
   @Override
-  public final void respondToPowerEvent(PacmanPowerupEvent event){
+  public final void onGameEvent(GameEvent event){
     if (powerupOptions.containsKey(event)){
       powerupOptions.get(event).run();
     }

@@ -21,8 +21,8 @@ public class PacMan extends MoveableSprite {
         position, direction, speed);
     swapClass = SwapClass.PACMAN;
     powerupOptions = Map
-        .of(PacmanPowerupEvent.SPEED_UP_ACTIVATED, this::activateSpeedUp,
-            PacmanPowerupEvent.SPEED_UP_DEACTIVATED, this::deactivateSpeedUp);
+        .of(GameEvent.SPEED_UP_ACTIVATED, this::activateSpeedUp,
+            GameEvent.SPEED_UP_DEACTIVATED, this::deactivateSpeedUp);
     dotsEaten = 0;
   }
 

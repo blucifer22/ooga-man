@@ -1,7 +1,7 @@
 package ooga.model.powerups;
 
+import ooga.model.GameEvent;
 import ooga.model.MutableGameState;
-import ooga.model.PacmanPowerupEvent;
 import ooga.util.Timer;
 
 import java.util.Map;
@@ -9,9 +9,9 @@ import java.util.Map;
 abstract class TimerBasedPowerUp implements PowerUp {
 
   protected static final double DEFAULT_POWERUP_DURATION = 9.0;
-  private final Map<Double, PacmanPowerupEvent> eventSchedule;
+  private final Map<Double, GameEvent> eventSchedule;
 
-  public TimerBasedPowerUp(Map<Double, PacmanPowerupEvent> schedule) {
+  public TimerBasedPowerUp(Map<Double, GameEvent> schedule) {
     eventSchedule = schedule;
   }
 
@@ -23,7 +23,7 @@ abstract class TimerBasedPowerUp implements PowerUp {
             entry ->
                 state.getClock()
                     .addTimer(new Timer(entry.getKey(),
-                        (pgs) -> state.notifyPowerupListeners(entry.getValue())))
+                        (pgs) -> state.broadcastEvent(entry.getValue())))
         );
   }
 }

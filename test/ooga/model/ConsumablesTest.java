@@ -43,7 +43,7 @@ public class ConsumablesTest {
     cherry1.uponHitBy(pacMan, pgs);
     assertEquals(50, pgs.getScore());
 
-    pgs.notifyPowerupListeners(PacmanPowerupEvent.POINT_BONUS_ACTIVATED);
+    pgs.broadcastEvent(GameEvent.POINT_BONUS_ACTIVATED);
     pacMan.uponHitBy(cherry2, pgs);
     cherry2.uponHitBy(pacMan, pgs);
     assertEquals(150, pgs.getScore());
@@ -59,7 +59,7 @@ public class ConsumablesTest {
     powerPill.uponHitBy(pacMan, pgs);
     assertEquals(0, pgs.getScore());
 
-    pgs.notifyPowerupListeners(PacmanPowerupEvent.POINT_BONUS_ACTIVATED);
+    pgs.broadcastEvent(GameEvent.POINT_BONUS_ACTIVATED);
     pacMan.uponHitBy(powerPill, pgs);
     powerPill.uponHitBy(pacMan, pgs);
     assertEquals(0, pgs.getScore());
@@ -74,7 +74,7 @@ public class ConsumablesTest {
     dot.uponHitBy(pacMan, pgs);
     assertEquals(1, pgs.getScore());
 
-    pgs.notifyPowerupListeners(PacmanPowerupEvent.POINT_BONUS_ACTIVATED);
+    pgs.broadcastEvent(GameEvent.POINT_BONUS_ACTIVATED);
     pacMan.uponHitBy(dot, pgs);
     dot.uponHitBy(pacMan, pgs);
     assertEquals(3, pgs.getScore());

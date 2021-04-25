@@ -1,14 +1,14 @@
 package ooga.model.audio;
 
-import ooga.model.PacmanPowerupEvent;
+import ooga.model.GameEvent;
 import ooga.model.api.AudioObserver;
-import ooga.model.api.PowerupEventObserver;
+import ooga.model.api.GameEventObserver;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Consumer;
 
-public class AudioManager implements PowerupEventObserver {
+public class AudioManager implements GameEventObserver {
   private Collection<AudioObserver> observers;
   private String currentAmbience = null;
   private String oldAmbience = null;
@@ -53,7 +53,7 @@ public class AudioManager implements PowerupEventObserver {
   }
 
   @Override
-  public void respondToPowerEvent(PacmanPowerupEvent event) {
+  public void onGameEvent(GameEvent event) {
     switch(event) {
       case FRIGHTEN_ACTIVATED -> {
         frightenDepth++;
