@@ -7,6 +7,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import ooga.model.api.ObservableSprite;
+import ooga.model.api.ObservableTile;
 import ooga.model.leveldescription.LevelBuilder;
 import ooga.model.leveldescription.Palette;
 import ooga.view.internal_api.View;
@@ -17,7 +19,7 @@ import ooga.view.views.components.StyledBoundLabel;
 import ooga.view.views.components.StyledButton;
 import ooga.view.views.components.levelbuilder.GridDimensionPalette;
 
-public class LevelBuilderView implements  View, ThemedObject {
+public class LevelBuilderView implements View, ThemedObject {
   private final StackPane stageSwapPanel;
   private final Palette spritePalette;
   private final LevelBuilder levelBuilder;
@@ -31,6 +33,9 @@ public class LevelBuilderView implements  View, ThemedObject {
     this.levelBuilder = levelBuilder;
     this.spritePalette = spritePalette;
     this.tileGridView = new GameGridView(this.serviceProvider.themeService());
+    this.tileGridView.setOnSpriteClicked(this::onSpriteClick);
+    this.tileGridView.setOnTileClicked(this::onTileClick);
+
     this.primaryView = new GridPane();
     this.levelBuilder.addGridRebuildObserver(tileGridView);
     this.levelBuilder.addSpriteExistenceObserver(tileGridView);
@@ -99,5 +104,13 @@ public class LevelBuilderView implements  View, ThemedObject {
     if (stylesheet != null) {
       this.primaryView.getStylesheets().add(stylesheet);
     }
+  }
+
+  private void onSpriteClick(ObservableSprite sprite) {
+
+  }
+
+  private void onTileClick(ObservableTile tile) {
+    levelBuilder.pokeTile(tile.getCoordinates().getX(), tile.getCoordinates().getY());
   }
 }
