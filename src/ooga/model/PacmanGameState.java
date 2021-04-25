@@ -48,17 +48,15 @@ public class PacmanGameState
   private final Set<GameStateObserver> pacmanGameStateObservers;
 
   private final List<Sprite> sprites;
-  private final Set<Sprite> toDelete;
   private final Clock clock;
+  private final AudioManager audioManager;
+  private Set<Sprite> toDelete;
   private PacmanGrid grid;
   private Player pacmanPlayer;
   private Player ghostsPlayer;
   private HumanInputManager player1;
   private HumanInputManager player2;
   private String jsonFileName;
-
-  private AudioManager audioManager;
-
   private int pacmanLivesRemaining;
   private boolean isPacmanDead;
   private int roundNumber;
@@ -509,5 +507,21 @@ public class PacmanGameState
 
   public AudioManager getAudioManager() {
     return audioManager;
+  }
+
+  protected boolean isGameOver() {
+    return isGameOver;
+  }
+
+  protected void setGameOver(boolean gameOver) {
+    isGameOver = gameOver;
+  }
+
+  protected Set<Sprite> getToDelete() {
+    return toDelete;
+  }
+
+  protected void setToDelete(Set<Sprite> toDelete) {
+    this.toDelete = toDelete;
   }
 }
