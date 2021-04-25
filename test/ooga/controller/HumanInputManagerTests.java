@@ -54,17 +54,17 @@ public class HumanInputManagerTests {
   @Test
   public void testPressAndHoldAction() {
     // Press control, query isActionPressed() a few times, and then release
-    player1InputManager.onKeyPress(KeyCode.X);
+    player1InputManager.onKeyPress(KeyCode.Q);
     assertTrue(player1InputManager.isActionPressed());
     assertTrue(player1InputManager.isActionPressed());
-    player1InputManager.onKeyRelease(KeyCode.X);
+    player1InputManager.onKeyRelease(KeyCode.Q);
     assertFalse(player1InputManager.isActionPressed());
   }
 
   @Test
   public void testConcurrentMoveAndAction() {
     // Press control and the arrow keys
-    player1InputManager.onKeyPress(KeyCode.X);
+    player1InputManager.onKeyPress(KeyCode.Q);
     player1InputManager.onKeyPress(KeyCode.D);
     Vec2 ret = player1InputManager.getRequestedDirection(0.0);
     assertEquals(ret.getX(), 1);

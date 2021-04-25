@@ -22,9 +22,9 @@ public class Tile implements ObservableTile {
 
   private final TileCoordinates tileCoordinates;
   // TODO: allow for tile types to change
-  private final String tileType;
-  private final boolean isOpenToPacman;
-  private final boolean isOpenToGhosts;
+  private String tileType;
+  private boolean isOpenToPacman;
+  private boolean isOpenToGhosts;
   private final Map<EventType, Set<TileObserver>> observers;
 
   @JsonCreator
@@ -78,5 +78,17 @@ public class Tile implements ObservableTile {
       }
     }
 
+  }
+
+  public void setIsOpenToGhosts(Boolean bool) {
+    isOpenToGhosts = bool;
+  }
+
+  public void setIsOpenToPacman(Boolean bool) {
+    isOpenToPacman = bool;
+  }
+
+  public void setType(String nextTileType) {
+    tileType = nextTileType;
   }
 }

@@ -41,7 +41,7 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
             "RIGHT",
             KeyCode.D,
             "ACTION",
-            KeyCode.X);
+            KeyCode.Q);
     } else {
       keybinding =
         Map.of(

@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
+import ooga.model.sprites.Sprite;
 
 /**
  * SpriteLayoutDescription describes the initial layout of all sprites in a Level.

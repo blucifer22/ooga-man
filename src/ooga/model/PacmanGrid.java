@@ -72,4 +72,8 @@ public class PacmanGrid implements Iterable<Tile>, ObservableGrid {
   public Iterator<Tile> iterator() {
     return null;
   }
+
+  public List<List<Tile>> getAllTiles() {
+    return contents;
+  }
 }

@@ -7,10 +7,11 @@ import javafx.animation.Timeline;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import ooga.model.PacmanGameState;
+import ooga.model.PacmanGameStateAdversarial;
 import ooga.model.PacmanGameStateChase;
-import ooga.model.Player;
 import ooga.model.api.GameStateObservationComposite;
 import ooga.model.leveldescription.JSONDescriptionFactory;
+import ooga.model.leveldescription.LevelDescription;
 import ooga.view.UIController;
 
 /**
@@ -22,11 +23,19 @@ import ooga.view.UIController;
 public class JSONController implements GameStateController {
 
   private static final double TIMESTEP = 1.0 / 60.0;
+  private static final String FILEPATH = "data/levels/test_adversarial_level.json";
   private final UIController uiController;
   private final JSONDescriptionFactory jsonDescriptionFactory;
   private final HumanInputConsumerComposite compositeConsumer;
   private Timeline animation;
 
+  /**
+   * This is the primary constructor for the JSONController class, which is effectively the only
+   * middleware for the application. This controller requires a JavaFX Stage on which to act, and
+   * will then attach the appropriate observable components to it to instantiate a PacmanGameState.
+   *
+   * @param primaryStage The JavaFX Stage on which to create the new GameState.
+   */
   public JSONController(Stage primaryStage) {
     // instantiate composite input receiver
     this.compositeConsumer = new HumanInputConsumerComposite();
@@ -34,6 +43,14 @@ public class JSONController implements GameStateController {
     jsonDescriptionFactory = new JSONDescriptionFactory();
   }
 
+  /**
+   * This method is responsible for starting a new game of Pac-Man. The particular game mode is
+   * encoded within the JSON that encodes the specific level, and the appropriate PacmanGameState
+   * is constructed accordingly.
+   *
+   * @param rootObserver The root GameStateObservation object will monitor the currently live
+   *                     PacmanGameState
+   */
   @Override
   public void startGame(GameStateObservationComposite rootObserver) {
     if (animation != null) {
@@ -47,24 +64,23 @@ public class JSONController implements GameStateController {
       compositeConsumer.clearConsumers();
       compositeConsumer.addConsumers(player1, player2);
 
-      //TODO: Implement a mode picker and file picker to handle mode-select and level-select
-      PacmanGameState pgs = new PacmanGameState();
-      //PacmanGameStateChase pgs = new PacmanGameStateChase();
+      LevelDescription description = jsonDescriptionFactory.getLevelDescriptionFromJSON(FILEPATH);
+      final PacmanGameState pgs = switch (description.getGameMode()) {
+        case "CLASSIC" -> new PacmanGameState();
+        case "CHASE" -> new PacmanGameStateChase();
+        case "ADVERSARIAL" -> new PacmanGameStateAdversarial();
+        default -> throw new IllegalArgumentException("YOU HAVE AN INVALID GAME MODE!");
+      };
 
       pgs.addSpriteExistenceObserver(rootObserver.spriteExistenceObserver());
       pgs.addGridRebuildObserver(rootObserver.gridRebuildObserver());
       pgs.addAudioObserver(rootObserver.audioObserver());
       pgs.addGameStateObserver(rootObserver.gameStateObserver());
-
-      pgs.initPacmanLevelFromJSON("data/levels/test_level_1.json", player1, player2);
-      //pgs.initPacmanLevelFromJSON("data/levels/test_chase_level_2.json", player1, player2);
-
-
-      pgs.setPlayers(new Player(1, player1), null);
+      pgs.initPacmanLevelFromJSON(FILEPATH, player1, player2);
 
       KeyFrame frame = new KeyFrame(Duration.seconds(TIMESTEP), e -> {
         pgs.step(TIMESTEP);
-      }); //
+      });
       // TODO: remove grid from step parameter
       this.animation = new Timeline();
       animation.setCycleCount(Timeline.INDEFINITE);
@@ -75,6 +91,4 @@ public class JSONController implements GameStateController {
       System.err.println(e.getMessage());
     }
   }
-
-
 }

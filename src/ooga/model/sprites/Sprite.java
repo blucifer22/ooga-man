@@ -1,14 +1,20 @@
 package ooga.model.sprites;
 
+import static ooga.model.api.SpriteEvent.EventType.ROTATE;
+import static ooga.model.api.SpriteEvent.EventType.TRANSLATE;
+import static ooga.model.api.SpriteEvent.EventType.TYPE_CHANGE;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import ooga.model.*;
-import ooga.model.api.ObservableSprite;
+import ooga.model.GameEvent;
+import ooga.model.InputSource;
+import ooga.model.MutableGameState;
+import ooga.model.SpriteCoordinates;
 import ooga.model.api.GameEventObserver;
+import ooga.model.api.ObservableSprite;
 import ooga.model.api.SpriteEvent;
 import ooga.model.api.SpriteObserver;
 import ooga.model.leveldescription.SpriteDescription;
@@ -16,8 +22,6 @@ import ooga.model.sprites.animation.AnimationObserver;
 import ooga.model.sprites.animation.ObservableAnimation;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Vec2;
-
-import static ooga.model.api.SpriteEvent.EventType.*;
 
 /**
  * Sprites are things that exist on top of the grid, but are not pure UI elements such as score
@@ -30,11 +34,11 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
   private final SpriteAnimationFactory animationFactory;
   private final SpriteCoordinates initialPosition;
   private final Vec2 initialDirection;
-  protected SwapClass swapClass;
-  protected InputSource inputSource;
-  protected Map<GameEvent, Runnable> powerupOptions = new HashMap<>();
-  protected InputSource defaultInputSource;
-  protected String inputString;
+  private SwapClass swapClass;
+  private InputSource inputSource;
+  private Map<GameEvent, Runnable> powerupOptions = new HashMap<>();
+  private InputSource defaultInputSource;
+  private String inputString;
   private SpriteCoordinates position;
   private Vec2 direction;
   private Map<SpriteEvent.EventType, Set<SpriteObserver>> observers;
@@ -49,7 +53,8 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
    * @param position
    * @param direction
    */
-  protected Sprite(String spriteAnimationPrefix,
+  protected Sprite(
+      String spriteAnimationPrefix,
       SpriteAnimationFactory.SpriteAnimationType startingAnimation,
       SpriteCoordinates position,
       Vec2 direction) {
@@ -65,25 +70,21 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
     setCurrentAnimationType(startingAnimation);
   }
 
-  protected Sprite(String spriteAnimationPrefix,
+  protected Sprite(
+      String spriteAnimationPrefix,
       SpriteAnimationFactory.SpriteAnimationType startingAnimation,
       SpriteDescription description) {
-    this(spriteAnimationPrefix,
-        startingAnimation,
-        description.getCoordinates(),
-        new Vec2(1, 0));
+    this(spriteAnimationPrefix, startingAnimation, description.getCoordinates(), new Vec2(1, 0));
   }
 
-  protected Sprite(String spriteAnimationPrefix,
-      SpriteAnimationFactory.SpriteAnimationType startingAnimation) {
-    this(spriteAnimationPrefix,
-        startingAnimation,
-        new SpriteCoordinates(),
-        new Vec2(1, 0));
+  protected Sprite(
+      String spriteAnimationPrefix, SpriteAnimationFactory.SpriteAnimationType startingAnimation) {
+    this(spriteAnimationPrefix, startingAnimation, new SpriteCoordinates(), new Vec2(1, 0));
   }
 
   /**
    * Sprites can change properties based on the current round.
+   *
    * @param roundNumber
    * @param state
    */
@@ -92,8 +93,8 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
   }
 
   /**
-   * This method resets the Sprite to its initial configuration at the start of a level.  This
-   * method can be called to reset to the start of a new level.
+   * This method resets the Sprite to its initial configuration at the start of a level. This method
+   * can be called to reset to the start of a new level.
    */
   public void reset() {
     position = initialPosition;
@@ -107,17 +108,15 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
     }
   }
 
-  /**
-   * Removes the Sprite from the game
-   */
+  /** Removes the Sprite from the game */
   public void delete(MutableGameState state) {
     state.prepareRemove(this);
   }
 
   /**
    * Returns the type of this Sprite.
-   * <p>
-   * Cannot be overridden -- type changes must go through setCostumeIndex().
+   *
+   * <p>Cannot be overridden -- type changes must go through setCostumeIndex().
    *
    * @return Current costume type, as a string, like "pacman_halfopen".
    */
@@ -147,7 +146,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
   }
 
   protected void setCurrentAnimationType(SpriteAnimationFactory.SpriteAnimationType type) {
-    if(type != currentAnimationType) {
+    if (type != currentAnimationType) {
       setCurrentAnimation(getAnimationFactory().createAnimation(type));
       currentAnimationType = type;
     }
@@ -171,8 +170,8 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Translate this sprite to a new set of coordinates.
-   * <p>
-   * Notifies observers.
+   *
+   * <p>Notifies observers.
    *
    * @param c New position.
    */
@@ -217,7 +216,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
   }
 
   /**
-   * Allows a Sprite to detect all objects that reside in the same tile as it does.  Each of these
+   * Allows a Sprite to detect all objects that reside in the same tile as it does. Each of these
    * other Sprites is given the opportunity to respond to coming into contact with this Sprite.
    *
    * @param state
@@ -236,14 +235,14 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
    *
    * @param other other Sprite that this sprite collides with
    * @param state current state of the game, allowing Sprites to perform actions such as remove
-   *              themselves from the game or adjust the score
+   *     themselves from the game or adjust the score
    */
   public abstract void uponHitBy(Sprite other, MutableGameState state);
 
   /**
    * Adds an observer that will be notified whenever any of the subset of observedEvents occurs
    *
-   * @param so             observer object to add
+   * @param so observer object to add
    * @param observedEvents events that this observer listens for
    */
   public void addObserver(SpriteObserver so, SpriteEvent.EventType... observedEvents) {
@@ -287,31 +286,31 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
   }
 
   // TODO: Make not abstract to give a default
-  public boolean mustBeConsumed(){
+  public boolean mustBeConsumed() {
     return false;
-  };
+  }
 
-  public boolean isDeadlyToPacMan(){
+  public boolean isDeadlyToPacMan() {
     return false;
-  };
+  }
 
-  public boolean eatsGhosts(){
+  public boolean eatsGhosts() {
     return false;
-  };
+  }
 
-  public boolean isConsumable(){
+  public boolean isConsumable() {
     return true;
-  };
+  }
 
-  public boolean hasMultiplicativeScoring(){
+  public boolean hasMultiplicativeScoring() {
     return false;
-  };
+  }
 
   public abstract int getScore();
 
   @Override
-  public final void onGameEvent(GameEvent event){
-    if (powerupOptions.containsKey(event)){
+  public final void onGameEvent(GameEvent event) {
+    if (powerupOptions.containsKey(event)) {
       powerupOptions.get(event).run();
     }
   }
@@ -320,8 +319,16 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
     return swapClass;
   }
 
+  protected void setSwapClass(SwapClass swapClass) {
+    this.swapClass = swapClass;
+  }
+
   public InputSource getDefaultInputSource() {
     return defaultInputSource;
+  }
+
+  protected void setDefaultInputSource(InputSource defaultInputSource) {
+    this.defaultInputSource = defaultInputSource;
   }
 
   public boolean needsSwap() {
@@ -329,10 +336,14 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
   }
 
   public InputSource getInputSource() {
-    return null;
+    return inputSource;
   }
 
   public void setInputSource(InputSource s) {
+    if (getDefaultInputSource() == null) {
+      setDefaultInputSource(s);
+    }
+    inputSource = s;
   }
 
   public String getInputString() {
@@ -341,5 +352,13 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   public void setInputString(String inputString) {
     this.inputString = inputString;
+  }
+
+  protected Map<GameEvent, Runnable> getPowerupOptions() {
+    return powerupOptions;
+  }
+
+  protected void setPowerupOptions(Map<GameEvent, Runnable> powerupOptions) {
+    this.powerupOptions = powerupOptions;
   }
 }
