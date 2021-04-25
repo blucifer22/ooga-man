@@ -4,18 +4,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
-import java.io.IOException;
+import java.io.File;
 import java.util.List;
-import ooga.model.PacmanGameState;
-import ooga.model.PacmanLevel;
 import ooga.model.Tile;
 import ooga.model.TileCoordinates;
+import ooga.model.leveldescription.LevelBuilder.BuilderState;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class PaletteTest {
+/**
+ * A simple suite of tests for the LevelBuilder
+ *
+ * @author George Hong
+ * @author Marc Chmielewski
+ */
+public class LevelBuilderTests {
 
   private Palette palette;
   private LevelBuilder levelBuilder;
@@ -30,14 +34,7 @@ public class PaletteTest {
   public void loadKeysTest() {
     List<String> names = palette.getSpriteNames();
     String[] allNames = {
-        "Blinky",
-        "Inky",
-        "Clyde",
-        "Pinky",
-        "PacMan",
-        "Cherry",
-        "Dot",
-        "PowerPill"
+      "Blinky", "Inky", "Clyde", "Pinky", "PacMan", "Cherry", "Dot", "PowerPill"
     };
     for (String requiredName : allNames) {
       assertTrue(names.contains(requiredName));
@@ -76,7 +73,9 @@ public class PaletteTest {
   public void testPokeTile() {
     levelBuilder.setGridSize(5, 5);
     Tile tile = new Tile(new TileCoordinates(3, 3), "tileclosed", false, false);
-    levelBuilder.getLevel().getGrid()
+    levelBuilder
+        .getLevel()
+        .getGrid()
         .setTile(tile.getCoordinates().getX(), tile.getCoordinates().getY(), tile);
 
     List<String> tileOptions = List.of("tileclosed", "tile", "tilepermeable");
@@ -100,4 +99,22 @@ public class PaletteTest {
     }
   }
 
+  @Test
+  public void saveLevelToFile() {
+    // Emulate the naming and DIMENSIONING phase of the level builder
+    File testFile = new File("data/levels/test_level_builder.json");
+    int dimension = 50;
+    levelBuilder.setGridSize(dimension, dimension);
+    assertEquals(levelBuilder.getBuilderState(), BuilderState.DIMENSIONING);
+    assertEquals(levelBuilder.getLevel().getGrid().getHeight(), 50);
+    assertEquals(levelBuilder.getLevel().getGrid().getWidth(), 50);
+
+    // Advance the state to TILING and drop a couple of tiles on the grid
+    levelBuilder.advanceState();
+    assertEquals(levelBuilder.getBuilderState(), BuilderState.TILING);
+    levelBuilder.pokeTile(10, 10);
+    assertEquals(
+        levelBuilder.getLevel().getGrid().getTile(new TileCoordinates(10, 10)).getType(),
+        "tilepermeable");
+  }
 }

@@ -188,7 +188,6 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
    * @param width  width of the grid
    */
   public void setGridSize(int height, int width) {
-    PacmanGrid grid = new PacmanGrid(height, width);
     List<List<Tile>> tileList = new ArrayList<>();
     for (int y = 0; y < height; y++) {
       List<Tile> outputRow = new ArrayList<>();
@@ -200,6 +199,7 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
       }
       tileList.add(outputRow);
     }
+    PacmanGrid grid = new PacmanGrid(new GridDescription("", width, height, tileList));
     level.setGrid(grid);
   }
 
