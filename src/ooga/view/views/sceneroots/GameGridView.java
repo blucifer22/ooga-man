@@ -55,8 +55,7 @@ public class GameGridView implements View, GridRebuildObserver, SpriteExistenceO
     for (int row = 0; row < grid.getHeight(); row++) {
       for (int col = 0; col < grid.getWidth(); col++) {
         ObservableTile tile = grid.getTile(new TileCoordinates(col, row));
-        TileView tv = new TileView(tile, tileSize,
-            themeService);
+        TileView tv = new TileView(tile, tileSize, themeService);
         tileGrid.getChildren().add(tv.getRenderingNode());
         tv.getRenderingNode().setOnMouseClicked(e -> {
           if (tileClickHandler != null) {

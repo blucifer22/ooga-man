@@ -17,9 +17,12 @@ public class PowerPill extends Sprite {
 
   private final PowerUpFactory powerUpFactory;
 
+  private static final int POINT_VALUE = 50;
+
   public PowerPill(SpriteCoordinates position, Vec2 direction) {
     super("powerpill", SpriteAnimationFactory.SpriteAnimationType.POWER_PILL_BLINK, position,
         direction);
+    setSwapClass(SwapClass.NONE);
     powerUpFactory = new PowerUpFactory();
   }
 
@@ -53,11 +56,13 @@ public class PowerPill extends Sprite {
 
   @Override
   public int getScore() {
-    return 0;
+    return POINT_VALUE;
   }
 
   @Override
   public boolean mustBeConsumed() {
     return true;
   }
+
+
 }

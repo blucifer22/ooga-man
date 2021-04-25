@@ -81,7 +81,7 @@ public class LevelBuilderView implements View, ThemedObject {
     this.stageSwapPanel.getChildren().clear();
 
     Node paletteChild = switch(this.levelBuilder.getBuilderState()) {
-      case DIMENSIONING, TILING -> new GridDimensionPalette(this.serviceProvider,
+      case TILING -> new GridDimensionPalette(this.serviceProvider,
           this.levelBuilder);
       case SPRITE_PLACEMENT -> new LabeledComboBoxCard(this.serviceProvider, "sprites",
           this.spritePalette.getSpriteNames(), spritePalette::setActiveSprite);
@@ -120,7 +120,7 @@ public class LevelBuilderView implements View, ThemedObject {
     int tileY = tile.getCoordinates().getY();
 
     switch (builderState) {
-      case DIMENSIONING, TILING -> levelBuilder.pokeTile(tileX, tileY);
+      case TILING -> levelBuilder.pokeTile(tileX, tileY);
       case SPRITE_PLACEMENT -> levelBuilder.addSprite(tileX, tileY);
     }
   }

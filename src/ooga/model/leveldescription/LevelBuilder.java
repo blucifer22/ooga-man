@@ -43,7 +43,7 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
     level = new PacmanLevel();
     toDelete = new HashSet<>();
     palette = new Palette();
-    currentState = BuilderState.DIMENSIONING;
+    currentState = BuilderState.TILING;
     pacmanCount = 0;
   }
 
@@ -61,7 +61,6 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
    */
   public void advanceState() {
     switch (currentState) {
-      case DIMENSIONING -> currentState = BuilderState.TILING;
       case TILING -> currentState = BuilderState.SPRITE_PLACEMENT;
     }
   }
@@ -96,6 +95,7 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
    */
   public void writeToJSON(File file) throws IOException {
     LevelDescription levelDescription = new LevelDescription(level);
+    levelDescription.setGameMode("CLASSIC");
     levelDescription.toJSON(file.getPath());
   }
 
@@ -233,7 +233,6 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
   }
 
   public enum BuilderState {
-    DIMENSIONING,
     TILING,
     SPRITE_PLACEMENT,
   }
