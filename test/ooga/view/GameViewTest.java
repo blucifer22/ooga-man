@@ -62,7 +62,9 @@ public class GameViewTest extends CustomApplicationTest {
     assertEquals(0, testHarness.getUnwindCount());
     Button mainMenuButton = lookup("#button-mainMenu").queryButton();
     moveTo(mainMenuButton);
-    mainMenuButton.getOnMouseClicked().handle(null);
+    syncFXRun(() -> {
+      mainMenuButton.getOnMouseClicked().handle(null);
+    });
     assertEquals(1, testHarness.getUnwindCount());
   }
 }
