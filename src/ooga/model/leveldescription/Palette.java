@@ -11,6 +11,9 @@ import ooga.model.SpriteCoordinates;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 
+/**
+ * @author George Hong
+ */
 public class Palette {
 
   private final ResourceBundle bundle;
