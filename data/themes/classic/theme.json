@@ -334,17 +334,45 @@
       "bottomHeavy" : false,
       "rotates" : false
     },
+    "pacman_win_1" : {
+      "fill" : "themes/classic/images/general/pacman_win_1.png",
+      "imageFill" : true,
+      "scale" : 13,
+      "bottomHeavy" : false,
+      "rotates": false
+    },
+    "pacman_win_2" : {
+      "fill" : "themes/classic/images/general/pacman_win_2.png",
+      "imageFill" : true,
+      "scale" : 13,
+      "bottomHeavy" : false,
+      "rotates": false
+    },
+    "ghosts_win_1" : {
+      "fill" : "themes/classic/images/general/ghosts_win_1.png",
+      "imageFill" : true,
+      "scale" : 13,
+      "bottomHeavy" : false,
+      "rotates": false
+    },
+    "ghosts_win_2" : {
+      "fill" : "themes/classic/images/general/ghosts_win_2.png",
+      "imageFill" : true,
+      "scale" : 13,
+      "bottomHeavy" : false,
+      "rotates": false
+    },
     "game_over_1" : {
       "fill" : "themes/classic/images/general/game_over_1.png",
       "imageFill" : true,
-      "scale" : 11,
+      "scale" : 13,
       "bottomHeavy" : false,
       "rotates": false
     },
     "game_over_2" : {
       "fill" : "themes/classic/images/general/game_over_2.png",
       "imageFill" : true,
-      "scale" : 11,
+      "scale" : 13,
       "bottomHeavy" : false,
       "rotates": false
     }

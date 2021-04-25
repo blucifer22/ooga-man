@@ -46,17 +46,17 @@ public class JSONController implements GameStateController {
       compositeConsumer.addConsumers(player1, player2);
 
       //TODO: Implement a mode picker and file picker to handle mode-select and level-select
-//      PacmanGameState pgs = new PacmanGameState();
+      PacmanGameState pgs = new PacmanGameState();
       //PacmanGameStateChase pgs = new PacmanGameStateChase();
-      PacmanGameStateAdversarial pgs = new PacmanGameStateAdversarial();
+      //PacmanGameStateAdversarial pgs = new PacmanGameStateAdversarial();
 
       pgs.addSpriteExistenceObserver(rootObserver.spriteExistenceObserver());
       pgs.addGridRebuildObserver(rootObserver.gridRebuildObserver());
       pgs.addAudioObserver(rootObserver.audioObserver());
 
-      //pgs.initPacmanLevelFromJSON("data/levels/test_level_1.json", player1, player2);
+      pgs.initPacmanLevelFromJSON("data/levels/test_level_1.json", player1, player2);
       //pgs.initPacmanLevelFromJSON("data/levels/test_chase_level_2.json", player1, player2);
-      pgs.initPacmanLevelFromJSON("data/levels/test_adversarial_level.json", player1, player2);
+      //pgs.initPacmanLevelFromJSON("data/levels/test_adversarial_level.json", player1, player2);
 
       pgs.setPlayers(new Player(1, player1), null);
 
