@@ -58,6 +58,6 @@
   -fx-font-size: 20px;
 }
 
-.dropdown-label {
+.styled-label-dropdown-label {
   -fx-text-fill: white;
 }
