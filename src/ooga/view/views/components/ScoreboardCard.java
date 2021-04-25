@@ -68,7 +68,8 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
     ReadOnlyStringProperty livesRemaining = stringFor("livesRemaining");
     StringBinding livesBinding = Bindings.createStringBinding(() ->
         String.format(livesRemaining.get(), livesProperty.get()), livesRemaining, livesProperty);
-    this.view.add(new StyledBoundLabel(livesBinding, "heading"), 0, 1, NUM_COLS, 1);
+    this.view.add(new StyledBoundLabel(livesBinding, "heading", "scoreboard-lives"),
+        0, 1, NUM_COLS, 1);
 
     this.view.add(new Label(), 0, 2, NUM_COLS, 1);
 
@@ -79,11 +80,18 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
     for (ImmutablePlayer p : dataSource.getPlayers()) {
       int rowNum = p.getID() + 3;
       PlayerDataBindingContainer container = dataBindingContainers.get(p.getID());
-      this.view
-          .add(new StyledBoundLabel(new SimpleIntegerProperty(p.getID()).asString(), "body"), 0,
-              rowNum);
-      this.view.add(new StyledBoundLabel(container.scoreProperty.asString(), "body"), 1, rowNum);
-      this.view.add(new StyledBoundLabel(container.winProperty.asString(), "body"), 2, rowNum);
+      this.view.add(
+          new StyledBoundLabel(new SimpleIntegerProperty(p.getID()).asString(), "body",
+                  "scoreboard-player-"+p.getID()), 0, rowNum
+      );
+      this.view.add(
+          new StyledBoundLabel(container.scoreProperty.asString(), "body",
+              "scoreboard-score-"+p.getID()), 1, rowNum
+      );
+      this.view.add(
+          new StyledBoundLabel(container.winProperty.asString(), "body",
+              "scoreboard-score-"+p.getID()), 2, rowNum
+      );
     }
   }
 

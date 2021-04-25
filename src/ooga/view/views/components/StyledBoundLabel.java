@@ -11,9 +11,19 @@ public class StyledBoundLabel extends Label {
     style(labelClass);
   }
 
+  public StyledBoundLabel(StringBinding labelBinding, String labelClass, String id) {
+    this(labelBinding, labelClass);
+    this.setId("label-"+id);
+  }
+
   public StyledBoundLabel(ReadOnlyStringProperty labelProperty, String labelClass) {
     this.textProperty().bind(labelProperty);
     style(labelClass);
+  }
+
+  public StyledBoundLabel(ReadOnlyStringProperty labelProperty, String labelClass, String id) {
+    this(labelProperty, labelClass);
+    this.setId("label-"+id);
   }
 
   private void style(String labelClass) {
