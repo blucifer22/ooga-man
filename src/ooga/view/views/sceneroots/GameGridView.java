@@ -4,12 +4,15 @@ import java.util.HashMap;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import ooga.model.TileCoordinates;
 import ooga.model.api.GridRebuildObserver;
 import ooga.model.api.ObservableGrid;
 import ooga.model.api.ObservableSprite;
+import ooga.model.api.ObservableTile;
 import ooga.model.api.SpriteExistenceObserver;
 import ooga.view.internal_api.View;
 import ooga.view.theme.api.ThemeService;
@@ -30,6 +33,8 @@ public class GameGridView implements View, GridRebuildObserver, SpriteExistenceO
   private final Group spriteNodes;
   private final Pane primaryView;
   private final ThemeService themeService;
+  private SpriteClickHandler spriteClickHandler;
+  private TileClickHandler tileClickHandler;
 
   public GameGridView(ThemeService themeService) {
     this.primaryView = new Pane();
@@ -49,11 +54,25 @@ public class GameGridView implements View, GridRebuildObserver, SpriteExistenceO
   private void createTileGraphics(ObservableGrid grid) {
     for (int row = 0; row < grid.getHeight(); row++) {
       for (int col = 0; col < grid.getWidth(); col++) {
-        TileView tv = new TileView(grid.getTile(new TileCoordinates(col, row)), tileSize,
+        ObservableTile tile = grid.getTile(new TileCoordinates(col, row));
+        TileView tv = new TileView(tile, tileSize,
             themeService);
         tileGrid.getChildren().add(tv.getRenderingNode());
+        tv.getRenderingNode().setOnMouseClicked(e -> {
+          if (tileClickHandler != null) {
+            tileClickHandler.handle(tile);
+          }
+        });
       }
     }
+  }
+
+  public void setOnTileClicked(TileClickHandler tileClickHandler) {
+    this.tileClickHandler = tileClickHandler;
+  }
+
+  public void setOnSpriteClicked(SpriteClickHandler spriteClickHandler) {
+    this.spriteClickHandler = spriteClickHandler;
   }
 
   @Override
@@ -61,6 +80,9 @@ public class GameGridView implements View, GridRebuildObserver, SpriteExistenceO
     SpriteView createdSpriteView = new SpriteView(so, this.themeService, tileSize);
     spriteViews.put(so, createdSpriteView);
     spriteNodes.getChildren().add(createdSpriteView.getRenderingNode());
+    createdSpriteView.getRenderingNode().setOnMouseClicked(e -> {
+      spriteClickHandler.handle(so);
+    });
   }
 
   @Override
@@ -85,6 +107,16 @@ public class GameGridView implements View, GridRebuildObserver, SpriteExistenceO
   @Override
   public void onThemeChange() {
     // TODO: re-skin tiles!
+  }
+
+  @FunctionalInterface
+  public interface TileClickHandler {
+    void handle(ObservableTile tile);
+  }
+
+  @FunctionalInterface
+  public interface SpriteClickHandler {
+    void handle(ObservableSprite sprite);
   }
 
 }
