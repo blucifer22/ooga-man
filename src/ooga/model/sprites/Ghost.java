@@ -52,13 +52,13 @@ public abstract class Ghost extends MoveableSprite {
     ));
 
     powerupOptions = Map
-        .of(PacmanPowerupEvent.FRIGHTEN_ACTIVATED, this::activateFrightened,
-            PacmanPowerupEvent.FRIGHTEN_DEACTIVATED, this::deactivateFrightened,
-            PacmanPowerupEvent.GHOST_SLOWDOWN_ACTIVATED, () -> setMovementSpeed(getMovementSpeed() * 0.5),
-            PacmanPowerupEvent.GHOST_SLOWDOWN_DEACTIVATED, () -> setMovementSpeed(getMovementSpeed() * 2),
-            PacmanPowerupEvent.POINT_BONUS_ACTIVATED, () -> baseGhostScore *= 2,
-            PacmanPowerupEvent.POINT_BONUS_DEACTIVATED, () -> baseGhostScore *= 0.5,
-            PacmanPowerupEvent.FRIGHTEN_WARNING, () -> {
+        .of(GameEvent.FRIGHTEN_ACTIVATED, this::activateFrightened,
+            GameEvent.FRIGHTEN_DEACTIVATED, this::deactivateFrightened,
+            GameEvent.GHOST_SLOWDOWN_ACTIVATED, () -> setMovementSpeed(getMovementSpeed() * 0.5),
+            GameEvent.GHOST_SLOWDOWN_DEACTIVATED, () -> setMovementSpeed(getMovementSpeed() * 2),
+            GameEvent.POINT_BONUS_ACTIVATED, () -> baseGhostScore *= 2,
+            GameEvent.POINT_BONUS_DEACTIVATED, () -> baseGhostScore *= 0.5,
+            GameEvent.FRIGHTEN_WARNING, () -> {
               changeState(switch(currentState) {
                   case FRIGHTENED -> GhostState.FRIGHTENED_BLINKING;
                   case FRIGHTENED_WAIT -> GhostState.FRIGHTENED_WAIT_BLINKING;
@@ -119,7 +119,6 @@ public abstract class Ghost extends MoveableSprite {
         changeState(GhostState.CHASE);
       }
     }));
-    forceAnimationUpdate = false;
   }
 
   // TODO: Delete "protected" to make Ghost classes package private
