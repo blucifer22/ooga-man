@@ -31,11 +31,10 @@ public class LabeledComboboxCard extends StackPane {
 
   private void configure(UIServiceProvider serviceProvider, String labelBundleIdentifier,
       Map<String, String> options, OptionSelectionHandler selectionHandler) {
-    Label dropdownLabel = new Label();
-    dropdownLabel.textProperty()
-        .bind(serviceProvider.languageService().getLocalizedString(labelBundleIdentifier));
-    dropdownLabel.getStyleClass().add("dropdown-label");
-    dropdownLabel.setId(labelBundleIdentifier + "-select-label");
+    Label dropdownLabel = new StyledBoundLabel(
+        serviceProvider.languageService().getLocalizedString(labelBundleIdentifier),
+        "dropdown-label", labelBundleIdentifier+"-select-label"
+        );
 
     ArrayList<Pair<String, String>> dropdownOptions = new ArrayList<>();
     for (String key : options.keySet()) {
