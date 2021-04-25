@@ -28,6 +28,8 @@ import ooga.model.sprites.status.PacmanWin;
 import ooga.util.Clock;
 import ooga.util.Vec2;
 
+import static ooga.model.audio.AudioManager.NORMAL_AMBIENCE;
+
 /**
  * This class contains all the state of a in-progress pacman game and serves as the top-level class
  * in the model.
@@ -93,6 +95,7 @@ public class PacmanGameState
     clock.clear();
     clock.reset();
     getAudioManager().reset();
+    getAudioManager().setAmbience(NORMAL_AMBIENCE);
   }
 
   protected boolean isPacmanDead() {
@@ -208,6 +211,7 @@ public class PacmanGameState
     toDelete.addAll(sprites);
     sprites.forEach(this::notifySpriteDestruction);
     sprites.clear();
+    audioManager.stopAmbience();
   }
 
   protected void stepThroughSprites(double dt) {
