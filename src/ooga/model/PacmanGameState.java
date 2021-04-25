@@ -178,6 +178,7 @@ public class PacmanGameState
       // All Dots have been eaten
       checkProceedToNextLevel();
       handleSwaps();
+      notifyGameStateObservers();
     } else {
       System.out.println("GAME OVER!");
       // TODO: Implement game over score screen
