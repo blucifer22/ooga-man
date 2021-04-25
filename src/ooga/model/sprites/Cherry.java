@@ -35,8 +35,11 @@ public class Cherry extends Sprite {
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    if (other.eatsGhosts()){
+    if (other.eatsGhosts() && isConsumable()){
       isEdible = false;
+
+      state.getAudioManager().playSound("fruit-eaten");
+
       this.setCurrentAnimationType(SpriteAnimationType.BLANK);
       state.getClock().addTimer(new Timer(45, mutableGameState -> {
         isEdible = true;

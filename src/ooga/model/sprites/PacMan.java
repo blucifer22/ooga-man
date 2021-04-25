@@ -13,6 +13,7 @@ public class PacMan extends MoveableSprite {
 
   public static final String TYPE = "pacman_halfopen";
   private int ghostsEaten;
+  private int dotsEaten;
 
   public PacMan(SpriteCoordinates position, Vec2 direction, double speed) {
     super("pacman",
@@ -22,11 +23,12 @@ public class PacMan extends MoveableSprite {
     setPowerupOptions(Map
         .of(PacmanPowerupEvent.SPEED_UP_ACTIVATED, this::activateSpeedUp,
             PacmanPowerupEvent.SPEED_UP_DEACTIVATED, this::deactivateSpeedUp));
+    dotsEaten = 0;
   }
 
   public PacMan(SpriteDescription spriteDescription) {
     this(spriteDescription.getCoordinates(),
-        new Vec2(1, 0), 5.0);
+        new Vec2(1, 0), 6.4);
   }
 
   @Override
@@ -34,21 +36,43 @@ public class PacMan extends MoveableSprite {
     return tile.isOpenToPacman();
   }
 
+  private void applyScore(MutableGameState state, Sprite other) {
+    assert(other.isConsumable());
+
+    int pointsToAdd = 0;
+
+    if(other.hasMultiplicativeScoring()) {
+      ghostsEaten++;
+      pointsToAdd = other.getScore() * ghostsEaten;
+    } else {
+      pointsToAdd = other.getScore();
+    }
+
+    state.incrementScore(pointsToAdd);
+  }
+
+  private void playEatingSound(MutableGameState state, Sprite consumable) {
+    /*
+     * Some explanation: sounds of non-dots are handled by those
+     * objects, not pac-man. Dots need special handling since pacman
+     * must alternate between the two chomping noises -- each
+     * individual dot doesn't know which one to play.
+     */
+    if(!consumable.mustBeConsumed())
+      return;
+
+    state.getAudioManager().playSound("pacman-chomp" + ((dotsEaten++ % 2 == 0) ? "1" : "2"));
+  }
+
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
     if (other.isDeadlyToPacMan()) {
       state.isPacmanDead(true);
     } else if (other.isConsumable()) {
-      int pointsToAdd = 0;
+      applyScore(state, other);
 
-      if(other.hasMultiplicativeScoring()) {
-        ghostsEaten++;
-        pointsToAdd = other.getScore() * ghostsEaten;
-      } else {
-        pointsToAdd = other.getScore();
-      }
+      playEatingSound(state, other);
 
-      state.incrementScore(pointsToAdd);
       System.out.println("SCORE: " + state.getScore());
     }
   }
@@ -80,5 +104,12 @@ public class PacMan extends MoveableSprite {
   private void activateSpeedUp() {
     setMovementSpeed(getMovementSpeed() * 2);
     getCurrentAnimation().setRelativeSpeed(getCurrentAnimation().getRelativeSpeed() * 2);
+  }
+
+  @Override
+  public void uponNewLevel(int roundNumber, MutableGameState state) {
+    super.uponNewLevel(roundNumber, state);
+
+    state.getAudioManager().playSound("start-classic");
   }
 }

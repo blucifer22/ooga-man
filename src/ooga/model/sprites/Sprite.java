@@ -85,8 +85,9 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
   /**
    * Sprites can change properties based on the current round.
    * @param roundNumber
+   * @param state
    */
-  public void adjustSpritePropertyWithLevel(int roundNumber) {
+  public void uponNewLevel(int roundNumber, MutableGameState state) {
     // Does nothing (Overriden in specific child classes)
   }
 
