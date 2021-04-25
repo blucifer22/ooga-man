@@ -43,7 +43,6 @@ public class CollisionTest {
     state.addSprite(dot);
     state.addSprite(otherDot);
     state.setPlayers(new Player(1, new HumanInputManager(KeybindingType.PLAYER_1)), null);
-
   }
 
   @Test
@@ -53,6 +52,7 @@ public class CollisionTest {
     Vec2 direction = new Vec2(-1, 0);
     SpriteCoordinates spriteCoordinates = new SpriteCoordinates(position);
     pacMan = new PacMan(spriteCoordinates, direction, 11);
+    pacMan.unfreeze();
     state.addSprite(pacMan);
 
     List<Vec2> prepopulatedActions = new ArrayList<>();
@@ -88,6 +88,7 @@ public class CollisionTest {
     pacMan = new PacMan(spriteCoordinates, direction, 5);
     pacMan.setInputSource(input);
     state.addSprite(pacMan);
+    pacMan.unfreeze();
 
     TeleporterOverlay teleporter1 = new TeleporterOverlay(
         new SpriteCoordinates(new Vec2(1.5, 2.5)));
