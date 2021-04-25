@@ -21,6 +21,7 @@ import ooga.view.uiservice.ServiceProvider;
 import ooga.view.uiservice.UIPreferenceService;
 import ooga.view.uiservice.UIServiceProvider;
 import ooga.view.views.sceneroots.GameView;
+import ooga.view.views.sceneroots.LevelBuilderView;
 import ooga.view.views.sceneroots.MenuView;
 import ooga.view.views.sceneroots.PreferenceView;
 
@@ -77,7 +78,7 @@ public class UIController implements MainMenuResponder, ViewStackService {
 
   @Override
   public void openLevelBuilder() {
-    // TODO: implement level builder
+    showScene(new Scene(new LevelBuilderView(this.serviceProvider).getRenderingNode()), true);
   }
 
   @Override
