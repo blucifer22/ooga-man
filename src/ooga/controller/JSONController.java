@@ -6,6 +6,7 @@ import javafx.animation.Timeline;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import ooga.model.PacmanGameState;
+import ooga.model.PacmanGameStateAdversarial;
 import ooga.model.PacmanGameStateChase;
 import ooga.model.Player;
 import ooga.model.api.GameStateObservationComposite;
@@ -24,17 +25,20 @@ public class JSONController implements GameStateController {
   private final UIController uiController;
   private final JSONDescriptionFactory jsonDescriptionFactory;
   private final HumanInputConsumerComposite compositeConsumer;
+  private Timeline animation;
 
   public JSONController(Stage primaryStage) {
     // instantiate composite input receiver
     this.compositeConsumer = new HumanInputConsumerComposite();
-
     this.uiController = new UIController(primaryStage, this, compositeConsumer);
     jsonDescriptionFactory = new JSONDescriptionFactory();
   }
 
   @Override
   public void startGame(GameStateObservationComposite rootObserver) {
+    if (animation != null) {
+      animation.stop();
+    }
     try {
       HumanInputManager player1 = new HumanInputManager(KeybindingType.PLAYER_1);
       HumanInputManager player2 = new HumanInputManager(KeybindingType.PLAYER_2);
@@ -42,15 +46,17 @@ public class JSONController implements GameStateController {
       compositeConsumer.addConsumers(player1, player2);
 
       //TODO: Implement a mode picker and file picker to handle mode-select and level-select
-      PacmanGameState pgs = new PacmanGameState();
+//      PacmanGameState pgs = new PacmanGameState();
       //PacmanGameStateChase pgs = new PacmanGameStateChase();
+      PacmanGameStateAdversarial pgs = new PacmanGameStateAdversarial();
 
       pgs.addSpriteExistenceObserver(rootObserver.spriteExistenceObserver());
       pgs.addGridRebuildObserver(rootObserver.gridRebuildObserver());
+      pgs.addAudioObserver(rootObserver.audioObserver());
 
-      pgs.initPacmanLevelFromJSON("data/levels/test_level_1.json", player1, player2);
-      //pgs.initPacmanLevelFromJSON("data/levels/test_chase_level.json", player1, player2);
-
+      //pgs.initPacmanLevelFromJSON("data/levels/test_level_1.json", player1, player2);
+      //pgs.initPacmanLevelFromJSON("data/levels/test_chase_level_2.json", player1, player2);
+      pgs.initPacmanLevelFromJSON("data/levels/test_adversarial_level.json", player1, player2);
 
       pgs.setPlayers(new Player(1, player1), null);
 
@@ -58,7 +64,7 @@ public class JSONController implements GameStateController {
         pgs.step(TIMESTEP);
       }); //
       // TODO: remove grid from step parameter
-      Timeline animation = new Timeline();
+      this.animation = new Timeline();
       animation.setCycleCount(Timeline.INDEFINITE);
       animation.getKeyFrames().add(frame);
       animation.play();

@@ -2696,7 +2696,7 @@
       },
       {
         "className": "PacMan",
-        "inputSource": "PacmanBFSAI",
+        "inputSource": "PLAYER_1",
         "coordinates": {
           "position": {
             "x": 1.5,

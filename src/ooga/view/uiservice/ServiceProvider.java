@@ -1,25 +1,30 @@
 package ooga.view.uiservice;
 
 import ooga.view.audio.AudioService;
-import ooga.view.internal_api.ViewStackManager;
+import ooga.view.exceptions.ExceptionService;
+import ooga.view.internal_api.ViewStackService;
 import ooga.view.language.api.LanguageService;
 import ooga.view.theme.api.ThemeService;
 
 public class ServiceProvider implements UIServiceProvider {
 
+  private final ExceptionService exceptionService;
   private final ThemeService themeService;
   private final LanguageService languageService;
-  private final ViewStackManager viewStackManager;
+  private final ViewStackService viewStackService;
   private final AudioService audioService;
 
-  public ServiceProvider(AudioService audioService, ThemeService themeService,
-      LanguageService languageService, ViewStackManager viewStackManager) {
+  public ServiceProvider(ExceptionService exceptionService, AudioService audioService,
+      ThemeService themeService, LanguageService languageService,
+      ViewStackService viewStackService) {
+    this.exceptionService = exceptionService;
     this.audioService = audioService;
     this.themeService = themeService;
     this.languageService = languageService;
-    this.viewStackManager = viewStackManager;
+    this.viewStackService = viewStackService;
 
-    if (themeService == null || languageService == null || viewStackManager == null) {
+    if (exceptionService == null || audioService == null || themeService == null ||
+        languageService == null || viewStackService == null) {
       throw new NullPointerException();
     }
   }
@@ -27,6 +32,11 @@ public class ServiceProvider implements UIServiceProvider {
   @Override
   public AudioService audioService() {
     return this.audioService;
+  }
+
+  @Override
+  public ExceptionService exceptionService() {
+    return this.exceptionService;
   }
 
   @Override
@@ -40,7 +50,7 @@ public class ServiceProvider implements UIServiceProvider {
   }
 
   @Override
-  public ViewStackManager viewStackManager() {
-    return this.viewStackManager;
+  public ViewStackService viewStackManager() {
+    return this.viewStackService;
   }
 }

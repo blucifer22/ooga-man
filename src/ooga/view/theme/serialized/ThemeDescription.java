@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
 import java.util.Map;
 import ooga.model.leveldescription.JSONDescription;
+import ooga.view.exceptions.ExceptionService;
 import ooga.view.theme.api.Theme;
 
 public class ThemeDescription extends JSONDescription {
@@ -24,10 +25,6 @@ public class ThemeDescription extends JSONDescription {
     this.audioFilePaths = (audioFilePaths == null) ? new HashMap<>() : audioFilePaths;
     this.costumes = (costumes == null) ? new HashMap<>() : costumes;
     this.stylesheet = stylesheet;
-
-    if (name == null || stylesheet == null) {
-      throw new RuntimeException(); // theme failed to load
-    }
   }
 
   @JsonGetter("name")
@@ -50,7 +47,7 @@ public class ThemeDescription extends JSONDescription {
     return this.stylesheet;
   }
 
-  public Theme toTheme() {
-    return new SerializedTheme(this);
+  public Theme toTheme(ExceptionService exceptionService) {
+    return new SerializedTheme(this, exceptionService);
   }
 }

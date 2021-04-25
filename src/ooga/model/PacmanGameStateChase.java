@@ -18,7 +18,7 @@ import ooga.model.sprites.SwapClass;
  */
 public class PacmanGameStateChase extends PacmanGameState {
 
-  public static final int TIME_LIMIT = 30;
+  public static final int TIME_LIMIT = 45;
 
   /**
    * Initializes Pac-Man game state from a JSON file. Performs all of the AI/human input linkages
@@ -51,7 +51,7 @@ public class PacmanGameStateChase extends PacmanGameState {
     if (getClock().getTime() >= TIME_LIMIT) {
       System.out.println("PACMAN RAN AWAY!!!");
       // TODO: PRESENT LOSE SCREEN
-    } else if (isPacmanDead){
+    } else if (isPacmanDead()){
       // TODO: PRESENT WIN SCREEN
       System.out.println("PACMAN WAS EATEN!!!!");
     }

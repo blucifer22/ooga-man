@@ -15,6 +15,8 @@ import ooga.model.api.TileEvent;
 import ooga.model.api.TileEvent.EventType;
 import ooga.model.api.TileObserver;
 import ooga.util.Vec2;
+import ooga.view.exceptions.ExceptionService;
+import ooga.view.exceptions.GraphicalExceptionService;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.serialized.SerializedThemeService;
 import ooga.view.views.components.TileView;
@@ -39,7 +41,8 @@ public class TileViewTest extends CustomApplicationTest {
   @BeforeEach
   public void reset() throws InterruptedException {
     syncFXRun(() -> {
-      this.themeService = new SerializedThemeService();
+      ExceptionService es = new GraphicalExceptionService();
+      this.themeService = new SerializedThemeService(es);
       this.size = new SimpleDoubleProperty(50);
       this.testHarness = new TestHarness();
       this.tileView = new TileView(testHarness, size, themeService);

@@ -1,15 +1,13 @@
 package ooga.view.theme.serialized;
 
 import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import ooga.view.exceptions.ExceptionService;
+import ooga.view.exceptions.UIServicedException;
 import ooga.view.theme.api.Costume;
 import ooga.view.theme.api.Theme;
 
@@ -19,9 +17,12 @@ public class SerializedTheme implements Theme {
   private final Map<String, Media> sounds;
   private final String stylesheet;
   private final String name;
+  private final ExceptionService exceptionService;
 
-  protected SerializedTheme(ThemeDescription description) {
+  protected SerializedTheme(ThemeDescription description,
+      ExceptionService exceptionService) {
     this.stylesheet = description.getStylesheet();
+    this.exceptionService = exceptionService;
     this.costumes = new HashMap<>();
     this.sounds = new HashMap<>();
     this.name = description.getName();
@@ -31,6 +32,7 @@ public class SerializedTheme implements Theme {
     }
 
     for (String key : description.getAudioFilePaths().keySet()) {
+      String encoded = null;
       try {
         /*
          * getAbsoluteFile().getAbsolutePath() doesn't actually return the absolute path!
@@ -38,19 +40,25 @@ public class SerializedTheme implements Theme {
          * The Media class also ~requires~ an absolute filepath (why, Java?!)
          */
 
-        String encoded = (new File(description.getAudioFilePaths().get(key)).toURI().toString())
+        encoded = (new File(description.getAudioFilePaths().get(key)).toURI().toString())
                           .replace("/themes/", "/data/themes/");
 
         sounds.put(key, new Media(encoded));
       } catch (Exception e) {
-        e.printStackTrace();
+        exceptionService.handleWarning(new UIServicedException("badAudioFileError", name, encoded));
       }
     }
   }
 
   @Override
   public Media getSoundByIdentifier(String identifier) {
-    return sounds.get(identifier);
+    if (sounds.get(identifier) == null) {
+      exceptionService.handleWarning(new UIServicedException("missingAudioFileError",
+          name, identifier));
+      return null;
+    } else {
+      return sounds.get(identifier);
+    }
   }
 
   @Override
@@ -58,6 +66,7 @@ public class SerializedTheme implements Theme {
     Costume ret = costumes.get(type);
 
     if (ret == null) {
+      exceptionService.handleWarning(new UIServicedException("missingCostumeError", name, type));
       return new Costume() {
         @Override
         public Paint getFill() {

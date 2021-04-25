@@ -29,9 +29,9 @@ import ooga.util.Vec2;
  */
 public class PacmanGameState
     implements SpriteExistenceObservable,
-        GridRebuildObservable,
-        MutableGameState,
-        GameStateObservable {
+    GridRebuildObservable,
+    MutableGameState,
+    GameStateObservable {
 
   public static final int STARTING_ROUND_NUMBER = 1;
   public static final int STARTING_LIVE_COUNT = 3;
@@ -51,9 +51,9 @@ public class PacmanGameState
   private HumanInputManager player2;
   private String jsonFileName;
   private int pacmanLivesRemaining;
+  private boolean isPacmanDead;
   private int roundNumber;
   private boolean isGameOver;
-  private boolean pacmanConsumed;
 
   public PacmanGameState() {
     spriteExistenceObservers = new HashSet<>();
@@ -79,6 +79,10 @@ public class PacmanGameState
     }
     clock.clear();
     clock.reset();
+  }
+
+  protected boolean isPacmanDead() {
+    return isPacmanDead;
   }
 
   public void loadPacmanLevel(PacmanLevel level) {
@@ -150,9 +154,6 @@ public class PacmanGameState
     roundNumber++;
   }
 
-  protected boolean isPacmanConsumed() {
-    return pacmanConsumed;
-  }
 
   /**
    * Steps through a frame of the game and also checks for level progression/restart
@@ -347,7 +348,7 @@ public class PacmanGameState
     }
   }
 
-  private int getRemainingConsumablesCount() {
+  protected int getRemainingConsumablesCount() {
     int count = 0;
     for (Sprite sprite : getSprites()) {
       if (sprite.mustBeConsumed()) {
@@ -393,7 +394,8 @@ public class PacmanGameState
     return grid;
   }
 
-  public void advanceLevel() {}
+  public void advanceLevel() {
+  }
 
   protected void notifySpriteDestruction(Sprite sprite) {
     for (SpriteExistenceObserver observer : spriteExistenceObservers) {
