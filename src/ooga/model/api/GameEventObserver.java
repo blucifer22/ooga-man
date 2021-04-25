@@ -1,12 +1,12 @@
 package ooga.model.api;
 
-import ooga.model.PacmanPowerupEvent;
+import ooga.model.GameEvent;
 
 /**
  * This interface allows implementing objects to respond to the activation and deactivation of
  * power-up effects.
  */
-public interface PowerupEventObserver {
+public interface GameEventObserver {
 
-  void respondToPowerEvent(PacmanPowerupEvent event);
+  void onGameEvent(GameEvent event);
 }

@@ -46,7 +46,7 @@ public class PacmanGameState
   public static final int STARTING_LIVE_COUNT = 3;
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
-  private final Set<PowerupEventObserver> pacmanPowerupObservers;
+  private final Set<GameEventObserver> pacmanPowerupObservers;
   private final Set<GameStateObserver> pacmanGameStateObservers;
 
   private final List<Sprite> sprites;
@@ -92,6 +92,7 @@ public class PacmanGameState
     }
     clock.clear();
     clock.reset();
+    getAudioManager().reset();
   }
 
   protected boolean isPacmanDead() {
@@ -178,6 +179,7 @@ public class PacmanGameState
       // Check if Pac-Man is dead
       checkPacmanDead();
       handleSwaps();
+      notifyGameStateObservers();
     } else {
       stepThroughSprites(dt);
       System.out.println("GAME OVER!");
@@ -433,7 +435,7 @@ public class PacmanGameState
    * @param listener
    */
   @Override
-  public void registerEventListener(PowerupEventObserver listener) {
+  public void registerEventListener(GameEventObserver listener) {
     pacmanPowerupObservers.add(listener);
   }
 
@@ -443,9 +445,9 @@ public class PacmanGameState
    * @param type
    */
   @Override
-  public void notifyPowerupListeners(PacmanPowerupEvent type) {
-    for (PowerupEventObserver observer : pacmanPowerupObservers) {
-      observer.respondToPowerEvent(type);
+  public void broadcastEvent(GameEvent type) {
+    for (GameEventObserver observer : pacmanPowerupObservers) {
+      observer.onGameEvent(type);
     }
   }
 

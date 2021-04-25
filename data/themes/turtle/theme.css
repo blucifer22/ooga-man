@@ -23,6 +23,18 @@
   -fx-label-padding: 0px 5px 0px 5px;
 }
 
+.styled-label {
+  -fx-text-fill: linear-gradient(#00ffa5, #00ffdc);
+}
+
+.styled-label-body {
+  -fx-font-size: 14px;
+}
+
+.styled-label-heading {
+  -fx-font-size: 14px;
+}
+
 .menu-button-box {
   -fx-spacing: 10px;
 }

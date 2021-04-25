@@ -18,7 +18,6 @@ import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Ghost.GhostBehavior;
 import ooga.model.sprites.Inky;
 import ooga.model.sprites.PacMan;
-import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,9 +31,16 @@ public class GhostAITest {
 
   @BeforeEach
   public void setupPacMan() {
-    pacMan = new PacMan(new SpriteCoordinates(new Vec2(4.5, 0.5)), new Vec2(0, -1), 5);
-    PacmanGrid grid = new PacmanGrid(12, 2);
-    for (int y = 0; y < 2; y++) {
+    /*
+    _ _ _ _ _ _ _ _ _ _ _ _
+    _ _ _ _ _ _ _ _ _ _ _ _
+    _ _ _ _ P _ _ _ _ _ _ _
+    _ _ _ _ _ _ _ _ _ _ _ _
+    _ _ _ _ _ _ _ _ _ _ _ _
+     */
+    pacMan = new PacMan(new SpriteCoordinates(new Vec2(4.5, 2.5)), new Vec2(0, -1), 5);
+    PacmanGrid grid = new PacmanGrid(12, 5);
+    for (int y = 0; y < 5; y++) {
       for (int x = 0; x < 12; x++) {
         grid.setTile(x, y, new Tile(new TileCoordinates(x, y), "", true, true));
       }
@@ -47,40 +53,46 @@ public class GhostAITest {
 
   @Test
   public void testInkyInitialWait() {
-    Inky inky = new Inky(new SpriteCoordinates(new Vec2(1.5, 1.9)), new Vec2(0, -1), 4);
+    Inky inky = new Inky(new SpriteCoordinates(new Vec2(1.5, 2.5)), new Vec2(0, -1), 4);
     PinkyAI in = new PinkyAI(grid, inky);
     in.setTarget(pacMan);
     inky.setInputSource(in);
     inky.step(1 / 60., state);
-    Vec2 req = in.getRequestedDirection();
-    assertEquals(new Vec2(0, 0), req);
+    assertEquals(GhostBehavior.WAIT, inky.getGhostBehavior());
   }
 
   @Test
   public void testClydeNarrowDistance() {
     pacMan = new PacMan(new SpriteCoordinates(new Vec2(1.5, 0.5)), new Vec2(0, 0), 5);
-    Clyde clyde = new Clyde(new SpriteCoordinates(new Vec2(10.5, 0.5)), new Vec2(1, 0), 2);
+    Clyde clyde = new Clyde(new SpriteCoordinates(new Vec2(10.5, 2.5)), new Vec2(1, 0), 2);
     ClydeAI in = new ClydeAI(grid, clyde);
     in.setTarget(pacMan);
     clyde.setInputSource(in);
     for (int k = 0; k < 481; k++) {
       clyde.step(1 / 60., state);
     }
-    Vec2 req = in.getRequestedDirection();
+    Vec2 req = in.getRequestedDirection(1/60.0);
     assertEquals(new Vec2(-1, 0), req);
   }
 
   @Test
   public void testInkyNarrowDistance() {
-    pacMan = new PacMan(new SpriteCoordinates(new Vec2(1.5, 0.5)), new Vec2(0, 0), 5);
-    Inky clyde = new Inky(new SpriteCoordinates(new Vec2(6.5, 0.5)), new Vec2(1, 0), 2);
+    /*
+    _ _ _ _ _ _ _ _ _ _ _ _
+    _ _ _ _ _ _ _ _ _ _ _ _
+    _ P _ _ _ _ I _ _ _ _ _
+    _ _ _ _ _ _ _ _ _ _ _ _
+    _ _ _ _ _ _ _ _ _ _ _ _
+     */
+    pacMan = new PacMan(new SpriteCoordinates(new Vec2(1.5, 2.5)), new Vec2(0, 0), 5);
+    Inky clyde = new Inky(new SpriteCoordinates(new Vec2(6.5, 2.5)), new Vec2(1, 0), 2);
     InkyAI in = new InkyAI(grid, clyde);
     in.setTarget(pacMan);
     clyde.setInputSource(in);
     for (int k = 0; k < 361; k++) {
       clyde.step(1 / 60., state);
     }
-    Vec2 req = in.getRequestedDirection();
+    Vec2 req = in.getRequestedDirection(1/60.0);
     assertEquals(new Vec2(-1, 0), req);
   }
 

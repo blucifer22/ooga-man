@@ -2,7 +2,7 @@ package ooga.model.sprites;
 
 import java.util.Map;
 import ooga.model.MutableGameState;
-import ooga.model.PacmanPowerupEvent;
+import ooga.model.GameEvent;
 import ooga.model.SpriteCoordinates;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
@@ -25,8 +25,8 @@ public class Cherry extends Sprite {
             SpriteAnimationFactory.SpriteAnimationType.CHERRY_STILL,
             position, direction);
     setPowerupOptions(Map
-        .of(PacmanPowerupEvent.POINT_BONUS_ACTIVATED, () -> cherryScoreIncrement *= 2,
-            PacmanPowerupEvent.POINT_BONUS_DEACTIVATED, () -> cherryScoreIncrement *= 0.5));
+        .of(GameEvent.POINT_BONUS_ACTIVATED, () -> cherryScoreIncrement *= 2,
+            GameEvent.POINT_BONUS_DEACTIVATED, () -> cherryScoreIncrement *= 0.5));
   }
 
   public Cherry(SpriteDescription spriteDescription) {

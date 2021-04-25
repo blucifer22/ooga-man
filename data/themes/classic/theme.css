@@ -23,6 +23,18 @@
   -fx-label-padding: 0px 5px 0px 5px;
 }
 
+.styled-label {
+  -fx-text-fill: linear-gradient(#ffa500, #f5dc00);
+}
+
+.styled-label-body {
+  -fx-font-size: 16px;
+}
+
+.styled-label-heading {
+  -fx-font-size: 16px;
+}
+
 .menu-button-box {
   -fx-spacing: 10px;
 }
@@ -35,9 +47,17 @@
   -fx-vgap: 10px;
 }
 
+.scoreboard {
+  -fx-hgap: 5px;
+}
+
 .card {
-  -fx-background-color: white;
+  -fx-background-color: linear-gradient(#ffa500aa, #f5dc00aa);
   -fx-background-radius: 5px;
   -fx-padding: 5px;
   -fx-font-size: 20px;
+}
+
+.styled-label-dropdown-label {
+  -fx-text-fill: white;
 }

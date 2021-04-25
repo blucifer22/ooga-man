@@ -67,8 +67,8 @@ public class UIController implements MainMenuResponder, ViewStackService {
   @Override
   public void startGame() {
     this.gameView = new GameView(this.serviceProvider);
-    gameController.startGame(this.gameView);
     showGameView();
+    gameController.startGame(this.gameView);
   }
 
   @Override

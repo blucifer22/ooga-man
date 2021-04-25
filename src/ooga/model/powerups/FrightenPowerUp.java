@@ -1,9 +1,8 @@
 package ooga.model.powerups;
 
 import java.util.Map;
-import ooga.model.MutableGameState;
 
-import static ooga.model.PacmanPowerupEvent.*;
+import static ooga.model.GameEvent.*;
 
 class FrightenPowerUp extends TimerBasedPowerUp {
 

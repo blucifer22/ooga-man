@@ -4,4 +4,5 @@ public interface GameStateObservationComposite {
   SpriteExistenceObserver spriteExistenceObserver();
   GridRebuildObserver gridRebuildObserver();
   AudioObserver audioObserver();
+  GameStateObserver gameStateObserver();
 }
