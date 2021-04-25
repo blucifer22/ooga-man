@@ -54,7 +54,7 @@ public class ThemedAudioService implements AudioService {
   @Override
   public void pause(String soundIdentifier) {
     if (activeAudio.containsKey(soundIdentifier)) {
-      for (MediaPlayer player: activeAudio.get(soundIdentifier)) {
+      for (MediaPlayer player : activeAudio.get(soundIdentifier)) {
         player.pause();
       }
     }
@@ -63,7 +63,7 @@ public class ThemedAudioService implements AudioService {
   @Override
   public void pauseAll() {
     for (HashSet<MediaPlayer> soundPlayers : activeAudio.values()) {
-      for (MediaPlayer player: soundPlayers) {
+      for (MediaPlayer player : soundPlayers) {
         player.pause();
       }
     }
@@ -72,7 +72,7 @@ public class ThemedAudioService implements AudioService {
   @Override
   public void stop(String soundIdentifier) {
     if (activeAudio.containsKey(soundIdentifier)) {
-      for (MediaPlayer player: activeAudio.get(soundIdentifier)) {
+      for (MediaPlayer player : activeAudio.get(soundIdentifier)) {
         player.stop();
       }
       reusablePlayers.put(soundIdentifier, activeAudio.get(soundIdentifier));
@@ -84,7 +84,7 @@ public class ThemedAudioService implements AudioService {
   public void stopAll() {
     for (String soundIdentifier : activeAudio.keySet()) {
       HashSet<MediaPlayer> soundPlayers = activeAudio.get(soundIdentifier);
-      for (MediaPlayer player: soundPlayers) {
+      for (MediaPlayer player : soundPlayers) {
         player.pause();
       }
       reusablePlayers.put(soundIdentifier, activeAudio.get(soundIdentifier));
@@ -101,7 +101,7 @@ public class ThemedAudioService implements AudioService {
     reusablePlayers.putIfAbsent(soundIdentifier, new HashSet<>());
 
     if (reusablePlayers.get(soundIdentifier).size() > 0) {
-      for (MediaPlayer audioPlayer: reusablePlayers.get(soundIdentifier)) {
+      for (MediaPlayer audioPlayer : reusablePlayers.get(soundIdentifier)) {
         reusablePlayers.get(soundIdentifier).remove(audioPlayer);
         activeAudio.get(soundIdentifier).add(audioPlayer);
         audioPlayer.seek(Duration.ZERO);

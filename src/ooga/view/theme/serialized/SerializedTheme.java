@@ -41,7 +41,7 @@ public class SerializedTheme implements Theme {
          */
 
         encoded = (new File(description.getAudioFilePaths().get(key)).toURI().toString())
-                          .replace("/themes/", "/data/themes/");
+            .replace("/themes/", "/data/themes/");
 
         sounds.put(key, new Media(encoded));
       } catch (Exception e) {

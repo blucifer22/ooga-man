@@ -9,7 +9,7 @@ import ooga.view.internal_api.View;
 import ooga.view.theme.api.ThemedObject;
 import ooga.view.uiservice.UIPreferenceService;
 import ooga.view.uiservice.UIServiceProvider;
-import ooga.view.views.components.LabeledComboboxCard;
+import ooga.view.views.components.LabeledComboBoxCard;
 import ooga.view.views.components.StyledButton;
 
 public class PreferenceView implements ThemedObject, View {
@@ -31,15 +31,16 @@ public class PreferenceView implements ThemedObject, View {
   }
 
   private void buildScene() {
-    LabeledComboboxCard languageSelectCard = new LabeledComboboxCard(
+    LabeledComboBoxCard languageSelectCard = new LabeledComboBoxCard(
         this.serviceProvider,
         "language",
         this.preferenceService.languageSelectionService().getAvailableLanguages(),
-        selectedOption -> this.preferenceService.languageSelectionService().setLanguage(selectedOption)
+        selectedOption -> this.preferenceService.languageSelectionService()
+            .setLanguage(selectedOption)
     );
     this.primaryView.add(languageSelectCard, 0, 0);
 
-    LabeledComboboxCard themeSelectCard = new LabeledComboboxCard(
+    LabeledComboBoxCard themeSelectCard = new LabeledComboBoxCard(
         this.serviceProvider,
         "theme",
         this.preferenceService.themeSelectionService().getAvailableThemes(),
@@ -47,7 +48,8 @@ public class PreferenceView implements ThemedObject, View {
     );
     this.primaryView.add(themeSelectCard, 0, 1);
 
-    Button returnToMenu = new StyledButton(this.serviceProvider, "previousMenu", e -> this.serviceProvider.viewStackManager().unwind());
+    Button returnToMenu = new StyledButton(this.serviceProvider, "previousMenu",
+        e -> this.serviceProvider.viewStackManager().unwind());
 
     VBox backButtonCard = new VBox(
         returnToMenu
@@ -59,7 +61,8 @@ public class PreferenceView implements ThemedObject, View {
   @Override
   public void onThemeChange() {
     this.primaryView.getStylesheets().clear();
-    this.primaryView.getStylesheets().add(this.serviceProvider.themeService().getTheme().getStylesheet());
+    this.primaryView.getStylesheets()
+        .add(this.serviceProvider.themeService().getTheme().getStylesheet());
   }
 
   @Override

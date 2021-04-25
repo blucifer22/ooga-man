@@ -63,6 +63,7 @@ public class MenuView implements View, ThemedObject {
   @Override
   public void onThemeChange() {
     this.primaryView.getStylesheets().clear();
-    this.primaryView.getStylesheets().add(serviceProvider.themeService().getTheme().getStylesheet());
+    this.primaryView.getStylesheets()
+        .add(serviceProvider.themeService().getTheme().getStylesheet());
   }
 }

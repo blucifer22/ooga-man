@@ -10,6 +10,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import ooga.view.audio.AudioService;
+import ooga.view.audio.ThemedAudioService;
 import ooga.view.exceptions.ExceptionService;
 import ooga.view.exceptions.GraphicalExceptionService;
 import ooga.view.internal_api.ViewStackService;
@@ -32,7 +33,7 @@ public class PreferenceViewTest extends CustomApplicationTest {
   private class TestHarness extends BundledLanguageService implements ThemeService,
       LanguageService, ViewStackService, UIServiceProvider, UIPreferenceService {
     private SerializedThemeService ts = new SerializedThemeService(new GraphicalExceptionService());
-    private AudioService as = new DoNothingAudioService();
+    private AudioService as = new ThemedAudioService(ts, new GraphicalExceptionService());
     private final int[] state = new int[2];
     private String language = null;
 
