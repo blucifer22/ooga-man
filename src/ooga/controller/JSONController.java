@@ -23,7 +23,6 @@ import ooga.view.UIController;
 public class JSONController implements GameStateController {
 
   private static final double TIMESTEP = 1.0 / 60.0;
-  private static final String FILEPATH = "data/levels/test_adversarial_level.json";
   private final UIController uiController;
   private final JSONDescriptionFactory jsonDescriptionFactory;
   private final HumanInputConsumerComposite compositeConsumer;
@@ -58,13 +57,14 @@ public class JSONController implements GameStateController {
     }
     try {
       File levelFile = uiController.requestUserFile(new File("data/levels"));
+      // TODO: throw an exception if this is invalid
 
       HumanInputManager player1 = new HumanInputManager(KeybindingType.PLAYER_1);
       HumanInputManager player2 = new HumanInputManager(KeybindingType.PLAYER_2);
       compositeConsumer.clearConsumers();
       compositeConsumer.addConsumers(player1, player2);
 
-      LevelDescription description = jsonDescriptionFactory.getLevelDescriptionFromJSON(FILEPATH);
+      LevelDescription description = jsonDescriptionFactory.getLevelDescriptionFromJSON(levelFile.getPath());
       final PacmanGameState pgs = switch (description.getGameMode()) {
         case "CLASSIC" -> new PacmanGameState();
         case "CHASE" -> new PacmanGameStateChase();
@@ -76,7 +76,7 @@ public class JSONController implements GameStateController {
       pgs.addGridRebuildObserver(rootObserver.gridRebuildObserver());
       pgs.addAudioObserver(rootObserver.audioObserver());
       pgs.addGameStateObserver(rootObserver.gameStateObserver());
-      pgs.initPacmanLevelFromJSON(FILEPATH, player1, player2);
+      pgs.initPacmanLevelFromJSON(levelFile.getPath(), player1, player2);
 
       KeyFrame frame = new KeyFrame(Duration.seconds(TIMESTEP), e -> {
         pgs.step(TIMESTEP);
