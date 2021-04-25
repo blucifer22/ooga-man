@@ -45,6 +45,29 @@ public class GameView implements View, ThemedObject, GameStateObservationComposi
     this.scoreboardCard = new ScoreboardCard(this.serviceProvider);
     this.audioPlayer = new ViewBoundAudioPlayer(serviceProvider.audioService());
     configureGridConstraints();
+    addGridElements();
+  }
+
+  private void configureGridConstraints() {
+    ColumnConstraints cc = new ColumnConstraints();
+    cc.setPercentWidth(70);
+    this.primaryView.getColumnConstraints().addAll(new ColumnConstraints(), cc);
+    this.primaryView.setHgap(12.0);
+
+    RowConstraints rc = new RowConstraints();
+    rc.setPercentHeight(80);
+    this.primaryView.getRowConstraints().addAll(new RowConstraints(), rc, new RowConstraints(),
+        new RowConstraints());
+
+    this.primaryView.setAlignment(Pos.CENTER);
+    this.primaryView.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY,
+        Insets.EMPTY)));
+    this.primaryView.getStyleClass().add("view");
+  }
+
+  private void addGridElements() {
+    this.primaryView.add(this.scoreboardCard.getRenderingNode(), 0, 0);
+    this.primaryView.add(this.gridView.getRenderingNode(), 1, 0, 1, 3);
 
     VBox buttonBox = new VBox(
         new StyledButton(this.serviceProvider, "mainMenu",
@@ -52,27 +75,6 @@ public class GameView implements View, ThemedObject, GameStateObservationComposi
     buttonBox.setAlignment(Pos.CENTER);
 
     this.primaryView.add(buttonBox, 0, 1);
-  }
-
-  private void configureGridConstraints() {
-    this.primaryView.setHgap(12.0);
-
-    ColumnConstraints cc = new ColumnConstraints();
-    cc.setPercentWidth(70);
-
-    RowConstraints rc = new RowConstraints();
-    rc.setPercentHeight(80);
-
-    this.primaryView.getRowConstraints().addAll(new RowConstraints(), rc, new RowConstraints(),
-        new RowConstraints());
-    this.primaryView.getColumnConstraints().addAll(new ColumnConstraints(), cc);
-    this.primaryView.add(this.scoreboardCard.getRenderingNode(), 0, 0);
-    this.primaryView.add(this.gridView.getRenderingNode(), 1, 0, 1, 3);
-    this.primaryView.setAlignment(Pos.CENTER);
-
-    this.primaryView.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY,
-        Insets.EMPTY)));
-    this.primaryView.getStyleClass().add("view");
   }
 
   @Override
