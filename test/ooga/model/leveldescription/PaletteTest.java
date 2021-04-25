@@ -74,7 +74,7 @@ public class PaletteTest {
     assertFalse(tile.isOpenToGhosts());
 
     for (int i = 0; i < 9; i++) {
-      levelBuilder.pokeTile(tile);
+      levelBuilder.pokeTile(3, 3);
 
       // Validate that poking increments
       assertEquals(new TileCoordinates(3, 3), tile.getCoordinates());

@@ -29,9 +29,9 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
   private final Set<Sprite> toDelete;
-  private String jsonFileName;
   private final PacmanLevel level;
-  private Palette palette;
+  private final Palette palette;
+  private String jsonFileName;
 
   public LevelBuilder() {
     spriteExistenceObservers = new HashSet<>();
@@ -41,9 +41,13 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
     palette = new Palette();
   }
 
-  public Palette getPalette() { return palette; }
+  public Palette getPalette() {
+    return palette;
+  }
 
-  public PacmanLevel getLevel() { return level; }
+  public PacmanLevel getLevel() {
+    return level;
+  }
 
   /**
    * Adds a selected Sprite (from the Palette) to the given location
@@ -66,14 +70,17 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
   }
 
   /**
-   * Adds a selected Tile (from the Palette) to the given location
+   * Pokes a tile to toggle the tile properties to the next type
    *
-   * @param tile to cycle state
+   * @param x x-coordinate of grid to change tile type
+   * @param y y-coordinate of grid to change tile type
    */
-  public void pokeTile(Tile tile) {
-    // TODO: Get currently active Tile, feed x, y as inputs
-    level.getGrid().setTile(tile.getCoordinates().getX(), tile.getCoordinates().getY(), updateTileState(tile));
+  public void pokeTile(int x, int y) {
+    Tile tile = level.getGrid().getTile(new TileCoordinates(x, y));
+    level.getGrid()
+        .setTile(tile.getCoordinates().getX(), tile.getCoordinates().getY(), updateTileState(tile));
     notifyGridRebuildObservers();
+
   }
 
   private Tile updateTileState(Tile tile) {

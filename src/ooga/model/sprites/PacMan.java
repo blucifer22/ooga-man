@@ -70,9 +70,7 @@ public class PacMan extends MoveableSprite {
       state.isPacmanDead(true);
     } else if (other.isConsumable()) {
       applyScore(state, other);
-
       playEatingSound(state, other);
-
       System.out.println("SCORE: " + state.getScore());
     }
   }
@@ -82,7 +80,6 @@ public class PacMan extends MoveableSprite {
     super.step(dt, pacmanGameState);
     move(dt, pacmanGameState.getGrid());
     handleCollisions(pacmanGameState);
-
     getCurrentAnimation().setPaused(getCurrentSpeed() == 0);
   }
 
