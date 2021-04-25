@@ -86,7 +86,6 @@ public class AudioManager implements GameEventObserver {
   public void reset() {
     frightenDepth = 0;
     eyesDepth = 0;
-    setAmbience(NORMAL_AMBIENCE);
   }
 
   public void stopAmbience() {

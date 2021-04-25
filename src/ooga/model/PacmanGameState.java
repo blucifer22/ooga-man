@@ -353,6 +353,7 @@ public class PacmanGameState
       try {
         roundNumber++;
         System.out.println(roundNumber);
+        getAudioManager().stopAmbience();
         loadNextLevel();
         // System.exit(0);
       } catch (IOException e) {
