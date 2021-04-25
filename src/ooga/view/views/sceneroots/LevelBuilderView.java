@@ -1,6 +1,8 @@
 package ooga.view.views.sceneroots;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -13,6 +15,8 @@ import ooga.model.api.SpriteExistenceObserver;
 import ooga.view.internal_api.View;
 import ooga.view.theme.api.ThemedObject;
 import ooga.view.uiservice.UIServiceProvider;
+import ooga.view.views.components.IntegerLockedSlider;
+import ooga.view.views.components.StyledBoundLabel;
 import ooga.view.views.components.StyledButton;
 
 public class LevelBuilderView implements SpriteExistenceObserver, GridRebuildObserver, View,
@@ -35,8 +39,8 @@ public class LevelBuilderView implements SpriteExistenceObserver, GridRebuildObs
 
   private void configureConstraints() {
     RowConstraints rc = new RowConstraints();
-    rc.setPercentHeight(100);
-    this.primaryView.getRowConstraints().add(rc);
+    rc.setPercentHeight(70);
+    this.primaryView.getRowConstraints().addAll(rc, new RowConstraints());
 
     ColumnConstraints cc = new ColumnConstraints();
     cc.setPercentWidth(50);
@@ -44,13 +48,30 @@ public class LevelBuilderView implements SpriteExistenceObserver, GridRebuildObs
   }
 
   private void renderViews() {
+    Slider rowDim = new IntegerLockedSlider(5, 25, 15);
+    Slider colDim = new IntegerLockedSlider(5, 25, 15);
+
     VBox paletteBox = new VBox(
-        new Label("Set Dimensions"),
+        new StyledBoundLabel(this.serviceProvider.languageService().getLocalizedString(
+            "dimensions"), "heading"),
+        new StyledBoundLabel(this.serviceProvider.languageService().getLocalizedString(
+            "rows"), "body"),
+        rowDim,
+        new StyledBoundLabel(this.serviceProvider.languageService().getLocalizedString(
+            "columns"), "body"),
+        colDim
+    );
+
+    VBox buttonBox = new VBox(
+        new StyledButton(this.serviceProvider, "next",
+            e -> System.out.println("next")),
         new StyledButton(this.serviceProvider, "mainMenu",
             e -> this.serviceProvider.viewStackManager().unwind())
     );
+
     this.primaryView.add(paletteBox, 0, 0);
-    this.primaryView.add(this.tileGridView.getRenderingNode(), 1, 0);
+    this.primaryView.add(buttonBox, 0, 1);
+    this.primaryView.add(this.tileGridView.getRenderingNode(), 1, 0, 1, 2);
     this.primaryView.getStyleClass().add("view");
   }
 
