@@ -43,7 +43,6 @@ public class PacmanGameState
   private final List<Sprite> sprites;
   private final Set<Sprite> toDelete;
   private final Clock clock;
-  protected boolean isPacmanDead;
   private PacmanGrid grid;
   private Player pacmanPlayer;
   private Player ghostsPlayer;
