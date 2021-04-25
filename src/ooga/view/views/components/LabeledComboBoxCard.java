@@ -11,15 +11,15 @@ import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 import ooga.view.uiservice.UIServiceProvider;
 
-public class LabeledComboboxCard extends StackPane {
+public class LabeledComboBoxCard extends StackPane {
 
-  public LabeledComboboxCard(UIServiceProvider serviceProvider, String labelBundleIdentifier,
+  public LabeledComboBoxCard(UIServiceProvider serviceProvider, String labelBundleIdentifier,
       Map<String, String> options, OptionSelectionHandler selectionHandler) {
     super();
     configure(serviceProvider, labelBundleIdentifier, options, selectionHandler);
   }
 
-  public LabeledComboboxCard(UIServiceProvider serviceProvider, String labelBundleIdentifier,
+  public LabeledComboBoxCard(UIServiceProvider serviceProvider, String labelBundleIdentifier,
       Set<String> options, OptionSelectionHandler selectionHandler) {
     super();
     LinkedHashMap<String, String> orderedOptions = new LinkedHashMap<>();
