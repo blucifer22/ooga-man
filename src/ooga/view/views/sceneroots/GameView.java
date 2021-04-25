@@ -2,8 +2,6 @@ package ooga.view.views.sceneroots;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
-import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.ColumnConstraints;
@@ -105,6 +103,7 @@ public class GameView implements View, ThemedObject, GameStateObservationComposi
   @Override
   public void onThemeChange() {
     this.primaryView.getStylesheets().clear();
-    this.primaryView.getStylesheets().add(this.serviceProvider.themeService().getTheme().getStylesheet());
+    this.primaryView.getStylesheets()
+        .add(this.serviceProvider.themeService().getTheme().getStylesheet());
   }
 }

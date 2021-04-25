@@ -53,9 +53,10 @@ public class GraphicalExceptionService implements ExceptionService {
     } else if (!mute) {
       String muteButtonText = languageService != null ?
           languageService.getLocalizedString("muteWarnings").get() : MUTE_WARNINGS_FALLBACK;
-      a.getButtonTypes().add(new ButtonType(!muteButtonText.equals("") ? muteButtonText : MUTE_WARNINGS_FALLBACK));
+      a.getButtonTypes().add(
+          new ButtonType(!muteButtonText.equals("") ? muteButtonText : MUTE_WARNINGS_FALLBACK));
       a.setOnCloseRequest(e -> {
-        if(a.getResult().getButtonData().getTypeCode().equals(MUTE_WARNINGS_TYPE_CODE)) {
+        if (a.getResult().getButtonData().getTypeCode().equals(MUTE_WARNINGS_TYPE_CODE)) {
           mute = true;
         }
         a.close();

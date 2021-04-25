@@ -35,7 +35,8 @@ public class PreferenceView implements ThemedObject, View {
         this.serviceProvider,
         "language",
         this.preferenceService.languageSelectionService().getAvailableLanguages(),
-        selectedOption -> this.preferenceService.languageSelectionService().setLanguage(selectedOption)
+        selectedOption -> this.preferenceService.languageSelectionService()
+            .setLanguage(selectedOption)
     );
     this.primaryView.add(languageSelectCard, 0, 0);
 
@@ -47,7 +48,8 @@ public class PreferenceView implements ThemedObject, View {
     );
     this.primaryView.add(themeSelectCard, 0, 1);
 
-    Button returnToMenu = new StyledButton(this.serviceProvider, "previousMenu", e -> this.serviceProvider.viewStackManager().unwind());
+    Button returnToMenu = new StyledButton(this.serviceProvider, "previousMenu",
+        e -> this.serviceProvider.viewStackManager().unwind());
 
     VBox backButtonCard = new VBox(
         returnToMenu
@@ -59,7 +61,8 @@ public class PreferenceView implements ThemedObject, View {
   @Override
   public void onThemeChange() {
     this.primaryView.getStylesheets().clear();
-    this.primaryView.getStylesheets().add(this.serviceProvider.themeService().getTheme().getStylesheet());
+    this.primaryView.getStylesheets()
+        .add(this.serviceProvider.themeService().getTheme().getStylesheet());
   }
 
   @Override
