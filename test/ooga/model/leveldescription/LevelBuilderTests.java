@@ -2,6 +2,7 @@ package ooga.model.leveldescription;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -155,11 +156,33 @@ public class LevelBuilderTests {
     levelBuilder.select(10, 30);
     assertEquals(levelBuilder.getLevel().getSprites().get(1).getSwapClass(), SwapClass.GHOST);
 
+    // Add a bunch of Cherries to one Row
+    levelBuilder.getPalette().setActiveSprite("Cherry");
+    for(int i = 1; i < 16; i++) {
+      levelBuilder.select(i, 21);
+      assertEquals(levelBuilder.getLevel().getSprites().get(i + 1).getSwapClass(), SwapClass.NONE);
+    }
+
+    // Add a bunch of PowerPills to one Column
+    levelBuilder.getPalette().setActiveSprite("Cherry");
+    for(int i = 1; i < 16; i++) {
+      levelBuilder.select(46, i);
+      assertEquals(levelBuilder.getLevel().getSprites().get(i + 16).getSwapClass(), SwapClass.NONE);
+    }
+
     // Add a bunch of Dots to the same Tile
     levelBuilder.getPalette().setActiveSprite("Dot");
     for(int i = 0; i < 15; i++) {
       levelBuilder.select(20, 25);
-      assertEquals(levelBuilder.getLevel().getSprites().get(i + 2).getSwapClass(), SwapClass.NONE);
+      assertEquals(levelBuilder.getLevel().getSprites().get(i + 32).getSwapClass(), SwapClass.NONE);
     }
+
+    // Verify that a Dot was on the Tile before erasure
+    assertEquals(levelBuilder.getLevel().getSprites().get(35).getSwapClass(), SwapClass.NONE);
+
+    // Remove all the Dots from aforementioned Tile and verify that they're gone
+    levelBuilder.clearSpritesOnTile(20,25);
+    assertThrows(IndexOutOfBoundsException.class, () -> levelBuilder.getLevel().getSprites().get(35));
+
   }
 }
