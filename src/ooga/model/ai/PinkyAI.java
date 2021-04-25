@@ -5,6 +5,9 @@ import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 
+/**
+ * @author George Hong
+ */
 public class PinkyAI extends GhostAI {
 
   public PinkyAI(PacmanGrid grid, Sprite ghost) {

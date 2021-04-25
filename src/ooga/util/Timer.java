@@ -6,6 +6,8 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * Timer object that depends on the GameClock to determine when the passed code should execute.
+ *
+ * @author George Hong
  */
 public class Timer implements Comparable<Timer> {
 

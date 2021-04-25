@@ -4,6 +4,9 @@ import ooga.model.PacmanGrid;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 
+/**
+ * @author George Hong
+ */
 public class InkyAI extends GhostAI {
 
   public InkyAI(PacmanGrid grid, Sprite ghost) {
