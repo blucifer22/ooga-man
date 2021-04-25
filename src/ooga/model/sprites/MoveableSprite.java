@@ -1,18 +1,23 @@
 package ooga.model.sprites;
 
+import ooga.model.PacmanGrid;
+import ooga.model.SpriteCoordinates;
+import ooga.model.Tile;
+import ooga.model.TileCoordinates;
 import ooga.model.*;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Vec2;
 
+/**
+ * @author George Hong
+ */
 public abstract class MoveableSprite extends Sprite {
 
   public static final int UNIVERSAL_MAX_MOVEMENT_SPEED = 6;
-  private InputSource inputSource;
   private double currentSpeed;
   private double movementSpeed;
   private Vec2 queuedDirection;
-
   private double initialMovementSpeed;
 
   protected MoveableSprite(String spriteAnimationPrefix,
@@ -54,19 +59,6 @@ public abstract class MoveableSprite extends Sprite {
 
   public void setCurrentSpeed(double speed) {
     this.currentSpeed = speed;
-  }
-
-  @Override
-  public InputSource getInputSource() {
-    return inputSource;
-  }
-
-  @Override
-  public void setInputSource(InputSource s) {
-    if (defaultInputSource == null) {
-      defaultInputSource = s;
-    }
-    inputSource = s;
   }
 
   /**
@@ -128,16 +120,10 @@ public abstract class MoveableSprite extends Sprite {
         currentSpeed = 0;
       }
     }
-
     nextPosition =
         getCoordinates().getPosition()
             .add(getDirection().scalarMult(getCurrentSpeed()).scalarMult(dt));
 
     setPosition(nextPosition);
-  }
-
-  @Override
-  public boolean needsSwap() {
-    return inputSource.isActionPressed();
   }
 }

@@ -8,14 +8,25 @@ import java.util.List;
 import java.util.Set;
 import ooga.controller.HumanInputManager;
 import ooga.controller.SpriteLinkageFactory;
-import ooga.model.api.*;
+import ooga.model.api.AudioObserver;
+import ooga.model.api.GameEventObserver;
+import ooga.model.api.GameStateObservable;
+import ooga.model.api.GameStateObserver;
+import ooga.model.api.GridRebuildObservable;
+import ooga.model.api.GridRebuildObserver;
+import ooga.model.api.SpriteExistenceObservable;
+import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.audio.AudioManager;
 import ooga.model.leveldescription.GridDescription;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.LevelDescription;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.Sprite;
+import ooga.model.sprites.status.GameOver;
+import ooga.model.sprites.status.GhostWin;
+import ooga.model.sprites.status.PacmanWin;
 import ooga.util.Clock;
+import ooga.util.Vec2;
 
 /**
  * This class contains all the state of a in-progress pacman game and serves as the top-level class
@@ -39,23 +50,19 @@ public class PacmanGameState
   private final Set<GameStateObserver> pacmanGameStateObservers;
 
   private final List<Sprite> sprites;
-  private final Set<Sprite> toDelete;
   private final Clock clock;
+  private final AudioManager audioManager;
+  private Set<Sprite> toDelete;
   private PacmanGrid grid;
   private Player pacmanPlayer;
   private Player ghostsPlayer;
-
   private HumanInputManager player1;
   private HumanInputManager player2;
   private String jsonFileName;
-
-  private AudioManager audioManager;
-
   private int pacmanLivesRemaining;
-  protected boolean isPacmanDead;
+  private boolean isPacmanDead;
   private int roundNumber;
   private boolean isGameOver;
-  private boolean pacmanConsumed;
 
   public PacmanGameState() {
     spriteExistenceObservers = new HashSet<>();
@@ -88,7 +95,9 @@ public class PacmanGameState
     getAudioManager().reset();
   }
 
-
+  protected boolean isPacmanDead() {
+    return isPacmanDead;
+  }
 
   public void loadPacmanLevel(PacmanLevel level) {
     for (Sprite sprite : level.getSprites()) {
@@ -111,16 +120,8 @@ public class PacmanGameState
     jsonFileName = filepath;
     this.player1 = player1;
     this.player2 = player2;
-    PacmanLevel level = loadLevelFromJSON(filepath);
-
-    for (Sprite sprite : level.getSprites()) {
-      sprite.uponNewLevel(roundNumber, this);
-      addSprite(sprite);
-    }
-    loadGrid(level.getGrid());
-
-    SpriteLinkageFactory spriteLinkageFactory = new SpriteLinkageFactory(this, player1, player2);
-    spriteLinkageFactory.linkSprites();
+    setupSprites(filepath, player1, player2);
+    setPlayers(new Player(1, player1), null);
   }
 
   private PacmanLevel loadLevelFromJSON(String filepath) throws IOException {
@@ -145,6 +146,11 @@ public class PacmanGameState
     clock.clear();
     audioManager.reset();
 
+    setupSprites(jsonFileName, player1, player2);
+  }
+
+  private void setupSprites(String jsonFileName, HumanInputManager player1,
+      HumanInputManager player2) throws IOException {
     PacmanLevel level = loadLevelFromJSON(jsonFileName);
     for (Sprite sprite : level.getSprites()) {
       sprite.uponNewLevel(roundNumber, this);
@@ -159,10 +165,6 @@ public class PacmanGameState
     roundNumber++;
   }
 
-  protected boolean isPacmanConsumed() {
-    return pacmanConsumed;
-  }
-
   /**
    * Steps through a frame of the game and also checks for level progression/restart
    *
@@ -170,18 +172,17 @@ public class PacmanGameState
    */
   // advance game state by `dt' seconds
   public void step(double dt) {
+    stepThroughSprites(dt);
+    System.out.println("Number of Sprites Remaining: " + sprites.size());
     if (!isGameOver) {
-      // Moves through Sprites, determines collisions
-      stepThroughSprites(dt);
-      // Check if Pac-Man is dead
-      checkPacmanDead();
       // All Dots have been eaten
       checkProceedToNextLevel();
+      // Check if Pac-Man is dead
+      checkPacmanDead();
       handleSwaps();
       notifyGameStateObservers();
     } else {
       System.out.println("GAME OVER!");
-      // TODO: Implement game over score screen
     }
   }
 
@@ -191,11 +192,22 @@ public class PacmanGameState
       if (pacmanLivesRemaining > 0) {
         resetLevel();
         isPacmanDead(false);
-      }
-      else {
-        isGameOver = true;
+      } else {
+        gameOverCleanup();
+        addSprite(
+            new GameOver(
+                new SpriteCoordinates(
+                    new Vec2(getGrid().getWidth() / 2.0, getGrid().getHeight() / 2.0)),
+                new Vec2(1, 0)));
       }
     }
+  }
+
+  protected void gameOverCleanup() {
+    isGameOver = true;
+    toDelete.addAll(sprites);
+    sprites.forEach(this::notifySpriteDestruction);
+    sprites.clear();
   }
 
   protected void stepThroughSprites(double dt) {
@@ -269,7 +281,7 @@ public class PacmanGameState
    * @param pacmanPlayer Player controlling Pac-Man. Null if single player during hunt mode.
    * @param ghostsPlayer Player controlling the ghosts. Null if single player during classic mode.
    */
-  public void setPlayers(Player pacmanPlayer, Player ghostsPlayer) {
+  protected void setPlayers(Player pacmanPlayer, Player ghostsPlayer) {
     this.pacmanPlayer = pacmanPlayer;
     this.ghostsPlayer = ghostsPlayer;
   }
@@ -349,7 +361,7 @@ public class PacmanGameState
     }
   }
 
-  private int getRemainingConsumablesCount() {
+  protected int getRemainingConsumablesCount() {
     int count = 0;
     for (Sprite sprite : getSprites()) {
       if (sprite.mustBeConsumed()) {
@@ -496,7 +508,45 @@ public class PacmanGameState
     getAudioManager().addObserver(obs);
   }
 
-  public AudioManager getAudioManager()  {
+  public AudioManager getAudioManager() {
     return audioManager;
+  }
+
+  protected boolean isGameOver() {
+    return isGameOver;
+  }
+
+  protected void setGameOver(boolean gameOver) {
+    isGameOver = gameOver;
+  }
+
+  protected Set<Sprite> getToDelete() {
+    return toDelete;
+  }
+
+  protected void setToDelete(Set<Sprite> toDelete) {
+    this.toDelete = toDelete;
+  }
+
+  protected void showPacmanWin() {
+    setGameOver(true);
+    getToDelete().addAll(getSprites());
+    getSprites().forEach(this::notifySpriteDestruction);
+    addSprite(
+        new PacmanWin(
+            new SpriteCoordinates(
+                new Vec2(getGrid().getWidth() / 2.0, getGrid().getHeight() / 2.0)),
+            new Vec2(1, 0)));
+  }
+
+  protected void showGhostWin() {
+    setGameOver(true);
+    getToDelete().addAll(getSprites());
+    getSprites().forEach(this::notifySpriteDestruction);
+    addSprite(
+        new GhostWin(
+            new SpriteCoordinates(
+                new Vec2(getGrid().getWidth() / 2.0, getGrid().getHeight() / 2.0)),
+            new Vec2(1, 0)));
   }
 }

@@ -1,5 +1,5 @@
 {
-  "levelName": "Test Level",
+  "gameMode": "CHASE",
   "gridDescription": {
     "gridName": "testGrid",
     "width": 17,
