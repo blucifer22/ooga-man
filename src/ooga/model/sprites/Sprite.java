@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import ooga.model.*;
 import ooga.model.api.ObservableSprite;
 import ooga.model.api.PowerupEventObserver;
@@ -84,6 +83,7 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
 
   /**
    * Sprites can change properties based on the current round.
+   *
    * @param roundNumber
    * @param state
    */
@@ -147,7 +147,7 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
   }
 
   protected void setCurrentAnimationType(SpriteAnimationFactory.SpriteAnimationType type) {
-    if(type != currentAnimationType) {
+    if (type != currentAnimationType) {
       setCurrentAnimation(getAnimationFactory().createAnimation(type));
       currentAnimationType = type;
     }
@@ -287,31 +287,31 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
   }
 
   // TODO: Make not abstract to give a default
-  public boolean mustBeConsumed(){
+  public boolean mustBeConsumed() {
     return false;
-  };
+  }
 
-  public boolean isDeadlyToPacMan(){
+  public boolean isDeadlyToPacMan() {
     return false;
-  };
+  }
 
-  public boolean eatsGhosts(){
+  public boolean eatsGhosts() {
     return false;
-  };
+  }
 
-  public boolean isConsumable(){
+  public boolean isConsumable() {
     return true;
-  };
+  }
 
-  public boolean hasMultiplicativeScoring(){
+  public boolean hasMultiplicativeScoring() {
     return false;
-  };
+  }
 
   public abstract int getScore();
 
   @Override
-  public final void respondToPowerEvent(PacmanPowerupEvent event){
-    if (powerupOptions.containsKey(event)){
+  public final void respondToPowerEvent(PacmanPowerupEvent event) {
+    if (powerupOptions.containsKey(event)) {
       powerupOptions.get(event).run();
     }
   }
@@ -320,8 +320,16 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
     return swapClass;
   }
 
+  protected void setSwapClass(SwapClass swapClass) {
+    this.swapClass = swapClass;
+  }
+
   public InputSource getDefaultInputSource() {
     return defaultInputSource;
+  }
+
+  protected void setDefaultInputSource(InputSource defaultInputSource) {
+    this.defaultInputSource = defaultInputSource;
   }
 
   public boolean needsSwap() {
@@ -329,10 +337,14 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
   }
 
   public InputSource getInputSource() {
-    return null;
+    return inputSource;
   }
 
   public void setInputSource(InputSource s) {
+    if (getDefaultInputSource() == null) {
+      setDefaultInputSource(s);
+    }
+    inputSource = s;
   }
 
   public String getInputString() {
@@ -343,10 +355,6 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
     this.inputString = inputString;
   }
 
-  protected void setSwapClass(SwapClass swapClass) {
-    this.swapClass = swapClass;
-  }
-
   protected Map<PacmanPowerupEvent, Runnable> getPowerupOptions() {
     return powerupOptions;
   }
@@ -354,9 +362,5 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
   protected void setPowerupOptions(
       Map<PacmanPowerupEvent, Runnable> powerupOptions) {
     this.powerupOptions = powerupOptions;
-  }
-
-  protected void setDefaultInputSource(InputSource defaultInputSource) {
-    this.defaultInputSource = defaultInputSource;
   }
 }
