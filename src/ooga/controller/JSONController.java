@@ -8,7 +8,6 @@ import javafx.util.Duration;
 import ooga.model.PacmanGameState;
 import ooga.model.PacmanGameStateAdversarial;
 import ooga.model.PacmanGameStateChase;
-import ooga.model.Player;
 import ooga.model.api.GameStateObservationComposite;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.LevelDescription;
@@ -29,6 +28,13 @@ public class JSONController implements GameStateController {
   private final HumanInputConsumerComposite compositeConsumer;
   private Timeline animation;
 
+  /**
+   * This is the primary constructor for the JSONController class, which is effectively the only
+   * middleware for the application. This controller requires a JavaFX Stage on which to act, and
+   * will then attach the appropriate observable components to it to instantiate a PacmanGameState.
+   *
+   * @param primaryStage The JavaFX Stage on which to create the new GameState.
+   */
   public JSONController(Stage primaryStage) {
     // instantiate composite input receiver
     this.compositeConsumer = new HumanInputConsumerComposite();
@@ -36,6 +42,14 @@ public class JSONController implements GameStateController {
     jsonDescriptionFactory = new JSONDescriptionFactory();
   }
 
+  /**
+   * This method is responsible for starting a new game of Pac-Man. The particular game mode is
+   * encoded within the JSON that encodes the specific level, and the appropriate PacmanGameState
+   * is constructed accordingly.
+   *
+   * @param rootObserver The root GameStateObservation object will monitor the currently live
+   *                     PacmanGameState
+   */
   @Override
   public void startGame(GameStateObservationComposite rootObserver) {
     if (animation != null) {
@@ -48,7 +62,7 @@ public class JSONController implements GameStateController {
       compositeConsumer.addConsumers(player1, player2);
 
       LevelDescription description = jsonDescriptionFactory.getLevelDescriptionFromJSON(FILEPATH);
-      PacmanGameState pgs = switch (description.getGameMode()) {
+      final PacmanGameState pgs = switch (description.getGameMode()) {
         case "CLASSIC" -> new PacmanGameState();
         case "CHASE" -> new PacmanGameStateChase();
         case "ADVERSARIAL" -> new PacmanGameStateAdversarial();
@@ -63,7 +77,7 @@ public class JSONController implements GameStateController {
 
       KeyFrame frame = new KeyFrame(Duration.seconds(TIMESTEP), e -> {
         pgs.step(TIMESTEP);
-      }); //
+      });
       // TODO: remove grid from step parameter
       this.animation = new Timeline();
       animation.setCycleCount(Timeline.INDEFINITE);
