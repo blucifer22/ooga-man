@@ -136,6 +136,7 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
       tileList.add(outputRow);
     }
     level.setGrid(grid);
+    notifyGridRebuildObservers();
   }
 
 
