@@ -32,7 +32,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
   private final Vec2 initialDirection;
   protected SwapClass swapClass;
   protected InputSource inputSource;
-  protected Map<GameEvent, Runnable> powerupOptions = new HashMap<>();
+  protected final Map<GameEvent, Runnable> powerupOptions = new HashMap<>();
   protected InputSource defaultInputSource;
   protected String inputString;
   private SpriteCoordinates position;
