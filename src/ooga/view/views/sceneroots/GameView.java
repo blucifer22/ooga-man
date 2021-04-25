@@ -46,15 +46,12 @@ public class GameView implements View, ThemedObject, GameStateObservationComposi
     this.audioPlayer = new ViewBoundAudioPlayer(serviceProvider.audioService());
     configureGridConstraints();
 
-    Button backButton = new StyledButton(this.serviceProvider, "mainMenu",
-        e -> this.serviceProvider.viewStackManager().unwind());
+    VBox buttonBox = new VBox(
+        new StyledButton(this.serviceProvider, "mainMenu",
+            e -> this.serviceProvider.viewStackManager().unwind()));
+    buttonBox.setAlignment(Pos.CENTER);
 
-    VBox backButtonBox = new VBox(
-        backButton
-    );
-    backButtonBox.setAlignment(Pos.CENTER);
-
-    this.primaryView.add(backButtonBox, 0, 1);
+    this.primaryView.add(buttonBox, 0, 1);
   }
 
   private void configureGridConstraints() {
