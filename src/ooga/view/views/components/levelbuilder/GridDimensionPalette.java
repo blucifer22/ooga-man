@@ -1,6 +1,5 @@
 package ooga.view.views.components.levelbuilder;
 
-import javafx.scene.control.Slider;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import ooga.model.leveldescription.LevelBuilder;

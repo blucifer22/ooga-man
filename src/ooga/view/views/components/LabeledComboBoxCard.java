@@ -1,6 +1,7 @@
 package ooga.view.views.components;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -20,7 +21,7 @@ public class LabeledComboBoxCard extends StackPane {
   }
 
   public LabeledComboBoxCard(UIServiceProvider serviceProvider, String labelBundleIdentifier,
-      Set<String> options, OptionSelectionHandler selectionHandler) {
+      Collection<String> options, OptionSelectionHandler selectionHandler) {
     super();
     LinkedHashMap<String, String> orderedOptions = new LinkedHashMap<>();
     for (String option : options) {

@@ -1,7 +1,6 @@
 package ooga.view.views.sceneroots;
 
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -9,28 +8,33 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import ooga.model.leveldescription.LevelBuilder;
+import ooga.model.leveldescription.Palette;
 import ooga.view.internal_api.View;
 import ooga.view.theme.api.ThemedObject;
 import ooga.view.uiservice.UIServiceProvider;
+import ooga.view.views.components.LabeledComboBoxCard;
 import ooga.view.views.components.StyledBoundLabel;
 import ooga.view.views.components.StyledButton;
 import ooga.view.views.components.levelbuilder.GridDimensionPalette;
 
 public class LevelBuilderView implements  View, ThemedObject {
-  private final StackPane palette;
+  private final StackPane stageSwapPanel;
+  private final Palette spritePalette;
   private final LevelBuilder levelBuilder;
   private final UIServiceProvider serviceProvider;
   private final GameGridView tileGridView;
   private final GridPane primaryView;
 
-  public LevelBuilderView(UIServiceProvider serviceProvider, LevelBuilder levelBuilder) {
+  public LevelBuilderView(UIServiceProvider serviceProvider, LevelBuilder levelBuilder,
+      Palette spritePalette) {
     this.serviceProvider = serviceProvider;
     this.levelBuilder = levelBuilder;
+    this.spritePalette = spritePalette;
     this.tileGridView = new GameGridView(this.serviceProvider.themeService());
     this.primaryView = new GridPane();
     this.levelBuilder.addGridRebuildObserver(tileGridView);
     this.levelBuilder.addSpriteExistenceObserver(tileGridView);
-    this.palette = new StackPane();
+    this.stageSwapPanel = new StackPane();
 
     this.configureConstraints();
     this.renderViews();
@@ -58,7 +62,7 @@ public class LevelBuilderView implements  View, ThemedObject {
             e -> this.serviceProvider.viewStackManager().unwind())
     );
 
-    this.primaryView.add(palette, 0, 0);
+    this.primaryView.add(stageSwapPanel, 0, 0);
     this.primaryView.add(buttonBox, 0, 1);
     this.primaryView.add(this.tileGridView.getRenderingNode(), 1, 0, 1, 2);
     this.primaryView.getStyleClass().add("view");
@@ -70,16 +74,17 @@ public class LevelBuilderView implements  View, ThemedObject {
   }
 
   private void refreshViews() {
-    this.palette.getChildren().clear();
+    this.stageSwapPanel.getChildren().clear();
 
     Node paletteChild = switch(this.levelBuilder.getBuilderState()) {
       case DIMENSIONING -> new GridDimensionPalette(this.serviceProvider, this.levelBuilder);
       case TILING -> new StyledBoundLabel(this.serviceProvider.languageService()
             .getLocalizedString("tilingInstructions"), "heading").wrap(true);
-      case SPRITE_PLACEMENT -> new StackPane();
+      case SPRITE_PLACEMENT -> new LabeledComboBoxCard(this.serviceProvider, "sprites",
+          this.spritePalette.getSpriteNames(), spritePalette::setActiveSprite);
     };
 
-    this.palette.getChildren().add(paletteChild);
+    this.stageSwapPanel.getChildren().add(paletteChild);
   }
 
   @Override
