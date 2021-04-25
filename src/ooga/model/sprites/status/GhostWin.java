@@ -7,6 +7,11 @@ import ooga.model.sprites.Sprite;
 import ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimationType;
 import ooga.util.Vec2;
 
+/**
+ * A static sprite that flashes "Ghosts Win" when the win conditions for Ghosts have been met
+ *
+ * @author Marc Chmielewski
+ */
 public class GhostWin extends Sprite {
 
   public GhostWin(SpriteCoordinates position, Vec2 direction) {

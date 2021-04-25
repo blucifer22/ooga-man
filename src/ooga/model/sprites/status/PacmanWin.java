@@ -7,6 +7,11 @@ import ooga.model.sprites.Sprite;
 import ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimationType;
 import ooga.util.Vec2;
 
+/**
+ * A static sprite that flashes "Pac-Man Wins" when the win conditions for Ghosts have been met
+ *
+ * @author Marc Chmielewski
+ */
 public class PacmanWin extends Sprite {
 
   public PacmanWin(SpriteCoordinates position, Vec2 direction) {
