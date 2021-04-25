@@ -15,6 +15,7 @@ import ooga.model.api.GridRebuildObserver;
 import ooga.model.api.SpriteExistenceObservable;
 import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.sprites.Sprite;
+import ooga.model.sprites.SwapClass;
 
 /**
  * The StageBuilder is a stripped-down, non-steppable snapshot of the starting Pac-Man game state.
@@ -31,6 +32,8 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
   private final Set<Sprite> toDelete;
   private final PacmanLevel level;
   private final Palette palette;
+  private int pacmanCount;
+  private BuilderState currentState;
   private String jsonFileName;
 
   public LevelBuilder() {
@@ -39,6 +42,41 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
     level = new PacmanLevel();
     toDelete = new HashSet<>();
     palette = new Palette();
+    currentState = BuilderState.DIMENSIONING;
+    pacmanCount = 0;
+  }
+
+  /**
+   * Retrieves the current state of the level builder.
+   *
+   * @return current state of the level builder.
+   */
+  public BuilderState getBuilderState() {
+    return currentState;
+  }
+
+  /**
+   * Advance to the next state
+   */
+  public void advanceState() {
+    switch (currentState) {
+      case DIMENSIONING -> currentState = BuilderState.TILING;
+      case TILING -> currentState = BuilderState.SPRITE_PLACEMENT;
+    }
+  }
+
+  /**
+   * Select is a modal method that changes the functionality of a click depending on the state of
+   * the level builder.  To change what select does, advance to the next state.
+   *
+   * @param x
+   * @param y
+   */
+  public void select(int x, int y) {
+    switch (currentState) {
+      case TILING -> pokeTile(x, y);
+      case SPRITE_PLACEMENT -> addSprite(x, y);
+    }
   }
 
   public Palette getPalette() {
@@ -65,8 +103,15 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
     double xCenter = x + 0.5;
     double yCenter = y + 0.5;
     Sprite sprite = palette.getSprite(xCenter, yCenter);
+    if (sprite.getSwapClass() == SwapClass.PACMAN && pacmanCount == 1) {
+      throw new IllegalStateException(
+          "Pac-Man already placed on the board.  To reposition Pac-Man, remove previous instance");
+    }
     level.getSprites().add(sprite);
     notifySpriteCreation(sprite);
+    if (sprite.getSwapClass() == SwapClass.PACMAN) {
+      pacmanCount++;
+    }
   }
 
   /**
@@ -80,7 +125,6 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
     level.getGrid()
         .setTile(tile.getCoordinates().getX(), tile.getCoordinates().getY(), updateTileState(tile));
     notifyGridRebuildObservers();
-
   }
 
   private Tile updateTileState(Tile tile) {
@@ -113,6 +157,9 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
       TileCoordinates spriteTile = sprite.getCoordinates().getTileCoordinates();
       if (tileToClear.equals(spriteTile)) {
         toDelete.add(sprite);
+      }
+      if (sprite.getSwapClass() == SwapClass.PACMAN) {
+        pacmanCount--;
       }
     }
     for (Sprite sprite : toDelete) {
@@ -172,5 +219,11 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
     for (GridRebuildObserver observers : gridRebuildObservers) {
       observers.onGridRebuild(level.getGrid());
     }
+  }
+
+  enum BuilderState {
+    DIMENSIONING,
+    TILING,
+    SPRITE_PLACEMENT
   }
 }
