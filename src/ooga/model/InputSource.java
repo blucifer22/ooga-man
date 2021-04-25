@@ -41,4 +41,6 @@ public interface InputSource {
    * @param target The Sprite to add to the InputSource.
    */
   void addTarget(Sprite target);
+
+  default boolean isHumanControlled() { return false; }
 }

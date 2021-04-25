@@ -137,4 +137,9 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
   public void addTarget(Sprite target) {
     // Do nothing
   }
+
+  @Override
+  public boolean isHumanControlled() {
+    return true;
+  }
 }
