@@ -1,5 +1,7 @@
 package ooga.model.leveldescription;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -34,7 +36,6 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
   private final Palette palette;
   private int pacmanCount;
   private BuilderState currentState;
-  private String jsonFileName;
 
   public LevelBuilder() {
     spriteExistenceObservers = new HashSet<>();
@@ -88,6 +89,17 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
   }
 
   /**
+   * Writes a completed level to a JSON file
+   *
+   * @param file input file
+   * @throws IOException
+   */
+  public void writeToJSON(File file) throws IOException {
+    LevelDescription levelDescription = new LevelDescription(level);
+    levelDescription.toJSON(file.getPath());
+  }
+
+  /**
    * Adds a selected Sprite (from the Palette) to the given location
    *
    * @param x x-coordinate of grid to add Sprite to
@@ -96,10 +108,6 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
   public void addSprite(int x, int y) {
     // TODO: Get currently active Sprite, feed x, y as inputs.  Load from properties files?
     // TODO: Pair Sprite descriptions to become a metadata + representation class?
-    // list of (Sprite + InputSource) + (coordinate) ==> SpriteDescription ==> Sprite.  When ready, Sprite ==> SpriteDescription
-    /*
-    Option: Use property file of (className : inputSource)
-     */
     double xCenter = x + 0.5;
     double yCenter = y + 0.5;
     Sprite sprite = palette.getSprite(xCenter, yCenter);
@@ -224,6 +232,6 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
   enum BuilderState {
     DIMENSIONING,
     TILING,
-    SPRITE_PLACEMENT
+    SPRITE_PLACEMENT,
   }
 }
