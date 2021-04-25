@@ -7,7 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import ooga.model.PacmanLevel;
 import ooga.model.Tile;
 import ooga.model.TileCoordinates;
 import ooga.model.leveldescription.LevelBuilder.BuilderState;
@@ -102,7 +104,7 @@ public class LevelBuilderTests {
   }
 
   @Test
-  public void saveLevelToFile() {
+  public void saveLevelToFile() throws IOException {
     // Emulate the naming and DIMENSIONING phase of the level builder
     File testFile = new File("data/levels/test_level_builder.json");
     int dimension = 50;
@@ -184,5 +186,10 @@ public class LevelBuilderTests {
     levelBuilder.clearSpritesOnTile(20,25);
     assertThrows(IndexOutOfBoundsException.class, () -> levelBuilder.getLevel().getSprites().get(35));
 
+    levelBuilder.writeToJSON(testFile);
+
+    JSONDescriptionFactory jsonDescriptionFactory = new JSONDescriptionFactory();
+    PacmanLevel levelFromJSON = new PacmanLevel(jsonDescriptionFactory.getLevelDescriptionFromJSON(testFile.getPath()));
+    assertEquals(levelFromJSON.getSprites().size(), levelBuilder.getLevel().getSprites().size());
   }
 }

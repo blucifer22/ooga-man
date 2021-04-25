@@ -96,6 +96,7 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
    */
   public void writeToJSON(File file) throws IOException {
     LevelDescription levelDescription = new LevelDescription(level);
+    levelDescription.setGameMode("CLASSIC");
     levelDescription.toJSON(file.getPath());
   }
 
