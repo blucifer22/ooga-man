@@ -119,16 +119,7 @@ public class PacmanGameState
     jsonFileName = filepath;
     this.player1 = player1;
     this.player2 = player2;
-    PacmanLevel level = loadLevelFromJSON(filepath);
-
-    for (Sprite sprite : level.getSprites()) {
-      sprite.uponNewLevel(roundNumber, this);
-      addSprite(sprite);
-    }
-    loadGrid(level.getGrid());
-
-    SpriteLinkageFactory spriteLinkageFactory = new SpriteLinkageFactory(this, player1, player2);
-    spriteLinkageFactory.linkSprites();
+    setupSprites(filepath, player1, player2);
   }
 
   private PacmanLevel loadLevelFromJSON(String filepath) throws IOException {
@@ -153,6 +144,11 @@ public class PacmanGameState
     clock.clear();
     audioManager.reset();
 
+    setupSprites(jsonFileName, player1, player2);
+  }
+
+  private void setupSprites(String jsonFileName, HumanInputManager player1,
+      HumanInputManager player2) throws IOException {
     PacmanLevel level = loadLevelFromJSON(jsonFileName);
     for (Sprite sprite : level.getSprites()) {
       sprite.uponNewLevel(roundNumber, this);
@@ -185,8 +181,6 @@ public class PacmanGameState
     } else {
       stepThroughSprites(dt);
       System.out.println("GAME OVER!");
-
-      // TODO: Implement game over score screen
     }
   }
 
