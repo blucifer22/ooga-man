@@ -8,15 +8,21 @@ import java.util.List;
 import java.util.Set;
 import ooga.controller.HumanInputManager;
 import ooga.controller.SpriteLinkageFactory;
-import ooga.model.api.*;
+import ooga.model.api.AudioObserver;
+import ooga.model.api.GameStateObservable;
+import ooga.model.api.GameStateObserver;
+import ooga.model.api.GridRebuildObservable;
+import ooga.model.api.GridRebuildObserver;
+import ooga.model.api.PowerupEventObserver;
+import ooga.model.api.SpriteExistenceObservable;
+import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.audio.AudioManager;
 import ooga.model.leveldescription.GridDescription;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.LevelDescription;
 import ooga.model.leveldescription.SpriteDescription;
-import ooga.model.sprites.status.GameOver;
 import ooga.model.sprites.Sprite;
-import ooga.model.sprites.SwapClass;
+import ooga.model.sprites.status.GameOver;
 import ooga.util.Clock;
 import ooga.util.Vec2;
 
@@ -30,9 +36,9 @@ import ooga.util.Vec2;
  */
 public class PacmanGameState
     implements SpriteExistenceObservable,
-    GridRebuildObservable,
-    MutableGameState,
-    GameStateObservable {
+        GridRebuildObservable,
+        MutableGameState,
+        GameStateObservable {
 
   public static final int STARTING_ROUND_NUMBER = 1;
   public static final int STARTING_LIVE_COUNT = 3;
@@ -160,7 +166,6 @@ public class PacmanGameState
   protected void incrementLevel() {
     roundNumber++;
   }
-
 
   /**
    * Steps through a frame of the game and also checks for level progression/restart
@@ -401,8 +406,7 @@ public class PacmanGameState
     return grid;
   }
 
-  public void advanceLevel() {
-  }
+  public void advanceLevel() {}
 
   protected void notifySpriteDestruction(Sprite sprite) {
     for (SpriteExistenceObserver observer : spriteExistenceObservers) {
@@ -503,7 +507,7 @@ public class PacmanGameState
     getAudioManager().addObserver(obs);
   }
 
-  public AudioManager getAudioManager()  {
+  public AudioManager getAudioManager() {
     return audioManager;
   }
 }
