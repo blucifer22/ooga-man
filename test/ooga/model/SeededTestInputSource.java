@@ -18,7 +18,7 @@ public class SeededTestInputSource implements InputSource {
   }
 
   @Override
-  public Vec2 getRequestedDirection() {
+  public Vec2 getRequestedDirection(double dt) {
     return prepopulatedActions.get(dex++);
   }
 

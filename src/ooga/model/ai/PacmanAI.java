@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Queue;
 import ooga.model.InputSource;
 import ooga.model.PacmanGrid;
-import ooga.model.Tile;
 import ooga.model.TileCoordinates;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
@@ -110,7 +109,7 @@ public class PacmanAI implements InputSource {
   }
 
   @Override
-  public Vec2 getRequestedDirection() {
+  public Vec2 getRequestedDirection(double dt) {
     Vec2 currentTilePos = pacMan.getCoordinates().getTileCoordinates().toVec2();
     return maximizeDistance(currentTilePos, targets);
   }

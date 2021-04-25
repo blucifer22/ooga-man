@@ -2,14 +2,11 @@ package ooga.model.sprites;
 
 import java.util.Map;
 import ooga.model.MutableGameState;
-import ooga.model.PacmanPowerupEvent;
+import ooga.model.GameEvent;
 import ooga.model.SpriteCoordinates;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
-import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
-
-import java.lang.management.MemoryUsage;
 
 /**
  * Basic Dot, consumable by Pac-Man to increase the score.
@@ -23,8 +20,8 @@ public class Dot extends Sprite {
             SpriteAnimationFactory.SpriteAnimationType.DOT_STILL,
             position, direction);
     powerupOptions = Map
-        .of(PacmanPowerupEvent.POINT_BONUS_ACTIVATED, () -> dotScoreIncrement *= 2,
-            PacmanPowerupEvent.POINT_BONUS_DEACTIVATED, () -> dotScoreIncrement *= 0.5);
+        .of(GameEvent.POINT_BONUS_ACTIVATED, () -> dotScoreIncrement *= 2,
+            GameEvent.POINT_BONUS_DEACTIVATED, () -> dotScoreIncrement *= 0.5);
   }
 
   public Dot(SpriteDescription spriteDescription) {

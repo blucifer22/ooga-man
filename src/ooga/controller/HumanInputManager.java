@@ -69,9 +69,10 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
    * downwards.
    *
    * @return currently requested input direction, or Vec2.ZERO if none
+   * @param dt
    */
   @Override
-  public Vec2 getRequestedDirection() {
+  public Vec2 getRequestedDirection(double dt) {
     Vec2 ret = Vec2.ZERO;
     if ((pressedKeys.contains(keybinding.get("UP"))))
       ret = ret.add(new Vec2(0, -1));

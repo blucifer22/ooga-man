@@ -140,27 +140,30 @@ public class GhostTests {
 
     // Make sure we're starting off on the right foot
     assertEquals(blinky.getGhostBehavior(), GhostBehavior.WAIT);
-    double defaultMoveSpeed = blinky.getMovementSpeed();
+    double defaultMoveSpeed = blinky.getDefaultMoveSpeed();
     double defaultPointValue = blinky.getScore();
     pgs.step(DT);
 
     // Spoof Pac-Man eating a Ghost Slowdown power-up
-    blinky.respondToPowerEvent(PacmanPowerupEvent.GHOST_SLOWDOWN_ACTIVATED);
+    for (int i=0; i < 10000; i++){
+      pgs.step(DT);
+    }
+    blinky.onGameEvent(GameEvent.GHOST_SLOWDOWN_ACTIVATED);
     pgs.step(DT);
     assertEquals(defaultMoveSpeed * .5, blinky.getMovementSpeed());
 
     // Make sure we return to pre-power-up status at some point
-    blinky.respondToPowerEvent(PacmanPowerupEvent.GHOST_SLOWDOWN_DEACTIVATED);
+    blinky.onGameEvent(GameEvent.GHOST_SLOWDOWN_DEACTIVATED);
     pgs.step(DT);
     assertEquals(defaultMoveSpeed, blinky.getMovementSpeed());
 
     // Spoof Pac-Man eating a double point power-up
-    blinky.respondToPowerEvent(PacmanPowerupEvent.POINT_BONUS_ACTIVATED);
+    blinky.onGameEvent(GameEvent.POINT_BONUS_ACTIVATED);
     pgs.step(DT);
     assertEquals(defaultPointValue * 2, blinky.getScore());
 
     // Make sure we return to pre-power-up status at some point
-    blinky.respondToPowerEvent(PacmanPowerupEvent.POINT_BONUS_DEACTIVATED);
+    blinky.onGameEvent(GameEvent.POINT_BONUS_DEACTIVATED);
     pgs.step(DT);
     assertEquals(defaultPointValue, blinky.getScore());
 
@@ -172,7 +175,7 @@ public class GhostTests {
 
     // Spoof Pac-Man eating a Power-Pill and check for transition to FRIGHTENED state
     //blinky.changeBehavior(GhostBehavior.CHASE);
-    blinky.respondToPowerEvent(PacmanPowerupEvent.FRIGHTEN_ACTIVATED);
+    blinky.onGameEvent(GameEvent.FRIGHTEN_ACTIVATED);
     pgs.step(DT);
     assertEquals(blinky.getGhostBehavior(), GhostBehavior.RUNAWAY);
     assertEquals(blinky.getCurrentAnimation().getCurrentCostume(), "frightened_1");

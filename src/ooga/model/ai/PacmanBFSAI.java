@@ -29,7 +29,7 @@ public class PacmanBFSAI extends PacmanAI {
   }
 
   @Override
-  public Vec2 getRequestedDirection() {
+  public Vec2 getRequestedDirection(double dt) {
     List<Sprite> threatsInVicinity = new ArrayList<>();
     Vec2 currentTilePos = getPacMan().getCoordinates().getTileCoordinates().toVec2();
     for (Sprite target : getTargets()) {

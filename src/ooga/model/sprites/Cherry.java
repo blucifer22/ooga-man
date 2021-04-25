@@ -2,17 +2,13 @@ package ooga.model.sprites;
 
 import java.util.Map;
 import ooga.model.MutableGameState;
-import ooga.model.PacmanPowerupEvent;
+import ooga.model.GameEvent;
 import ooga.model.SpriteCoordinates;
 import ooga.model.leveldescription.SpriteDescription;
-import ooga.model.sprites.animation.FreeRunningPeriodicAnimation;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimationType;
-import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Timer;
 import ooga.util.Vec2;
-
-import java.lang.management.MemoryUsage;
 
 /**
  * Basic Dot, consumable by Pac-Man to increase the score.
@@ -29,8 +25,8 @@ public class Cherry extends Sprite {
             SpriteAnimationFactory.SpriteAnimationType.CHERRY_STILL,
             position, direction);
     powerupOptions = Map
-        .of(PacmanPowerupEvent.POINT_BONUS_ACTIVATED, () -> cherryScoreIncrement *= 2,
-            PacmanPowerupEvent.POINT_BONUS_DEACTIVATED, () -> cherryScoreIncrement *= 0.5);
+        .of(GameEvent.POINT_BONUS_ACTIVATED, () -> cherryScoreIncrement *= 2,
+            GameEvent.POINT_BONUS_DEACTIVATED, () -> cherryScoreIncrement *= 0.5);
   }
 
   public Cherry(SpriteDescription spriteDescription) {
@@ -39,8 +35,11 @@ public class Cherry extends Sprite {
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    if (other.eatsGhosts()){
+    if (other.eatsGhosts() && isConsumable()){
       isEdible = false;
+
+      state.getAudioManager().playSound("fruit-eaten");
+
       this.setCurrentAnimationType(SpriteAnimationType.BLANK);
       state.getClock().addTimer(new Timer(45, mutableGameState -> {
         isEdible = true;

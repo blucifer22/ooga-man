@@ -42,7 +42,7 @@ public class PacmanAITest {
   @Test
   public void testMaximizeDistanceMoveLeft() {
     // Pac-Man attempts to move left to maximize the distance between it and the ghosts
-    Vec2 direction = pacmanIn.getRequestedDirection();
+    Vec2 direction = pacmanIn.getRequestedDirection(0.0);
     assertEquals(new Vec2(-1, 0), direction);
   }
 
@@ -104,7 +104,7 @@ public class PacmanAITest {
     Blinky blinky = new Blinky(new SpriteCoordinates(new Vec2(4.5, 2.5)), new Vec2(-1, 0), 0);
     ai.addTarget(blinky);
 
-    ai.getRequestedDirection();
+    ai.getRequestedDirection(0.0);
 
   }
 }

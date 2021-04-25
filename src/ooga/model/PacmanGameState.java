@@ -9,13 +9,12 @@ import java.util.Set;
 import ooga.controller.HumanInputManager;
 import ooga.controller.SpriteLinkageFactory;
 import ooga.model.api.*;
+import ooga.model.audio.AudioManager;
 import ooga.model.leveldescription.GridDescription;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.LevelDescription;
 import ooga.model.leveldescription.SpriteDescription;
-import ooga.model.sprites.MoveableSprite;
 import ooga.model.sprites.Sprite;
-import ooga.model.sprites.SwapClass;
 import ooga.util.Clock;
 
 /**
@@ -36,7 +35,7 @@ public class PacmanGameState
   public static final int STARTING_LIVE_COUNT = 3;
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
-  private final Set<PowerupEventObserver> pacmanPowerupObservers;
+  private final Set<GameEventObserver> pacmanPowerupObservers;
   private final Set<GameStateObserver> pacmanGameStateObservers;
 
   private final List<Sprite> sprites;
@@ -49,6 +48,8 @@ public class PacmanGameState
   private HumanInputManager player1;
   private HumanInputManager player2;
   private String jsonFileName;
+
+  private AudioManager audioManager;
 
   private int pacmanLivesRemaining;
   protected boolean isPacmanDead;
@@ -64,9 +65,13 @@ public class PacmanGameState
     sprites = new LinkedList<>();
     pacmanPowerupObservers = new HashSet<>();
     clock = new Clock();
+
     roundNumber = STARTING_ROUND_NUMBER;
     pacmanLivesRemaining = STARTING_LIVE_COUNT;
     isGameOver = false;
+
+    audioManager = new AudioManager();
+    registerEventListener(audioManager);
   }
 
   /**
@@ -80,6 +85,7 @@ public class PacmanGameState
     }
     clock.clear();
     clock.reset();
+    getAudioManager().reset();
   }
 
 
@@ -108,6 +114,7 @@ public class PacmanGameState
     PacmanLevel level = loadLevelFromJSON(filepath);
 
     for (Sprite sprite : level.getSprites()) {
+      sprite.uponNewLevel(roundNumber, this);
       addSprite(sprite);
     }
     loadGrid(level.getGrid());
@@ -136,12 +143,11 @@ public class PacmanGameState
     sprites.clear();
     clock.reset();
     clock.clear();
+    audioManager.reset();
 
     PacmanLevel level = loadLevelFromJSON(jsonFileName);
     for (Sprite sprite : level.getSprites()) {
-      if (sprite.getSwapClass() == SwapClass.GHOST){
-        sprite.adjustSpritePropertyWithLevel(roundNumber);
-      }
+      sprite.uponNewLevel(roundNumber, this);
       addSprite(sprite);
     }
     loadGrid(level.getGrid());
@@ -420,7 +426,7 @@ public class PacmanGameState
    * @param listener
    */
   @Override
-  public void registerEventListener(Sprite listener) {
+  public void registerEventListener(GameEventObserver listener) {
     pacmanPowerupObservers.add(listener);
   }
 
@@ -430,9 +436,9 @@ public class PacmanGameState
    * @param type
    */
   @Override
-  public void notifyPowerupListeners(PacmanPowerupEvent type) {
-    for (PowerupEventObserver observer : pacmanPowerupObservers) {
-      observer.respondToPowerEvent(type);
+  public void broadcastEvent(GameEvent type) {
+    for (GameEventObserver observer : pacmanPowerupObservers) {
+      observer.onGameEvent(type);
     }
   }
 
@@ -486,6 +492,10 @@ public class PacmanGameState
   }
 
   public void addAudioObserver(AudioObserver obs) {
-    // TODO
+    getAudioManager().addObserver(obs);
+  }
+
+  public AudioManager getAudioManager()  {
+    return audioManager;
   }
 }

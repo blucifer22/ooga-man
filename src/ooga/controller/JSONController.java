@@ -53,8 +53,8 @@ public class JSONController implements GameStateController {
       pgs.addAudioObserver(rootObserver.audioObserver());
       pgs.addGameStateObserver(rootObserver.gameStateObserver());
 
-      //pgs.initPacmanLevelFromJSON("data/levels/test_level_1.json", player1, player2);
-      pgs.initPacmanLevelFromJSON("data/levels/test_chase_level_2.json", player1, player2);
+      pgs.initPacmanLevelFromJSON("data/levels/test_level_1.json", player1, player2);
+      //pgs.initPacmanLevelFromJSON("data/levels/test_chase_level_2.json", player1, player2);
 
 
       pgs.setPlayers(new Player(1, player1), null);
