@@ -85,6 +85,7 @@ public class PacmanGameState
     }
     clock.clear();
     clock.reset();
+    getAudioManager().reset();
   }
 
 
