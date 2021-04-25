@@ -173,10 +173,10 @@ public class PacmanGameState
     if (!isGameOver) {
       // Moves through Sprites, determines collisions
       stepThroughSprites(dt);
-      // Check if Pac-Man is dead
-      checkPacmanDead();
       // All Dots have been eaten
       checkProceedToNextLevel();
+      // Check if Pac-Man is dead
+      checkPacmanDead();
       handleSwaps();
     } else {
       stepThroughSprites(dt);
@@ -194,6 +194,7 @@ public class PacmanGameState
         isGameOver = true;
         toDelete.addAll(sprites);
         sprites.forEach(this::notifySpriteDestruction);
+        sprites.clear();
         addSprite(
             new GameOver(
                 new SpriteCoordinates(

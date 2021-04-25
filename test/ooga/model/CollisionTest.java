@@ -83,7 +83,7 @@ public class CollisionTest {
       state.step(1 / 60.);
     }
     state.step(1 / 60.);
-    //assertEquals(1, state.getSprites().size());
+    assertEquals(1, state.getSprites().size());
   }
 
   @Test
