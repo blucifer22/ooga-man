@@ -13,7 +13,7 @@ import ooga.model.PacmanLevel;
  * @author Marc Chmielewski
  */
 public class LevelDescription extends JSONDescription {
-  private final String levelName;
+  private final String gameMode;
   private final GridDescription gridDescription;
   private final SpriteLayoutDescription spriteLayoutDescription;
 
@@ -22,16 +22,16 @@ public class LevelDescription extends JSONDescription {
    * create a PacmanGameState (a Pac-Man level), including a String levelName, a GridDescription,
    * and a SpriteLayoutDescription.
    *
-   * @param levelName The name of the level
+   * @param gameMode The name of the level
    * @param gridDescription The GridDescription for the Grid that this Level possesses
    * @param spriteLayoutDescription The SpriteLayout for this Level
    */
   @JsonCreator
   public LevelDescription(
-      @JsonProperty("levelName") String levelName,
+      @JsonProperty("gameMode") String gameMode,
       @JsonProperty("gridDescription") GridDescription gridDescription,
       @JsonProperty("spriteLayoutDescription") SpriteLayoutDescription spriteLayoutDescription) {
-    this.levelName = levelName;
+    this.gameMode = gameMode;
     this.gridDescription = gridDescription;
     this.spriteLayoutDescription = spriteLayoutDescription;
   }
@@ -72,8 +72,8 @@ public class LevelDescription extends JSONDescription {
    * @return This LevelDescription's name.
    */
   @JsonGetter
-  public String getLevelName() {
-    return levelName;
+  public String getGameMode() {
+    return gameMode;
   }
 
   /**
