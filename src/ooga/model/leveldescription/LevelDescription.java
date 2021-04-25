@@ -19,7 +19,7 @@ public class LevelDescription extends JSONDescription {
 
   /**
    * The general constructor for LevelDescription. Takes in all of the information required to
-   * create a PacmanGameState (a Pac-Man level), including a String levelName, a GridDescription,
+   * create a PacmanGameState (a Pac-Man level), including a String gameMode, a GridDescription,
    * and a SpriteLayoutDescription.
    *
    * @param gameMode The name of the level
