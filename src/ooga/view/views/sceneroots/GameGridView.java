@@ -49,7 +49,7 @@ public class GameGridView implements View, GridRebuildObserver, SpriteExistenceO
   private void createTileGraphics(ObservableGrid grid) {
     for (int row = 0; row < grid.getHeight(); row++) {
       for (int col = 0; col < grid.getWidth(); col++) {
-        TileView tv = new TileView(grid.getTile(new TileCoordinates(row, col)), tileSize,
+        TileView tv = new TileView(grid.getTile(new TileCoordinates(col, row)), tileSize,
             themeService);
         tileGrid.getChildren().add(tv.getRenderingNode());
       }
