@@ -63,10 +63,11 @@ public class CollisionTest {
     ai.addTarget(pacMan);
     blinky1.setInputSource(ai);
     blinky2.setInputSource(ai);
+    pacMan.uponNewLevel(1, state);
 
 
     SeededTestInputSource pacmanAI = new SeededTestInputSource();
-    for (int k = 0; k < 300; k++) {
+    for (int k = 0; k < 3000; k++) {
       pacmanAI.addActions(new Vec2(0, 0));
     }
     pacMan.setInputSource(pacmanAI);
@@ -79,7 +80,7 @@ public class CollisionTest {
     state.addSprite(blinky1);
     state.addSprite(blinky2);
 
-    for (int k = 0; k < 240; k++) {
+    for (int k = 0; k < 840; k++) {
       state.step(1 / 60.);
     }
     state.step(1 / 60.);
