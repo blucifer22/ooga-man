@@ -52,12 +52,12 @@ public class JSONController implements GameStateController {
    */
   @Override
   public void startGame(GameStateObservationComposite rootObserver) {
-    if (animation != null) {
-      animation.stop();
-    }
+    pauseGame();
     try {
       File levelFile = uiController.requestUserFile(new File("data/levels"));
-      // TODO: throw an exception if this is invalid
+      if (levelFile == null || !levelFile.exists() || !levelFile.isFile()) {
+        throw new IllegalArgumentException("badFileError");
+      }
 
       HumanInputManager player1 = new HumanInputManager(KeybindingType.PLAYER_1);
       HumanInputManager player2 = new HumanInputManager(KeybindingType.PLAYER_2);
@@ -69,7 +69,7 @@ public class JSONController implements GameStateController {
         case "CLASSIC" -> new PacmanGameState();
         case "CHASE" -> new PacmanGameStateChase();
         case "ADVERSARIAL" -> new PacmanGameStateAdversarial();
-        default -> throw new IllegalArgumentException("YOU HAVE AN INVALID GAME MODE!");
+        default -> throw new IllegalArgumentException("invalidGameModeJSONError");
       };
 
       pgs.addSpriteExistenceObserver(rootObserver.spriteExistenceObserver());
@@ -79,16 +79,25 @@ public class JSONController implements GameStateController {
       pgs.initPacmanLevelFromJSON(levelFile.getPath(), player1, player2);
 
       KeyFrame frame = new KeyFrame(Duration.seconds(TIMESTEP), e -> {
-        pgs.step(TIMESTEP);
+        try {
+          pgs.step(TIMESTEP);
+        } catch (Exception exception) {
+          uiController.handleException("backendInternalError");
+        }
       });
-      // TODO: remove grid from step parameter
       this.animation = new Timeline();
       animation.setCycleCount(Timeline.INDEFINITE);
       animation.getKeyFrames().add(frame);
       animation.play();
-    } catch (IOException e) {
-      // TODO: Pop-up exception handling!
-      System.err.println(e.getMessage());
+    } catch (Exception e) {
+      uiController.handleException(e.getMessage());
+    }
+  }
+
+  @Override
+  public void pauseGame() {
+    if (animation != null) {
+      animation.stop();
     }
   }
 }

@@ -63,10 +63,11 @@ public class CollisionTest {
     ai.addTarget(pacMan);
     blinky1.setInputSource(ai);
     blinky2.setInputSource(ai);
+    pacMan.uponNewLevel(1, state);
 
 
     SeededTestInputSource pacmanAI = new SeededTestInputSource();
-    for (int k = 0; k < 300; k++) {
+    for (int k = 0; k < 3000; k++) {
       pacmanAI.addActions(new Vec2(0, 0));
     }
     pacMan.setInputSource(pacmanAI);
@@ -79,7 +80,7 @@ public class CollisionTest {
     state.addSprite(blinky1);
     state.addSprite(blinky2);
 
-    for (int k = 0; k < 240; k++) {
+    for (int k = 0; k < 840; k++) {
       state.step(1 / 60.);
     }
     state.step(1 / 60.);
@@ -93,6 +94,7 @@ public class CollisionTest {
     Vec2 direction = new Vec2(-1, 0);
     SpriteCoordinates spriteCoordinates = new SpriteCoordinates(position);
     pacMan = new PacMan(spriteCoordinates, direction, 11);
+    pacMan.unfreeze();
     state.addSprite(pacMan);
 
     List<Vec2> prepopulatedActions = new ArrayList<>();
@@ -128,6 +130,7 @@ public class CollisionTest {
     pacMan = new PacMan(spriteCoordinates, direction, 5);
     pacMan.setInputSource(input);
     state.addSprite(pacMan);
+    pacMan.unfreeze();
 
     TeleporterOverlay teleporter1 = new TeleporterOverlay(
         new SpriteCoordinates(new Vec2(1.5, 2.5)));

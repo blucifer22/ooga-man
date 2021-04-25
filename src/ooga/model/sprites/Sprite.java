@@ -36,7 +36,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
   private final Vec2 initialDirection;
   private SwapClass swapClass;
   private InputSource inputSource;
-  private Map<GameEvent, Runnable> powerupOptions = new HashMap<>();
+  private final Map<GameEvent, Runnable> powerupOptions = new HashMap<>();
   private InputSource defaultInputSource;
   private String inputString;
   private SpriteCoordinates position;
@@ -358,7 +358,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
     return powerupOptions;
   }
 
-  protected void setPowerupOptions(Map<GameEvent, Runnable> powerupOptions) {
-    this.powerupOptions = powerupOptions;
+  protected void addPowerUpOptions(Map<GameEvent, Runnable> powerupOptions) {
+    this.powerupOptions.putAll(powerupOptions);
   }
 }

@@ -4,6 +4,7 @@ import java.util.Map;
 import ooga.model.*;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
+import ooga.util.Timer;
 import ooga.util.Vec2;
 
 /**
@@ -14,21 +15,40 @@ public class PacMan extends MoveableSprite {
   public static final String TYPE = "pacman_halfopen";
   private int ghostsEaten;
   private int dotsEaten;
+  private enum PacmanState {
+    ALIVE,
+    DYING,
+    DEAD
+  };
+
+  private static final double INITIAL_FREEZE_DURATION = 4.2; // length of the starting sound
+
+  private PacmanState currentState;
 
   public PacMan(SpriteCoordinates position, Vec2 direction, double speed) {
     super("pacman",
         SpriteAnimationFactory.SpriteAnimationType.PACMAN_CHOMP,
         position, direction, speed);
     setSwapClass(SwapClass.PACMAN);
-    setPowerupOptions(Map
+    addPowerUpOptions(Map
         .of(GameEvent.SPEED_UP_ACTIVATED, this::activateSpeedUp,
             GameEvent.SPEED_UP_DEACTIVATED, this::deactivateSpeedUp));
     dotsEaten = 0;
+    changeState(PacmanState.ALIVE);
   }
 
   public PacMan(SpriteDescription spriteDescription) {
     this(spriteDescription.getCoordinates(),
         new Vec2(1, 0), 6.4);
+  }
+
+  private void changeState(PacmanState state) {
+    currentState = state;
+
+    switch(currentState) {
+      case DYING -> setCurrentAnimationType(SpriteAnimationFactory.SpriteAnimationType.PACMAN_DEATH);
+      case ALIVE -> setCurrentAnimationType(SpriteAnimationFactory.SpriteAnimationType.PACMAN_CHOMP);
+    }
   }
 
   @Override
@@ -66,8 +86,15 @@ public class PacMan extends MoveableSprite {
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
+    if(currentState != PacmanState.ALIVE)
+      return; // must be alive to die or score
+
     if (other.isDeadlyToPacMan()) {
-      state.isPacmanDead(true);
+      // begin death animation
+      state.getAudioManager().playSound("pacman-death");
+      setCurrentAnimationType(SpriteAnimationFactory.SpriteAnimationType.PACMAN_DEATH);
+      state.broadcastEvent(GameEvent.PACMAN_DEATH);
+      currentState = PacmanState.DYING;
     } else if (other.isConsumable()) {
       applyScore(state, other);
       playEatingSound(state, other);
@@ -78,14 +105,28 @@ public class PacMan extends MoveableSprite {
   @Override
   public void step(double dt, MutableGameState pacmanGameState) {
     super.step(dt, pacmanGameState);
-    move(dt, pacmanGameState.getGrid());
-    handleCollisions(pacmanGameState);
-    getCurrentAnimation().setPaused(getCurrentSpeed() == 0);
+    switch (currentState) {
+      case ALIVE -> {
+        move(dt, pacmanGameState.getGrid());
+        handleCollisions(pacmanGameState);
+
+        getCurrentAnimation().setPaused(getCurrentSpeed() == 0);
+      }
+      case DEAD -> {
+        pacmanGameState.isPacmanDead(true);
+      }
+    }
   }
 
   @Override
   public boolean eatsGhosts() {
     return true;
+  }
+
+  @Override
+  public void onAnimationComplete() {
+    if(currentState == PacmanState.DYING)
+      changeState(PacmanState.DEAD);
   }
 
   @Override
@@ -108,5 +149,15 @@ public class PacMan extends MoveableSprite {
     super.uponNewLevel(roundNumber, state);
 
     state.getAudioManager().playSound("start-classic");
+    state.getClock().addTimer(new Timer(INITIAL_FREEZE_DURATION, gameState -> gameState.broadcastEvent(GameEvent.SPRITES_UNFROZEN)));
+
+    reset();
+  }
+
+  @Override
+  public void reset() {
+    super.reset();
+
+    changeState(PacmanState.ALIVE);
   }
 }

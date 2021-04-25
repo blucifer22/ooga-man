@@ -46,6 +46,7 @@ public class PaletteTest {
   @Test
   public void testPalette(){
     levelBuilder.setGridSize(5, 5);
+    levelBuilder.getPalette().setActiveSprite("Blinky");
     levelBuilder.addSprite(3,3);
     assertEquals(1, levelBuilder.getLevel().getSprites().size());
     for (int i=1; i < 10; i++){

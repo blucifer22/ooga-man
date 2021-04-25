@@ -40,6 +40,7 @@ public class SpriteInternalDataTests {
     Vec2 direction = new Vec2(-1, 0);
     SpriteCoordinates spriteCoordinates = new SpriteCoordinates(position);
     pacMan = new PacMan(spriteCoordinates, direction, 11);
+    pacMan.unfreeze();
     state.setPlayers(new Player(1, new HumanInputManager(KeybindingType.PLAYER_1)), null);
   }
 
