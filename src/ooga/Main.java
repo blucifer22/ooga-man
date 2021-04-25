@@ -2,8 +2,6 @@ package ooga;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import ooga.controller.Controller;
-import ooga.controller.DemoController;
 import ooga.controller.JSONController;
 
 /** Feel free to completely change this code or delete it entirely. */
