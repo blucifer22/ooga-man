@@ -103,7 +103,7 @@ public abstract class MoveableSprite extends Sprite {
     if(frozen)
       return;
 
-    Vec2 userDirection = getInputSource().getRequestedDirection();
+    Vec2 userDirection = getInputSource().getRequestedDirection(dt);
     userDirection = userDirection.getMagnitude() == 1 ? userDirection : Vec2.ZERO;
 
     if (getDirection().parallelTo(userDirection)) {

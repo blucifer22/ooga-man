@@ -19,6 +19,8 @@ import static ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimatio
 public abstract class Ghost extends MoveableSprite {
 
   private final Clock ghostClock;
+
+  private final double defaultMoveSpeed;
   private final SpriteCoordinates spawn;
   private int baseGhostScore = 200;
   private int frightenedBank;
@@ -39,17 +41,9 @@ public abstract class Ghost extends MoveableSprite {
     spawn = position;
     swapClass = SwapClass.GHOST;
     currentState = INITIAL_STATE;
+    defaultMoveSpeed = speed;
     ghostClock = new Clock();
-    ghostClock.addTimer(new Timer(getInitialWaitTime(), state -> {
-      GhostState nextState = switch (currentState) {
-        case FRIGHTENED_WAIT -> GhostState.FRIGHTENED;
-        case FRIGHTENED_WAIT_BLINKING -> GhostState.FRIGHTENED_BLINKING;
-        default -> GhostState.CHASE; // includes normal WAIT -> CHASE transition
-      };
-
-      changeState(nextState);
-    }
-    ));
+    ghostClock.addTimer(new Timer(getInitialWaitTime(), this::waitTimerExpired));
 
     powerupOptions.putAll(Map
         .of(GameEvent.FRIGHTEN_ACTIVATED, this::activateFrightened,
@@ -69,6 +63,16 @@ public abstract class Ghost extends MoveableSprite {
             ));
 
     forceAnimationUpdate = false;
+  }
+
+  private void waitTimerExpired(MutableGameState gameState) {
+    GhostState nextState = switch (currentState) {
+      case FRIGHTENED_WAIT -> GhostState.FRIGHTENED;
+      case FRIGHTENED_WAIT_BLINKING -> GhostState.FRIGHTENED_BLINKING;
+      default -> GhostState.CHASE; // includes normal WAIT -> CHASE transition
+    };
+    changeState(nextState);
+    this.setMovementSpeed(defaultMoveSpeed);
   }
 
   public Ghost(
@@ -132,6 +136,10 @@ public abstract class Ghost extends MoveableSprite {
    */
   protected double getInitialWaitTime() {
     return 0;
+  }
+
+  public double getDefaultMoveSpeed() {
+    return defaultMoveSpeed;
   }
 
   /**
@@ -202,11 +210,7 @@ public abstract class Ghost extends MoveableSprite {
       this.setMovementSpeed(this.getMovementSpeed() * (2.0 / 3.0));
       changeState(GhostState.WAIT);
       pacmanGameState.getAudioManager().popAmbience();
-      pacmanGameState.getClock().addTimer(new Timer(0.25, mutableGameState -> {
-        this.setCurrentSpeed(getMovementSpeed());
-        this.changeState(GhostState.CHASE);
-        setDirection(getDirection().scalarMult(-1));
-      }));
+      waitTimerExpired(pacmanGameState);
     }
 
     handleCollisions(pacmanGameState);

@@ -140,11 +140,14 @@ public class GhostTests {
 
     // Make sure we're starting off on the right foot
     assertEquals(blinky.getGhostBehavior(), GhostBehavior.WAIT);
-    double defaultMoveSpeed = blinky.getMovementSpeed();
+    double defaultMoveSpeed = blinky.getDefaultMoveSpeed();
     double defaultPointValue = blinky.getScore();
     pgs.step(DT);
 
     // Spoof Pac-Man eating a Ghost Slowdown power-up
+    for (int i=0; i < 10000; i++){
+      pgs.step(DT);
+    }
     blinky.onGameEvent(GameEvent.GHOST_SLOWDOWN_ACTIVATED);
     pgs.step(DT);
     assertEquals(defaultMoveSpeed * .5, blinky.getMovementSpeed());
