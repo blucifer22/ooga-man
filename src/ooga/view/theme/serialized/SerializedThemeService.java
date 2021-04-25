@@ -67,7 +67,8 @@ public class SerializedThemeService implements ThemeService, ThemeSelectionServi
     try {
       loadThemeFromFile(defaultTheme);
     } catch (IOException | IllegalArgumentException e) {
-      exceptionService.handleWarning(new UIServicedException("defaultThemeMissingError", DEFAULT_THEME_NAME));
+      exceptionService
+          .handleWarning(new UIServicedException("defaultThemeMissingError", DEFAULT_THEME_NAME));
       e.printStackTrace();
     }
 
@@ -80,7 +81,8 @@ public class SerializedThemeService implements ThemeService, ThemeSelectionServi
       try {
         loadThemeFromFile(base);
       } catch (Exception e) {
-        exceptionService.handleWarning(new UIServicedException("corruptedThemeError", base.getAbsolutePath()));
+        exceptionService
+            .handleWarning(new UIServicedException("corruptedThemeError", base.getAbsolutePath()));
         e.printStackTrace();
       }
     } else if (base.isDirectory() && base.exists()) {
@@ -91,7 +93,8 @@ public class SerializedThemeService implements ThemeService, ThemeSelectionServi
   }
 
   private void loadThemeFromFile(File f) throws IOException {
-    Theme t = (new ObjectMapper()).readValue(f, ThemeDescription.class).toTheme(this.exceptionService);
+    Theme t = (new ObjectMapper()).readValue(f, ThemeDescription.class)
+        .toTheme(this.exceptionService);
 
     if (t.getName() == null) {
       throw new IllegalArgumentException();
