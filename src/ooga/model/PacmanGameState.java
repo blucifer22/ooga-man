@@ -121,6 +121,7 @@ public class PacmanGameState
     this.player1 = player1;
     this.player2 = player2;
     setupSprites(filepath, player1, player2);
+    setPlayers(new Player(1, player1), null);
   }
 
   private PacmanLevel loadLevelFromJSON(String filepath) throws IOException {
@@ -280,7 +281,7 @@ public class PacmanGameState
    * @param pacmanPlayer Player controlling Pac-Man. Null if single player during hunt mode.
    * @param ghostsPlayer Player controlling the ghosts. Null if single player during classic mode.
    */
-  public void setPlayers(Player pacmanPlayer, Player ghostsPlayer) {
+  protected void setPlayers(Player pacmanPlayer, Player ghostsPlayer) {
     this.pacmanPlayer = pacmanPlayer;
     this.ghostsPlayer = ghostsPlayer;
   }

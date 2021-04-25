@@ -22,6 +22,7 @@ public class PacmanGameStateAdversarial extends PacmanGameState {
       HumanInputManager player2) throws IOException {
     Sprite initGhost = null;
     super.initPacmanLevelFromJSON(filepath, player1, player2);
+    setPlayers(new Player(1, player1), new Player(2, player2));
     for (Sprite sprite : getSprites()) {
       if (sprite.getSwapClass() == SwapClass.GHOST) {
         initGhost = sprite;

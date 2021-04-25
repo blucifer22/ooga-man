@@ -23,12 +23,11 @@ import ooga.view.UIController;
 public class JSONController implements GameStateController {
 
   private static final double TIMESTEP = 1.0 / 60.0;
+  private static final String FILEPATH = "data/levels/test_adversarial_level.json";
   private final UIController uiController;
   private final JSONDescriptionFactory jsonDescriptionFactory;
   private final HumanInputConsumerComposite compositeConsumer;
   private Timeline animation;
-
-  private static final String FILEPATH = "data/levels/test_chase_level_2.json";
 
   public JSONController(Stage primaryStage) {
     // instantiate composite input receiver
@@ -60,14 +59,10 @@ public class JSONController implements GameStateController {
       pgs.addGridRebuildObserver(rootObserver.gridRebuildObserver());
       pgs.addAudioObserver(rootObserver.audioObserver());
       pgs.addGameStateObserver(rootObserver.gameStateObserver());
-
       pgs.initPacmanLevelFromJSON(FILEPATH, player1, player2);
 
-      pgs.setPlayers(new Player(1, player1), null);
-
-      PacmanGameState finalPgs = pgs;
       KeyFrame frame = new KeyFrame(Duration.seconds(TIMESTEP), e -> {
-        finalPgs.step(TIMESTEP);
+        pgs.step(TIMESTEP);
       }); //
       // TODO: remove grid from step parameter
       this.animation = new Timeline();
@@ -79,6 +74,4 @@ public class JSONController implements GameStateController {
       System.err.println(e.getMessage());
     }
   }
-
-
 }
