@@ -26,6 +26,7 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
   private final SimpleIntegerProperty roundProperty;
   private GameStateObservable dataSource;
   private boolean initialized = false;
+
   public ScoreboardCard(UIServiceProvider serviceProvider) {
     this.view = new GridPane();
     this.serviceProvider = serviceProvider;
