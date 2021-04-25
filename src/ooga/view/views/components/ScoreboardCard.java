@@ -1,14 +1,9 @@
 package ooga.view.views.components;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.TreeMap;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.StringBinding;
-import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -23,30 +18,14 @@ import ooga.view.uiservice.UIServiceProvider;
 
 public class ScoreboardCard implements GameStateObserver, Renderable {
 
-  private static class PlayerDataBindingContainer {
-    private final SimpleIntegerProperty scoreProperty;
-    private final SimpleIntegerProperty winProperty;
-
-    public PlayerDataBindingContainer(ImmutablePlayer p) {
-      this.scoreProperty = new SimpleIntegerProperty(p.getScore());
-      this.winProperty = new SimpleIntegerProperty(p.getRoundWins());
-    }
-
-    public void update(ImmutablePlayer p) {
-      scoreProperty.set(p.getScore());
-      winProperty.set(p.getRoundWins());
-    }
-  }
-
-  private GameStateObservable dataSource;
+  private static final int NUM_COLS = 3;
   private final UIServiceProvider serviceProvider;
   private final GridPane view;
   private final TreeMap<Integer, PlayerDataBindingContainer> dataBindingContainers;
   private final SimpleIntegerProperty livesProperty;
   private final SimpleIntegerProperty roundProperty;
-  private static final int NUM_COLS = 3;
+  private GameStateObservable dataSource;
   private boolean initialized = false;
-
   public ScoreboardCard(UIServiceProvider serviceProvider) {
     this.view = new GridPane();
     this.serviceProvider = serviceProvider;
@@ -56,7 +35,7 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
   }
 
   private void configureData() {
-    for (ImmutablePlayer p: dataSource.getPlayers()) {
+    for (ImmutablePlayer p : dataSource.getPlayers()) {
       dataBindingContainers.put(p.getID(), new PlayerDataBindingContainer(p));
     }
     livesProperty.setValue(dataSource.getPacmanLivesRemaining());
@@ -67,12 +46,12 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
     int numPlayers = this.dataSource.getPlayers().size();
     for (int i = 0; i < numPlayers; i++) {
       RowConstraints rc = new RowConstraints();
-      rc.setPercentHeight(100.0/(numPlayers+4.0));
+      rc.setPercentHeight(100.0 / (numPlayers + 4.0));
       this.view.getRowConstraints().add(rc);
     }
     for (int i = 0; i < NUM_COLS; i++) {
       ColumnConstraints cc = new ColumnConstraints();
-      cc.setPercentWidth(100.0/(NUM_COLS));
+      cc.setPercentWidth(100.0 / (NUM_COLS));
       this.view.getColumnConstraints().add(cc);
     }
     this.view.setHgap(5);
@@ -91,21 +70,23 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
 
     this.view.add(new Label(), 0, 2, NUM_COLS, 1);
 
-    this.view.add(new StyledBoundLabel(stringFor("player") , "heading"), 0, 3);
+    this.view.add(new StyledBoundLabel(stringFor("player"), "heading"), 0, 3);
     this.view.add(new StyledBoundLabel(stringFor("score"), "heading"), 1, 3);
     this.view.add(new StyledBoundLabel(stringFor("wins"), "heading"), 2, 3);
 
-    for (ImmutablePlayer p: dataSource.getPlayers()) {
-      int rowNum = p.getID()+3;
+    for (ImmutablePlayer p : dataSource.getPlayers()) {
+      int rowNum = p.getID() + 3;
       PlayerDataBindingContainer container = dataBindingContainers.get(p.getID());
-      this.view.add(new StyledBoundLabel(new SimpleIntegerProperty(p.getID()).asString(), "body"), 0, rowNum);
+      this.view
+          .add(new StyledBoundLabel(new SimpleIntegerProperty(p.getID()).asString(), "body"), 0,
+              rowNum);
       this.view.add(new StyledBoundLabel(container.scoreProperty.asString(), "body"), 1, rowNum);
       this.view.add(new StyledBoundLabel(container.winProperty.asString(), "body"), 2, rowNum);
     }
   }
 
   private void refresh() {
-    for (ImmutablePlayer p: dataSource.getPlayers()) {
+    for (ImmutablePlayer p : dataSource.getPlayers()) {
       dataBindingContainers.get(p.getID()).update(p);
     }
     livesProperty.setValue(dataSource.getPacmanLivesRemaining());
@@ -138,5 +119,21 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
   @Override
   public Node getRenderingNode() {
     return this.view;
+  }
+
+  private static class PlayerDataBindingContainer {
+
+    private final SimpleIntegerProperty scoreProperty;
+    private final SimpleIntegerProperty winProperty;
+
+    public PlayerDataBindingContainer(ImmutablePlayer p) {
+      this.scoreProperty = new SimpleIntegerProperty(p.getScore());
+      this.winProperty = new SimpleIntegerProperty(p.getRoundWins());
+    }
+
+    public void update(ImmutablePlayer p) {
+      scoreProperty.set(p.getScore());
+      winProperty.set(p.getRoundWins());
+    }
   }
 }

@@ -5,6 +5,7 @@ import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.scene.control.Label;
 
 public class StyledBoundLabel extends Label {
+
   public StyledBoundLabel(StringBinding labelBinding, String labelClass) {
     this.textProperty().bind(labelBinding);
     style(labelClass);
@@ -16,6 +17,6 @@ public class StyledBoundLabel extends Label {
   }
 
   private void style(String labelClass) {
-    this.getStyleClass().addAll("styled-label", "styled-label-"+labelClass);
+    this.getStyleClass().addAll("styled-label", "styled-label-" + labelClass);
   }
 }
