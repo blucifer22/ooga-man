@@ -19,12 +19,12 @@ import ooga.view.uiservice.UIServiceProvider;
 public class ScoreboardCard implements GameStateObserver, Renderable {
 
   private static final int NUM_COLS = 3;
+  private GameStateObservable dataSource;
   private final UIServiceProvider serviceProvider;
   private final GridPane view;
   private final TreeMap<Integer, PlayerDataBindingContainer> dataBindingContainers;
   private final SimpleIntegerProperty livesProperty;
   private final SimpleIntegerProperty roundProperty;
-  private GameStateObservable dataSource;
   private boolean initialized = false;
 
   public ScoreboardCard(UIServiceProvider serviceProvider) {
