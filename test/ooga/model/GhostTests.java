@@ -128,6 +128,9 @@ public class GhostTests {
 
     Ghost blinky = new Blinky(blinkySpriteDescription);
     BlinkyAI blinkyAI = new BlinkyAI(pgs.getGrid(), blinky);
+    pacMan.unfreeze();
+    pacMan.uponNewLevel(1, pgs);
+    blinky.unfreeze();
 
     Dot dot = new Dot(blinky.getCoordinates(), Vec2.ZERO);
 
@@ -148,6 +151,8 @@ public class GhostTests {
     for (int i=0; i < 10000; i++){
       pgs.step(DT);
     }
+
+    assertEquals(GhostBehavior.CHASE, blinky.getGhostBehavior());
     blinky.onGameEvent(GameEvent.GHOST_SLOWDOWN_ACTIVATED);
     pgs.step(DT);
     assertEquals(defaultMoveSpeed * .5, blinky.getMovementSpeed());

@@ -12,12 +12,8 @@ import ooga.model.ai.ClydeAI;
 import ooga.model.ai.GhostAI;
 import ooga.model.ai.InkyAI;
 import ooga.model.ai.PinkyAI;
-import ooga.model.sprites.Blinky;
-import ooga.model.sprites.Clyde;
-import ooga.model.sprites.Ghost;
+import ooga.model.sprites.*;
 import ooga.model.sprites.Ghost.GhostBehavior;
-import ooga.model.sprites.Inky;
-import ooga.model.sprites.PacMan;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -62,20 +58,6 @@ public class GhostAITest {
   }
 
   @Test
-  public void testClydeNarrowDistance() {
-    pacMan = new PacMan(new SpriteCoordinates(new Vec2(1.5, 0.5)), new Vec2(0, 0), 5);
-    Clyde clyde = new Clyde(new SpriteCoordinates(new Vec2(10.5, 2.5)), new Vec2(1, 0), 2);
-    ClydeAI in = new ClydeAI(grid, clyde);
-    in.setTarget(pacMan);
-    clyde.setInputSource(in);
-    for (int k = 0; k < 481; k++) {
-      clyde.step(1 / 60., state);
-    }
-    Vec2 req = in.getRequestedDirection(1/60.0);
-    assertEquals(new Vec2(-1, 0), req);
-  }
-
-  @Test
   public void testInkyNarrowDistance() {
     /*
     _ _ _ _ _ _ _ _ _ _ _ _
@@ -89,7 +71,9 @@ public class GhostAITest {
     InkyAI in = new InkyAI(grid, clyde);
     in.setTarget(pacMan);
     clyde.setInputSource(in);
-    for (int k = 0; k < 361; k++) {
+    pacMan.unfreeze();
+    clyde.onGameEvent(GameEvent.SPRITES_UNFROZEN);
+    for (int k = 0; k < 461; k++) {
       clyde.step(1 / 60., state);
     }
     Vec2 req = in.getRequestedDirection(1/60.0);
@@ -105,6 +89,8 @@ public class GhostAITest {
     for (int k = 0; k < 30; k++) {
       blinky.step(1 / 60., state);
     }
+    blinky.unfreeze();
+    blinky.onGameEvent(GameEvent.SPRITES_UNFROZEN);
     assertEquals(GhostBehavior.WAIT, blinky.getGhostBehavior());
     for (int k = 0; k < 240; k++) {
       blinky.step(1 / 60., state);
@@ -118,6 +104,7 @@ public class GhostAITest {
     GhostAI AI = new GhostAI(grid, blinky);
     AI.setTarget(pacMan);
     blinky.setInputSource(AI);
+    blinky.onGameEvent(GameEvent.SPRITES_UNFROZEN);
     for (int k = 0; k < 30; k++) {
       blinky.step(1 / 60., state);
     }

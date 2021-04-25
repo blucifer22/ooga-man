@@ -24,7 +24,7 @@ public class Cherry extends Sprite {
     super("cherry",
             SpriteAnimationFactory.SpriteAnimationType.CHERRY_STILL,
             position, direction);
-    setPowerupOptions(Map
+    addPowerUpOptions(Map
         .of(GameEvent.POINT_BONUS_ACTIVATED, () -> cherryScoreIncrement *= 2,
             GameEvent.POINT_BONUS_DEACTIVATED, () -> cherryScoreIncrement *= 0.5));
   }
