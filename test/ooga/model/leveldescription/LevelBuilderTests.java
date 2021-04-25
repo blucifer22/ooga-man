@@ -2,7 +2,6 @@ package ooga.model.leveldescription;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -160,21 +159,21 @@ public class LevelBuilderTests {
 
     // Add a bunch of Cherries to one Row
     levelBuilder.getPalette().setActiveSprite("Cherry");
-    for(int i = 1; i < 16; i++) {
+    for (int i = 1; i < 16; i++) {
       levelBuilder.select(i, 21);
       assertEquals(levelBuilder.getLevel().getSprites().get(i + 1).getSwapClass(), SwapClass.NONE);
     }
 
     // Add a bunch of PowerPills to one Column
-    levelBuilder.getPalette().setActiveSprite("Cherry");
-    for(int i = 1; i < 16; i++) {
+    levelBuilder.getPalette().setActiveSprite("PowerPill");
+    for (int i = 1; i < 16; i++) {
       levelBuilder.select(46, i);
       assertEquals(levelBuilder.getLevel().getSprites().get(i + 16).getSwapClass(), SwapClass.NONE);
     }
 
     // Add a bunch of Dots to the same Tile
     levelBuilder.getPalette().setActiveSprite("Dot");
-    for(int i = 0; i < 15; i++) {
+    for (int i = 0; i < 15; i++) {
       levelBuilder.select(20, 25);
       assertEquals(levelBuilder.getLevel().getSprites().get(i + 32).getSwapClass(), SwapClass.NONE);
     }
@@ -183,13 +182,57 @@ public class LevelBuilderTests {
     assertEquals(levelBuilder.getLevel().getSprites().get(35).getSwapClass(), SwapClass.NONE);
 
     // Remove all the Dots from aforementioned Tile and verify that they're gone
-    levelBuilder.clearSpritesOnTile(20,25);
-    assertThrows(IndexOutOfBoundsException.class, () -> levelBuilder.getLevel().getSprites().get(35));
+    levelBuilder.clearSpritesOnTile(20, 25);
+    assertThrows(
+        IndexOutOfBoundsException.class, () -> levelBuilder.getLevel().getSprites().get(35));
 
     levelBuilder.writeToJSON(testFile);
 
     JSONDescriptionFactory jsonDescriptionFactory = new JSONDescriptionFactory();
-    PacmanLevel levelFromJSON = new PacmanLevel(jsonDescriptionFactory.getLevelDescriptionFromJSON(testFile.getPath()));
+    PacmanLevel levelFromJSON =
+        new PacmanLevel(jsonDescriptionFactory.getLevelDescriptionFromJSON(testFile.getPath()));
     assertEquals(levelFromJSON.getSprites().size(), levelBuilder.getLevel().getSprites().size());
+  }
+
+  @Test
+  public void generateMaxSizeGrid() throws IOException {
+    // Emulate the naming and DIMENSIONING phase of the level builder
+    File testFile = new File("data/levels/test_max_level_builder.json");
+    int dimension = 25;
+    levelBuilder.setGridSize(dimension, dimension);
+    assertEquals(levelBuilder.getBuilderState(), BuilderState.DIMENSIONING);
+    assertEquals(levelBuilder.getLevel().getGrid().getHeight(), 25);
+    assertEquals(levelBuilder.getLevel().getGrid().getWidth(), 25);
+
+    levelBuilder.advanceState();
+    assertEquals(levelBuilder.getBuilderState(), BuilderState.TILING);
+    levelBuilder.advanceState();
+    assertEquals(levelBuilder.getBuilderState(), BuilderState.SPRITE_PLACEMENT);
+
+    // Add a PacMan to an empty Tile
+    levelBuilder.getPalette().setActiveSprite("PacMan");
+    levelBuilder.select(1, 1);
+    assertEquals(levelBuilder.getLevel().getSprites().get(0).getSwapClass(), SwapClass.PACMAN);
+
+    // Add a Blinky to another empty Tile
+    levelBuilder.getPalette().setActiveSprite("Blinky");
+    levelBuilder.select(20, 20);
+    assertEquals(levelBuilder.getLevel().getSprites().get(1).getSwapClass(), SwapClass.GHOST);
+
+    // Add a bunch of Cherries to one Row
+    levelBuilder.getPalette().setActiveSprite("Cherry");
+    for (int i = 1; i < 16; i++) {
+      levelBuilder.select(i, 15);
+      assertEquals(levelBuilder.getLevel().getSprites().get(i + 1).getSwapClass(), SwapClass.NONE);
+    }
+
+    // Add a bunch of PowerPills to one Column
+    levelBuilder.getPalette().setActiveSprite("Dot");
+    for (int i = 1; i < 16; i++) {
+      levelBuilder.select(10, i);
+      assertEquals(levelBuilder.getLevel().getSprites().get(i + 16).getSwapClass(), SwapClass.NONE);
+    }
+
+    levelBuilder.writeToJSON(testFile);
   }
 }
