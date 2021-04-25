@@ -13,7 +13,7 @@ import ooga.model.leveldescription.GridDescription;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.LevelDescription;
 import ooga.model.leveldescription.SpriteDescription;
-import ooga.model.sprites.GameOver;
+import ooga.model.sprites.status.GameOver;
 import ooga.model.sprites.Sprite;
 import ooga.model.sprites.SwapClass;
 import ooga.util.Clock;
