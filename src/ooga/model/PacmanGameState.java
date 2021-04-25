@@ -171,9 +171,9 @@ public class PacmanGameState
    */
   // advance game state by `dt' seconds
   public void step(double dt) {
+    stepThroughSprites(dt);
+    System.out.println("Number of Sprites Remaining: " + sprites.size());
     if (!isGameOver) {
-      // Moves through Sprites, determines collisions
-      stepThroughSprites(dt);
       // All Dots have been eaten
       checkProceedToNextLevel();
       // Check if Pac-Man is dead
@@ -181,7 +181,6 @@ public class PacmanGameState
       handleSwaps();
       notifyGameStateObservers();
     } else {
-      stepThroughSprites(dt);
       System.out.println("GAME OVER!");
     }
   }
@@ -193,10 +192,7 @@ public class PacmanGameState
         resetLevel();
         isPacmanDead(false);
       } else {
-        isGameOver = true;
-        toDelete.addAll(sprites);
-        sprites.forEach(this::notifySpriteDestruction);
-        sprites.clear();
+        gameOverCleanup();
         addSprite(
             new GameOver(
                 new SpriteCoordinates(
@@ -204,6 +200,13 @@ public class PacmanGameState
                 new Vec2(1, 0)));
       }
     }
+  }
+
+  protected void gameOverCleanup() {
+    isGameOver = true;
+    toDelete.addAll(sprites);
+    sprites.forEach(this::notifySpriteDestruction);
+    sprites.clear();
   }
 
   protected void stepThroughSprites(double dt) {

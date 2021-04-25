@@ -56,10 +56,12 @@ public class PacmanGameStateChase extends PacmanGameState {
     if (getClock().getTime() >= TIME_LIMIT) {
       System.out.println("PACMAN RAN AWAY!!!");
       // TODO: PRESENT LOSE SCREEN
+      gameOverCleanup();
       showPacmanWin();
     } else if (isPacmanDead()) {
       // TODO: PRESENT WIN SCREEN
       System.out.println("PACMAN WAS EATEN!!!!");
+      gameOverCleanup();
       showGhostWin();
     }
   }
