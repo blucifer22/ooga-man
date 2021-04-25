@@ -57,7 +57,7 @@ public class JSONController implements GameStateController {
     }
     try {
       File levelFile = uiController.requestUserFile(new File("data/levels"));
-      if (levelFile == null || !levelFile.exists() || levelFile.isFile()) {
+      if (levelFile == null || !levelFile.exists() || !levelFile.isFile()) {
         throw new IllegalArgumentException("badFileError");
       }
 
