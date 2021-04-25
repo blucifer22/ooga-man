@@ -5,14 +5,10 @@ import ooga.model.MutableGameState;
 import ooga.model.PacmanPowerupEvent;
 import ooga.model.SpriteCoordinates;
 import ooga.model.leveldescription.SpriteDescription;
-import ooga.model.sprites.animation.FreeRunningPeriodicAnimation;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimationType;
-import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Timer;
 import ooga.util.Vec2;
-
-import java.lang.management.MemoryUsage;
 
 /**
  * Basic Dot, consumable by Pac-Man to increase the score.
@@ -28,9 +24,9 @@ public class Cherry extends Sprite {
     super("cherry",
             SpriteAnimationFactory.SpriteAnimationType.CHERRY_STILL,
             position, direction);
-    powerupOptions = Map
+    setPowerupOptions(Map
         .of(PacmanPowerupEvent.POINT_BONUS_ACTIVATED, () -> cherryScoreIncrement *= 2,
-            PacmanPowerupEvent.POINT_BONUS_DEACTIVATED, () -> cherryScoreIncrement *= 0.5);
+            PacmanPowerupEvent.POINT_BONUS_DEACTIVATED, () -> cherryScoreIncrement *= 0.5));
   }
 
   public Cherry(SpriteDescription spriteDescription) {

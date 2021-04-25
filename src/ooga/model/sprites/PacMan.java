@@ -1,16 +1,10 @@
 package ooga.model.sprites;
 
-import java.util.HashMap;
 import java.util.Map;
 import ooga.model.*;
-import ooga.model.api.PowerupEventObserver;
 import ooga.model.leveldescription.SpriteDescription;
-import ooga.model.sprites.animation.FreeRunningPeriodicAnimation;
-import ooga.model.sprites.animation.PeriodicAnimation;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Vec2;
-
-import java.util.List;
 
 /**
  * @author George Hong
@@ -24,10 +18,10 @@ public class PacMan extends MoveableSprite {
     super("pacman",
         SpriteAnimationFactory.SpriteAnimationType.PACMAN_CHOMP,
         position, direction, speed);
-    swapClass = SwapClass.PACMAN;
-    powerupOptions = Map
+    setSwapClass(SwapClass.PACMAN);
+    setPowerupOptions(Map
         .of(PacmanPowerupEvent.SPEED_UP_ACTIVATED, this::activateSpeedUp,
-            PacmanPowerupEvent.SPEED_UP_DEACTIVATED, this::deactivateSpeedUp);
+            PacmanPowerupEvent.SPEED_UP_DEACTIVATED, this::deactivateSpeedUp));
   }
 
   public PacMan(SpriteDescription spriteDescription) {

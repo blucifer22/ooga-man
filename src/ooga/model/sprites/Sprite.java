@@ -30,11 +30,11 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
   private final SpriteAnimationFactory animationFactory;
   private final SpriteCoordinates initialPosition;
   private final Vec2 initialDirection;
-  protected SwapClass swapClass;
-  protected InputSource inputSource;
-  protected Map<PacmanPowerupEvent, Runnable> powerupOptions = new HashMap<>();
-  protected InputSource defaultInputSource;
-  protected String inputString;
+  private SwapClass swapClass;
+  private InputSource inputSource;
+  private Map<PacmanPowerupEvent, Runnable> powerupOptions = new HashMap<>();
+  private InputSource defaultInputSource;
+  private String inputString;
   private SpriteCoordinates position;
   private Vec2 direction;
   private Map<SpriteEvent.EventType, Set<SpriteObserver>> observers;
@@ -340,5 +340,22 @@ public abstract class Sprite implements ObservableSprite, PowerupEventObserver, 
 
   public void setInputString(String inputString) {
     this.inputString = inputString;
+  }
+
+  protected void setSwapClass(SwapClass swapClass) {
+    this.swapClass = swapClass;
+  }
+
+  protected Map<PacmanPowerupEvent, Runnable> getPowerupOptions() {
+    return powerupOptions;
+  }
+
+  protected void setPowerupOptions(
+      Map<PacmanPowerupEvent, Runnable> powerupOptions) {
+    this.powerupOptions = powerupOptions;
+  }
+
+  protected void setDefaultInputSource(InputSource defaultInputSource) {
+    this.defaultInputSource = defaultInputSource;
   }
 }

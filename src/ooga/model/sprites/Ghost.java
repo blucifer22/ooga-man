@@ -37,7 +37,7 @@ public abstract class Ghost extends MoveableSprite {
           directionToAnimationType(direction, stateToAnimationType(INITIAL_STATE)), position, direction,
         speed);
     spawn = position;
-    swapClass = SwapClass.GHOST;
+    setSwapClass(SwapClass.GHOST);
     currentState = INITIAL_STATE;
     ghostClock = new Clock();
     ghostClock.addTimer(new Timer(getInitialWaitTime(), state -> {
@@ -51,7 +51,7 @@ public abstract class Ghost extends MoveableSprite {
     }
     ));
 
-    powerupOptions = Map
+    setPowerupOptions(Map
         .of(PacmanPowerupEvent.FRIGHTEN_ACTIVATED, this::activateFrightened,
             PacmanPowerupEvent.FRIGHTEN_DEACTIVATED, this::deactivateFrightened,
             PacmanPowerupEvent.GHOST_SLOWDOWN_ACTIVATED, () -> setMovementSpeed(getMovementSpeed() * 0.5),
@@ -65,7 +65,7 @@ public abstract class Ghost extends MoveableSprite {
                   default -> currentState;
                 });
             }
-            );
+            ));
 
     forceAnimationUpdate = false;
   }

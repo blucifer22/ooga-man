@@ -1,14 +1,11 @@
 package ooga.model.sprites;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import ooga.model.InputSource;
 import ooga.model.PacmanGrid;
 import ooga.model.SpriteCoordinates;
 import ooga.model.Tile;
 import ooga.model.TileCoordinates;
 import ooga.model.leveldescription.SpriteDescription;
-import ooga.model.sprites.animation.ObservableAnimation;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Vec2;
 
@@ -70,8 +67,8 @@ public abstract class MoveableSprite extends Sprite {
 
   @Override
   public void setInputSource(InputSource s) {
-    if (defaultInputSource == null) {
-      defaultInputSource = s;
+    if (getDefaultInputSource() == null) {
+      setDefaultInputSource(s);
     }
     inputSource = s;
   }
