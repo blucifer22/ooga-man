@@ -1,5 +1,6 @@
 package ooga.model.sprites.animation;
 
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import ooga.model.sprites.animation.PeriodicAnimation.FrameOrder;
@@ -34,16 +35,17 @@ public class SpriteAnimationFactory {
     GHOST_DOWN_EYES(false, "eyes_down", 1),
     GHOST_LEFT_EYES(false, "eyes_left", 1),
     GHOST_RIGHT_EYES(false, "eyes_right", 1),
-    PACMAN_CHOMP(true, "chomp", 3, 1.0 / 15.0, FrameOrder.TRIANGLE),
+    PACMAN_CHOMP(true, "chomp", 3, 1.0 / 20.0, FrameOrder.TRIANGLE),
     PACMAN_STILL_HALFOPEN(true, "halfopen", 1),
     PACMAN_STILL_OPEN(true, "open", 1),
+    PACMAN_DEATH(true, "death", 13, 1/9.0, true),
     POWER_PILL_BLINK(true, "blink", 2, 1.0 / 6.0, FrameOrder.SAWTOOTH),
     DOT_STILL(true, "still", 1),
     CHERRY_STILL(true, "still", 1),
     BLANK(false, "blank", 1);
 
     private static final double DEFAULT_FRAME_PERIOD = 1.0 / 8.0;
-    private final boolean spriteSpecific;
+    private final boolean spriteSpecific, oneShot;
     private final String costumeBaseName;
     private final int frameCount;
     private final double framePeriod;
@@ -54,29 +56,44 @@ public class SpriteAnimationFactory {
         String costumeBaseName,
         int frameCount,
         double framePeriod,
-        FrameOrder frameOrder) {
+        FrameOrder frameOrder,
+        boolean oneShot) {
       this.spriteSpecific = spriteSpecific;
       this.costumeBaseName = costumeBaseName;
       this.frameCount = frameCount;
       this.framePeriod = framePeriod;
       this.frameOrder = frameOrder;
+      this.oneShot = oneShot;
+    }
+    SpriteAnimationType(
+        boolean spriteSpecific,
+        String costumeBaseName,
+        int frameCount,
+        double framePeriod,
+        FrameOrder frameOrder) {
+      this(spriteSpecific, costumeBaseName, frameCount, framePeriod, frameOrder, false);
+    }
+    SpriteAnimationType(boolean spriteSpecific, String costumeBaseName, int frameCount) {
+      this(spriteSpecific, costumeBaseName, frameCount, DEFAULT_FRAME_PERIOD, FrameOrder.SAWTOOTH, false);
     }
 
-    SpriteAnimationType(boolean spriteSpecific, String costumeBaseName, int frameCount) {
-      this(spriteSpecific, costumeBaseName, frameCount, DEFAULT_FRAME_PERIOD, FrameOrder.SAWTOOTH);
+    SpriteAnimationType(boolean spriteSpecific, String costumeBaseName, int frameCount, double framePeriod, boolean oneShot) {
+      this(spriteSpecific, costumeBaseName, frameCount, framePeriod, FrameOrder.SAWTOOTH, true);
     }
 
     public ObservableAnimation getAnimation(String spriteName) {
+      List<String> costumes = IntStream.range(1, frameCount + 1)
+                              .mapToObj(
+                                  num ->
+                                  ((spriteSpecific ? spriteName + "_" : "") + costumeBaseName + "_" + num))
+                              .collect(Collectors.toList());
       return frameCount > 1
-          ? new FreeRunningPeriodicAnimation(
-              IntStream.range(1, frameCount + 1)
-                  .mapToObj(
-                      num ->
-                          ((spriteSpecific ? spriteName + "_" : "") + costumeBaseName + "_" + num))
-                  .collect(Collectors.toList()),
-              frameOrder,
-              framePeriod)
-          : new StillAnimation((spriteSpecific ? spriteName + "_" : "") + costumeBaseName + "_1");
+          ? (
+              oneShot
+              ? new OneShotAnimation(costumes, framePeriod)
+              : new FreeRunningPeriodicAnimation(costumes, frameOrder, framePeriod)
+            )
+          : new StillAnimation(costumes.get(0));
     }
   }
 }
