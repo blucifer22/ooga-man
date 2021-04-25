@@ -1,6 +1,6 @@
 package ooga.view.internal_api;
 
-public interface ViewStackManager {
+public interface ViewStackService {
 
   void unwind();
 }
