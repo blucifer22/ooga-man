@@ -5,6 +5,8 @@ import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Vec2;
 
+import java.util.Map;
+
 public abstract class MoveableSprite extends Sprite {
 
   public static final int UNIVERSAL_MAX_MOVEMENT_SPEED = 6;
@@ -12,6 +14,7 @@ public abstract class MoveableSprite extends Sprite {
   private double currentSpeed;
   private double movementSpeed;
   private Vec2 queuedDirection;
+  private boolean frozen;
 
   private double initialMovementSpeed;
 
@@ -24,6 +27,9 @@ public abstract class MoveableSprite extends Sprite {
     this.currentSpeed = 0;
     this.movementSpeed = speed;
     queuedDirection = null;
+    frozen = true;
+
+    powerupOptions.putAll(Map.of(GameEvent.SPRITES_UNFROZEN, this::unfreeze));
 
     initialMovementSpeed = speed;
   }
@@ -79,12 +85,24 @@ public abstract class MoveableSprite extends Sprite {
    */
   @Override
   public void uponNewLevel(int roundNumber, MutableGameState state) {
-    movementSpeed = Math.min(movementSpeed + 0.5 * roundNumber, UNIVERSAL_MAX_MOVEMENT_SPEED);
+    movementSpeed = Math.min(initialMovementSpeed + 0.5 * roundNumber, UNIVERSAL_MAX_MOVEMENT_SPEED);
+    frozen = true;
   }
 
   protected abstract boolean canMoveTo(Tile tile);
 
+  protected void unfreeze() {
+    frozen = false;
+  }
+
+  protected void freeze() {
+    frozen = true;
+  }
+
   public void move(double dt, PacmanGrid grid) {
+    if(frozen)
+      return;
+
     Vec2 userDirection = getInputSource().getRequestedDirection();
     userDirection = userDirection.getMagnitude() == 1 ? userDirection : Vec2.ZERO;
 

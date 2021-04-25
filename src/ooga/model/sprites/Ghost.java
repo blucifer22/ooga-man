@@ -51,7 +51,7 @@ public abstract class Ghost extends MoveableSprite {
     }
     ));
 
-    powerupOptions = Map
+    powerupOptions.putAll(Map
         .of(GameEvent.FRIGHTEN_ACTIVATED, this::activateFrightened,
             GameEvent.FRIGHTEN_DEACTIVATED, this::deactivateFrightened,
             GameEvent.GHOST_SLOWDOWN_ACTIVATED, () -> setMovementSpeed(getMovementSpeed() * 0.5),
@@ -64,8 +64,9 @@ public abstract class Ghost extends MoveableSprite {
                   case FRIGHTENED_WAIT -> GhostState.FRIGHTENED_WAIT_BLINKING;
                   default -> currentState;
                 });
-            }
-            );
+            },
+            GameEvent.PACMAN_DEATH, () -> freeze()
+            ));
 
     forceAnimationUpdate = false;
   }
@@ -114,6 +115,7 @@ public abstract class Ghost extends MoveableSprite {
     ghostClock.clear();
     ghostClock.reset();
     changeState(GhostState.WAIT);
+    unfreeze();
     ghostClock.addTimer(new Timer(getInitialWaitTime(), state -> {
       if (getGhostBehavior() == GhostBehavior.WAIT) {
         changeState(GhostState.CHASE);
