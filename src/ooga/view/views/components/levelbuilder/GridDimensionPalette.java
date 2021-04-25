@@ -32,7 +32,7 @@ public class GridDimensionPalette extends StackPane {
     this.getChildren().add(paletteBox);
 
     rowDim.addListener((newVal) -> updateLevelBuilder(newVal, cols));
-    colDim.addListener((newVal) -> updateLevelBuilder(newVal, rows));
+    colDim.addListener((newVal) -> updateLevelBuilder(rows, newVal));
     updateLevelBuilder(rows, cols);
   }
 

@@ -232,7 +232,7 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
     }
   }
 
-  enum BuilderState {
+  public enum BuilderState {
     DIMENSIONING,
     TILING,
     SPRITE_PLACEMENT,

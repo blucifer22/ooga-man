@@ -29,4 +29,9 @@ public class StyledBoundLabel extends Label {
   private void style(String labelClass) {
     this.getStyleClass().addAll("styled-label", "styled-label-" + labelClass);
   }
+
+  public StyledBoundLabel wrap(boolean wrap) {
+    this.setWrapText(wrap);
+    return this;
+  }
 }
