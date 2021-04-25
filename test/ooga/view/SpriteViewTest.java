@@ -77,7 +77,7 @@ public class SpriteViewTest extends CustomApplicationTest {
 
     @Override
     public String getCostume() {
-      return "pacman_chomp_1";
+      return "blank_1";
     }
 
     @Override

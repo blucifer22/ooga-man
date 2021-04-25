@@ -404,7 +404,7 @@
       "imageFill" : true,
       "scale" : 1.0,
       "bottomHeavy" : false,
-      "rotates" : false
+      "rotates" : true
     }
   },
   "sounds": {
