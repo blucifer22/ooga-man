@@ -25,7 +25,9 @@ public class GridDimensionPalette extends StackPane {
         rowDim,
         new StyledBoundLabel(serviceProvider.languageService().getLocalizedString(
             "columns"), "body"),
-        colDim
+        colDim,
+        new StyledBoundLabel(serviceProvider.languageService().getLocalizedString(
+            "tilingInstructions"), "heading").wrap(true)
     );
 
     this.getChildren().add(paletteBox);

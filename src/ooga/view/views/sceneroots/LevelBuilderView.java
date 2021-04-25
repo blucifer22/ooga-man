@@ -1,37 +1,36 @@
 package ooga.view.views.sceneroots;
 
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import ooga.model.api.ObservableSprite;
 import ooga.model.api.ObservableTile;
 import ooga.model.leveldescription.LevelBuilder;
+import ooga.model.leveldescription.LevelBuilder.BuilderState;
 import ooga.model.leveldescription.Palette;
 import ooga.view.internal_api.View;
 import ooga.view.theme.api.ThemedObject;
 import ooga.view.uiservice.UIServiceProvider;
 import ooga.view.views.components.LabeledComboBoxCard;
-import ooga.view.views.components.StyledBoundLabel;
 import ooga.view.views.components.StyledButton;
 import ooga.view.views.components.levelbuilder.GridDimensionPalette;
 
 public class LevelBuilderView implements View, ThemedObject {
-  private final StackPane stageSwapPanel;
+  private final VBox stageSwapPanel;
   private final Palette spritePalette;
   private final LevelBuilder levelBuilder;
   private final UIServiceProvider serviceProvider;
   private final GameGridView tileGridView;
   private final GridPane primaryView;
 
-  public LevelBuilderView(UIServiceProvider serviceProvider, LevelBuilder levelBuilder,
-      Palette spritePalette) {
+  public LevelBuilderView(UIServiceProvider serviceProvider, LevelBuilder levelBuilder) {
     this.serviceProvider = serviceProvider;
     this.levelBuilder = levelBuilder;
-    this.spritePalette = spritePalette;
+    this.spritePalette = levelBuilder.getPalette();
     this.tileGridView = new GameGridView(this.serviceProvider.themeService());
     this.tileGridView.setOnSpriteClicked(this::onSpriteClick);
     this.tileGridView.setOnTileClicked(this::onTileClick);
@@ -39,7 +38,7 @@ public class LevelBuilderView implements View, ThemedObject {
     this.primaryView = new GridPane();
     this.levelBuilder.addGridRebuildObserver(tileGridView);
     this.levelBuilder.addSpriteExistenceObserver(tileGridView);
-    this.stageSwapPanel = new StackPane();
+    this.stageSwapPanel = new VBox();
 
     this.configureConstraints();
     this.renderViews();
@@ -82,9 +81,8 @@ public class LevelBuilderView implements View, ThemedObject {
     this.stageSwapPanel.getChildren().clear();
 
     Node paletteChild = switch(this.levelBuilder.getBuilderState()) {
-      case DIMENSIONING -> new GridDimensionPalette(this.serviceProvider, this.levelBuilder);
-      case TILING -> new StyledBoundLabel(this.serviceProvider.languageService()
-            .getLocalizedString("tilingInstructions"), "heading").wrap(true);
+      case DIMENSIONING, TILING -> new GridDimensionPalette(this.serviceProvider,
+          this.levelBuilder);
       case SPRITE_PLACEMENT -> new LabeledComboBoxCard(this.serviceProvider, "sprites",
           this.spritePalette.getSpriteNames(), spritePalette::setActiveSprite);
     };
@@ -106,11 +104,24 @@ public class LevelBuilderView implements View, ThemedObject {
     }
   }
 
-  private void onSpriteClick(ObservableSprite sprite) {
+  private void onSpriteClick(MouseEvent e, ObservableSprite sprite) {
+    int tileX = sprite.getCoordinates().getTileCoordinates().getX();
+    int tileY = sprite.getCoordinates().getTileCoordinates().getY();
 
+    switch (e.getButton()) {
+      case PRIMARY -> levelBuilder.addSprite(tileX, tileY);
+      case SECONDARY -> levelBuilder.clearSpritesOnTile(tileX, tileY);
+    }
   }
 
-  private void onTileClick(ObservableTile tile) {
-    levelBuilder.pokeTile(tile.getCoordinates().getX(), tile.getCoordinates().getY());
+  private void onTileClick(MouseEvent e, ObservableTile tile) {
+    BuilderState builderState = levelBuilder.getBuilderState();
+    int tileX = tile.getCoordinates().getX();
+    int tileY = tile.getCoordinates().getY();
+
+    switch (builderState) {
+      case DIMENSIONING, TILING -> levelBuilder.pokeTile(tileX, tileY);
+      case SPRITE_PLACEMENT -> levelBuilder.addSprite(tileX, tileY);
+    }
   }
 }

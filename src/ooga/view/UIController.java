@@ -82,7 +82,7 @@ public class UIController implements MainMenuResponder, ViewStackService {
   public void openLevelBuilder() {
     LevelBuilder builder = new LevelBuilder();
     Palette palette = new Palette();
-    showScene(new Scene(new LevelBuilderView(this.serviceProvider, builder, palette).getRenderingNode()),
+    showScene(new Scene(new LevelBuilderView(this.serviceProvider, builder).getRenderingNode()),
         true);
   }
 

@@ -60,7 +60,7 @@ public class GameGridView implements View, GridRebuildObserver, SpriteExistenceO
         tileGrid.getChildren().add(tv.getRenderingNode());
         tv.getRenderingNode().setOnMouseClicked(e -> {
           if (tileClickHandler != null) {
-            tileClickHandler.handle(tile);
+            tileClickHandler.handle(e, tile);
           }
         });
       }
@@ -81,7 +81,7 @@ public class GameGridView implements View, GridRebuildObserver, SpriteExistenceO
     spriteViews.put(so, createdSpriteView);
     spriteNodes.getChildren().add(createdSpriteView.getRenderingNode());
     createdSpriteView.getRenderingNode().setOnMouseClicked(e -> {
-      spriteClickHandler.handle(so);
+      spriteClickHandler.handle(e, so);
     });
   }
 
@@ -111,12 +111,12 @@ public class GameGridView implements View, GridRebuildObserver, SpriteExistenceO
 
   @FunctionalInterface
   public interface TileClickHandler {
-    void handle(ObservableTile tile);
+    void handle(MouseEvent e, ObservableTile tile);
   }
 
   @FunctionalInterface
   public interface SpriteClickHandler {
-    void handle(ObservableSprite sprite);
+    void handle(MouseEvent e, ObservableSprite sprite);
   }
 
 }
