@@ -9,6 +9,9 @@ import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Vec2;
 
+/**
+ * @author George Hong
+ */
 public abstract class MoveableSprite extends Sprite {
 
   public static final int UNIVERSAL_MAX_MOVEMENT_SPEED = 6;
