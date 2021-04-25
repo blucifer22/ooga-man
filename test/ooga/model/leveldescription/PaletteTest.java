@@ -2,6 +2,7 @@ package ooga.model.leveldescription;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -44,16 +45,30 @@ public class PaletteTest {
   }
 
   @Test
-  public void testPalette(){
+  public void testPacmanLimit() {
+    levelBuilder.advanceState();
+    levelBuilder.advanceState();
+    levelBuilder.setGridSize(5, 5);
+    levelBuilder.getPalette().setActiveSprite("PacMan");
+    levelBuilder.addSprite(3, 3);
+    assertThrows(IllegalStateException.class, () -> levelBuilder.addSprite(3, 3));
+    levelBuilder.clearSpritesOnTile(3, 3);
+    levelBuilder.addSprite(3, 3);
+  }
+
+  @Test
+  public void testPalette() {
+    levelBuilder.advanceState();
+    levelBuilder.advanceState();
     levelBuilder.setGridSize(5, 5);
     levelBuilder.getPalette().setActiveSprite("Blinky");
-    levelBuilder.addSprite(3,3);
+    levelBuilder.addSprite(3, 3);
     assertEquals(1, levelBuilder.getLevel().getSprites().size());
-    for (int i=1; i < 10; i++){
-      levelBuilder.addSprite(3,3);
+    for (int i = 1; i < 10; i++) {
+      levelBuilder.addSprite(3, 3);
       assertEquals(i + 1, levelBuilder.getLevel().getSprites().size());
     }
-    levelBuilder.clearSpritesOnTile(3,3);
+    levelBuilder.clearSpritesOnTile(3, 3);
     assertEquals(0, levelBuilder.getLevel().getSprites().size());
   }
 

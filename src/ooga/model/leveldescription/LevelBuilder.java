@@ -159,6 +159,9 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
    * @param y y-coordinate of grid to remove all Sprites from
    */
   public void clearSpritesOnTile(int x, int y) {
+    if (currentState != BuilderState.SPRITE_PLACEMENT) {
+      throw new IllegalStateException("Changing sprite placement currently not allowed");
+    }
     TileCoordinates tileToClear = new TileCoordinates(x, y);
     List<Sprite> sprites = level.getSprites();
     for (Sprite sprite : sprites) {
