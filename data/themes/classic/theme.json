@@ -275,21 +275,21 @@
     "pacman_chomp_1" : {
       "fill" : "themes/classic/images/pacman/pacman_chomp_1.png",
       "imageFill" : true,
-      "scale" : 1.0,
+      "scale" : 0.8125,
       "bottomHeavy" : true,
       "rotates": true
     },
     "pacman_chomp_2" : {
       "fill" : "themes/classic/images/pacman/pacman_chomp_2.png",
       "imageFill" : true,
-      "scale" : 1.0,
+      "scale" : 0.8125,
       "bottomHeavy" : true,
       "rotates": true
     },
     "pacman_chomp_3" : {
       "fill" : "themes/classic/images/pacman/pacman_chomp_3.png",
       "imageFill" : true,
-      "scale" : 1.0,
+      "scale" : 0.8125,
       "bottomHeavy" : true,
       "rotates": true
     },
