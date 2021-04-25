@@ -19,8 +19,9 @@ public interface InputSource {
    * convention -- +Y is directed downwards.
    *
    * @return currently requested input direction, or Vec2.ZERO if none
+   * @param dt
    */
-  Vec2 getRequestedDirection();
+  Vec2 getRequestedDirection(double dt);
 
   /**
    * Checks if the "action" button is being pressed or otherwise

@@ -85,7 +85,7 @@ public abstract class MoveableSprite extends Sprite {
   protected abstract boolean canMoveTo(Tile tile);
 
   public void move(double dt, PacmanGrid grid) {
-    Vec2 userDirection = getInputSource().getRequestedDirection();
+    Vec2 userDirection = getInputSource().getRequestedDirection(dt);
     userDirection = userDirection.getMagnitude() == 1 ? userDirection : Vec2.ZERO;
 
     if (getDirection().parallelTo(userDirection)) {
