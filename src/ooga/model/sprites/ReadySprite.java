@@ -9,7 +9,7 @@ import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Vec2;
 
 /**
- * Basic Dot, consumable by Pac-Man to increase the score.
+ * "Ready!" sprite.
  */
 public class ReadySprite extends Sprite {
 
