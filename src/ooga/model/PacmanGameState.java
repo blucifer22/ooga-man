@@ -336,7 +336,6 @@ public class PacmanGameState
     if (getRemainingConsumablesCount() == 0) {
       try {
         roundNumber++;
-        System.out.println(roundNumber);
         getAudioManager().stopAmbience();
         loadNextLevel();
       } catch (IOException e) {

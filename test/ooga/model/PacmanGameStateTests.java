@@ -1,6 +1,7 @@
 package ooga.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import ooga.controller.HumanInputManager;
@@ -71,5 +72,41 @@ public class PacmanGameStateTests {
     assertEquals(pgsa.getSprites().get(0).getSwapClass(), SwapClass.GHOST);
     assertEquals(pgsa.getPacmanLivesRemaining(), 3);
     assertEquals(pgsa.getRoundNumber(), 1);
+  }
+
+  @Test
+  public void testNoGhostCases() {
+    HumanInputManager player1 = new HumanInputManager(KeybindingType.PLAYER_1);
+    HumanInputManager player2 = new HumanInputManager(KeybindingType.PLAYER_2);
+
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            pgsc.initPacmanLevelFromJSON(
+                "data/levels/test_level_no_ghosts.json", player1, player2));
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            pgsa.initPacmanLevelFromJSON(
+                "data/levels/test_level_no_ghosts.json", player1, player2));
+  }
+
+  @Test
+  public void testPGSLevelAdvancement() throws IOException {
+    HumanInputManager player1 = new HumanInputManager(KeybindingType.PLAYER_1);
+    HumanInputManager player2 = new HumanInputManager(KeybindingType.PLAYER_2);
+    pgs.initPacmanLevelFromJSON("data/levels/test_level_no_consumables.json", player1, player2);
+    pgs.step(1);
+    assertEquals(pgs.getRoundNumber(), 2);
+  }
+
+  @Test
+  public void testChaseGameOver() throws IOException {
+    HumanInputManager player1 = new HumanInputManager(KeybindingType.PLAYER_1);
+    HumanInputManager player2 = new HumanInputManager(KeybindingType.PLAYER_2);
+    pgsc.initPacmanLevelFromJSON("data/levels/test_level_1.json", player1, player2);
+
+    pgsc.step(46); // Step far enough for Pac-Man to have run away
+    assertEquals(pgsc.getSprites().size(), 1); // Assert that the GameOver is the only sprite left
   }
 }
