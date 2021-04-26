@@ -97,6 +97,12 @@ public class GhostAI implements InputSource {
     return getAI.apply(dt);
   }
 
+  /**
+   * This mode corresponds to the ghost waiting and wiggling until they are able to leave the Ghost box
+   *
+   * @param dt
+   * @return
+   */
   protected Vec2 waitBehavior(double dt) {
     getGhost().setMovementSpeed(ghost.getDefaultMoveSpeed());
     wiggleTime += dt;
@@ -106,6 +112,7 @@ public class GhostAI implements InputSource {
   /**
    * This mode corresponds to the ghost seeking their original spawn point
    *
+   * @param dt
    * @return
    */
   protected Vec2 eatenBehavior(double dt) {
@@ -118,6 +125,7 @@ public class GhostAI implements InputSource {
   /**
    * This mode coincides with the ghost reaction to upon the Power-pill's consumption.
    *
+   * @param dt
    * @return
    */
   protected Vec2 runawayBehavior(double dt) {
@@ -129,6 +137,7 @@ public class GhostAI implements InputSource {
    * to wander around for a few seconds. This is emulated by default by using a random direction
    * generator.
    *
+   * @param dt
    * @return direction to queue for ghost to move to
    */
   protected Vec2 scatterBehavior(double dt) {
@@ -153,6 +162,7 @@ public class GhostAI implements InputSource {
    * be used here to follow a tracked Sprite, such as Pac-Man. The default GhostAI defaults to
    * random behavior to "track" Pac-Man.
    *
+   * @param dt
    * @return direction to queue for ghost to move to
    */
   protected Vec2 chaseBehavior(double dt) {
