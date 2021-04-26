@@ -89,7 +89,7 @@ public class GhostAITest {
     _ _ _ _ _ _ _ _ _ _ _ _
     _ _ _ _ _ _ _ _ _ _ _ _
      */
-    pacMan = new PacMan(new SpriteCoordinates(new Vec2(1.5, 2.5)), new Vec2(0, 0), 5);
+    pacMan = new PacMan(new SpriteCoordinates(new Vec2(0.5, 2.5)), new Vec2(0, 0), 5);
     Inky clyde = new Inky(new SpriteCoordinates(new Vec2(10.5, 2.5)), new Vec2(1, 0), 2);
     ClydeAI in = new ClydeAI(grid, clyde);
     in.setTarget(pacMan);
