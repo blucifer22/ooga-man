@@ -289,18 +289,38 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
     spriteExistenceObservers.add(spriteExistenceObserver);
   }
 
+  /**
+   * This method notifies each SpriteExistenceObserver in the event that a Sprite is destroyed. Thus,
+   * ultimately, a call to this will remove the Sprite from the front-end one the notification has
+   * been processed. This is the inverse of notifySpriteCreation.
+   *
+   * @param sprite The Sprite on which to act.
+   */
   protected void notifySpriteDestruction(Sprite sprite) {
     for (SpriteExistenceObserver observer : spriteExistenceObservers) {
       observer.onSpriteDestruction(sprite);
     }
   }
 
+  /**
+   * This method notifies each SpriteExistenceObserver in the event that a Sprite is created. Thus,
+   * ultimately, a call to this will add the Sprite from to front-end one the notification has
+   * been processed. This is the inverse of notifySpriteDestruction.
+   *
+   * @param sprite The Sprite on which to act.
+   */
   protected void notifySpriteCreation(Sprite sprite) {
     for (SpriteExistenceObserver observer : spriteExistenceObservers) {
       observer.onSpriteCreation(sprite);
     }
   }
 
+  /**
+   * This method notifies each GridRebuildObserver in the event that the grid is modified. Thus,
+   * ultimately, a call to this will update the grid on the front-end one the notification has
+   * been processed.
+   *
+   */
   protected void notifyGridRebuildObservers() {
     for (GridRebuildObserver observers : gridRebuildObservers) {
       observers.onGridRebuild(level.getGrid());
