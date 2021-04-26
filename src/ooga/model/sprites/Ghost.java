@@ -6,10 +6,10 @@ import static ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimatio
 import java.util.Map;
 import java.util.Set;
 import ooga.model.GameEvent;
-import ooga.model.InputSource;
+import ooga.model.api.InputSource;
 import ooga.model.MutableGameState;
-import ooga.model.SpriteCoordinates;
-import ooga.model.Tile;
+import ooga.model.grid.SpriteCoordinates;
+import ooga.model.grid.Tile;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Clock;

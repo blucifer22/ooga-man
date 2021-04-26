@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import ooga.model.PacmanGrid;
-import ooga.model.Tile;
+import ooga.model.grid.PacmanGrid;
+import ooga.model.grid.Tile;
 
 /**
  * GridDescription contains all of the information required to construct an ObservableGrid (AKA: A
@@ -105,7 +105,7 @@ public class GridDescription extends JSONDescription {
   public PacmanGrid toGrid() {
     // why would `return new PacmanGrid(this);` not work here?
     try {
-      Class<?> spriteClass = Class.forName("ooga.model.PacmanGrid");
+      Class<?> spriteClass = Class.forName("ooga.model.grid.PacmanGrid");
       return (PacmanGrid)
           spriteClass.getDeclaredConstructor(GridDescription.class).newInstance(this);
     } catch (ClassNotFoundException

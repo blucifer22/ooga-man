@@ -9,11 +9,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import ooga.model.PacmanGrid;
-import ooga.model.leveldescription.GridDescription;
-import ooga.model.leveldescription.JSONDescriptionFactory;
-import ooga.model.Tile;
-import ooga.model.TileCoordinates;
+import ooga.model.grid.PacmanGrid;
+import ooga.model.grid.Tile;
+import ooga.model.grid.TileCoordinates;
 import org.junit.jupiter.api.Test;
 
 /**

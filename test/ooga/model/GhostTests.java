@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import ooga.controller.HumanInputManager;
 import ooga.controller.KeybindingType;
 import ooga.model.ai.BlinkyAI;
+import ooga.model.grid.SpriteCoordinates;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.Blinky;

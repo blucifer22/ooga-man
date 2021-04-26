@@ -2,6 +2,7 @@ package ooga.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import ooga.model.grid.SpriteCoordinates;
 import ooga.model.sprites.ReadySprite;
 import ooga.model.sprites.status.GhostWin;
 import ooga.model.sprites.status.PacmanWin;

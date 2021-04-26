@@ -1,6 +1,6 @@
 package ooga.model.api;
 
-import ooga.model.SpriteCoordinates;
+import ooga.model.grid.SpriteCoordinates;
 import ooga.util.Vec2;
 
 public interface ObservableSprite {

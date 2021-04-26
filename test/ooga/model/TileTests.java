@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import ooga.model.api.TileEvent;
 import ooga.model.api.TileEvent.EventType;
+import ooga.model.grid.TileCoordinates;
 import org.junit.jupiter.api.Test;
 
 public class TileTests {

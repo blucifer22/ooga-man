@@ -2,6 +2,8 @@ package ooga.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ooga.model.api.InputSource;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 

@@ -1,7 +1,7 @@
 package ooga.model.sprites;
 
 import ooga.model.MutableGameState;
-import ooga.model.SpriteCoordinates;
+import ooga.model.grid.SpriteCoordinates;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.powerups.PowerUp;
 import ooga.model.powerups.PowerUpFactory;

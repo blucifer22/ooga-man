@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import javafx.scene.input.KeyCode;
-import ooga.model.InputSource;
+import ooga.model.api.InputSource;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 import ooga.view.io.HumanInputConsumer;

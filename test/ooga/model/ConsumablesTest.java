@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import ooga.controller.HumanInputManager;
 import ooga.controller.KeybindingType;
+import ooga.model.grid.SpriteCoordinates;
 import ooga.model.sprites.Cherry;
 import ooga.model.sprites.Dot;
 import ooga.model.sprites.PacMan;

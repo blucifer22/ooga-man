@@ -8,6 +8,10 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import ooga.model.ai.PacmanAI;
 import ooga.model.ai.PacmanBFSAI;
+import ooga.model.grid.PacmanGrid;
+import ooga.model.grid.SpriteCoordinates;
+import ooga.model.grid.Tile;
+import ooga.model.grid.TileCoordinates;
 import ooga.model.sprites.Blinky;
 import ooga.model.sprites.PacMan;
 import ooga.util.Vec2;

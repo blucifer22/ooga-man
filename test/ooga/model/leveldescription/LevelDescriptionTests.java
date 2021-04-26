@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.IOException;
 import ooga.model.PacmanGameState;
 import ooga.model.PacmanLevel;
-import ooga.model.TileCoordinates;
+import ooga.model.grid.TileCoordinates;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

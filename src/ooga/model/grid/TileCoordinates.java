@@ -1,4 +1,4 @@
-package ooga.model;
+package ooga.model.grid;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;

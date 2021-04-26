@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import ooga.model.ImmutablePlayer;
+import ooga.model.api.ImmutablePlayer;
 import ooga.model.api.GameStateObservable;
 import ooga.model.api.GameStateObserver;
 import ooga.view.internal_api.Renderable;

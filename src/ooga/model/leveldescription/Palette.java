@@ -3,7 +3,7 @@ package ooga.model.leveldescription;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import ooga.model.SpriteCoordinates;
+import ooga.model.grid.SpriteCoordinates;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 

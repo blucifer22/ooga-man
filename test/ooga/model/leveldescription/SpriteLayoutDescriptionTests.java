@@ -5,10 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.util.List;
-import ooga.model.SpriteCoordinates;
-import ooga.model.leveldescription.JSONDescriptionFactory;
-import ooga.model.leveldescription.SpriteDescription;
-import ooga.model.leveldescription.SpriteLayoutDescription;
+import ooga.model.grid.SpriteCoordinates;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

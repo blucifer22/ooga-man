@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import ooga.model.ImmutablePlayer;
+import ooga.model.api.ImmutablePlayer;
 import ooga.model.api.GameStateObservable;
 import ooga.view.audio.AudioService;
 import ooga.view.audio.ThemedAudioService;

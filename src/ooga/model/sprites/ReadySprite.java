@@ -3,7 +3,7 @@ package ooga.model.sprites;
 import java.util.Map;
 import ooga.model.MutableGameState;
 import ooga.model.GameEvent;
-import ooga.model.SpriteCoordinates;
+import ooga.model.grid.SpriteCoordinates;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Vec2;

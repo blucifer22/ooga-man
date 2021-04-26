@@ -2,6 +2,8 @@ package ooga.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ooga.model.grid.PacmanGrid;
 import ooga.model.leveldescription.LevelDescription;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.Sprite;

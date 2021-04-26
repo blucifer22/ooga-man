@@ -5,9 +5,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import ooga.model.InputSource;
-import ooga.model.PacmanGrid;
-import ooga.model.TileCoordinates;
+import ooga.model.api.InputSource;
+import ooga.model.grid.PacmanGrid;
+import ooga.model.grid.TileCoordinates;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 

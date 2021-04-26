@@ -9,7 +9,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import ooga.model.TileCoordinates;
+import ooga.model.grid.TileCoordinates;
 import ooga.model.api.ObservableTile;
 import ooga.model.api.TileEvent;
 import ooga.model.api.TileEvent.EventType;
