@@ -306,7 +306,7 @@ public abstract class Ghost extends MoveableSprite {
   }
 
   /**
-   * @return the base score for consuming a ghost
+   * @return the current score for consuming a ghost (without compounding per ghost consumed)
    */
   @Override
   public int getScore() {
