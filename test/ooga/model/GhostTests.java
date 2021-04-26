@@ -108,7 +108,7 @@ public class GhostTests {
     assertFalse(blinky.eatsGhosts());
 
     // Defaults
-    assertEquals(blinky.getMovementSpeed(), 4.0);
+    assertEquals(blinky.getMovementSpeed(), 5.0);
     assertEquals(blinky.getGhostBehavior(), GhostBehavior.WAIT);
     assertFalse(blinky.isConsumable());
     assertEquals(blinky.getScore(), 200);

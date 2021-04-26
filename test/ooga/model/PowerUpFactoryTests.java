@@ -75,7 +75,7 @@ public class PowerUpFactoryTests {
     GhostSlowdownPowerUp slowDown = new GhostSlowdownPowerUp();
     slowDown.executePowerUp(pgs);
     pgs.step(1.0/60);
-    assertEquals(2.0, ghost.getMovementSpeed());
+    assertEquals(2.5, ghost.getMovementSpeed());
   }
 
   @Test
