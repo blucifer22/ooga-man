@@ -69,6 +69,11 @@ public class PacmanGameState
   private int roundNumber;
   private boolean isGameOver;
 
+  /**
+   * The general-purpose constructor for PacmanGameState. This constructor instantiates all of the
+   * Collections and other data-management variables, instantiates the game clock, and attaches the
+   * audioManager.
+   */
   public PacmanGameState() {
     spriteExistenceObservers = new HashSet<>();
     gridRebuildObservers = new HashSet<>();
@@ -86,6 +91,11 @@ public class PacmanGameState
     registerEventListener(audioManager);
   }
 
+  /**
+   * Sets the number of lives that Pac-Man has.
+   *
+   * @param lives The new number of lives for Pac-Man.
+   */
   protected void setLives(int lives) {
     pacmanLivesRemaining = lives;
   }
@@ -105,10 +115,21 @@ public class PacmanGameState
     getAudioManager().setAmbience(NORMAL_AMBIENCE);
   }
 
+  /**
+   * Fetches whether or not Pac-Man is currently dead.
+   *
+   * @return Whether or not Pac-Man is currently dead.
+   */
   protected boolean isPacmanDead() {
     return isPacmanDead;
   }
 
+  /**
+   * This method loads a PacmanLevel into this PacmanGameState. In the process it calls addSprite on
+   * each sprite in the PacmanLevel and loads in the grid.
+   *
+   * @param level The PacmanLevel to load into this PacmanGameState.
+   */
   public void loadPacmanLevel(PacmanLevel level) {
     for (Sprite sprite : level.getSprites()) {
       addSprite(sprite);
@@ -120,10 +141,10 @@ public class PacmanGameState
    * Initializes Pac-Man game state from a JSON file. Performs all of the AI/human input linkages
    * and sets up teleporters and other map elements.
    *
-   * @param filepath
-   * @param player1
-   * @param player2
-   * @throws IOException
+   * @param filepath The filepath of the JSON that contains the serialized PacmanLevel to load in.
+   * @param player1 A HumanInputManager for Player 1
+   * @param player2 A HumanInputManager for Player 2
+   * @throws IOException In the event than an invalid JSON filepath is provided.
    */
   public void initPacmanLevelFromJSON(
       String filepath, HumanInputManager player1, HumanInputManager player2) throws IOException {
@@ -145,7 +166,7 @@ public class PacmanGameState
    * This method adds the level defined by the JSON file and populates the game state with the
    * Sprites, level elements, and corresponding Sprite controllers.
    *
-   * @throws IOException
+   * @throws IOException In the event than an invalid JSON filepath is provided.
    */
   protected void loadNextLevel() throws IOException {
     for (Sprite sprite : sprites) {
@@ -177,13 +198,10 @@ public class PacmanGameState
    *
    * @param dt time-step, given by 1 / framerate
    */
-  // advance game state by `dt' seconds
   public void step(double dt) {
     stepThroughSprites(dt);
     if (!isGameOver) {
-      // All Dots have been eaten
       checkProceedToNextLevel();
-      // Check if Pac-Man is dead
       checkPacmanDead();
       handleSwaps();
       notifyGameStateObservers();
@@ -191,6 +209,12 @@ public class PacmanGameState
     }
   }
 
+  /**
+   * This method checks to see if Pac-Man is dead, and if so, decrements the number of lives
+   * remaining and handles the implications of this decrement. If Pac-Man still has lives remaining,
+   * the level is reset and play resumes as normal. If not, then the grid is wiped and a GameOver
+   * Sprite is spawned to indicate that the game has concluded.
+   */
   protected void checkPacmanDead() {
     if (isPacmanDead) {
       decrementPacmanLivesRemaining();
@@ -208,6 +232,11 @@ public class PacmanGameState
     }
   }
 
+  /**
+   * This method handles the cleanup of Sprites in the event of a game over by notifying each
+   * SpriteExistenceObserver that each Sprite has been destroyed. It also toggles the isGameOver
+   * boolean to true and stops the ambience.
+   */
   protected void gameOverCleanup() {
     isGameOver = true;
     toDelete.addAll(sprites);
@@ -216,6 +245,13 @@ public class PacmanGameState
     audioManager.stopAmbience();
   }
 
+  /**
+   * This method steps through each of the sprites on the interval of one tick of dt. In doing this,
+   * the method will advance the game clock, check to see if Sprites need to be deleted, and if so,
+   * remove them.
+   *
+   * @param dt The time interval over which to step through the sprites.
+   */
   protected void stepThroughSprites(double dt) {
     clock.step(dt, this);
     toDelete.clear();
@@ -231,10 +267,19 @@ public class PacmanGameState
     }
   }
 
+  /**
+   * This method attaches a new GameStateObserver to the PacmanGameState.
+   *
+   * @param observer The GameStateObserver to attach to the PacmanGameState.
+   */
   public void addGameStateObserver(GameStateObserver observer) {
     pacmanGameStateObservers.add(observer);
   }
 
+  /**
+   * This method notifies each GameStateObserver in the set of pacmanGameStateObservers by calling
+   * the onGameStateUpdate method of each of them and passing in this PacmanGameState.
+   */
   public void notifyGameStateObservers() {
     for (GameStateObserver observer : pacmanGameStateObservers) {
       observer.onGameStateUpdate(this);
@@ -258,16 +303,31 @@ public class PacmanGameState
     return ret;
   }
 
+  /**
+   * Fetches the number of lives remaining for Pac-Man.
+   *
+   * @return The number of lives remaining for Pac-Man.
+   */
   @Override
   public int getPacmanLivesRemaining() {
     return pacmanLivesRemaining;
   }
 
+  /**
+   * Fetches the current round number.
+   *
+   * @return The current round number.
+   */
   @Override
   public int getRoundNumber() {
     return roundNumber;
   }
 
+  /**
+   * Sets the current "death status" of Pac-Man to the passed in parameter.
+   *
+   * @param isPacmanDead Sets the current "death status" of Pac-Man to the passed in parameter.
+   */
   public void isPacmanDead(boolean isPacmanDead) {
     this.isPacmanDead = isPacmanDead;
   }
@@ -297,7 +357,7 @@ public class PacmanGameState
    * Increases the game score, corresponding to Pac-Man's consumption of game elements. Only Pac-Man
    * and its player has an associated score.
    *
-   * @param score
+   * @param score The new score for the game.
    */
   @Override
   public void incrementScore(int score) {
@@ -312,10 +372,15 @@ public class PacmanGameState
    */
   @Override
   public int getScore() {
-    // return pacManScore;
     return pacmanPlayer.getScore();
   }
 
+  /**
+   * This method prepares the passed in Sprite for removal by adding it to the toDelete set and
+   * notifying its observers that it is being destroyed.
+   *
+   * @param sprite The Sprite to prepare for removal.
+   */
   @Override
   public void prepareRemove(Sprite sprite) {
     if (toDelete.contains(sprite)) {
@@ -325,20 +390,42 @@ public class PacmanGameState
     notifySpriteDestruction(sprite);
   }
 
+  /**
+   * Attaches a SpriteExistenceObserver to this PacmanGameState.
+   *
+   * @param spriteExistenceObserver The SpriteExistenceObserver to attach to this PacmanGameState.
+   */
   public void addSpriteExistenceObserver(SpriteExistenceObserver spriteExistenceObserver) {
     spriteExistenceObservers.add(spriteExistenceObserver);
   }
 
+  /**
+   * This method loads in a new PacmanGrid to this PacmanGameState by taking in a GridDescription,
+   * constructing a PacmanGrid from it, and then notifying the GridRebuildObservers.
+   *
+   * @param gridDescription The gridDescription from which to construct the new PacmanGrid.
+   */
   public void loadGrid(GridDescription gridDescription) {
     grid = new PacmanGrid(gridDescription);
     notifyGridRebuildObservers();
   }
 
+  /**
+   * This method loads in a new PacmanGrid through direct assignment to the grid variable of
+   * PacmanGameState and then notifies the GridRebuildObservers.
+   *
+   * @param grid The PacmanGrid to set the PacmanGameState grid to.
+   */
   public void loadGrid(PacmanGrid grid) {
     this.grid = grid;
     notifyGridRebuildObservers();
   }
 
+  /**
+   * This method checks to see if it is time to proceed to the next level, that is, the number of
+   * consumables is zero, and if so handles the increment of the round number, ambiance management,
+   * and the loading of the next level.
+   */
   protected void checkProceedToNextLevel() {
     if (getRemainingConsumablesCount() == 0) {
       try {
@@ -351,6 +438,11 @@ public class PacmanGameState
     }
   }
 
+  /**
+   * Gets the number of remaining consumables in the current PacmanGameState.
+   *
+   * @return The number of remaining consumables in this PacmanGameState.
+   */
   protected int getRemainingConsumablesCount() {
     int count = 0;
     for (Sprite sprite : getSprites()) {
@@ -362,10 +454,10 @@ public class PacmanGameState
   }
 
   /**
-   * Gets the list of other Sprites that resides in the same list as this sprite
+   * Gets the list of other Sprites that resides in the same list as this sprite.
    *
-   * @param sprite
-   * @return
+   * @param sprite The Sprite in question.
+   * @return The list of other Sprites that resides in the same list as this sprite
    */
   @Override
   public List<Sprite> getCollidingWith(Sprite sprite) {
@@ -381,6 +473,12 @@ public class PacmanGameState
     return collidingSprites;
   }
 
+  /**
+   * This method adds a new Sprite to the PacmanGameState, registers the EventListeners, and then
+   * notifies any observers.
+   *
+   * @param sprite The Sprite that is being added.
+   */
   @Override
   public void addSprite(Sprite sprite) {
     sprites.add(sprite);
@@ -388,33 +486,70 @@ public class PacmanGameState
     notifySpriteCreation(sprite);
   }
 
+  /**
+   * Returns the list of Sprites currently in this PacmanGameState.
+   *
+   * @return The List of Sprites currently in this PacmanGameState.
+   */
   public List<Sprite> getSprites() {
     return sprites;
   }
 
+  /**
+   * Returns the PacmanGrid of this PacmanGameState.
+   *
+   * @return The PacmanGrid of this PacmanGameState.
+   */
   @Override
   public PacmanGrid getGrid() {
     return grid;
   }
 
+  /**
+   * This method notifies each SpriteExistenceObserver in the event that a Sprite is destroyed.
+   * Thus, ultimately, a call to this will remove the Sprite from the front-end one the notification
+   * has been processed. This is the inverse of notifySpriteCreation.
+   *
+   * @param sprite The Sprite on which to act.
+   */
   protected void notifySpriteDestruction(Sprite sprite) {
     for (SpriteExistenceObserver observer : spriteExistenceObservers) {
       observer.onSpriteDestruction(sprite);
     }
   }
 
+  /**
+   * This method notifies each SpriteExistenceObserver in the event that a Sprite is created. Thus,
+   * ultimately, a call to this will add the Sprite from to front-end one the notification has been
+   * processed. This is the inverse of notifySpriteDestruction.
+   *
+   * @param sprite The Sprite on which to act.
+   */
   protected void notifySpriteCreation(Sprite sprite) {
     for (SpriteExistenceObserver observer : spriteExistenceObservers) {
       observer.onSpriteCreation(sprite);
     }
   }
 
+  /**
+   * This method notifies each GridRebuildObserver in the event that the grid is modified. Thus,
+   * ultimately, a call to this will update the grid on the front-end one the notification has been
+   * processed.
+   */
   protected void notifyGridRebuildObservers() {
     for (GridRebuildObserver observers : gridRebuildObservers) {
       observers.onGridRebuild(grid);
     }
   }
 
+  /**
+   * This method attaches a new GridRebuildObserver to this PacmanGameState, thus allowing the
+   * front-end to be notified of any changes to the grid state.
+   *
+   * <p>Implemented as part of the GridRebuildObservable interface.
+   *
+   * @param observer The GridRebuildObserver to be added to this PacmanGameState's set of observers.
+   */
   @Override
   public void addGridRebuildObserver(GridRebuildObserver observer) {
     gridRebuildObservers.add(observer);
@@ -432,9 +567,10 @@ public class PacmanGameState
   }
 
   /**
-   * Can be used by Powerup Pills to introduce an effect
+   * Broadcasts a GameEvent to all GameEventObservers. An example of this is the notification of
+   * GameEventObservers after Pac-Man eats a PowerPill.
    *
-   * @param type
+   * @param type The specific GameEvent that is being broadcast.
    */
   @Override
   public void broadcastEvent(GameEvent type) {
@@ -473,6 +609,7 @@ public class PacmanGameState
     }
   }
 
+  /** This method decrements the number of lives the Pac-Man has remaining. */
   public void decrementPacmanLivesRemaining() {
     pacmanLivesRemaining--;
   }
@@ -491,22 +628,48 @@ public class PacmanGameState
     return false;
   }
 
+  /**
+   * This method attaches an AudioObserver to this PacmanGameState. This is accomplished by querying
+   * this PacmanGameState's AudioManager and attaching the observer directly to it.
+   *
+   * @param obs The AudioObserver to attach to this PacmanGameState.
+   */
   public void addAudioObserver(AudioObserver obs) {
     getAudioManager().addObserver(obs);
   }
 
+  /**
+   * Returns this PacmanGameState's AudioManager.
+   *
+   * @return This PacmanGameState's AudioManager.
+   */
   public AudioManager getAudioManager() {
     return audioManager;
   }
 
+  /**
+   * This method sets the state of gameOver to that of the passed in state.
+   *
+   * @param gameOver The new state of gameOver.
+   */
   protected void setGameOver(boolean gameOver) {
     isGameOver = gameOver;
   }
 
+  /**
+   * Gets the Set of Sprites that are marked for deletion.
+   *
+   * @return The Set of Sprites that are marked for deletion.
+   */
   protected Set<Sprite> getToDelete() {
     return toDelete;
   }
 
+  /**
+   * This method is called in the event of a Pac-Man Win, and will set gameOver to true, delete all
+   * Sprites currently on screen, notify their observers and then spawn a PacmanWin Sprite in the
+   * center of the screen.
+   */
   protected void showPacmanWin() {
     setGameOver(true);
     getToDelete().addAll(getSprites());
@@ -518,6 +681,11 @@ public class PacmanGameState
             new Vec2(1, 0)));
   }
 
+  /**
+   * This method is called in the event of a Ghost Win, and will set gameOver to true, delete all
+   * Sprites currently on screen, notify their observers and then spawn a GhostWin Sprite in the
+   * center of the screen.
+   */
   protected void showGhostWin() {
     setGameOver(true);
     getToDelete().addAll(getSprites());
