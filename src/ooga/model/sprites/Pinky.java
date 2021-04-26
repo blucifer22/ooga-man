@@ -14,7 +14,7 @@ public class Pinky extends Ghost {
   }
 
   public Pinky(SpriteDescription spriteDescription) {
-    this(spriteDescription.getCoordinates(), new Vec2(1, 0), 4.0);
+    this(spriteDescription.getCoordinates(), new Vec2(1, 0), DEFAULT_SPEED);
   }
 
   @Override

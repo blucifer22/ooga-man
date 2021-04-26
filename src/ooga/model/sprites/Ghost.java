@@ -29,6 +29,8 @@ public abstract class Ghost extends MoveableSprite {
   private int frightenedBank;
   private GhostState currentState;
   private boolean forceAnimationUpdate;
+  private static final double EYES_SPEEDUP = 2.0;
+  protected static final double DEFAULT_SPEED = 5.0;
 
   // TODO: Delete "protected" to make Ghost classes package private
   protected Ghost(
@@ -175,7 +177,7 @@ public abstract class Ghost extends MoveableSprite {
     if (!isDeadlyToPacMan() && isConsumable() && other.eatsGhosts()) {
       state.getAudioManager().playSound("ghost-eaten");
       state.getAudioManager().pushNewAmbience("ghost-eyes");
-      this.setMovementSpeed(this.getMovementSpeed() * 1.5);
+      this.setMovementSpeed(this.getMovementSpeed() * EYES_SPEEDUP);
       changeState(GhostState.EATEN);
     }
   }
@@ -215,7 +217,7 @@ public abstract class Ghost extends MoveableSprite {
     if (getCoordinates().getTileCoordinates().equals(getSpawn().getTileCoordinates())
         && getGhostBehavior() == GhostBehavior.EATEN) {
       this.setCoordinates(new SpriteCoordinates(getSpawn().getTileCenter()));
-      this.setMovementSpeed(this.getMovementSpeed() * (2.0 / 3.0));
+      this.setMovementSpeed(this.getMovementSpeed() / EYES_SPEEDUP);
       changeState(GhostState.WAIT);
       pacmanGameState.getAudioManager().popAmbience();
       waitTimerExpired(pacmanGameState);

@@ -12,7 +12,7 @@ public class Clyde extends Ghost {
   }
 
   public Clyde(SpriteDescription spriteDescription) {
-    this(spriteDescription.getCoordinates(), new Vec2(1, 0), 3.9);
+    this(spriteDescription.getCoordinates(), new Vec2(1, 0), DEFAULT_SPEED);
   }
 
   @Override

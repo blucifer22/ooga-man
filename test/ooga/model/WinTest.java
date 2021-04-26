@@ -2,6 +2,7 @@ package ooga.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import ooga.model.sprites.ReadySprite;
 import ooga.model.sprites.status.GhostWin;
 import ooga.model.sprites.status.PacmanWin;
 import ooga.util.Vec2;
@@ -25,6 +26,11 @@ public class WinTest {
     pacmanWin.uponHitBy(pacmanWin, pacmanGameState);
     assertEquals(new SpriteCoordinates(new Vec2(0,0)).getTileCoordinates().getX(), pacmanWin.getCoordinates().getTileCoordinates().getX());
     assertEquals(new SpriteCoordinates(new Vec2(0,0)).getTileCoordinates().getY(), pacmanWin.getCoordinates().getTileCoordinates().getY());
+  }
+
+  @Test
+  void testReadySprite() {
+    new ReadySprite(new SpriteCoordinates(new Vec2(0, 0)), Vec2.RIGHT).uponNewLevel(1, pacmanGameState);
   }
 
 }
