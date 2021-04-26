@@ -93,6 +93,12 @@ public class JSONController implements GameStateController {
     }
   }
 
+  /**
+   * This method pauses the currently running animation, so long as such animation exists.
+   *
+   * This method is invoked when the game is the UIController asks to show the scene, but could also
+   * be re-purposed to implement a "general" pause button for the game.
+   */
   @Override
   public void pauseGame() {
     if (animation != null) {
