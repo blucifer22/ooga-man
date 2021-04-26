@@ -3,12 +3,12 @@ package ooga.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import javafx.scene.input.KeyCode;
-import ooga.model.InputSource;
 import ooga.model.PacmanGameState;
-import ooga.model.SpriteCoordinates;
 import ooga.model.ai.BlinkyAI;
 import ooga.model.ai.GhostAI;
 import ooga.model.ai.PinkyAI;
+import ooga.model.api.InputSource;
+import ooga.model.grid.SpriteCoordinates;
 import ooga.model.sprites.Blinky;
 import ooga.model.sprites.Clyde;
 import ooga.model.sprites.Dot;

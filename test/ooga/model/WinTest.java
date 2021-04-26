@@ -2,6 +2,7 @@ package ooga.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import ooga.model.grid.SpriteCoordinates;
 import ooga.model.sprites.ReadySprite;
 import ooga.model.sprites.status.GhostWin;
 import ooga.model.sprites.status.PacmanWin;
@@ -13,24 +14,32 @@ public class WinTest {
   PacmanGameState pacmanGameState = new PacmanGameState();
 
   @Test
-  public void testGhostWin(){
-    GhostWin ghostWin = new GhostWin(new SpriteCoordinates(new Vec2(0,0)), new Vec2(0,0));
+  public void testGhostWin() {
+    GhostWin ghostWin = new GhostWin(new SpriteCoordinates(new Vec2(0, 0)), new Vec2(0, 0));
     ghostWin.uponHitBy(ghostWin, pacmanGameState);
-    assertEquals(new SpriteCoordinates(new Vec2(0,0)).getTileCoordinates().getX(), ghostWin.getCoordinates().getTileCoordinates().getX());
-    assertEquals(new SpriteCoordinates(new Vec2(0,0)).getTileCoordinates().getY(), ghostWin.getCoordinates().getTileCoordinates().getY());
+    assertEquals(
+        new SpriteCoordinates(new Vec2(0, 0)).getTileCoordinates().getX(),
+        ghostWin.getCoordinates().getTileCoordinates().getX());
+    assertEquals(
+        new SpriteCoordinates(new Vec2(0, 0)).getTileCoordinates().getY(),
+        ghostWin.getCoordinates().getTileCoordinates().getY());
   }
 
   @Test
-  public void testPacManWin(){
-    PacmanWin pacmanWin = new PacmanWin(new SpriteCoordinates(new Vec2(0,0)), new Vec2(0,0));
+  public void testPacManWin() {
+    PacmanWin pacmanWin = new PacmanWin(new SpriteCoordinates(new Vec2(0, 0)), new Vec2(0, 0));
     pacmanWin.uponHitBy(pacmanWin, pacmanGameState);
-    assertEquals(new SpriteCoordinates(new Vec2(0,0)).getTileCoordinates().getX(), pacmanWin.getCoordinates().getTileCoordinates().getX());
-    assertEquals(new SpriteCoordinates(new Vec2(0,0)).getTileCoordinates().getY(), pacmanWin.getCoordinates().getTileCoordinates().getY());
+    assertEquals(
+        new SpriteCoordinates(new Vec2(0, 0)).getTileCoordinates().getX(),
+        pacmanWin.getCoordinates().getTileCoordinates().getX());
+    assertEquals(
+        new SpriteCoordinates(new Vec2(0, 0)).getTileCoordinates().getY(),
+        pacmanWin.getCoordinates().getTileCoordinates().getY());
   }
 
   @Test
   void testReadySprite() {
-    new ReadySprite(new SpriteCoordinates(new Vec2(0, 0)), Vec2.RIGHT).uponNewLevel(1, pacmanGameState);
+    new ReadySprite(new SpriteCoordinates(new Vec2(0, 0)), Vec2.RIGHT)
+        .uponNewLevel(1, pacmanGameState);
   }
-
 }

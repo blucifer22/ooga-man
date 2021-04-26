@@ -30,11 +30,95 @@ import org.junit.jupiter.api.Test;
 
 public class PreferenceViewTest extends CustomApplicationTest {
 
-  private class TestHarness extends BundledLanguageService implements ThemeService,
-      LanguageService, ViewStackService, UIServiceProvider, UIPreferenceService {
-    private SerializedThemeService ts = new SerializedThemeService(new GraphicalExceptionService());
-    private AudioService as = new ThemedAudioService(ts, new GraphicalExceptionService());
+  private Stage primaryStage;
+  private TestHarness harness;
+
+  @Override
+  public void start(Stage stage) throws Exception {
+    super.start(stage);
+    this.primaryStage = stage;
+    this.primaryStage.show();
+  }
+
+  @BeforeEach
+  public void reset() throws InterruptedException {
+    syncFXRun(
+        () -> {
+          this.harness = new TestHarness();
+          this.primaryStage.setScene(
+              new Scene(
+                  new PreferenceView(this.harness, this.harness).getRenderingNode(), 600, 600));
+        });
+  }
+
+  @Test
+  public void testUnwind() throws InterruptedException {
+    Thread.sleep(500);
+
+    Node backButton = lookup("#button-previousMenu").query();
+    syncFXRun(
+        () -> {
+          moveTo(backButton);
+          backButton.getOnMouseClicked().handle(null);
+        });
+
+    assertEquals(1, harness.getState()[0]);
+
+    Thread.sleep(500);
+  }
+
+  @Test
+  public void testLangChange() throws InterruptedException {
+    Thread.sleep(500);
+
+    ComboBox<Pair<String, String>> cbox = lookup("#language-select-dropdown").query();
+    syncFXRun(
+        () -> {
+          moveTo(cbox);
+          cbox.getSelectionModel().select(0);
+          cbox.getSelectionModel().getSelectedIndex();
+
+          while (!cbox.getItems()
+              .get(cbox.getSelectionModel().getSelectedIndex())
+              .getKey()
+              .equals("english")) {
+            cbox.getSelectionModel().selectNext();
+          }
+        });
+
+    assertEquals("Language", harness.getLocalizedString("language").get());
+
+    Thread.sleep(500);
+
+    syncFXRun(
+        () -> {
+          moveTo(cbox);
+          cbox.getSelectionModel().select(0);
+
+          while (!cbox.getItems()
+              .get(cbox.getSelectionModel().getSelectedIndex())
+              .getKey()
+              .equals("spanish")) {
+            System.out.println(
+                cbox.getItems().get(cbox.getSelectionModel().getSelectedIndex()).toString());
+            cbox.getSelectionModel().selectNext();
+          }
+        });
+
+    assertEquals("Idioma", harness.getLocalizedString("language").get());
+
+    Thread.sleep(500);
+  }
+
+  private class TestHarness extends BundledLanguageService
+      implements ThemeService,
+          LanguageService,
+          ViewStackService,
+          UIServiceProvider,
+          UIPreferenceService {
     private final int[] state = new int[2];
+    private final SerializedThemeService ts = new SerializedThemeService(new GraphicalExceptionService());
+    private final AudioService as = new ThemedAudioService(ts, new GraphicalExceptionService());
     private String language = null;
 
     public TestHarness() {
@@ -101,75 +185,5 @@ public class PreferenceViewTest extends CustomApplicationTest {
     public ThemeSelectionService themeSelectionService() {
       return this.ts;
     }
-  }
-
-  private Stage primaryStage;
-  private TestHarness harness;
-
-  @Override
-  public void start(Stage stage) throws Exception {
-    super.start(stage);
-    this.primaryStage = stage;
-    this.primaryStage.show();
-  }
-
-  @BeforeEach
-  public void reset() throws InterruptedException {
-    syncFXRun(() -> {
-      this.harness = new TestHarness();
-      this.primaryStage.setScene(new Scene(new PreferenceView(this.harness, this.harness).getRenderingNode(), 600,
-          600));
-    });
-  }
-
-  @Test
-  public void testUnwind() throws InterruptedException {
-    Thread.sleep(500);
-
-    Node backButton = lookup("#button-previousMenu").query();
-    syncFXRun(() -> {
-      moveTo(backButton);
-      backButton.getOnMouseClicked().handle(null);
-    });
-
-    assertEquals(1, harness.getState()[0]);
-
-    Thread.sleep(500);
-  }
-
-  @Test
-  public void testLangChange() throws InterruptedException {
-    Thread.sleep(500);
-
-    ComboBox<Pair<String, String>> cbox = lookup("#language-select-dropdown").query();
-    syncFXRun(() -> {
-      moveTo(cbox);
-      cbox.getSelectionModel().select(0);
-      cbox.getSelectionModel().getSelectedIndex();
-
-      while (!cbox.getItems().get(cbox.getSelectionModel().getSelectedIndex()).getKey().equals(
-          "english")) {
-        cbox.getSelectionModel().selectNext();
-      }
-    });
-
-    assertEquals("Language", harness.getLocalizedString("language").get());
-
-    Thread.sleep(500);
-
-    syncFXRun(() -> {
-      moveTo(cbox);
-      cbox.getSelectionModel().select(0);
-
-      while (!cbox.getItems().get(cbox.getSelectionModel().getSelectedIndex()).getKey().equals(
-          "spanish")) {
-        System.out.println(cbox.getItems().get(cbox.getSelectionModel().getSelectedIndex()).toString());
-        cbox.getSelectionModel().selectNext();
-      }
-    });
-
-    assertEquals("Idioma", harness.getLocalizedString("language").get());
-
-    Thread.sleep(500);
   }
 }

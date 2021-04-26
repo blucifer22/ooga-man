@@ -1,6 +1,6 @@
 package ooga.model.sprites;
 
-import ooga.model.SpriteCoordinates;
+import ooga.model.grid.SpriteCoordinates;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.util.Vec2;
 

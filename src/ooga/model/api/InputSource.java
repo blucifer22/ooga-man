@@ -1,4 +1,4 @@
-package ooga.model;
+package ooga.model.api;
 
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;

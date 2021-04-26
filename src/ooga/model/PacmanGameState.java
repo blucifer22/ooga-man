@@ -16,9 +16,13 @@ import ooga.model.api.GameStateObservable;
 import ooga.model.api.GameStateObserver;
 import ooga.model.api.GridRebuildObservable;
 import ooga.model.api.GridRebuildObserver;
+import ooga.model.api.ImmutablePlayer;
 import ooga.model.api.SpriteExistenceObservable;
 import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.audio.AudioManager;
+import ooga.model.grid.PacmanGrid;
+import ooga.model.grid.SpriteCoordinates;
+import ooga.model.grid.TileCoordinates;
 import ooga.model.leveldescription.GridDescription;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.LevelDescription;
@@ -80,6 +84,10 @@ public class PacmanGameState
 
     audioManager = new AudioManager();
     registerEventListener(audioManager);
+  }
+
+  protected void setLives(int lives) {
+    pacmanLivesRemaining = lives;
   }
 
   /**
@@ -180,7 +188,6 @@ public class PacmanGameState
       handleSwaps();
       notifyGameStateObservers();
     } else {
-      System.out.println("GAME OVER!");
     }
   }
 
@@ -476,7 +483,6 @@ public class PacmanGameState
         continue;
       }
       if (spriteToSwapOut.getSwapClass().equals(sprite.getSwapClass())) {
-        System.out.println("Swapping input from: " + spriteToSwapOut + " to " + sprite);
         sprite.setInputSource(spriteToSwapOut.getInputSource());
         spriteToSwapOut.setInputSource(spriteToSwapOut.getDefaultInputSource());
         return true;

@@ -15,9 +15,7 @@ public interface LevelEditor {
    */
   BuilderState getBuilderState();
 
-  /**
-   * Advance to the next state
-   */
+  /** Advance to the next state */
   void advanceState();
 
   Palette getPalette();
@@ -55,11 +53,11 @@ public interface LevelEditor {
   void clearSpritesOnTile(int x, int y);
 
   /**
-   * Generates the Grid, allowing for default values to be set.  The Grid Builder assumes a default
+   * Generates the Grid, allowing for default values to be set. The Grid Builder assumes a default
    * open grid, with a frame preventing any Sprites from leaving
    *
    * @param height height of the grid
-   * @param width  width of the grid
+   * @param width width of the grid
    */
   void setGridSize(int width, int height);
 

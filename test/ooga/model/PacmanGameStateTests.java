@@ -51,11 +51,11 @@ public class PacmanGameStateTests {
 
     pgsc.initPacmanLevelFromJSON("data/levels/test_level_1.json", player1, player2);
     assertEquals(pgsc.getSprites().get(0).getSwapClass(), SwapClass.GHOST);
-    assertEquals(pgsc.getPacmanLivesRemaining(), 3);
+    assertEquals(pgsc.getPacmanLivesRemaining(), 1);
     assertEquals(pgsc.getRoundNumber(), 1);
     pgsc.step(1.0 / 60.0);
     assertEquals(pgsc.getSprites().get(0).getSwapClass(), SwapClass.GHOST);
-    assertEquals(pgsc.getPacmanLivesRemaining(), 3);
+    assertEquals(pgsc.getPacmanLivesRemaining(), 1);
     assertEquals(pgsc.getRoundNumber(), 1);
   }
 
@@ -66,11 +66,11 @@ public class PacmanGameStateTests {
 
     pgsa.initPacmanLevelFromJSON("data/levels/test_level_1.json", player1, player2);
     assertEquals(pgsa.getSprites().get(0).getSwapClass(), SwapClass.GHOST);
-    assertEquals(pgsa.getPacmanLivesRemaining(), 3);
+    assertEquals(pgsa.getPacmanLivesRemaining(), 1);
     assertEquals(pgsa.getRoundNumber(), 1);
     pgsa.step(1.0 / 60.0);
     assertEquals(pgsa.getSprites().get(0).getSwapClass(), SwapClass.GHOST);
-    assertEquals(pgsa.getPacmanLivesRemaining(), 3);
+    assertEquals(pgsa.getPacmanLivesRemaining(), 1);
     assertEquals(pgsa.getRoundNumber(), 1);
   }
 

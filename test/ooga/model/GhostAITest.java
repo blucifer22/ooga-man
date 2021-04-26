@@ -1,6 +1,6 @@
 package ooga.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,8 +12,15 @@ import ooga.model.ai.ClydeAI;
 import ooga.model.ai.GhostAI;
 import ooga.model.ai.InkyAI;
 import ooga.model.ai.PinkyAI;
-import ooga.model.sprites.*;
+import ooga.model.grid.PacmanGrid;
+import ooga.model.grid.SpriteCoordinates;
+import ooga.model.grid.Tile;
+import ooga.model.grid.TileCoordinates;
+import ooga.model.sprites.Blinky;
+import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Ghost.GhostBehavior;
+import ooga.model.sprites.Inky;
+import ooga.model.sprites.PacMan;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -76,7 +83,7 @@ public class GhostAITest {
     for (int k = 0; k < 461; k++) {
       clyde.step(1 / 60., state);
     }
-    Vec2 req = in.getRequestedDirection(1/60.0);
+    Vec2 req = in.getRequestedDirection(1 / 60.0);
     assertEquals(new Vec2(-1, 0), req);
   }
 
@@ -99,7 +106,7 @@ public class GhostAITest {
     for (int k = 0; k < 400; k++) {
       clyde.step(1 / 60., state);
     }
-    Vec2 req = in.getRequestedDirection(1/60.0);
+    Vec2 req = in.getRequestedDirection(1 / 60.0);
     assertEquals(new Vec2(-1, 0), req);
   }
 
@@ -144,7 +151,6 @@ public class GhostAITest {
     assertEquals(GhostBehavior.WAIT, blinky.getGhostBehavior());
   }
 
-
   @Test
   public void testParallelSort() {
     double[] directionsArray = {5, 7, 8};
@@ -166,6 +172,4 @@ public class GhostAITest {
     Collections.sort(directions, Comparator.comparing(item -> distances.indexOf(item)));
     assertEquals(expectedOut, directions);
   }
-
-
 }

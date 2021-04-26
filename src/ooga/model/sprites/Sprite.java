@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import ooga.model.GameEvent;
-import ooga.model.InputSource;
 import ooga.model.MutableGameState;
-import ooga.model.SpriteCoordinates;
 import ooga.model.api.GameEventObserver;
+import ooga.model.api.InputSource;
 import ooga.model.api.ObservableSprite;
 import ooga.model.api.SpriteEvent;
 import ooga.model.api.SpriteObserver;
+import ooga.model.grid.SpriteCoordinates;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.AnimationObserver;
 import ooga.model.sprites.animation.ObservableAnimation;
@@ -285,7 +285,6 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
     getCurrentAnimation().step(dt);
   }
 
-  // TODO: Make not abstract to give a default
   public boolean mustBeConsumed() {
     return false;
   }

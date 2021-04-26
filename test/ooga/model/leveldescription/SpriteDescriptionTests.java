@@ -4,10 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
+import ooga.model.grid.SpriteCoordinates;
 import ooga.model.sprites.Sprite;
-import ooga.model.SpriteCoordinates;
-import ooga.model.leveldescription.JSONDescriptionFactory;
-import ooga.model.leveldescription.SpriteDescription;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.Test;
 
@@ -44,18 +42,16 @@ public class SpriteDescriptionTests {
 
     try {
       pacmanDescription.toJSON(path);
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       System.err.println(e.getMessage());
       fail();
     }
 
     JSONDescriptionFactory jsonDescriptionFactory = new JSONDescriptionFactory();
     SpriteDescription description = null;
-    try{
+    try {
       description = jsonDescriptionFactory.getSpriteDescriptionFromJSON(path);
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       System.err.println(e.getMessage());
       fail();
     }

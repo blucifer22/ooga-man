@@ -3,10 +3,10 @@ package ooga.model.sprites;
 import java.util.Map;
 import ooga.model.GameEvent;
 import ooga.model.MutableGameState;
-import ooga.model.PacmanGrid;
-import ooga.model.SpriteCoordinates;
-import ooga.model.Tile;
-import ooga.model.TileCoordinates;
+import ooga.model.grid.PacmanGrid;
+import ooga.model.grid.SpriteCoordinates;
+import ooga.model.grid.Tile;
+import ooga.model.grid.TileCoordinates;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Vec2;
@@ -100,7 +100,6 @@ public abstract class MoveableSprite extends Sprite {
     if (getDirection().parallelTo(userDirection)) {
       setDirection(userDirection);
       currentSpeed = movementSpeed;
-      // System.out.println(movementSpeed);
     } else if (!userDirection.equals(Vec2.ZERO)) {
       queuedDirection = userDirection;
     }

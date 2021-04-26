@@ -1,7 +1,7 @@
 package ooga.model.api;
 
-import ooga.model.TileCoordinates;
 import ooga.model.api.TileEvent.EventType;
+import ooga.model.grid.TileCoordinates;
 
 public interface ObservableTile {
 

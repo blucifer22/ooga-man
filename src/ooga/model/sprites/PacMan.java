@@ -3,8 +3,8 @@ package ooga.model.sprites;
 import java.util.Map;
 import ooga.model.GameEvent;
 import ooga.model.MutableGameState;
-import ooga.model.SpriteCoordinates;
-import ooga.model.Tile;
+import ooga.model.grid.SpriteCoordinates;
+import ooga.model.grid.Tile;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Timer;
@@ -94,7 +94,6 @@ public class PacMan extends MoveableSprite {
     } else if (other.isConsumable()) {
       applyScore(state, other);
       playEatingSound(state, other);
-      System.out.println("SCORE: " + state.getScore());
     }
   }
 

@@ -6953,7 +6953,7 @@
   "spriteLayoutDescription" : {
     "sprites" : [ {
       "className" : "PacMan",
-      "inputSource" : "PLAYER_1",
+      "inputSource" : "PacmanBFSAI",
       "coordinates" : {
         "position" : {
           "x" : 13.5,

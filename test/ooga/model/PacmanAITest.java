@@ -1,13 +1,13 @@
 package ooga.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import ooga.model.ai.PacmanAI;
 import ooga.model.ai.PacmanBFSAI;
+import ooga.model.grid.PacmanGrid;
+import ooga.model.grid.SpriteCoordinates;
+import ooga.model.grid.Tile;
+import ooga.model.grid.TileCoordinates;
 import ooga.model.sprites.Blinky;
 import ooga.model.sprites.PacMan;
 import ooga.util.Vec2;
@@ -56,17 +56,19 @@ public class PacmanAITest {
     X X X X X X
      */
     int[][] protoGrid = {
-        {1, 1, 1, 1, 1, 1},
-        {1, 0, 1, 1, 1, 1},
-        {1, 0, 1, 0, 0, 1},
-        {1, 0, 0, 0, 0, 1},
-        {1, 1, 1, 1, 1, 1},
+      {1, 1, 1, 1, 1, 1},
+      {1, 0, 1, 1, 1, 1},
+      {1, 0, 1, 0, 0, 1},
+      {1, 0, 0, 0, 0, 1},
+      {1, 1, 1, 1, 1, 1},
     };
     PacmanGrid grid = new PacmanGrid(protoGrid[0].length, protoGrid.length);
     for (int j = 0; j < protoGrid.length; j++) {
       for (int k = 0; k < protoGrid[0].length; k++) {
-        Tile tile = protoGrid[j][k] == 0 ? new Tile(new TileCoordinates(k, j), null, true, false)
-            : new Tile(new TileCoordinates(k, j), null, false, false);
+        Tile tile =
+            protoGrid[j][k] == 0
+                ? new Tile(new TileCoordinates(k, j), null, true, false)
+                : new Tile(new TileCoordinates(k, j), null, false, false);
         grid.setTile(k, j, tile);
       }
     }
@@ -84,17 +86,19 @@ public class PacmanAITest {
   @Test
   public void testBFSAI() {
     int[][] protoGrid = {
-        {1, 1, 1, 1, 1, 1},
-        {1, 0, 1, 1, 1, 1},
-        {1, 0, 1, 0, 0, 1},
-        {1, 0, 0, 0, 0, 1},
-        {1, 1, 1, 1, 1, 1},
+      {1, 1, 1, 1, 1, 1},
+      {1, 0, 1, 1, 1, 1},
+      {1, 0, 1, 0, 0, 1},
+      {1, 0, 0, 0, 0, 1},
+      {1, 1, 1, 1, 1, 1},
     };
     PacmanGrid grid = new PacmanGrid(protoGrid[0].length, protoGrid.length);
     for (int j = 0; j < protoGrid.length; j++) {
       for (int k = 0; k < protoGrid[0].length; k++) {
-        Tile tile = protoGrid[j][k] == 0 ? new Tile(new TileCoordinates(k, j), null, true, false)
-            : new Tile(new TileCoordinates(k, j), null, false, false);
+        Tile tile =
+            protoGrid[j][k] == 0
+                ? new Tile(new TileCoordinates(k, j), null, true, false)
+                : new Tile(new TileCoordinates(k, j), null, false, false);
         grid.setTile(k, j, tile);
       }
     }
@@ -117,17 +121,19 @@ public class PacmanAITest {
     X X X X X X
      */
     int[][] protoGrid = {
-        {1, 1, 1, 1, 1, 1},
-        {1, 0, 1, 1, 1, 1},
-        {1, 0, 1, 0, 0, 1},
-        {1, 0, 0, 0, 0, 1},
-        {1, 1, 1, 1, 1, 1},
+      {1, 1, 1, 1, 1, 1},
+      {1, 0, 1, 1, 1, 1},
+      {1, 0, 1, 0, 0, 1},
+      {1, 0, 0, 0, 0, 1},
+      {1, 1, 1, 1, 1, 1},
     };
     PacmanGrid grid = new PacmanGrid(protoGrid[0].length, protoGrid.length);
     for (int j = 0; j < protoGrid.length; j++) {
       for (int k = 0; k < protoGrid[0].length; k++) {
-        Tile tile = protoGrid[j][k] == 0 ? new Tile(new TileCoordinates(k, j), null, true, false)
-            : new Tile(new TileCoordinates(k, j), null, false, false);
+        Tile tile =
+            protoGrid[j][k] == 0
+                ? new Tile(new TileCoordinates(k, j), null, true, false)
+                : new Tile(new TileCoordinates(k, j), null, false, false);
         grid.setTile(k, j, tile);
       }
     }
@@ -143,17 +149,19 @@ public class PacmanAITest {
   @Test
   public void scatterBFSPacman() {
     int[][] protoGrid = {
-        {1, 1, 1, 1, 1, 1},
-        {1, 0, 1, 1, 1, 1},
-        {1, 0, 1, 0, 0, 1},
-        {1, 0, 0, 0, 0, 1},
-        {1, 1, 1, 1, 1, 1},
+      {1, 1, 1, 1, 1, 1},
+      {1, 0, 1, 1, 1, 1},
+      {1, 0, 1, 0, 0, 1},
+      {1, 0, 0, 0, 0, 1},
+      {1, 1, 1, 1, 1, 1},
     };
     PacmanGrid grid = new PacmanGrid(protoGrid[0].length, protoGrid.length);
     for (int j = 0; j < protoGrid.length; j++) {
       for (int k = 0; k < protoGrid[0].length; k++) {
-        Tile tile = protoGrid[j][k] == 0 ? new Tile(new TileCoordinates(k, j), null, true, false)
-            : new Tile(new TileCoordinates(k, j), null, false, false);
+        Tile tile =
+            protoGrid[j][k] == 0
+                ? new Tile(new TileCoordinates(k, j), null, true, false)
+                : new Tile(new TileCoordinates(k, j), null, false, false);
         grid.setTile(k, j, tile);
       }
     }

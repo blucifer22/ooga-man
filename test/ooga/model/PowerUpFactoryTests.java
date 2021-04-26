@@ -8,10 +8,10 @@ import ooga.controller.KeybindingType;
 import ooga.controller.SpriteLinkageFactory;
 import ooga.model.leveldescription.JSONDescriptionFactory;
 import ooga.model.leveldescription.LevelDescription;
+import ooga.model.powerups.FrightenPowerUp;
 import ooga.model.powerups.GhostSlowdownPowerUp;
 import ooga.model.powerups.PointBonusPowerUp;
 import ooga.model.powerups.SpeedUpPowerUp;
-import ooga.model.powerups.FrightenPowerUp;
 import ooga.model.sprites.Dot;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Ghost.GhostBehavior;
@@ -51,67 +51,67 @@ public class PowerUpFactoryTests {
   }
 
   @Test
-  public void createSpeedUp(){
+  public void createSpeedUp() {
     for (Sprite sprite : pgs.getSprites()) {
-      if (sprite.getSwapClass() == SwapClass.PACMAN){
+      if (sprite.getSwapClass() == SwapClass.PACMAN) {
         pacMan = (PacMan) sprite;
       }
     }
 
     SpeedUpPowerUp speedUp = new SpeedUpPowerUp();
     speedUp.executePowerUp(pgs);
-    pgs.step(1.0/60);
+    pgs.step(1.0 / 60);
     assertEquals(12.8, pacMan.getMovementSpeed());
   }
 
   @Test
-  public void createGhostSlowdown(){
+  public void createGhostSlowdown() {
     for (Sprite sprite : pgs.getSprites()) {
-      if (sprite.getSwapClass() == SwapClass.GHOST){
+      if (sprite.getSwapClass() == SwapClass.GHOST) {
         ghost = (Ghost) sprite;
       }
     }
 
     GhostSlowdownPowerUp slowDown = new GhostSlowdownPowerUp();
     slowDown.executePowerUp(pgs);
-    pgs.step(1.0/60);
+    pgs.step(1.0 / 60);
     assertEquals(2.5, ghost.getMovementSpeed());
   }
 
   @Test
-  public void createDoublePoints(){
+  public void createDoublePoints() {
     for (Sprite sprite : pgs.getSprites()) {
-      if (sprite instanceof Dot){
+      if (sprite instanceof Dot) {
         dot = (Dot) sprite;
       }
     }
 
     PointBonusPowerUp doublePoints = new PointBonusPowerUp();
     doublePoints.executePowerUp(pgs);
-    pgs.step(1.0/60);
+    pgs.step(1.0 / 60);
     assertEquals(20.0, dot.getScore());
   }
 
   @Test
-  public void createFrightenedPowerUp(){
+  public void createFrightenedPowerUp() {
     for (Sprite sprite : pgs.getSprites()) {
-      if (sprite.getSwapClass() == SwapClass.GHOST){
+      if (sprite.getSwapClass() == SwapClass.GHOST) {
         ghost = (Ghost) sprite;
       }
     }
 
     ghost.unfreeze();
     ghost.onGameEvent(GameEvent.SPRITES_UNFROZEN);
-    for (int i=0; i < 10000; i++){
-      pgs.step(1.0/60);
+    for (int i = 0; i < 10000; i++) {
+      pgs.step(1.0 / 60);
     }
 
     FrightenPowerUp frightenPowerUp = new FrightenPowerUp();
     frightenPowerUp.executePowerUp(pgs);
-    pgs.step(1.0/60);
+    pgs.step(1.0 / 60);
     assertEquals(GhostBehavior.RUNAWAY, ghost.getGhostBehavior());
-    for (int i=0; i < 10000; i++){
-      pgs.step(1.0/60);
+    for (int i = 0; i < 10000; i++) {
+      pgs.step(1.0 / 60);
     }
   }
 }

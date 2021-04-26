@@ -1,4 +1,4 @@
-package ooga.model;
+package ooga.model.grid;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
@@ -18,7 +18,6 @@ public class SpriteCoordinates {
 
   @JsonCreator
   public SpriteCoordinates() {
-    // TODO: Verify that this is appropriate behavior for the no-arg constructor
     this.position = Vec2.ZERO;
   }
 

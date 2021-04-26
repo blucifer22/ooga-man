@@ -46,6 +46,7 @@ public class PacmanGameStateChase extends PacmanGameState {
       throw new IllegalArgumentException("NO GHOSTS WERE FOUND!!!!!");
     }
     initGhost.setInputSource(player1);
+    setLives(1);
   }
 
   @Override

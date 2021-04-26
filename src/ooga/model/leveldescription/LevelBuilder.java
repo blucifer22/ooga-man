@@ -7,14 +7,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import ooga.model.PacmanGrid;
 import ooga.model.PacmanLevel;
-import ooga.model.Tile;
-import ooga.model.TileCoordinates;
 import ooga.model.api.GridRebuildObservable;
 import ooga.model.api.GridRebuildObserver;
 import ooga.model.api.SpriteExistenceObservable;
 import ooga.model.api.SpriteExistenceObserver;
+import ooga.model.grid.PacmanGrid;
+import ooga.model.grid.Tile;
+import ooga.model.grid.TileCoordinates;
 import ooga.model.sprites.Sprite;
 import ooga.model.sprites.SwapClass;
 
@@ -90,8 +90,6 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
 
   @Override
   public void addSprite(int x, int y) {
-    // TODO: Get currently active Sprite, feed x, y as inputs.  Load from properties files?
-    // TODO: Pair Sprite descriptions to become a metadata + representation class?
     double xCenter = x + 0.5;
     double yCenter = y + 0.5;
     Sprite sprite = palette.getSprite(xCenter, yCenter);

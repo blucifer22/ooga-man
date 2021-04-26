@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
-import ooga.model.PacmanGrid;
-import ooga.model.TileCoordinates;
+import ooga.model.grid.PacmanGrid;
+import ooga.model.grid.TileCoordinates;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 

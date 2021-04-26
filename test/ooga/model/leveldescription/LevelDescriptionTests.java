@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.IOException;
 import ooga.model.PacmanGameState;
 import ooga.model.PacmanLevel;
-import ooga.model.TileCoordinates;
+import ooga.model.grid.TileCoordinates;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -131,7 +131,6 @@ public class LevelDescriptionTests {
     assertEquals(level.getSprites().size(), 2);
     assertEquals(level.getGrid().getHeight(), 6);
     assertFalse(level.getGrid().getTile(new TileCoordinates(0, 0)).isOpenToPacman());
-
 
     PacmanGameState pgs = new PacmanGameState();
     pgs.loadPacmanLevel(level);

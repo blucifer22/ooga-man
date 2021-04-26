@@ -1,7 +1,7 @@
 package ooga.model.sprites;
 
 import ooga.model.MutableGameState;
-import ooga.model.SpriteCoordinates;
+import ooga.model.grid.SpriteCoordinates;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.powerups.PowerUp;
 import ooga.model.powerups.PowerUpFactory;
@@ -41,10 +41,8 @@ public class PowerPill extends Sprite {
       //      // int evenIndex = new Random().nextInt(GameEvent.values().length / 2) * 2;
       //      int evenIndex = 4;
       //      state.broadcastEvent(GameEvent.values()[evenIndex]);
-      //      System.out.println(GameEvent.values()[evenIndex]);
       //      state.getClock().addTimer(new Timer(9, mutableGameState -> {
       //        state.broadcastEvent(GameEvent.values()[evenIndex + 1]);
-      //        System.out.println(GameEvent.values()[evenIndex + 1]);
       //      }));
       PowerUp power = powerUpFactory.getRandomPowerUp();
       power.executePowerUp(state);

@@ -1,10 +1,12 @@
 package ooga.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 import ooga.controller.HumanInputManager;
 import ooga.controller.KeybindingType;
+import ooga.model.api.ImmutablePlayer;
+import ooga.model.api.InputSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -50,7 +52,7 @@ public class PlayerTest {
   }
 
   @Test
-  public void testPacmanPlayerList(){
+  public void testPacmanPlayerList() {
     pgs.setPlayers(player1, player2);
     List<ImmutablePlayer> players = pgs.getPlayers();
     assertEquals(2, players.size());
@@ -62,4 +64,3 @@ public class PlayerTest {
     assertEquals(player2, players.get(0));
   }
 }
-

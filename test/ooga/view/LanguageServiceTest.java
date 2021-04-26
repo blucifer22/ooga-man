@@ -16,9 +16,9 @@ import org.testfx.framework.junit5.ApplicationTest;
 
 public class LanguageServiceTest extends ApplicationTest {
 
+  private static final String BUNDLE_ROOT = "resources.languages/";
   private Text label;
   private BundledLanguageService bls;
-  private static final String BUNDLE_ROOT = "resources.languages/";
 
   @Override
   public void start(Stage stage) throws Exception {
@@ -39,17 +39,18 @@ public class LanguageServiceTest extends ApplicationTest {
 
   @Test
   public void switchTest() {
-    Platform.runLater(() -> {
-      String[] langs = new String[]{"english", "spanish"};
+    Platform.runLater(
+        () -> {
+          String[] langs = new String[] {"english", "spanish"};
 
-      for (String lang : langs) {
-        this.bls.setLanguage(lang);
-        assertEquals(bundleFor(lang).getString("pacman"), this.label.getText());
-      }
-    });
+          for (String lang : langs) {
+            this.bls.setLanguage(lang);
+            assertEquals(bundleFor(lang).getString("pacman"), this.label.getText());
+          }
+        });
   }
 
   private ResourceBundle bundleFor(String language) {
-    return ResourceBundle.getBundle(BUNDLE_ROOT+language);
+    return ResourceBundle.getBundle(BUNDLE_ROOT + language);
   }
 }

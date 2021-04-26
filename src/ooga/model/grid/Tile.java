@@ -1,4 +1,4 @@
-package ooga.model;
+package ooga.model.grid;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
@@ -22,7 +22,6 @@ public class Tile implements ObservableTile {
 
   private final TileCoordinates tileCoordinates;
   private final Map<EventType, Set<TileObserver>> observers;
-  // TODO: allow for tile types to change
   private String tileType;
   private boolean isOpenToPacman;
   private boolean isOpenToGhosts;

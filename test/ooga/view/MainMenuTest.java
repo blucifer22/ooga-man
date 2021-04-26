@@ -24,38 +24,6 @@ import org.junit.jupiter.api.Test;
 
 public class MainMenuTest extends CustomApplicationTest {
 
-  private class TestHarness implements MainMenuResponder {
-    private final int [] state = new int[3];
-
-    @Override
-    public void startGame() {
-      state[0] += 1;
-      displayMessageInScene("Game started!");
-    }
-
-    @Override
-    public void openLevelBuilder() {
-      state[1] += 1;
-      displayMessageInScene("Level builder opened!");
-    }
-
-    @Override
-    public void openPreferences() {
-      state[2] += 1;
-      displayMessageInScene("Preferences opened!");
-    }
-
-    public int [] getState() {
-      return state;
-    }
-
-    private void displayMessageInScene(String s) {
-      Text t = new Text(s);
-      Scene sc = new Scene(new StackPane(t), 600, 600);
-      primaryStage.setScene(sc);
-    }
-  }
-
   private Stage primaryStage;
   private MenuView mainMenu;
   private TestHarness testHarness;
@@ -69,17 +37,22 @@ public class MainMenuTest extends CustomApplicationTest {
 
   @BeforeEach
   public void reset() throws InterruptedException {
-    syncFXRun(() -> {
-      this.testHarness = new TestHarness();
-      ExceptionService es = new GraphicalExceptionService();
-      ThemeService ts = new SerializedThemeService(es);
-      AudioService as = new ThemedAudioService(ts, es);
-      UIServiceProvider serviceProvider =
-          new ServiceProvider(new GraphicalExceptionService(), as, ts, new BundledLanguageService(
-              es), () -> {});
-      this.mainMenu = new MenuView(serviceProvider, this.testHarness);
-      this.primaryStage.setScene(new Scene(mainMenu.getRenderingNode(), 600, 600));
-    });
+    syncFXRun(
+        () -> {
+          this.testHarness = new TestHarness();
+          ExceptionService es = new GraphicalExceptionService();
+          ThemeService ts = new SerializedThemeService(es);
+          AudioService as = new ThemedAudioService(ts, es);
+          UIServiceProvider serviceProvider =
+              new ServiceProvider(
+                  new GraphicalExceptionService(),
+                  as,
+                  ts,
+                  new BundledLanguageService(es),
+                  () -> {});
+          this.mainMenu = new MenuView(serviceProvider, this.testHarness);
+          this.primaryStage.setScene(new Scene(mainMenu.getRenderingNode(), 600, 600));
+        });
   }
 
   @Test
@@ -102,10 +75,11 @@ public class MainMenuTest extends CustomApplicationTest {
 
     HashMap<String, Node> nodes = buttons();
     Node target = nodes.get(testButtonID);
-    syncFXRun(() -> {
-      moveTo(target);
-      target.getOnMouseClicked().handle(null);
-    });
+    syncFXRun(
+        () -> {
+          moveTo(target);
+          target.getOnMouseClicked().handle(null);
+        });
 
     assertEquals(1, testHarness.getState()[testHarnessIndex]);
 
@@ -114,9 +88,41 @@ public class MainMenuTest extends CustomApplicationTest {
 
   private HashMap<String, Node> buttons() {
     HashMap<String, Node> nodes = new HashMap<>();
-    for (String s: new String[] {"startGame", "openLevelBuilder", "openPreferences"}) {
-      nodes.put(s, lookup("#button-"+s).query());
+    for (String s : new String[] {"startGame", "openLevelBuilder", "openPreferences"}) {
+      nodes.put(s, lookup("#button-" + s).query());
     }
     return nodes;
+  }
+
+  private class TestHarness implements MainMenuResponder {
+    private final int[] state = new int[3];
+
+    @Override
+    public void startGame() {
+      state[0] += 1;
+      displayMessageInScene("Game started!");
+    }
+
+    @Override
+    public void openLevelBuilder() {
+      state[1] += 1;
+      displayMessageInScene("Level builder opened!");
+    }
+
+    @Override
+    public void openPreferences() {
+      state[2] += 1;
+      displayMessageInScene("Preferences opened!");
+    }
+
+    public int[] getState() {
+      return state;
+    }
+
+    private void displayMessageInScene(String s) {
+      Text t = new Text(s);
+      Scene sc = new Scene(new StackPane(t), 600, 600);
+      primaryStage.setScene(sc);
+    }
   }
 }

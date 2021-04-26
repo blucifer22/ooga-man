@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import ooga.model.InputSource;
 import ooga.model.PacmanGameState;
-import ooga.model.PacmanGrid;
+import ooga.model.api.InputSource;
+import ooga.model.grid.PacmanGrid;
 import ooga.model.sprites.Sprite;
 import ooga.model.sprites.SwapClass;
 import ooga.model.sprites.TeleporterOverlay;
@@ -118,8 +118,6 @@ public class SpriteLinkageFactory {
               | InstantiationException
               | InvocationTargetException
               | IllegalAccessException e) {
-            e.printStackTrace();
-            System.err.println(e.getMessage());
           }
         }
         break;

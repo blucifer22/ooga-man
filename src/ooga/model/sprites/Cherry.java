@@ -3,7 +3,7 @@ package ooga.model.sprites;
 import java.util.Map;
 import ooga.model.GameEvent;
 import ooga.model.MutableGameState;
-import ooga.model.SpriteCoordinates;
+import ooga.model.grid.SpriteCoordinates;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimationType;
@@ -53,7 +53,6 @@ public class Cherry extends Sprite {
     }
   }
 
-  // TODO: See if I dont need to override since it does nothing if not just add a DO NOTHING comment
   @Override
   public void step(double dt, MutableGameState pacmanGameState) {
     // Do Nothing since cherries do not move

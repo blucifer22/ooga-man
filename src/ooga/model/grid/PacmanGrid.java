@@ -1,4 +1,4 @@
-package ooga.model;
+package ooga.model.grid;
 
 import java.util.ArrayList;
 import java.util.Iterator;

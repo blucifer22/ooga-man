@@ -60,6 +60,5 @@ public class TileView implements Renderable, TileObserver, ThemedObject {
   @Override
   public void onTileEvent(TileEvent e) {
     this.onTypeChange();
-    // TODO: potentially add other types of tile event
   }
 }

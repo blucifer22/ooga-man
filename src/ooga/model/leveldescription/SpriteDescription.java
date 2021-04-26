@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.reflect.InvocationTargetException;
-import ooga.model.SpriteCoordinates;
+import ooga.model.grid.SpriteCoordinates;
 import ooga.model.sprites.Sprite;
 
 /**

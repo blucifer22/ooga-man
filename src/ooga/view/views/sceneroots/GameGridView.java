@@ -7,12 +7,12 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import ooga.model.TileCoordinates;
 import ooga.model.api.GridRebuildObserver;
 import ooga.model.api.ObservableGrid;
 import ooga.model.api.ObservableSprite;
 import ooga.model.api.ObservableTile;
 import ooga.model.api.SpriteExistenceObserver;
+import ooga.model.grid.TileCoordinates;
 import ooga.view.internal_api.View;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.api.ThemedObject;
@@ -110,9 +110,7 @@ public class GameGridView
   }
 
   @Override
-  public void onThemeChange() {
-    // TODO: re-skin tiles!
-  }
+  public void onThemeChange() {}
 
   @FunctionalInterface
   public interface TileClickHandler {

@@ -9,9 +9,9 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
 import java.util.function.Function;
-import ooga.model.InputSource;
-import ooga.model.PacmanGrid;
-import ooga.model.TileCoordinates;
+import ooga.model.api.InputSource;
+import ooga.model.grid.PacmanGrid;
+import ooga.model.grid.TileCoordinates;
 import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Ghost.GhostBehavior;
 import ooga.model.sprites.Sprite;
@@ -83,7 +83,6 @@ public class GhostAI implements InputSource {
    * @return
    */
   protected Vec2 eatenBehavior(double dt) {
-    // TODO: Implement
     Vec2 currentTilePos = getGhost().getCoordinates().getTileCoordinates().toVec2();
     Vec2 homeTilePos = getGhost().getSpawn().getTileCoordinates().toVec2();
 
@@ -96,7 +95,6 @@ public class GhostAI implements InputSource {
    * @return
    */
   protected Vec2 runawayBehavior(double dt) {
-    // TODO: Implement
     return scatterBehavior(dt);
   }
 
@@ -173,7 +171,6 @@ public class GhostAI implements InputSource {
 
   @Override
   public boolean isActionPressed() {
-    // TODO: Implement this!
     return false;
   }
 

@@ -1,4 +1,4 @@
-package ooga.model;
+package ooga.model.api;
 
 /**
  * Defines interface that the view can interact with when displaying player information

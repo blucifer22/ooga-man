@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import ooga.model.api.SpriteEvent;
 import ooga.model.api.SpriteEvent.EventType;
 import ooga.model.api.SpriteObserver;
+import ooga.model.grid.SpriteCoordinates;
 import ooga.model.sprites.Sprite;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
-import ooga.model.sprites.animation.StillAnimation;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -88,9 +88,7 @@ class TestObservableSprite extends Sprite {
   }
 
   @Override
-  public void uponHitBy(Sprite other, MutableGameState state) {
-
-  }
+  public void uponHitBy(Sprite other, MutableGameState state) {}
 
   @Override
   public void step(double dt, MutableGameState pacmanGameState) {

@@ -5,10 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.util.List;
-import ooga.model.SpriteCoordinates;
-import ooga.model.leveldescription.JSONDescriptionFactory;
-import ooga.model.leveldescription.SpriteDescription;
-import ooga.model.leveldescription.SpriteLayoutDescription;
+import ooga.model.grid.SpriteCoordinates;
 import ooga.util.Vec2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,10 +27,8 @@ public class SpriteLayoutDescriptionTests {
     SpriteDescription pacmanDescription =
         new SpriteDescription(spriteClassName, inputSource, startingCoordinates);
 
-    layoutDescription = new SpriteLayoutDescription(
-        List.of(ghostDescription, pacmanDescription));
+    layoutDescription = new SpriteLayoutDescription(List.of(ghostDescription, pacmanDescription));
   }
-
 
   @Test
   public void testSpriteLayoutDescriptionConstructor() {
@@ -52,20 +47,17 @@ public class SpriteLayoutDescriptionTests {
   public void testSpriteLayoutDescriptionJSON() {
     String path = "data/levels/sprite-layouts/test_sprite_layout.json";
 
-
     try {
       layoutDescription.toJSON(path);
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       System.err.println(e.getMessage());
       fail();
     }
 
     JSONDescriptionFactory jsonDescriptionFactory = new JSONDescriptionFactory();
-    try{
+    try {
       layoutDescription = jsonDescriptionFactory.getSpriteLayoutDescriptionFromJSON(path);
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       System.err.println(e.getMessage());
       fail();
     }
@@ -80,5 +72,4 @@ public class SpriteLayoutDescriptionTests {
     assertEquals(layoutDescription.getSprites().get(1).getCoordinates().getPosition().getX(), 10);
     assertEquals(layoutDescription.getSprites().get(1).getCoordinates().getPosition().getY(), 10);
   }
-
 }

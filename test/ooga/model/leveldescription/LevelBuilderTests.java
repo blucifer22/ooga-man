@@ -9,8 +9,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import ooga.model.PacmanLevel;
-import ooga.model.Tile;
-import ooga.model.TileCoordinates;
+import ooga.model.grid.Tile;
+import ooga.model.grid.TileCoordinates;
 import ooga.model.leveldescription.LevelBuilder.BuilderState;
 import ooga.model.sprites.SwapClass;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,7 +37,7 @@ public class LevelBuilderTests {
   public void loadKeysTest() {
     List<String> names = palette.getSpriteNames();
     String[] allNames = {
-        "Blinky", "Inky", "Clyde", "Pinky", "PacMan", "Cherry", "Dot", "PowerPill"
+      "Blinky", "Inky", "Clyde", "Pinky", "PacMan", "Cherry", "Dot", "PowerPill"
     };
     for (String requiredName : allNames) {
       assertTrue(names.contains(requiredName));

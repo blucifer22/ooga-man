@@ -1,4 +1,4 @@
-package ooga.model;
+package ooga.model.grid;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -28,7 +28,6 @@ public class TileCoordinates {
   }
 
   public TileCoordinates() {
-    // TODO: Verify that this is appropriate behavior for the no-arg constructor
     this.x = 0;
     this.y = 0;
   }

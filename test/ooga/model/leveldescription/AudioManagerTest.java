@@ -1,71 +1,66 @@
 package ooga.model.leveldescription;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import ooga.model.api.AudioObserver;
 import ooga.model.audio.AudioManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class AudioManagerTest implements AudioObserver {
-    AudioManager manager;
-    String play, loop, stop;
-    @BeforeEach
-    void init() {
-        manager = new AudioManager();
-        play = null;
-        manager.addObserver(this);
-    }
+  AudioManager manager;
+  String play, loop, stop;
 
-    @Test
-    void testPlay() {
-        manager.playSound("test");
-        assertEquals("test", play);
-    }
+  @BeforeEach
+  void init() {
+    manager = new AudioManager();
+    play = null;
+    manager.addObserver(this);
+  }
 
-    @Test
-    void testAmbience() {
-        manager.setAmbience("normal");
-        assertEquals("normal", loop);
+  @Test
+  void testPlay() {
+    manager.playSound("test");
+    assertEquals("test", play);
+  }
 
-        manager.pushNewAmbience("frighten");
-        assertEquals("frighten", loop);
+  @Test
+  void testAmbience() {
+    manager.setAmbience("normal");
+    assertEquals("normal", loop);
 
-        manager.popAmbience();
+    manager.pushNewAmbience("frighten");
+    assertEquals("frighten", loop);
 
-        assertEquals("normal", loop);
+    manager.popAmbience();
 
-        manager.stopAmbience();
-        assertEquals("normal", stop);
-    }
+    assertEquals("normal", loop);
 
-    @Override
-    public void onPlayOnce(String soundIdentifier) {
-        play = soundIdentifier;
-    }
+    manager.stopAmbience();
+    assertEquals("normal", stop);
+  }
 
-    @Override
-    public void onPlayIndefinitely(String soundIdentifier) {
-        loop = soundIdentifier;
-    }
+  @Override
+  public void onPlayOnce(String soundIdentifier) {
+    play = soundIdentifier;
+  }
 
-    @Override
-    public void onPause(String soundIdentifier) {
+  @Override
+  public void onPlayIndefinitely(String soundIdentifier) {
+    loop = soundIdentifier;
+  }
 
-    }
+  @Override
+  public void onPause(String soundIdentifier) {}
 
-    @Override
-    public void onPauseAll() {
+  @Override
+  public void onPauseAll() {}
 
-    }
+  @Override
+  public void onStop(String soundIdentifier) {
+    stop = soundIdentifier;
+  }
 
-    @Override
-    public void onStop(String soundIdentifier) {
-        stop = soundIdentifier;
-    }
-
-    @Override
-    public void onStopAll() {
-
-    }
+  @Override
+  public void onStopAll() {}
 }

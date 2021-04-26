@@ -1,6 +1,6 @@
 package ooga.model.ai;
 
-import ooga.model.PacmanGrid;
+import ooga.model.grid.PacmanGrid;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 

@@ -9,11 +9,11 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import ooga.model.TileCoordinates;
 import ooga.model.api.ObservableTile;
 import ooga.model.api.TileEvent;
 import ooga.model.api.TileEvent.EventType;
 import ooga.model.api.TileObserver;
+import ooga.model.grid.TileCoordinates;
 import ooga.util.Vec2;
 import ooga.view.exceptions.ExceptionService;
 import ooga.view.exceptions.GraphicalExceptionService;
@@ -40,23 +40,24 @@ public class TileViewTest extends CustomApplicationTest {
 
   @BeforeEach
   public void reset() throws InterruptedException {
-    syncFXRun(() -> {
-      ExceptionService es = new GraphicalExceptionService();
-      this.themeService = new SerializedThemeService(es);
-      this.size = new SimpleDoubleProperty(50);
-      this.testHarness = new TestHarness();
-      this.tileView = new TileView(testHarness, size, themeService);
+    syncFXRun(
+        () -> {
+          ExceptionService es = new GraphicalExceptionService();
+          this.themeService = new SerializedThemeService(es);
+          this.size = new SimpleDoubleProperty(50);
+          this.testHarness = new TestHarness();
+          this.tileView = new TileView(testHarness, size, themeService);
 
-      try {
-        Field f = TileView.class.getDeclaredField("tileRect");
-        f.setAccessible(true);
-        this.tileViewRect = (Rectangle) f.get(this.tileView);
-      } catch (NoSuchFieldException | IllegalAccessException e) {
-        e.printStackTrace();
-      }
+          try {
+            Field f = TileView.class.getDeclaredField("tileRect");
+            f.setAccessible(true);
+            this.tileViewRect = (Rectangle) f.get(this.tileView);
+          } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+          }
 
-      this.primaryStage.setScene(new Scene(new Group(tileView.getRenderingNode()), 600, 600));
-    });
+          this.primaryStage.setScene(new Scene(new Group(tileView.getRenderingNode()), 600, 600));
+        });
   }
 
   @Test
@@ -66,7 +67,6 @@ public class TileViewTest extends CustomApplicationTest {
     assertEquals(this.size.get(), this.tileViewRect.getLayoutY());
     assertEquals(this.size.get(), this.tileViewRect.getWidth());
     assertEquals(this.size.get(), this.tileViewRect.getHeight());
-
   }
 
   @Test
@@ -101,17 +101,17 @@ public class TileViewTest extends CustomApplicationTest {
       return type;
     }
 
+    public void setType(String s) {
+      this.type = s;
+    }
+
     @Override
     public void addTileObserver(TileObserver observer, EventType... events) {
       this.observers.add(observer);
     }
 
-    public void setType(String s) {
-      this.type = s;
-    }
-
     private void notifyAll(EventType type) {
-      for (TileObserver observer: observers) {
+      for (TileObserver observer : observers) {
         observer.onTileEvent(new TileEvent(type));
       }
     }

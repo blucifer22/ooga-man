@@ -3,6 +3,8 @@ package ooga.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import ooga.model.api.ImmutablePlayer;
+import ooga.model.api.InputSource;
 
 /**
  * This implementation of Pac-Man accommodates versus mode, allowing more than one player to play at

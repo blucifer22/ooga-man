@@ -6,10 +6,10 @@ import static ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimatio
 import java.util.Map;
 import java.util.Set;
 import ooga.model.GameEvent;
-import ooga.model.InputSource;
 import ooga.model.MutableGameState;
-import ooga.model.SpriteCoordinates;
-import ooga.model.Tile;
+import ooga.model.api.InputSource;
+import ooga.model.grid.SpriteCoordinates;
+import ooga.model.grid.Tile;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Clock;
@@ -21,7 +21,9 @@ import ooga.util.Vec2;
  */
 public abstract class Ghost extends MoveableSprite {
 
+  protected static final double DEFAULT_SPEED = 5.0;
   private static final GhostState INITIAL_STATE = GhostState.WAIT;
+  private static final double EYES_SPEEDUP = 2.0;
   private final Clock ghostClock;
   private final double defaultMoveSpeed;
   private final SpriteCoordinates spawn;
@@ -29,10 +31,7 @@ public abstract class Ghost extends MoveableSprite {
   private int frightenedBank;
   private GhostState currentState;
   private boolean forceAnimationUpdate;
-  private static final double EYES_SPEEDUP = 2.0;
-  protected static final double DEFAULT_SPEED = 5.0;
 
-  // TODO: Delete "protected" to make Ghost classes package private
   protected Ghost(
       String spriteAnimationPrefix,
       SpriteCoordinates position,
@@ -79,7 +78,6 @@ public abstract class Ghost extends MoveableSprite {
         new Vec2(1, 0), 1);
   }
 
-  //TODO: Ask if i can move this code
   protected static SpriteAnimationFactory.SpriteAnimationType directionToAnimationType(
       Vec2 direction, GhostAnimationType type) {
     return switch (type) {
@@ -133,7 +131,6 @@ public abstract class Ghost extends MoveableSprite {
     ghostClock.addTimer(new Timer(getInitialWaitTime(), this::waitTimerExpired));
   }
 
-  // TODO: Delete "protected" to make Ghost classes package private
 
   /**
    * Defines how long this ghost takes before leaving the pen at the start of the game
@@ -166,7 +163,6 @@ public abstract class Ghost extends MoveableSprite {
     return spawn;
   }
 
-  // TODO: Delete "protected" to make Ghost classes package private
   @Override
   protected boolean canMoveTo(Tile tile) {
     return tile.isOpenToGhosts();
@@ -186,7 +182,6 @@ public abstract class Ghost extends MoveableSprite {
     return getInputSource().isHumanControlled();
   }
 
-  // TODO: Add other animations for: FRIGHTENED_WAIT, FRIGHTENED_WAIT_BLINKING, and FRIGHTENED_BLINKING
   private GhostAnimationType stateToAnimationType(GhostState currentState) {
     if(isPlayerControlled() && (currentState != GhostState.EATEN))
       return GhostAnimationType.ANIM_PLAYER_BLINKING;
@@ -262,10 +257,6 @@ public abstract class Ghost extends MoveableSprite {
   }
 
   private void changeState(GhostState state) {
-    System.out.printf("Ghost %s state transition: %s -> %s\n",
-        this.getCurrentAnimation().getCurrentCostume(),
-        currentState.toString(), state.toString());
-
     GhostAnimationType oldAnimType = stateToAnimationType(currentState);
     currentState = state;
     if (stateToAnimationType(currentState) != oldAnimType) {
@@ -294,8 +285,6 @@ public abstract class Ghost extends MoveableSprite {
     }
   }
 
-  // TODO: Delete "protected" to make Ghost classes package private
-  // TODO: Make each ENUM its own class
   private enum GhostAnimationType {
     ANIM_NORMAL,
     ANIM_PLAYER_BLINKING,
