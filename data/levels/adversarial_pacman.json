@@ -9212,6 +9212,16 @@
             "y": 14.5
           }
         }
+      },
+      {
+        "className": "ReadySprite",
+        "inputSource": "NONE",
+        "coordinates": {
+          "position": {
+            "x": 14.0,
+            "y": 17.5
+          }
+        }
       }]
   }
 }
