@@ -30,10 +30,11 @@ public class ThemedAudioService implements AudioService {
     MediaPlayer spaPlayer = getMediaPlayerForSound(soundIdentifier);
 
     if (spaPlayer != null) {
-      spaPlayer.setOnEndOfMedia(() -> {
-        activeAudio.get(soundIdentifier).remove(spaPlayer);
-        reusablePlayers.get(soundIdentifier).add(spaPlayer);
-      });
+      spaPlayer.setOnEndOfMedia(
+          () -> {
+            activeAudio.get(soundIdentifier).remove(spaPlayer);
+            reusablePlayers.get(soundIdentifier).add(spaPlayer);
+          });
       spaPlayer.play();
     }
   }
@@ -43,10 +44,11 @@ public class ThemedAudioService implements AudioService {
     MediaPlayer infPlayer = getMediaPlayerForSound(soundIdentifier);
 
     if (infPlayer != null) {
-      infPlayer.setOnEndOfMedia(() -> {
-        infPlayer.seek(Duration.ZERO);
-        infPlayer.play();
-      });
+      infPlayer.setOnEndOfMedia(
+          () -> {
+            infPlayer.seek(Duration.ZERO);
+            infPlayer.play();
+          });
       infPlayer.play();
     }
   }
@@ -118,9 +120,13 @@ public class ThemedAudioService implements AudioService {
         return mediaPlayer;
       } catch (Exception e) {
         // missing audio drivers on some operating systems lead to MediaPlayer instantiation failure
-        exceptionService.handleWarning(new UIServicedException("audioBadOS", System.getProperty(
-            "os.name"), soundIdentifier, singlePlayAudio.getSource(), dataSource.getTheme()
-            .getName()));
+        exceptionService.handleWarning(
+            new UIServicedException(
+                "audioBadOS",
+                System.getProperty("os.name"),
+                soundIdentifier,
+                singlePlayAudio.getSource(),
+                dataSource.getTheme().getName()));
         disabled = true;
       }
     }

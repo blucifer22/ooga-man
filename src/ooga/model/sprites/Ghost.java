@@ -1,33 +1,34 @@
 package ooga.model.sprites;
 
+import static ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimationType.GHOST_FRIGHTENED;
+import static ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimationType.GHOST_FRIGHTENED_END;
+
 import java.util.Map;
 import java.util.Set;
-
-import ooga.model.*;
+import ooga.model.GameEvent;
+import ooga.model.InputSource;
+import ooga.model.MutableGameState;
+import ooga.model.SpriteCoordinates;
+import ooga.model.Tile;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Clock;
 import ooga.util.Timer;
 import ooga.util.Vec2;
 
-import static ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimationType.GHOST_FRIGHTENED;
-import static ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimationType.GHOST_FRIGHTENED_END;
-
 /**
  * @author Matthew Belissary
  */
 public abstract class Ghost extends MoveableSprite {
 
+  private static final GhostState INITIAL_STATE = GhostState.WAIT;
   private final Clock ghostClock;
-
   private final double defaultMoveSpeed;
   private final SpriteCoordinates spawn;
   private int baseGhostScore = 200;
   private int frightenedBank;
   private GhostState currentState;
   private boolean forceAnimationUpdate;
-
-  private static final GhostState INITIAL_STATE = GhostState.WAIT;
 
   // TODO: Delete "protected" to make Ghost classes package private
   protected Ghost(
@@ -68,16 +69,6 @@ public abstract class Ghost extends MoveableSprite {
     forceAnimationUpdate = false;
   }
 
-  private void waitTimerExpired(MutableGameState gameState) {
-    GhostState nextState = switch (currentState) {
-      case FRIGHTENED_WAIT -> GhostState.FRIGHTENED;
-      case FRIGHTENED_WAIT_BLINKING -> GhostState.FRIGHTENED_BLINKING;
-      default -> GhostState.CHASE; // includes normal WAIT -> CHASE transition
-    };
-    changeState(nextState);
-    this.setMovementSpeed(defaultMoveSpeed);
-  }
-
   public Ghost(
       String spriteAnimationPrefix,
       SpriteDescription spriteDescription) {
@@ -115,6 +106,16 @@ public abstract class Ghost extends MoveableSprite {
                     });
       }
     };
+  }
+
+  private void waitTimerExpired(MutableGameState gameState) {
+    GhostState nextState = switch (currentState) {
+      case FRIGHTENED_WAIT -> GhostState.FRIGHTENED;
+      case FRIGHTENED_WAIT_BLINKING -> GhostState.FRIGHTENED_BLINKING;
+      default -> GhostState.CHASE; // includes normal WAIT -> CHASE transition
+    };
+    changeState(nextState);
+    this.setMovementSpeed(defaultMoveSpeed);
   }
 
   /**

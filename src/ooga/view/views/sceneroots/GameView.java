@@ -54,12 +54,13 @@ public class GameView implements View, ThemedObject, GameStateObservationComposi
 
     RowConstraints rc = new RowConstraints();
     rc.setPercentHeight(80);
-    this.primaryView.getRowConstraints().addAll(new RowConstraints(), rc, new RowConstraints(),
-        new RowConstraints());
+    this.primaryView
+        .getRowConstraints()
+        .addAll(new RowConstraints(), rc, new RowConstraints(), new RowConstraints());
 
     this.primaryView.setAlignment(Pos.CENTER);
-    this.primaryView.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY,
-        Insets.EMPTY)));
+    this.primaryView.setBackground(
+        new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
     this.primaryView.getStyleClass().add("view");
   }
 
@@ -67,9 +68,12 @@ public class GameView implements View, ThemedObject, GameStateObservationComposi
     this.primaryView.add(this.scoreboardCard.getRenderingNode(), 0, 0);
     this.primaryView.add(this.gridView.getRenderingNode(), 1, 0, 1, 3);
 
-    VBox buttonBox = new VBox(
-        new StyledButton(this.serviceProvider, "mainMenu",
-            e -> this.serviceProvider.viewStackManager().unwind()));
+    VBox buttonBox =
+        new VBox(
+            new StyledButton(
+                this.serviceProvider,
+                "mainMenu",
+                e -> this.serviceProvider.viewStackManager().unwind()));
     buttonBox.setAlignment(Pos.CENTER);
 
     this.primaryView.add(buttonBox, 0, 1);
@@ -103,7 +107,8 @@ public class GameView implements View, ThemedObject, GameStateObservationComposi
   @Override
   public void onThemeChange() {
     this.primaryView.getStylesheets().clear();
-    this.primaryView.getStylesheets()
+    this.primaryView
+        .getStylesheets()
         .add(this.serviceProvider.themeService().getTheme().getStylesheet());
   }
 }

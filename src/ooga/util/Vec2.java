@@ -7,8 +7,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * This class implements a double-precision 2-vector over the reals.
- * <p>
- * This is a utility class that was imported verbatim from one of our previous projects.
+ *
+ * <p>This is a utility class that was imported verbatim from one of our previous projects.
  *
  * @author Mindy Wu
  * @author Franklin Wei
@@ -41,18 +41,15 @@ public class Vec2 {
   }
 
   public static Vec2 unitVectorPointing(double angleDegrees) {
-    return new Vec2(Math.cos(Math.toRadians(angleDegrees)),
-        Math.sin(Math.toRadians(angleDegrees)));
+    return new Vec2(Math.cos(Math.toRadians(angleDegrees)), Math.sin(Math.toRadians(angleDegrees)));
   }
 
   public Vec2 add(Vec2 other) {
-    return new Vec2(this.x + other.x,
-                    this.y + other.y);
+    return new Vec2(this.x + other.x, this.y + other.y);
   }
 
   public Vec2 subtract(Vec2 other) {
-    return new Vec2(this.x - other.x,
-                    this.y - other.y);
+    return new Vec2(this.x - other.x, this.y - other.y);
   }
 
   public double dot(Vec2 other) {
@@ -69,8 +66,7 @@ public class Vec2 {
   }
 
   public Vec2 scalarMult(double scalar) {
-    return new Vec2(this.x * scalar,
-                    this.y * scalar);
+    return new Vec2(this.x * scalar, this.y * scalar);
   }
 
   public Vec2 normalize() {
@@ -99,8 +95,7 @@ public class Vec2 {
    * @return boolean representing whether two vectors are parallel
    */
   public boolean parallelTo(Vec2 other) {
-    return Math.abs(this.angleTo(other)) < EPSILON ||
-        Math.abs(this.angleTo(other) - 180) < EPSILON;
+    return Math.abs(this.angleTo(other)) < EPSILON || Math.abs(this.angleTo(other) - 180) < EPSILON;
   }
 
   /**
@@ -128,7 +123,6 @@ public class Vec2 {
     return Math.abs(distanceAll - shortestDistance) < EPSILON;
   }
 
-
   @Override
   public boolean equals(Object o) {
     if (o instanceof Vec2) {
@@ -144,7 +138,7 @@ public class Vec2 {
   }
 
   @Override
-  public String toString(){
+  public String toString() {
     return "( " + getX() + ", " + getY() + " )";
   }
 }

@@ -19,8 +19,7 @@ public class ThemeDescription extends JSONDescription {
       @JsonProperty("name") String name,
       @JsonProperty("sounds") Map<String, String> audioFilePaths,
       @JsonProperty("costumes") Map<String, CostumeDescription> costumes,
-      @JsonProperty("stylesheet") String stylesheet
-  ) {
+      @JsonProperty("stylesheet") String stylesheet) {
     this.name = name;
     this.audioFilePaths = (audioFilePaths == null) ? new HashMap<>() : audioFilePaths;
     this.costumes = (costumes == null) ? new HashMap<>() : costumes;

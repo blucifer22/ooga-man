@@ -1,15 +1,15 @@
 package ooga.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import ooga.model.api.ObservableTile;
 import ooga.model.api.TileEvent;
 import ooga.model.api.TileEvent.EventType;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import ooga.model.api.ObservableTile;
 import ooga.model.api.TileObserver;
 
 /**
@@ -21,11 +21,11 @@ import ooga.model.api.TileObserver;
 public class Tile implements ObservableTile {
 
   private final TileCoordinates tileCoordinates;
+  private final Map<EventType, Set<TileObserver>> observers;
   // TODO: allow for tile types to change
   private String tileType;
   private boolean isOpenToPacman;
   private boolean isOpenToGhosts;
-  private final Map<EventType, Set<TileObserver>> observers;
 
   @JsonCreator
   public Tile(
@@ -62,22 +62,25 @@ public class Tile implements ObservableTile {
     return tileType;
   }
 
+  public void setType(String nextTileType) {
+    tileType = nextTileType;
+  }
+
   @Override
   public void addTileObserver(TileObserver observer, TileEvent.EventType... events) {
     if (events.length > 0) {
       // subscribe to only listed events, if any events are listed
-      for (TileEvent.EventType ev: events) {
+      for (TileEvent.EventType ev : events) {
         observers.putIfAbsent(ev, new HashSet<>());
         observers.get(ev).add(observer);
       }
     } else {
       // otherwise, subscribe to all events
-      for (TileEvent.EventType ev: TileEvent.EventType.values()) {
+      for (TileEvent.EventType ev : TileEvent.EventType.values()) {
         observers.putIfAbsent(ev, new HashSet<>());
         observers.get(ev).add(observer);
       }
     }
-
   }
 
   public void setIsOpenToGhosts(Boolean bool) {
@@ -86,9 +89,5 @@ public class Tile implements ObservableTile {
 
   public void setIsOpenToPacman(Boolean bool) {
     isOpenToPacman = bool;
-  }
-
-  public void setType(String nextTileType) {
-    tileType = nextTileType;
   }
 }

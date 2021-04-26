@@ -23,8 +23,8 @@ import ooga.view.views.components.scenecomponents.TileView;
  * GameGridView lays out the grid and the Sprites on the grid (a necessary combination because only
  * the GameGridView knows where the grid is!).
  */
-public class GameGridView implements View, GridRebuildObserver, SpriteExistenceObserver,
-    ThemedObject {
+public class GameGridView
+    implements View, GridRebuildObserver, SpriteExistenceObserver, ThemedObject {
 
   private final Group tileGrid;
   private final DoubleProperty tileSize;
@@ -56,11 +56,13 @@ public class GameGridView implements View, GridRebuildObserver, SpriteExistenceO
         ObservableTile tile = grid.getTile(new TileCoordinates(col, row));
         TileView tv = new TileView(tile, tileSize, themeService);
         tileGrid.getChildren().add(tv.getRenderingNode());
-        tv.getRenderingNode().setOnMouseClicked(e -> {
-          if (tileClickHandler != null) {
-            tileClickHandler.handle(e, tile);
-          }
-        });
+        tv.getRenderingNode()
+            .setOnMouseClicked(
+                e -> {
+                  if (tileClickHandler != null) {
+                    tileClickHandler.handle(e, tile);
+                  }
+                });
       }
     }
   }
@@ -78,9 +80,12 @@ public class GameGridView implements View, GridRebuildObserver, SpriteExistenceO
     SpriteView createdSpriteView = new SpriteView(so, this.themeService, tileSize);
     spriteViews.put(so, createdSpriteView);
     spriteNodes.getChildren().add(createdSpriteView.getRenderingNode());
-    createdSpriteView.getRenderingNode().setOnMouseClicked(e -> {
-      spriteClickHandler.handle(e, so);
-    });
+    createdSpriteView
+        .getRenderingNode()
+        .setOnMouseClicked(
+            e -> {
+              spriteClickHandler.handle(e, so);
+            });
   }
 
   @Override
@@ -92,8 +97,10 @@ public class GameGridView implements View, GridRebuildObserver, SpriteExistenceO
   @Override
   public void onGridRebuild(ObservableGrid grid) {
     this.tileGrid.getChildren().clear();
-    this.tileSize.bind(Bindings.min(primaryView.widthProperty().divide(grid.getWidth()),
-        primaryView.heightProperty().divide(grid.getHeight())));
+    this.tileSize.bind(
+        Bindings.min(
+            primaryView.widthProperty().divide(grid.getWidth()),
+            primaryView.heightProperty().divide(grid.getHeight())));
     createTileGraphics(grid);
   }
 
@@ -118,5 +125,4 @@ public class GameGridView implements View, GridRebuildObserver, SpriteExistenceO
 
     void handle(MouseEvent e, ObservableSprite sprite);
   }
-
 }

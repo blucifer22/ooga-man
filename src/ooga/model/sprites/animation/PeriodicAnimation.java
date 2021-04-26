@@ -13,16 +13,10 @@ import java.util.List;
  *
  */
 public abstract class PeriodicAnimation extends SpriteAnimation {
-  public enum FrameOrder {
-    SAWTOOTH,
-    TRIANGLE
-  };
-
-  private final FrameOrder frameOrder;
+    private final FrameOrder frameOrder;
   private final List<String> costumes;
-  private int phase;
   private final int period, numCostumes;
-
+  private int phase;
   public PeriodicAnimation(List<String> costumes, FrameOrder order) {
     super(costumes.get(0));
 
@@ -48,5 +42,10 @@ public abstract class PeriodicAnimation extends SpriteAnimation {
     };
 
     setCostume(costumes.get(currentCostumeIndex));
+  }
+
+public enum FrameOrder {
+    SAWTOOTH,
+    TRIANGLE
   }
 }

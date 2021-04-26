@@ -41,7 +41,7 @@ public class PacmanAI implements InputSource {
   }
 
   /**
-   * Add Sprite to be tracked by the movement algorithm.  The algorithm will try to maximize the
+   * Add Sprite to be tracked by the movement algorithm. The algorithm will try to maximize the
    * distance between Pac-Man and these sprites.
    *
    * @param sprite Sprites to move away from.
@@ -51,23 +51,18 @@ public class PacmanAI implements InputSource {
   }
 
   /**
-   * The Pac-Man AI is focused on survival.  It considers the position of all ghosts in the game.
-   * For each direction that it can choose, it considers the closest Sprite in that direction to
-   * make decisions.  The final direction chosen is an attempt to maximize the closest distance.
-   * This AI can freely reverse, if necessary.
+   * The Pac-Man AI is focused on survival. It considers the position of all ghosts in the game. For
+   * each direction that it can choose, it considers the closest Sprite in that direction to make
+   * decisions. The final direction chosen is an attempt to maximize the closest distance. This AI
+   * can freely reverse, if necessary.
    *
    * @param currentTilePos current position of this AI
    * @param targets
    * @return Direction to send to the Sprite
    */
-  protected Vec2 maximizeDistance(Vec2 currentTilePos,
-      List<Sprite> targets) {
+  protected Vec2 maximizeDistance(Vec2 currentTilePos, List<Sprite> targets) {
     Vec2[] directions = {
-        new Vec2(0, 0),
-        new Vec2(-1, 0),
-        new Vec2(1, 0),
-        new Vec2(0, 1),
-        new Vec2(0, -1)
+      new Vec2(0, 0), new Vec2(-1, 0), new Vec2(1, 0), new Vec2(0, 1), new Vec2(0, -1)
     };
     List<DirectionDistanceWrapper> distances = new ArrayList<>();
     for (Vec2 direction : directions) {
@@ -104,7 +99,8 @@ public class PacmanAI implements InputSource {
     if (!pacmanGrid.inBoundaries(new TileCoordinates(target))) {
       return false;
     }
-    return pacmanGrid.getTile(new TileCoordinates((int) target.getX(), (int) target.getY()))
+    return pacmanGrid
+        .getTile(new TileCoordinates((int) target.getX(), (int) target.getY()))
         .isOpenToPacman();
   }
 
@@ -118,5 +114,4 @@ public class PacmanAI implements InputSource {
   public boolean isActionPressed() {
     return false;
   }
-
 }

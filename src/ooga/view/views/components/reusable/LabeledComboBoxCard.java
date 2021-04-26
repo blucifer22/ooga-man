@@ -13,14 +13,20 @@ import ooga.view.uiservice.UIServiceProvider;
 
 public class LabeledComboBoxCard extends StackPane {
 
-  public LabeledComboBoxCard(UIServiceProvider serviceProvider, String labelBundleIdentifier,
-      Map<String, String> options, OptionSelectionHandler selectionHandler) {
+  public LabeledComboBoxCard(
+      UIServiceProvider serviceProvider,
+      String labelBundleIdentifier,
+      Map<String, String> options,
+      OptionSelectionHandler selectionHandler) {
     super();
     configure(serviceProvider, labelBundleIdentifier, options, selectionHandler);
   }
 
-  public LabeledComboBoxCard(UIServiceProvider serviceProvider, String labelBundleIdentifier,
-      Collection<String> options, OptionSelectionHandler selectionHandler) {
+  public LabeledComboBoxCard(
+      UIServiceProvider serviceProvider,
+      String labelBundleIdentifier,
+      Collection<String> options,
+      OptionSelectionHandler selectionHandler) {
     super();
     LinkedHashMap<String, String> orderedOptions = new LinkedHashMap<>();
     for (String option : options) {
@@ -29,21 +35,26 @@ public class LabeledComboBoxCard extends StackPane {
     configure(serviceProvider, labelBundleIdentifier, orderedOptions, selectionHandler);
   }
 
-  private void configure(UIServiceProvider serviceProvider, String labelBundleIdentifier,
-      Map<String, String> options, OptionSelectionHandler selectionHandler) {
-    Label dropdownLabel = new StyledBoundLabel(
-        serviceProvider.languageService().getLocalizedString(labelBundleIdentifier),
-        "dropdown-label", labelBundleIdentifier + "-select-label"
-    );
+  private void configure(
+      UIServiceProvider serviceProvider,
+      String labelBundleIdentifier,
+      Map<String, String> options,
+      OptionSelectionHandler selectionHandler) {
+    Label dropdownLabel =
+        new StyledBoundLabel(
+            serviceProvider.languageService().getLocalizedString(labelBundleIdentifier),
+            "dropdown-label",
+            labelBundleIdentifier + "-select-label");
 
     ArrayList<Pair<String, String>> dropdownOptions = new ArrayList<>();
     for (String key : options.keySet()) {
-      dropdownOptions.add(new Pair<>(key, options.get(key)) {
-        @Override
-        public String toString() {
-          return this.getValue();
-        }
-      });
+      dropdownOptions.add(
+          new Pair<>(key, options.get(key)) {
+            @Override
+            public String toString() {
+              return this.getValue();
+            }
+          });
     }
 
     ComboBox<Pair<String, String>> dropdown = new ComboBox<>();
@@ -52,10 +63,7 @@ public class LabeledComboBoxCard extends StackPane {
     dropdown.setId(labelBundleIdentifier + "-select-dropdown");
     dropdown.setOnAction(e -> selectionHandler.onSelection(dropdown.getValue().getKey()));
 
-    VBox labeledLangDropdown = new VBox(
-        dropdownLabel,
-        dropdown
-    );
+    VBox labeledLangDropdown = new VBox(dropdownLabel, dropdown);
     labeledLangDropdown.getStyleClass().add("card");
     labeledLangDropdown.setId(labelBundleIdentifier + "-select-card");
 

@@ -77,8 +77,8 @@ public class BundledLanguageService implements LanguageService, LanguageSelectio
       keysToUpdate.removeAll(newLang.keySet());
 
       if (!keysToUpdate.isEmpty()) {
-        exceptionService.handleWarning(new UIServicedException("missingValError", languageName,
-            keysToUpdate.toString()));
+        exceptionService.handleWarning(
+            new UIServicedException("missingValError", languageName, keysToUpdate.toString()));
       }
     }
 

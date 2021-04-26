@@ -2,7 +2,6 @@ package ooga.model.sprites.status;
 
 import ooga.model.MutableGameState;
 import ooga.model.SpriteCoordinates;
-import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.Sprite;
 import ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimationType;
 import ooga.util.Vec2;

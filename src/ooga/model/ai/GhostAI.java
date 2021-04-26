@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import ooga.model.InputSource;
 import ooga.model.PacmanGrid;
 import ooga.model.TileCoordinates;
@@ -28,12 +27,12 @@ import org.jetbrains.annotations.NotNull;
  */
 public class GhostAI implements InputSource {
 
+  private static final double WIGGLE_PERIOD = 0.5; // 2 Hz oscillation
   private final Ghost ghost;
   private final PacmanGrid pacmanGrid;
   private final Map<GhostBehavior, Function<Double, Vec2>> movementOptions = new HashMap<>();
   private Sprite target;
   private double wiggleTime;
-  private static final double WIGGLE_PERIOD = 0.5; // 2 Hz oscillation
 
   public GhostAI(PacmanGrid grid, Sprite ghost) {
     this.pacmanGrid = grid;
@@ -143,7 +142,8 @@ public class GhostAI implements InputSource {
     if (!pacmanGrid.inBoundaries(new TileCoordinates(target))) {
       return false;
     }
-    return pacmanGrid.getTile(new TileCoordinates((int) target.getX(), (int) target.getY()))
+    return pacmanGrid
+        .getTile(new TileCoordinates((int) target.getX(), (int) target.getY()))
         .isOpenToGhosts();
   }
 

@@ -53,7 +53,7 @@ public class PacmanGameState
   private final List<Sprite> sprites;
   private final Clock clock;
   private final AudioManager audioManager;
-  private Set<Sprite> toDelete;
+  private final Set<Sprite> toDelete;
   private PacmanGrid grid;
   private Player pacmanPlayer;
   private Player ghostsPlayer;

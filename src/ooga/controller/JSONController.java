@@ -1,7 +1,6 @@
 package ooga.controller;
 
 import java.io.File;
-import java.io.IOException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.stage.Stage;

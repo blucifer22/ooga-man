@@ -13,14 +13,14 @@ import ooga.model.PacmanLevel;
  * @author Marc Chmielewski
  */
 public class LevelDescription extends JSONDescription {
-  private String gameMode;
   private final GridDescription gridDescription;
   private final SpriteLayoutDescription spriteLayoutDescription;
+  private String gameMode;
 
   /**
    * The general constructor for LevelDescription. Takes in all of the information required to
-   * create a PacmanGameState (a Pac-Man level), including a String gameMode, a GridDescription,
-   * and a SpriteLayoutDescription.
+   * create a PacmanGameState (a Pac-Man level), including a String gameMode, a GridDescription, and
+   * a SpriteLayoutDescription.
    *
    * @param gameMode The name of the level
    * @param gridDescription The GridDescription for the Grid that this Level possesses

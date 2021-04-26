@@ -8,7 +8,8 @@ public class PreferenceService implements UIPreferenceService {
   private final ThemeSelectionService themeSelectionService;
   private final LanguageSelectionService languageSelectionService;
 
-  public PreferenceService(ThemeSelectionService themeSelectionService,
+  public PreferenceService(
+      ThemeSelectionService themeSelectionService,
       LanguageSelectionService languageSelectionService) {
     this.themeSelectionService = themeSelectionService;
     this.languageSelectionService = languageSelectionService;

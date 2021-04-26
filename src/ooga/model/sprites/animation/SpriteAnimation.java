@@ -7,20 +7,18 @@ import java.util.function.Consumer;
 /**
  * This class defines the abstract notion of a sprite "animation."
  *
- * Animations describe how sprites change appearance over time --
- * Pac-Man, for instance, is always performing the "chomp-chomp"
- * animation (except after being eaten by a ghost), while ghosts can
- * switch between different animations depending on their direction of
- * travel, and "frightened" status.
+ * <p>Animations describe how sprites change appearance over time -- Pac-Man, for instance, is
+ * always performing the "chomp-chomp" animation (except after being eaten by a ghost), while ghosts
+ * can switch between different animations depending on their direction of travel, and "frightened"
+ * status.
  *
- * Generic sprite animations need not be periodic, but the only
- * current implementation of SpriteAnimation is PeriodicAnimation,
- * which is periodic.
+ * <p>Generic sprite animations need not be periodic, but the only current implementation of
+ * SpriteAnimation is PeriodicAnimation, which is periodic.
  *
  * @author Franklin Wei
  */
 public abstract class SpriteAnimation implements ObservableAnimation {
-  private Set<AnimationObserver> observers;
+  private final Set<AnimationObserver> observers;
 
   private String costume;
 
@@ -48,12 +46,12 @@ public abstract class SpriteAnimation implements ObservableAnimation {
 
   public abstract void step(double dt);
 
-  public final void setPaused(boolean paused) {
-    this.paused = paused;
-  }
-
   public final boolean isPaused() {
     return paused;
+  }
+
+  public final void setPaused(boolean paused) {
+    this.paused = paused;
   }
 
   public void addObserver(AnimationObserver ao) {
@@ -65,8 +63,7 @@ public abstract class SpriteAnimation implements ObservableAnimation {
   }
 
   protected void notifyObservers(Consumer<AnimationObserver> consumer) {
-    for (AnimationObserver ao : observers)
-      consumer.accept(ao);
+    for (AnimationObserver ao : observers) consumer.accept(ao);
   }
 
   @Override

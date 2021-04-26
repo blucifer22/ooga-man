@@ -21,7 +21,6 @@ public interface HumanInputConsumer {
    */
   void onKeyPress(KeyCode keyCode);
 
-
   /**
    * This method handles the behavior associated with the release of a key
    *

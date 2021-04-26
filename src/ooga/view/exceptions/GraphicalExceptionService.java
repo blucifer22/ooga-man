@@ -32,14 +32,16 @@ public class GraphicalExceptionService implements ExceptionService {
   private String getMessage(UIServicedException exception) {
     if (languageService != null) {
       try {
-        return String.format(languageService.getLocalizedString(exception.getErrorKey()).get(),
+        return String.format(
+            languageService.getLocalizedString(exception.getErrorKey()).get(),
             (Object[]) exception.getErrorInformation());
       } catch (Exception ignored) {
       }
     }
     // fallback message; cannot be refactored to a resource bundle!
     // this message is shown when resource bundle loading fails
-    return String.format("Encountered error %s (additional information %s). Error occurred before"
+    return String.format(
+        "Encountered error %s (additional information %s). Error occurred before"
             + " localization settings could be applied, or a localization error occurred.",
         exception.getErrorKey(), Arrays.toString(exception.getErrorInformation()));
   }
@@ -51,16 +53,20 @@ public class GraphicalExceptionService implements ExceptionService {
       a.showAndWait();
       Platform.exit();
     } else if (!mute) {
-      String muteButtonText = languageService != null ?
-          languageService.getLocalizedString("muteWarnings").get() : MUTE_WARNINGS_FALLBACK;
-      a.getButtonTypes().add(
-          new ButtonType(!muteButtonText.equals("") ? muteButtonText : MUTE_WARNINGS_FALLBACK));
-      a.setOnCloseRequest(e -> {
-        if (a.getResult().getButtonData().getTypeCode().equals(MUTE_WARNINGS_TYPE_CODE)) {
-          mute = true;
-        }
-        a.close();
-      });
+      String muteButtonText =
+          languageService != null
+              ? languageService.getLocalizedString("muteWarnings").get()
+              : MUTE_WARNINGS_FALLBACK;
+      a.getButtonTypes()
+          .add(
+              new ButtonType(!muteButtonText.equals("") ? muteButtonText : MUTE_WARNINGS_FALLBACK));
+      a.setOnCloseRequest(
+          e -> {
+            if (a.getResult().getButtonData().getTypeCode().equals(MUTE_WARNINGS_TYPE_CODE)) {
+              mute = true;
+            }
+            a.close();
+          });
       a.show();
       ((Stage) a.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
     }

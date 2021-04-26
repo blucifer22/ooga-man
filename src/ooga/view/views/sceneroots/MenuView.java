@@ -39,11 +39,11 @@ public class MenuView implements View, ThemedObject {
     GridPane.setHalignment(title, HPos.CENTER);
     this.primaryView.add(title, 0, 0);
 
-    VBox menuButtons = new VBox(
-        menuButton("startGame", e -> this.menuResponder.startGame()),
-        menuButton("openLevelBuilder", e -> this.menuResponder.openLevelBuilder()),
-        menuButton("openPreferences", e -> this.menuResponder.openPreferences())
-    );
+    VBox menuButtons =
+        new VBox(
+            menuButton("startGame", e -> this.menuResponder.startGame()),
+            menuButton("openLevelBuilder", e -> this.menuResponder.openLevelBuilder()),
+            menuButton("openPreferences", e -> this.menuResponder.openPreferences()));
     menuButtons.setAlignment(Pos.CENTER);
     menuButtons.getStyleClass().add("menu-button-box");
     this.primaryView.add(menuButtons, 0, 1);
@@ -63,7 +63,8 @@ public class MenuView implements View, ThemedObject {
   @Override
   public void onThemeChange() {
     this.primaryView.getStylesheets().clear();
-    this.primaryView.getStylesheets()
+    this.primaryView
+        .getStylesheets()
         .add(serviceProvider.themeService().getTheme().getStylesheet());
   }
 }

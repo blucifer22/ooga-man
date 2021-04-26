@@ -1,10 +1,6 @@
 package ooga.model.api;
 
 public class TileEvent {
-  public enum EventType {
-    TYPE_CHANGE
-  }
-
   private final EventType type;
 
   public TileEvent(EventType type) {
@@ -13,5 +9,9 @@ public class TileEvent {
 
   public EventType getEventType() {
     return type;
+  }
+
+  public enum EventType {
+    TYPE_CHANGE
   }
 }

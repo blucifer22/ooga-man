@@ -42,8 +42,8 @@ public class UIController implements MainMenuResponder, ViewStackService {
   private final UIServiceProvider serviceProvider;
   private GameView gameView;
 
-  public UIController(Stage primaryStage, GameStateController gameController,
-      HumanInputConsumer inputConsumer) {
+  public UIController(
+      Stage primaryStage, GameStateController gameController, HumanInputConsumer inputConsumer) {
     // Configure Data Sources & Displays
     this.inputConsumer = inputConsumer;
     this.gameController = gameController;
@@ -55,16 +55,19 @@ public class UIController implements MainMenuResponder, ViewStackService {
     exceptionService.setLanguageService(languageService);
     SerializedThemeService themeService = new SerializedThemeService(exceptionService);
     AudioService audioService = new ThemedAudioService(themeService, exceptionService);
-    this.serviceProvider = new ServiceProvider(exceptionService, audioService, themeService,
-        languageService, this);
+    this.serviceProvider =
+        new ServiceProvider(exceptionService, audioService, themeService, languageService, this);
     this.preferenceService = new PreferenceService(themeService, languageService);
 
     // Stage Prep
     this.primaryStage = primaryStage;
+    this.primaryStage.setScene(
+        new Scene(
+            new MenuView(this.serviceProvider, this).getRenderingNode(),
+            DEFAULT_STAGE_SIZE,
+            DEFAULT_STAGE_SIZE));
     this.primaryStage
-        .setScene(new Scene(new MenuView(this.serviceProvider, this).getRenderingNode(),
-            DEFAULT_STAGE_SIZE, DEFAULT_STAGE_SIZE));
-    this.primaryStage.titleProperty()
+        .titleProperty()
         .bind(this.serviceProvider.languageService().getLocalizedString("pacman"));
     this.viewStack.add(this.primaryStage.getScene());
 
@@ -83,8 +86,8 @@ public class UIController implements MainMenuResponder, ViewStackService {
   public void openLevelBuilder() {
     LevelBuilder builder = new LevelBuilder();
     Palette palette = new Palette();
-    showScene(new Scene(new LevelBuilderView(this.serviceProvider, builder).getRenderingNode()),
-        true);
+    showScene(
+        new Scene(new LevelBuilderView(this.serviceProvider, builder).getRenderingNode()), true);
   }
 
   @Override

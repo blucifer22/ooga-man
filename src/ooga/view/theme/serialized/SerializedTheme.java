@@ -19,8 +19,7 @@ public class SerializedTheme implements Theme {
   private final String name;
   private final ExceptionService exceptionService;
 
-  protected SerializedTheme(ThemeDescription description,
-      ExceptionService exceptionService) {
+  protected SerializedTheme(ThemeDescription description, ExceptionService exceptionService) {
     this.stylesheet = description.getStylesheet();
     this.exceptionService = exceptionService;
     this.costumes = new HashMap<>();
@@ -40,8 +39,9 @@ public class SerializedTheme implements Theme {
          * The Media class also ~requires~ an absolute filepath (why, Java?!)
          */
 
-        encoded = (new File(description.getAudioFilePaths().get(key)).toURI().toString())
-            .replace("/themes/", "/data/themes/");
+        encoded =
+            (new File(description.getAudioFilePaths().get(key)).toURI().toString())
+                .replace("/themes/", "/data/themes/");
 
         sounds.put(key, new Media(encoded));
       } catch (Exception e) {
@@ -53,8 +53,8 @@ public class SerializedTheme implements Theme {
   @Override
   public Media getSoundByIdentifier(String identifier) {
     if (sounds.get(identifier) == null) {
-      exceptionService.handleWarning(new UIServicedException("missingAudioFileError",
-          name, identifier));
+      exceptionService.handleWarning(
+          new UIServicedException("missingAudioFileError", name, identifier));
       return null;
     } else {
       return sounds.get(identifier);

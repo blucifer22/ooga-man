@@ -2,7 +2,6 @@ package ooga.model.sprites.status;
 
 import ooga.model.MutableGameState;
 import ooga.model.SpriteCoordinates;
-import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.Sprite;
 import ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimationType;
 import ooga.util.Vec2;
@@ -17,7 +16,6 @@ public class GhostWin extends Sprite {
   public GhostWin(SpriteCoordinates position, Vec2 direction) {
     super("", SpriteAnimationType.GHOST_WIN_FLASH, position, direction);
   }
-
 
   /**
    * Sprites override this method to define game state changes or changes to the sprite upon coming

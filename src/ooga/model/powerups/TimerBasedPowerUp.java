@@ -1,10 +1,9 @@
 package ooga.model.powerups;
 
+import java.util.Map;
 import ooga.model.GameEvent;
 import ooga.model.MutableGameState;
 import ooga.util.Timer;
-
-import java.util.Map;
 
 abstract class TimerBasedPowerUp implements PowerUp {
 
@@ -21,9 +20,10 @@ abstract class TimerBasedPowerUp implements PowerUp {
         .entrySet()
         .forEach(
             entry ->
-                state.getClock()
-                    .addTimer(new Timer(entry.getKey(),
-                        (pgs) -> state.broadcastEvent(entry.getValue())))
-        );
+                state
+                    .getClock()
+                    .addTimer(
+                        new Timer(
+                            entry.getKey(), (pgs) -> state.broadcastEvent(entry.getValue()))));
   }
 }

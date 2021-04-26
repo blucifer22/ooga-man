@@ -24,9 +24,9 @@ public class SpriteLinkageFactory {
 
   private final List<Sprite> ghostList;
   private final PacmanGameState pgs;
-  private Sprite pacman;
   private final HumanInputManager player1;
   private final HumanInputManager player2;
+  private Sprite pacman;
 
   /**
    * This constructor constructs a new SpriteLinkageFactory that will handle the association of
