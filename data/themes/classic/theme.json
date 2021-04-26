@@ -550,6 +550,13 @@
       "scale" : 13,
       "bottomHeavy" : false,
       "rotates": false
+    },
+    "ready_1" : {
+      "fill" : "themes/classic/images/general/ready_1.png",
+      "imageFill" : true,
+      "scale" : 3.0,
+      "bottomHeavy" : false,
+      "rotates": false
     }
   },
   "sounds": {
