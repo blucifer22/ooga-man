@@ -6,6 +6,13 @@ import ooga.model.api.GridRebuildObserver;
 import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.leveldescription.LevelBuilder.BuilderState;
 
+/**
+ * LevelEditor is an interface that defines the set of methods required to implement level-editing
+ * behavior. Presently, this behavior is only implemented by the LevelBuilder, but this could be
+ * trivially extended to other level-building entities.
+ *
+ * @author David Coffman
+ */
 public interface LevelEditor {
 
   /**
@@ -61,7 +68,23 @@ public interface LevelEditor {
    */
   void setGridSize(int width, int height);
 
+  /**
+   * This method attaches a new GridRebuildObserver to this LevelEditor, thus allowing the front-end
+   * to be notified of any changes to the grid state.
+   *
+   *
+   * @param observer The GridRebuildObserver to be added to this LevelEditor's set of observers.
+   */
   void addGridRebuildObserver(GridRebuildObserver observer);
 
+
+  /**
+   * This method attaches a new SpriteExistenceObserver to this LevelEditor, thus allowing
+   * the front-end to be notified of any changes to the Sprites held by this LevelEditor.
+   *
+   *
+   * @param spriteExistenceObserver The SpriteExistenceObserver to be added to
+   *                               this LevelEditor's set of observers.
+   */
   void addSpriteExistenceObserver(SpriteExistenceObserver spriteExistenceObserver);
 }
