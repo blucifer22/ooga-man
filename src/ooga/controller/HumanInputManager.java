@@ -116,6 +116,11 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
     // Do nothing
   }
 
+  /**
+   * Returns whether or not this InputSource is human controlled.
+   *
+   * @return Whether or not this InputSource is human controlled.
+   */
   @Override
   public boolean isHumanControlled() {
     return true;
