@@ -26,7 +26,7 @@ import ooga.model.sprites.SwapClass;
  * @author Marc Chmielewski
  * @author Matthew Belissary
  */
-public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObservable {
+public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObservable, LevelEditor {
 
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
@@ -46,18 +46,12 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
     pacmanCount = 0;
   }
 
-  /**
-   * Retrieves the current state of the level builder.
-   *
-   * @return current state of the level builder.
-   */
+  @Override
   public BuilderState getBuilderState() {
     return currentState;
   }
 
-  /**
-   * Advance to the next state
-   */
+  @Override
   public void advanceState() {
     switch (currentState) {
       case TILING -> currentState = BuilderState.SPRITE_PLACEMENT;
@@ -78,6 +72,7 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
     }
   }
 
+  @Override
   public Palette getPalette() {
     return palette;
   }
@@ -86,24 +81,14 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
     return level;
   }
 
-  /**
-   * Writes a completed level to a JSON file
-   *
-   * @param file input file
-   * @throws IOException
-   */
+  @Override
   public void writeToJSON(File file) throws IOException {
     LevelDescription levelDescription = new LevelDescription(level);
     levelDescription.setGameMode("CLASSIC");
     levelDescription.toJSON(file.getPath());
   }
 
-  /**
-   * Adds a selected Sprite (from the Palette) to the given location
-   *
-   * @param x x-coordinate of grid to add Sprite to
-   * @param y y-coordinate of grid to add Sprite to
-   */
+  @Override
   public void addSprite(int x, int y) {
     // TODO: Get currently active Sprite, feed x, y as inputs.  Load from properties files?
     // TODO: Pair Sprite descriptions to become a metadata + representation class?
@@ -121,12 +106,7 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
     }
   }
 
-  /**
-   * Pokes a tile to toggle the tile properties to the next type
-   *
-   * @param x x-coordinate of grid to change tile type
-   * @param y y-coordinate of grid to change tile type
-   */
+  @Override
   public void pokeTile(int x, int y) {
     Tile tile = level.getGrid().getTile(new TileCoordinates(x, y));
     level.getGrid()
@@ -151,12 +131,7 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
     return tile;
   }
 
-  /**
-   * Removes all Sprites occupying a given location
-   *
-   * @param x x-coordinate of grid to remove all Sprites from
-   * @param y y-coordinate of grid to remove all Sprites from
-   */
+  @Override
   public void clearSpritesOnTile(int x, int y) {
     if (currentState != BuilderState.SPRITE_PLACEMENT) {
       throw new IllegalStateException("Changing sprite placement currently not allowed");
@@ -186,6 +161,7 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
    * @param height height of the grid
    * @param width  width of the grid
    */
+  @Override
   public void setGridSize(int height, int width) {
     List<List<Tile>> tileList = new ArrayList<>();
     for (int y = 0; y < height; y++) {
