@@ -34,6 +34,12 @@ public class GhostAI implements InputSource {
   private Sprite target;
   private double wiggleTime;
 
+  /**
+   * Constructs a GhostAI object given a grid and a ghost sprite
+   *
+   * @param grid
+   * @param ghost
+   */
   public GhostAI(PacmanGrid grid, Sprite ghost) {
     this.pacmanGrid = grid;
     this.ghost = (Ghost) ghost;
@@ -46,22 +52,42 @@ public class GhostAI implements InputSource {
     wiggleTime = (0.25 * WIGGLE_PERIOD);
   }
 
+  /**
+   * @return the target of the current AI
+   */
   protected Sprite getTarget() {
     return target;
   }
 
+  /**
+   * Sets the target sprite for the AI
+   *
+   * @param target
+   */
   public void setTarget(Sprite target) {
     this.target = target;
   }
 
+  /**
+   * @return the Ghost that the AI is  controlling
+   */
   protected Ghost getGhost() {
     return ghost;
   }
 
+  /**
+   * @return the current game grid
+   */
   protected PacmanGrid getPacmanGrid() {
     return pacmanGrid;
   }
 
+  /**
+   * Provides the new Vec2 that the ghost will travel in depending on the state of the ghost
+   *
+   * @param dt
+   * @return
+   */
   @Override
   public Vec2 getRequestedDirection(double dt) {
     if (target == null) {
@@ -78,7 +104,7 @@ public class GhostAI implements InputSource {
   }
 
   /**
-   * This mode corresponds to the ghost seeking home
+   * This mode corresponds to the ghost seeking their original spawn point
    *
    * @return
    */
@@ -145,6 +171,14 @@ public class GhostAI implements InputSource {
         .isOpenToGhosts();
   }
 
+  /**
+   * Finds the Vec2 for the ghost to travel upon that best reduces the distance between the target
+   * and the ghost
+   *
+   * @param targetTilePos
+   * @param currentTilePos
+   * @return
+   */
   @NotNull
   protected Vec2 reduceDistance(Vec2 targetTilePos, Vec2 currentTilePos) {
     Vec2[] directions = {new Vec2(-1, 0), new Vec2(1, 0), new Vec2(0, 1), new Vec2(0, -1)};
@@ -169,6 +203,9 @@ public class GhostAI implements InputSource {
     return Vec2.ZERO;
   }
 
+  /**
+   * @return false since key action events do not change GhostAI
+   */
   @Override
   public boolean isActionPressed() {
     return false;

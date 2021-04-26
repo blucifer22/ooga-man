@@ -9,7 +9,6 @@ import java.util.Map;
 /** @author George Hong */
 public class FrightenPowerUp extends TimerBasedPowerUp {
 
-
   public FrightenPowerUp() {
     super(
         Map.of(
