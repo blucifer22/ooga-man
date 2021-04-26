@@ -12,7 +12,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ooga.model.api.ObservableSprite;
 import ooga.model.api.ObservableTile;
-import ooga.model.leveldescription.LevelBuilder;
 import ooga.model.leveldescription.LevelBuilder.BuilderState;
 import ooga.model.leveldescription.LevelEditor;
 import ooga.model.leveldescription.Palette;
@@ -36,7 +35,7 @@ public class LevelBuilderView implements View, ThemedObject {
   private final GameGridView tileGridView;
   private final GridPane primaryView;
 
-  public LevelBuilderView(UIServiceProvider serviceProvider, LevelBuilder levelBuilder) {
+  public LevelBuilderView(UIServiceProvider serviceProvider, LevelEditor levelBuilder) {
     this.serviceProvider = serviceProvider;
     this.levelBuilder = levelBuilder;
     this.spritePalette = levelBuilder.getPalette();
