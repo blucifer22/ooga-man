@@ -18,7 +18,7 @@ import ooga.view.language.bundled.BundledLanguageService;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.serialized.SerializedThemeService;
 import ooga.view.uiservice.ServiceProvider;
-import ooga.view.views.components.ScoreboardCard;
+import ooga.view.views.components.scenecomponents.ScoreboardCard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

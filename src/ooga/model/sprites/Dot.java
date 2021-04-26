@@ -19,6 +19,7 @@ public class Dot extends Sprite {
     super("dot",
             SpriteAnimationFactory.SpriteAnimationType.DOT_STILL,
             position, direction);
+    setSwapClass(SwapClass.NONE);
     addPowerUpOptions(Map
         .of(GameEvent.POINT_BONUS_ACTIVATED, () -> dotScoreIncrement *= 2,
             GameEvent.POINT_BONUS_DEACTIVATED, () -> dotScoreIncrement *= 0.5));

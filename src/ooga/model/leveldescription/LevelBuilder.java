@@ -1,5 +1,7 @@
 package ooga.model.leveldescription;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +17,7 @@ import ooga.model.api.GridRebuildObserver;
 import ooga.model.api.SpriteExistenceObservable;
 import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.sprites.Sprite;
+import ooga.model.sprites.SwapClass;
 
 /**
  * The StageBuilder is a stripped-down, non-steppable snapshot of the starting Pac-Man game state.
@@ -29,9 +32,10 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
   private final Set<Sprite> toDelete;
-  private String jsonFileName;
   private final PacmanLevel level;
-  private Palette palette;
+  private final Palette palette;
+  private int pacmanCount;
+  private BuilderState currentState;
 
   public LevelBuilder() {
     spriteExistenceObservers = new HashSet<>();
@@ -39,11 +43,61 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
     level = new PacmanLevel();
     toDelete = new HashSet<>();
     palette = new Palette();
+    currentState = BuilderState.TILING;
+    pacmanCount = 0;
   }
 
-  public Palette getPalette() { return palette; }
+  /**
+   * Retrieves the current state of the level builder.
+   *
+   * @return current state of the level builder.
+   */
+  public BuilderState getBuilderState() {
+    return currentState;
+  }
 
-  public PacmanLevel getLevel() { return level; }
+  /**
+   * Advance to the next state
+   */
+  public void advanceState() {
+    switch (currentState) {
+      case TILING -> currentState = BuilderState.SPRITE_PLACEMENT;
+    }
+  }
+
+  /**
+   * Select is a modal method that changes the functionality of a click depending on the state of
+   * the level builder.  To change what select does, advance to the next state.
+   *
+   * @param x
+   * @param y
+   */
+  public void select(int x, int y) {
+    switch (currentState) {
+      case TILING -> pokeTile(x, y);
+      case SPRITE_PLACEMENT -> addSprite(x, y);
+    }
+  }
+
+  public Palette getPalette() {
+    return palette;
+  }
+
+  public PacmanLevel getLevel() {
+    return level;
+  }
+
+  /**
+   * Writes a completed level to a JSON file
+   *
+   * @param file input file
+   * @throws IOException
+   */
+  public void writeToJSON(File file) throws IOException {
+    LevelDescription levelDescription = new LevelDescription(level);
+    levelDescription.setGameMode("CLASSIC");
+    levelDescription.toJSON(file.getPath());
+  }
 
   /**
    * Adds a selected Sprite (from the Palette) to the given location
@@ -54,25 +108,30 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
   public void addSprite(int x, int y) {
     // TODO: Get currently active Sprite, feed x, y as inputs.  Load from properties files?
     // TODO: Pair Sprite descriptions to become a metadata + representation class?
-    // list of (Sprite + InputSource) + (coordinate) ==> SpriteDescription ==> Sprite.  When ready, Sprite ==> SpriteDescription
-    /*
-    Option: Use property file of (className : inputSource)
-     */
     double xCenter = x + 0.5;
     double yCenter = y + 0.5;
     Sprite sprite = palette.getSprite(xCenter, yCenter);
+    if (sprite.getSwapClass() == SwapClass.PACMAN && pacmanCount == 1) {
+      throw new IllegalStateException(
+          "Pac-Man already placed on the board.  To reposition Pac-Man, remove previous instance");
+    }
     level.getSprites().add(sprite);
     notifySpriteCreation(sprite);
+    if (sprite.getSwapClass() == SwapClass.PACMAN) {
+      pacmanCount++;
+    }
   }
 
   /**
-   * Adds a selected Tile (from the Palette) to the given location
+   * Pokes a tile to toggle the tile properties to the next type
    *
-   * @param tile to cycle state
+   * @param x x-coordinate of grid to change tile type
+   * @param y y-coordinate of grid to change tile type
    */
-  public void pokeTile(Tile tile) {
-    // TODO: Get currently active Tile, feed x, y as inputs
-    level.getGrid().setTile(tile.getCoordinates().getX(), tile.getCoordinates().getY(), updateTileState(tile));
+  public void pokeTile(int x, int y) {
+    Tile tile = level.getGrid().getTile(new TileCoordinates(x, y));
+    level.getGrid()
+        .setTile(tile.getCoordinates().getX(), tile.getCoordinates().getY(), updateTileState(tile));
     notifyGridRebuildObservers();
   }
 
@@ -100,12 +159,18 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
    * @param y y-coordinate of grid to remove all Sprites from
    */
   public void clearSpritesOnTile(int x, int y) {
+    if (currentState != BuilderState.SPRITE_PLACEMENT) {
+      throw new IllegalStateException("Changing sprite placement currently not allowed");
+    }
     TileCoordinates tileToClear = new TileCoordinates(x, y);
     List<Sprite> sprites = level.getSprites();
     for (Sprite sprite : sprites) {
       TileCoordinates spriteTile = sprite.getCoordinates().getTileCoordinates();
       if (tileToClear.equals(spriteTile)) {
         toDelete.add(sprite);
+      }
+      if (sprite.getSwapClass() == SwapClass.PACMAN) {
+        pacmanCount--;
       }
     }
     for (Sprite sprite : toDelete) {
@@ -123,19 +188,19 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
    * @param width  width of the grid
    */
   public void setGridSize(int height, int width) {
-    PacmanGrid grid = new PacmanGrid(height, width);
     List<List<Tile>> tileList = new ArrayList<>();
     for (int y = 0; y < height; y++) {
       List<Tile> outputRow = new ArrayList<>();
       for (int x = 0; x < width; x++) {
-        boolean notBorderTile = x != 0 && y != 0 && x != width - 1 && y != height - 1;
-        boolean openTile = notBorderTile;
-        String tileName = notBorderTile ? "tile" : "tileclosed";
-        outputRow.add(new Tile(new TileCoordinates(x, y), tileName, openTile, openTile));
+        boolean borderTile = x == 0 || y == 0 || x == (width - 1) || y == (height -1);
+        String tileName = borderTile ? "tileclosed" : "tile";
+        outputRow.add(new Tile(new TileCoordinates(x, y), tileName, !borderTile, !borderTile));
       }
       tileList.add(outputRow);
     }
+    PacmanGrid grid = new PacmanGrid(new GridDescription("", width, height, tileList));
     level.setGrid(grid);
+    notifyGridRebuildObservers();
   }
 
 
@@ -165,5 +230,10 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
     for (GridRebuildObserver observers : gridRebuildObservers) {
       observers.onGridRebuild(level.getGrid());
     }
+  }
+
+  public enum BuilderState {
+    TILING,
+    SPRITE_PLACEMENT,
   }
 }
