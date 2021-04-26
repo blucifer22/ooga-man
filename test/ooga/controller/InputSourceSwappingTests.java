@@ -81,6 +81,7 @@ public class InputSourceSwappingTests {
 
     // Spoof a press of the "action button" to force a swap!
     ghostHIM.onKeyPress(KeyCode.U);
+    ghostHIM.onKeyRelease(KeyCode.U);
     pgs.handleSwaps();
     assertEquals(blinky.getInputSource(), blinkyInput);
     assertEquals(pinky.getInputSource(), ghostHIM);
