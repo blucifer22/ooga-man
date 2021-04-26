@@ -105,6 +105,63 @@ public class PacmanAITest {
     ai.addTarget(blinky);
 
     ai.getRequestedDirection(0.0);
+  }
 
+  @Test
+  public void testBFSAIRun() {
+    /*
+    X X X X X X
+    X _ X X X X
+    X _ X _ _ X
+    X _ P _ G X
+    X X X X X X
+     */
+    int[][] protoGrid = {
+        {1, 1, 1, 1, 1, 1},
+        {1, 0, 1, 1, 1, 1},
+        {1, 0, 1, 0, 0, 1},
+        {1, 0, 0, 0, 0, 1},
+        {1, 1, 1, 1, 1, 1},
+    };
+    PacmanGrid grid = new PacmanGrid(protoGrid[0].length, protoGrid.length);
+    for (int j = 0; j < protoGrid.length; j++) {
+      for (int k = 0; k < protoGrid[0].length; k++) {
+        Tile tile = protoGrid[j][k] == 0 ? new Tile(new TileCoordinates(k, j), null, true, false)
+            : new Tile(new TileCoordinates(k, j), null, false, false);
+        grid.setTile(k, j, tile);
+      }
+    }
+    pacman = new PacMan(new SpriteCoordinates(new Vec2(2.5, 3.5)), new Vec2(-1, 0), 0);
+    PacmanBFSAI ai = new PacmanBFSAI(grid, pacman);
+    pacman.setInputSource(ai);
+    Blinky blinky = new Blinky(new SpriteCoordinates(new Vec2(4.5, 2.5)), new Vec2(-1, 0), 0);
+    ai.addTarget(blinky);
+    Vec2 out = ai.getRequestedDirection(0.0);
+    assertEquals(new Vec2(-1, 0), out);
+  }
+
+  @Test
+  public void scatterBFSPacman() {
+    int[][] protoGrid = {
+        {1, 1, 1, 1, 1, 1},
+        {1, 0, 1, 1, 1, 1},
+        {1, 0, 1, 0, 0, 1},
+        {1, 0, 0, 0, 0, 1},
+        {1, 1, 1, 1, 1, 1},
+    };
+    PacmanGrid grid = new PacmanGrid(protoGrid[0].length, protoGrid.length);
+    for (int j = 0; j < protoGrid.length; j++) {
+      for (int k = 0; k < protoGrid[0].length; k++) {
+        Tile tile = protoGrid[j][k] == 0 ? new Tile(new TileCoordinates(k, j), null, true, false)
+            : new Tile(new TileCoordinates(k, j), null, false, false);
+        grid.setTile(k, j, tile);
+      }
+    }
+    pacman = new PacMan(new SpriteCoordinates(new Vec2(2.5, 3.5)), new Vec2(-1, 0), 0);
+    PacmanBFSAI ai = new PacmanBFSAI(grid, pacman);
+    pacman.setInputSource(ai);
+    Blinky blinky = new Blinky(new SpriteCoordinates(new Vec2(16.5, 16.5)), new Vec2(-1, 0), 0);
+    ai.addTarget(blinky);
+    Vec2 out = ai.getRequestedDirection(0.0);
   }
 }
