@@ -19,9 +19,9 @@ import ooga.model.api.SpriteExistenceObserver;
 import ooga.view.internal_api.View;
 import ooga.view.theme.api.ThemedObject;
 import ooga.view.uiservice.UIServiceProvider;
-import ooga.view.views.components.scenecomponents.ScoreboardCard;
-import ooga.view.views.components.reusable.StyledButton;
 import ooga.view.views.components.audioplayer.ViewBoundAudioPlayer;
+import ooga.view.views.components.reusable.StyledButton;
+import ooga.view.views.components.scenecomponents.ScoreboardCard;
 
 /**
  * GameView lays out how a round appears (the GridView in the center, information about

@@ -109,11 +109,13 @@ public class GameGridView implements View, GridRebuildObserver, SpriteExistenceO
 
   @FunctionalInterface
   public interface TileClickHandler {
+
     void handle(MouseEvent e, ObservableTile tile);
   }
 
   @FunctionalInterface
   public interface SpriteClickHandler {
+
     void handle(MouseEvent e, ObservableSprite sprite);
   }
 

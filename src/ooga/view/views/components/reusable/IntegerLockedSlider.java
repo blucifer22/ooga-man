@@ -5,6 +5,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.scene.control.Slider;
 
 public class IntegerLockedSlider extends Slider {
+
   private final HashSet<IntegerValueObserver> changeListeners;
 
   public IntegerLockedSlider(int min, int max, int defaultVal) {
@@ -14,7 +15,7 @@ public class IntegerLockedSlider extends Slider {
       int roundedValue = (int) Math.round(newVal.doubleValue());
       if (roundedValue != newVal.doubleValue()) {
         ((DoubleProperty) obs).setValue(roundedValue);
-        for (IntegerValueObserver observer: changeListeners) {
+        for (IntegerValueObserver observer : changeListeners) {
           observer.consume(roundedValue);
         }
       }
@@ -27,6 +28,7 @@ public class IntegerLockedSlider extends Slider {
 
   @FunctionalInterface
   public interface IntegerValueObserver {
+
     void consume(int newVal);
   }
 }

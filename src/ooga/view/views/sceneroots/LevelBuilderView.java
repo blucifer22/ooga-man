@@ -24,6 +24,7 @@ import ooga.view.views.components.reusable.StyledButton;
 import ooga.view.views.components.scenecomponents.GridDimensionPalette;
 
 public class LevelBuilderView implements View, ThemedObject {
+
   private static final int FULL_WIDTH = 100;
   private static final int SMALL_COLUMN_WIDTH = 40;
   private static final int LARGE_COLUMN_WIDTH = 60;
@@ -100,7 +101,7 @@ public class LevelBuilderView implements View, ThemedObject {
   private void refreshViews() {
     this.stageSwapPanel.getChildren().clear();
 
-    Node paletteChild = switch(this.levelBuilder.getBuilderState()) {
+    Node paletteChild = switch (this.levelBuilder.getBuilderState()) {
       case TILING -> new GridDimensionPalette(this.serviceProvider,
           this.levelBuilder);
       case SPRITE_PLACEMENT -> new LabeledComboBoxCard(this.serviceProvider, "sprites",

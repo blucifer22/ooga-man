@@ -20,12 +20,12 @@ import ooga.view.views.components.reusable.StyledBoundLabel;
 public class ScoreboardCard implements GameStateObserver, Renderable {
 
   private static final int NUM_COLS = 3;
-  private GameStateObservable dataSource;
   private final UIServiceProvider serviceProvider;
   private final GridPane view;
   private final TreeMap<Integer, PlayerDataBindingContainer> dataBindingContainers;
   private final SimpleIntegerProperty livesProperty;
   private final SimpleIntegerProperty roundProperty;
+  private GameStateObservable dataSource;
   private boolean initialized = false;
 
   public ScoreboardCard(UIServiceProvider serviceProvider) {
@@ -83,15 +83,15 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
       PlayerDataBindingContainer container = dataBindingContainers.get(p.getID());
       this.view.add(
           new StyledBoundLabel(new SimpleIntegerProperty(p.getID()).asString(), "body",
-                  "scoreboard-player-"+p.getID()), 0, rowNum
+              "scoreboard-player-" + p.getID()), 0, rowNum
       );
       this.view.add(
           new StyledBoundLabel(container.scoreProperty.asString(), "body",
-              "scoreboard-score-"+p.getID()), 1, rowNum
+              "scoreboard-score-" + p.getID()), 1, rowNum
       );
       this.view.add(
           new StyledBoundLabel(container.winProperty.asString(), "body",
-              "scoreboard-score-"+p.getID()), 2, rowNum
+              "scoreboard-score-" + p.getID()), 2, rowNum
       );
     }
   }

@@ -33,8 +33,8 @@ public class LabeledComboBoxCard extends StackPane {
       Map<String, String> options, OptionSelectionHandler selectionHandler) {
     Label dropdownLabel = new StyledBoundLabel(
         serviceProvider.languageService().getLocalizedString(labelBundleIdentifier),
-        "dropdown-label", labelBundleIdentifier+"-select-label"
-        );
+        "dropdown-label", labelBundleIdentifier + "-select-label"
+    );
 
     ArrayList<Pair<String, String>> dropdownOptions = new ArrayList<>();
     for (String key : options.keySet()) {

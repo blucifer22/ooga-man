@@ -8,10 +8,11 @@ import ooga.view.views.components.reusable.IntegerLockedSlider;
 import ooga.view.views.components.reusable.StyledBoundLabel;
 
 public class GridDimensionPalette extends StackPane {
-  private final LevelBuilder levelBuilder;
+
   private static final int MIN_SIZE = 5;
   private static final int MAX_SIZE = 40;
   private static final int DEFAULT_SIZE = 20;
+  private final LevelBuilder levelBuilder;
   private int rows = DEFAULT_SIZE;
   private int cols = DEFAULT_SIZE;
 

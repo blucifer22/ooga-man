@@ -13,7 +13,7 @@ public class StyledBoundLabel extends Label {
 
   public StyledBoundLabel(StringBinding labelBinding, String labelClass, String id) {
     this(labelBinding, labelClass);
-    this.setId("label-"+id);
+    this.setId("label-" + id);
   }
 
   public StyledBoundLabel(ReadOnlyStringProperty labelProperty, String labelClass) {
@@ -23,7 +23,7 @@ public class StyledBoundLabel extends Label {
 
   public StyledBoundLabel(ReadOnlyStringProperty labelProperty, String labelClass, String id) {
     this(labelProperty, labelClass);
-    this.setId("label-"+id);
+    this.setId("label-" + id);
   }
 
   private void style(String labelClass) {
