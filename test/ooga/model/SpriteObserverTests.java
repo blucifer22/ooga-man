@@ -61,8 +61,6 @@ class TestObserver implements SpriteObserver {
 
   @Override
   public void onSpriteUpdate(SpriteEvent e) {
-//    System.out.println(e.getSender().getCostume());
-//    System.out.println(e.getEventType());
     lastEventType = e.getEventType();
     lastSender = e.getSender().getCostume();
     lastCoordinates = e.getSender().getCoordinates();

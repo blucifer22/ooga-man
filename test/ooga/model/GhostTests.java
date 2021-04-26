@@ -2,7 +2,6 @@ package ooga.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import ooga.controller.HumanInputManager;
 import ooga.controller.KeybindingType;
@@ -173,18 +172,15 @@ public class GhostTests {
     assertEquals(defaultPointValue, blinky.getScore());
 
     // Add some "NOP" steps to give Blinky time to eat Pac-Man
-    // TODO: Remove this kludge!!!! (msc68)
     for (int i=0; i < 10000; i++){
       pgs.step(DT);
     }
 
     // Spoof Pac-Man eating a Power-Pill and check for transition to FRIGHTENED state
-    //blinky.changeBehavior(GhostBehavior.CHASE);
     blinky.onGameEvent(GameEvent.FRIGHTEN_ACTIVATED);
     pgs.step(DT);
     assertEquals(blinky.getGhostBehavior(), GhostBehavior.RUNAWAY);
     assertEquals(blinky.getCurrentAnimation().getCurrentCostume(), "frightened_1");
 
-    // TODO: Implement a test to check for de-activation!
   }
 }
