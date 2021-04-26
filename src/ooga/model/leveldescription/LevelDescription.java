@@ -36,6 +36,14 @@ public class LevelDescription extends JSONDescription {
     this.spriteLayoutDescription = spriteLayoutDescription;
   }
 
+  /**
+   * A special-case constructor for LevelDescription that takes in a PacmanLevel and extracts the
+   * relevant information therein to construct a new LevelDescription. Used to facilitate the JSON
+   * saving behavior of the LevelBuilder. Leverages the Java stream-map-collect pattern to keep this
+   * down to a one-liner. (technically :) )
+   *
+   * @param pacmanLevel The PacmanLevel from which to construct the LevelDescription.
+   */
   public LevelDescription(PacmanLevel pacmanLevel) {
     this(
         "",

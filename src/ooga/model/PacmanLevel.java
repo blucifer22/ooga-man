@@ -39,7 +39,9 @@ public class PacmanLevel {
     grid = new PacmanGrid(levelDescription.getGridDescription());
   }
 
-  /** Constructor for a PacmanLevel that delays creation of the grid */
+  /**
+   * Constructor for a PacmanLevel that delays creation of the grid
+   */
   public PacmanLevel() {
     sprites = new ArrayList<>();
   }
@@ -62,6 +64,11 @@ public class PacmanLevel {
     return grid;
   }
 
+  /**
+   * This method sets the grid held by this PacmanLevel to the PacmanGrid passed in as a parameter.
+   *
+   * @param grid The new PacmanGrid that the PacmanLevel will hold.
+   */
   public void setGrid(PacmanGrid grid) {
     this.grid = grid;
   }

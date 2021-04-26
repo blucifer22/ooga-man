@@ -26,6 +26,17 @@ public class SpriteDescription extends JSONDescription {
 
   private final SpriteCoordinates coordinates;
 
+  /**
+   * The general-case constructor for SpriteDescription. Takes in a className, inputSource, and
+   * coordinates and constructs a new SpriteDescription from that information. Contains Jackson JSON
+   * serialization annotations.
+   *
+   * @param className The className of the Sprite being described.
+   * @param inputSource The inputSource of the Sprite being described.
+   * @param coordinates The location of the Sprite being described.
+   * @throws IllegalArgumentException In the event that an IllegalArgument is passed to the
+   *     constructor
+   */
   @JsonCreator
   public SpriteDescription(
       @JsonProperty("className") String className,
@@ -37,25 +48,55 @@ public class SpriteDescription extends JSONDescription {
     this.coordinates = coordinates;
   }
 
+  /**
+   * An alternative constructor for SpriteDescription that takes in a Sprite and pulls out the
+   * relevant information from it which is required to describe it. This is the used to call the
+   * general-case constructor to construct the SpriteDescription.
+   *
+   * @param sprite The Sprite from which to construct a SpriteDescription
+   */
   public SpriteDescription(Sprite sprite) {
     this(sprite.getClass().getSimpleName(), sprite.getInputString(), sprite.getCoordinates());
   }
 
+  /**
+   * Gets the spriteClassName of this SpriteDescription.
+   *
+   * @return A String containing the spriteClassName of this SpriteDescription
+   */
   @JsonGetter
   public String getClassName() {
     return spriteClassName;
   }
 
+  /**
+   * Gets the inputSource String of this SpriteDescription.
+   *
+   * @return A String containing the inputSource String of this SpriteDescription
+   */
   @JsonGetter
   public String getInputSource() {
     return inputSource;
   }
 
+  /**
+   * Gets the coordinates of this SpriteDescription.
+   *
+   * @return SpriteCoordinates containing the current location of this SpriteDescription
+   */
   @JsonGetter
   public SpriteCoordinates getCoordinates() {
     return coordinates;
   }
 
+  /**
+   * This method converts a SpriteDescription to a new Sprite by leveraging reflection to construct
+   * a new Sprite of the correct type from the simple spriteClassName and passing in the
+   * SpriteDescription itself into the new Sprite's constructor.
+   *
+   * @return A properly instantiated Sprite of the type specificed by spriteClassName, and with the
+   *     correct inputSource String and coordinates.
+   */
   public Sprite toSprite() {
     try {
       Class<?> spriteClass = Class.forName("ooga.model.sprites." + spriteClassName);

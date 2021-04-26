@@ -52,6 +52,13 @@ public class GridDescription extends JSONDescription {
     this.grid = tileList;
   }
 
+  /**
+   * A special-case constructor for GridDescription that takes in a PacmanGrid and constructs a grid
+   * description based off of its paramters. Specifically, it utilizes the PacmanGrid's width, height,
+   * and tiles, and passes in a blank String "" for name as that is unnecessary in this schema.
+   *
+   * @param grid The PacmanGrid from which to construct a GridDescription
+   */
   public GridDescription(PacmanGrid grid) {
     this("", grid.getWidth(), grid.getHeight(), grid.getAllTiles());
   }
@@ -103,7 +110,6 @@ public class GridDescription extends JSONDescription {
    * @return A PacmanGrid that possesses the properties of this GridDescription.
    */
   public PacmanGrid toGrid() {
-    // why would `return new PacmanGrid(this);` not work here?
     try {
       Class<?> spriteClass = Class.forName("ooga.model.grid.PacmanGrid");
       return (PacmanGrid)
