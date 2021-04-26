@@ -44,7 +44,8 @@ public class PowerPill extends Sprite {
   }
 
   /**
-   * Determines what happens to the gamestate sprite depending on when PacMann collides with the powerpill
+   * Determines what happens to the gamestate sprite depending on when PacMann collides with the
+   * powerpill
    *
    * @param other other Sprite that this sprite collides with
    * @param state current state of the game, allowing Sprites to perform actions such as remove
