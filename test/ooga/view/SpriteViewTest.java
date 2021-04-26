@@ -23,7 +23,7 @@ import ooga.view.exceptions.ExceptionService;
 import ooga.view.exceptions.GraphicalExceptionService;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.serialized.SerializedThemeService;
-import ooga.view.views.components.SpriteView;
+import ooga.view.views.components.scenecomponents.SpriteView;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -77,7 +77,7 @@ public class SpriteViewTest extends CustomApplicationTest {
 
     @Override
     public String getCostume() {
-      return "pacman_chomp_1";
+      return "blank_1";
     }
 
     @Override

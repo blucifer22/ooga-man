@@ -65,7 +65,7 @@ public abstract class SpriteAnimation implements ObservableAnimation {
   }
 
   protected void notifyObservers(Consumer<AnimationObserver> consumer) {
-    for(AnimationObserver ao : observers)
+    for (AnimationObserver ao : observers)
       consumer.accept(ao);
   }
 

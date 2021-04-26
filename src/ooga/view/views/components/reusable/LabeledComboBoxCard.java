@@ -1,9 +1,9 @@
-package ooga.view.views.components;
+package ooga.view.views.components.reusable;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
@@ -20,7 +20,7 @@ public class LabeledComboBoxCard extends StackPane {
   }
 
   public LabeledComboBoxCard(UIServiceProvider serviceProvider, String labelBundleIdentifier,
-      Set<String> options, OptionSelectionHandler selectionHandler) {
+      Collection<String> options, OptionSelectionHandler selectionHandler) {
     super();
     LinkedHashMap<String, String> orderedOptions = new LinkedHashMap<>();
     for (String option : options) {
@@ -33,8 +33,8 @@ public class LabeledComboBoxCard extends StackPane {
       Map<String, String> options, OptionSelectionHandler selectionHandler) {
     Label dropdownLabel = new StyledBoundLabel(
         serviceProvider.languageService().getLocalizedString(labelBundleIdentifier),
-        "dropdown-label", labelBundleIdentifier+"-select-label"
-        );
+        "dropdown-label", labelBundleIdentifier + "-select-label"
+    );
 
     ArrayList<Pair<String, String>> dropdownOptions = new ArrayList<>();
     for (String key : options.keySet()) {

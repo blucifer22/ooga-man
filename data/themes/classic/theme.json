@@ -254,6 +254,103 @@
       "scale" : 1.0,
       "bottomHeavy" : true
     },
+    "ghost_player_up_1" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_up_1.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_up_2" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_up_2.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_up_3" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_up_3.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_up_4" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_up_4.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_down_1" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_down_1.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_down_2" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_down_2.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_down_3" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_down_3.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_down_4" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_down_4.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_left_1" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_left_1.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_left_2" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_left_2.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_left_3" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_left_3.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_left_4" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_left_4.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_right_1" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_right_1.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_right_2" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_right_2.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_right_3" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_right_3.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_right_4" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_right_4.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+
     "ghost" : {
       "fill" : "themes/classic/images/ghosts/blinky.png",
       "imageFill" : true,
@@ -281,23 +378,101 @@
     "pacman_chomp_1" : {
       "fill" : "themes/classic/images/pacman/pacman_chomp_1.png",
       "imageFill" : true,
-      "scale" : 1.0,
+      "scale" : 0.8125,
       "bottomHeavy" : true,
       "rotates": true
     },
     "pacman_chomp_2" : {
       "fill" : "themes/classic/images/pacman/pacman_chomp_2.png",
       "imageFill" : true,
-      "scale" : 1.0,
+      "scale" : 0.8125,
       "bottomHeavy" : true,
       "rotates": true
     },
     "pacman_chomp_3" : {
       "fill" : "themes/classic/images/pacman/pacman_chomp_3.png",
       "imageFill" : true,
-      "scale" : 1.0,
+      "scale" : 0.8125,
       "bottomHeavy" : true,
       "rotates": true
+    },
+    "pacman_death_1" : {
+      "fill" : "themes/classic/images/pacman/pacman_death_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_2" : {
+      "fill" : "themes/classic/images/pacman/pacman_death_2.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_3" : {
+      "fill" : "themes/classic/images/pacman/pacman_death_3.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_4" : {
+      "fill" : "themes/classic/images/pacman/pacman_death_4.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_5" : {
+      "fill" : "themes/classic/images/pacman/pacman_death_5.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_6" : {
+      "fill" : "themes/classic/images/pacman/pacman_death_6.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_7" : {
+      "fill" : "themes/classic/images/pacman/pacman_death_7.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_8" : {
+      "fill" : "themes/classic/images/pacman/pacman_death_8.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_9" : {
+      "fill" : "themes/classic/images/pacman/pacman_death_9.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_10" : {
+      "fill" : "themes/classic/images/pacman/pacman_death_10.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_11" : {
+      "fill" : "themes/classic/images/pacman/pacman_death_11.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_12" : {
+      "fill" : "themes/classic/images/pacman/pacman_death_11.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_13" : {
+      "fill" : "themes/classic/images/blank.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
     },
     "dot_still_1" : {
       "fill" : "themes/classic/images/consumables/dot.png",
@@ -332,7 +507,7 @@
       "imageFill" : true,
       "scale" : 1.0,
       "bottomHeavy" : false,
-      "rotates" : false
+      "rotates" : true
     },
     "pacman_win_1" : {
       "fill" : "themes/classic/images/general/pacman_win_1.png",

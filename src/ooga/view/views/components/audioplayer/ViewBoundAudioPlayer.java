@@ -1,4 +1,4 @@
-package ooga.view.views.components;
+package ooga.view.views.components.audioplayer;
 
 import ooga.model.api.AudioObserver;
 import ooga.view.audio.AudioService;

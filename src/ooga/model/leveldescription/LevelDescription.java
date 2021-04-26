@@ -13,7 +13,7 @@ import ooga.model.PacmanLevel;
  * @author Marc Chmielewski
  */
 public class LevelDescription extends JSONDescription {
-  private final String gameMode;
+  private String gameMode;
   private final GridDescription gridDescription;
   private final SpriteLayoutDescription spriteLayoutDescription;
 
@@ -74,6 +74,15 @@ public class LevelDescription extends JSONDescription {
   @JsonGetter
   public String getGameMode() {
     return gameMode;
+  }
+
+  /**
+   * This method sets the gameMode of the LevelDescription to a new value.
+   *
+   * @param gameMode The new value for gameMode.
+   */
+  public void setGameMode(String gameMode) {
+    this.gameMode = gameMode;
   }
 
   /**
