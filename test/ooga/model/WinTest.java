@@ -2,7 +2,6 @@ package ooga.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import ooga.model.sprites.PacMan;
 import ooga.model.sprites.status.GhostWin;
 import ooga.model.sprites.status.PacmanWin;
 import ooga.util.Vec2;
