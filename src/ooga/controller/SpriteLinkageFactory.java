@@ -72,7 +72,6 @@ public class SpriteLinkageFactory {
 
   private void attachPacmanTargets() {
     for (Sprite ghost : ghostList) {
-      System.out.println("Attaching: " + ghost.getCostume());
       pacman.getInputSource().addTarget(ghost);
     }
   }

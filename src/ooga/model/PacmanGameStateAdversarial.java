@@ -38,13 +38,10 @@ public class PacmanGameStateAdversarial extends PacmanGameState {
 
   @Override
   protected void checkPacmanDead() {
-    // Does nothing
     if (isPacmanDead()) {
-      System.out.println("GHOSTS WIN");
       gameOverCleanup();
       showGhostWin();
     } else if (getRemainingConsumablesCount() == 0) {
-      System.out.println("PAC-MAN WINS");
       gameOverCleanup();
       showPacmanWin();
     }
@@ -56,6 +53,6 @@ public class PacmanGameStateAdversarial extends PacmanGameState {
    */
   @Override
   protected void checkProceedToNextLevel() {
-    // DOes nothing
+    // Does nothing
   }
 }

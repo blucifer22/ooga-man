@@ -172,7 +172,6 @@ public class PacmanGameState
   // advance game state by `dt' seconds
   public void step(double dt) {
     stepThroughSprites(dt);
-    System.out.println("Number of Sprites Remaining: " + sprites.size());
     if (!isGameOver) {
       // All Dots have been eaten
       checkProceedToNextLevel();
@@ -337,7 +336,6 @@ public class PacmanGameState
     if (getRemainingConsumablesCount() == 0) {
       try {
         roundNumber++;
-        System.out.println(roundNumber);
         getAudioManager().stopAmbience();
         loadNextLevel();
       } catch (IOException e) {
