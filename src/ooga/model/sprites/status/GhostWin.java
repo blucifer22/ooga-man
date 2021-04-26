@@ -13,6 +13,14 @@ import ooga.util.Vec2;
  */
 public class GhostWin extends Sprite {
 
+  /**
+   * The basic constructor for a GhostWin Sprite. This constructor instantiates a GhostWin Sprite at
+   * the specified position and with the specified orientation. The animation is the default
+   * GHOST_WIN_FLASH.
+   *
+   * @param position A SpriteCoordinates containing the location at which to spawn the GhostWin.
+   * @param direction A Vec2 specifying the orientation of the GhostWin.
+   */
   public GhostWin(SpriteCoordinates position, Vec2 direction) {
     super("", SpriteAnimationType.GHOST_WIN_FLASH, position, direction);
   }
@@ -26,6 +34,6 @@ public class GhostWin extends Sprite {
    */
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    // Does nothinng
+    // Does nothing
   }
 }

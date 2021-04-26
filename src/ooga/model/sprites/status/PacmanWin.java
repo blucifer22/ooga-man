@@ -13,6 +13,14 @@ import ooga.util.Vec2;
  */
 public class PacmanWin extends Sprite {
 
+  /**
+   * The basic constructor for a PacmanWin Sprite. This constructor instantiates a PacmanWin Sprite
+   * at the specified position and with the specified orientation. The animation is the default
+   * PACMAN_WIN_FLASH.
+   *
+   * @param position A SpriteCoordinates containing the location at which to spawn the PacmanWin.
+   * @param direction A Vec2 specifying the orientation of the PacmanWin.
+   */
   public PacmanWin(SpriteCoordinates position, Vec2 direction) {
     super("", SpriteAnimationType.PACMAN_WIN_FLASH, position, direction);
   }

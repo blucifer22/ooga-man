@@ -16,7 +16,8 @@ public class GameOver extends Sprite {
 
   /**
    * The basic constructor for a GameOver Sprite. This constructor instantiates a GameOver Sprite at
-   * the specified position and with the specified orientation.
+   * the specified position and with the specified orientation. The animation is the default
+   * GAME_OVER_FLASH.
    *
    * @param position A SpriteCoordinates containing the location at which to spawn the GameOver.
    * @param direction A Vec2 specifying the orientation of the GameOver.
