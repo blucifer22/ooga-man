@@ -17,6 +17,7 @@ import ooga.model.sprites.SwapClass;
  * </ol>
  *
  * @author George Hong
+ * @author Marc Chmielewski
  */
 public class PacmanGameStateAdversarial extends PacmanGameState {
 
