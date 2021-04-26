@@ -43,6 +43,7 @@ public class LevelBuilderView implements View, ThemedObject {
     this.levelBuilder.addGridRebuildObserver(tileGridView);
     this.levelBuilder.addSpriteExistenceObserver(tileGridView);
     this.stageSwapPanel = new VBox();
+    this.stageSwapPanel.setId("stage-swap-panel");
 
     this.configureConstraints();
     this.renderViews();
@@ -71,6 +72,8 @@ public class LevelBuilderView implements View, ThemedObject {
         new StyledButton(this.serviceProvider, "mainMenu",
             e -> this.serviceProvider.viewStackManager().unwind())
     );
+    buttonBox.setStyle("level-builder-panel;");
+    buttonBox.setId("level-builder-panel");
 
     this.primaryView.add(buttonBox, 0, 0);
     this.primaryView.add(this.tileGridView.getRenderingNode(), 1, 0);
