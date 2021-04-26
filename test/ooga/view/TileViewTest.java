@@ -19,7 +19,7 @@ import ooga.view.exceptions.ExceptionService;
 import ooga.view.exceptions.GraphicalExceptionService;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.serialized.SerializedThemeService;
-import ooga.view.views.components.TileView;
+import ooga.view.views.components.scenecomponents.TileView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

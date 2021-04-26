@@ -1,4 +1,4 @@
-package ooga.view.views.components;
+package ooga.view.views.components.reusable;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;

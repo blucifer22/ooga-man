@@ -1,4 +1,4 @@
-package ooga.view.views.components;
+package ooga.view.views.components.reusable;
 
 import java.util.HashSet;
 import javafx.beans.property.DoubleProperty;

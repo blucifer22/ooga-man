@@ -1,11 +1,11 @@
-package ooga.view.views.components.levelbuilder;
+package ooga.view.views.components.scenecomponents;
 
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import ooga.model.leveldescription.LevelBuilder;
 import ooga.view.uiservice.UIServiceProvider;
-import ooga.view.views.components.IntegerLockedSlider;
-import ooga.view.views.components.StyledBoundLabel;
+import ooga.view.views.components.reusable.IntegerLockedSlider;
+import ooga.view.views.components.reusable.StyledBoundLabel;
 
 public class GridDimensionPalette extends StackPane {
   private final LevelBuilder levelBuilder;

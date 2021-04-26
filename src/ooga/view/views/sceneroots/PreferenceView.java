@@ -9,8 +9,8 @@ import ooga.view.internal_api.View;
 import ooga.view.theme.api.ThemedObject;
 import ooga.view.uiservice.UIPreferenceService;
 import ooga.view.uiservice.UIServiceProvider;
-import ooga.view.views.components.LabeledComboBoxCard;
-import ooga.view.views.components.StyledButton;
+import ooga.view.views.components.reusable.LabeledComboBoxCard;
+import ooga.view.views.components.reusable.StyledButton;
 
 public class PreferenceView implements ThemedObject, View {
 

@@ -19,9 +19,9 @@ import ooga.view.exceptions.UIServicedException;
 import ooga.view.internal_api.View;
 import ooga.view.theme.api.ThemedObject;
 import ooga.view.uiservice.UIServiceProvider;
-import ooga.view.views.components.LabeledComboBoxCard;
-import ooga.view.views.components.StyledButton;
-import ooga.view.views.components.levelbuilder.GridDimensionPalette;
+import ooga.view.views.components.reusable.LabeledComboBoxCard;
+import ooga.view.views.components.reusable.StyledButton;
+import ooga.view.views.components.scenecomponents.GridDimensionPalette;
 
 public class LevelBuilderView implements View, ThemedObject {
   private static final int FULL_WIDTH = 100;

@@ -4,7 +4,6 @@ import java.util.HashMap;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -17,8 +16,8 @@ import ooga.model.api.SpriteExistenceObserver;
 import ooga.view.internal_api.View;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.api.ThemedObject;
-import ooga.view.views.components.SpriteView;
-import ooga.view.views.components.TileView;
+import ooga.view.views.components.scenecomponents.SpriteView;
+import ooga.view.views.components.scenecomponents.TileView;
 
 /**
  * GameGridView lays out the grid and the Sprites on the grid (a necessary combination because only

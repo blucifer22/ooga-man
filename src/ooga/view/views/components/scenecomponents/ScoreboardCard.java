@@ -1,4 +1,4 @@
-package ooga.view.views.components;
+package ooga.view.views.components.scenecomponents;
 
 import java.util.TreeMap;
 import javafx.beans.binding.Bindings;
@@ -15,6 +15,7 @@ import ooga.model.api.GameStateObservable;
 import ooga.model.api.GameStateObserver;
 import ooga.view.internal_api.Renderable;
 import ooga.view.uiservice.UIServiceProvider;
+import ooga.view.views.components.reusable.StyledBoundLabel;
 
 public class ScoreboardCard implements GameStateObserver, Renderable {
 
