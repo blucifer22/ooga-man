@@ -54,25 +54,26 @@ public class LevelBuilderView implements View, ThemedObject {
 
   private void configureConstraints() {
     RowConstraints rc = new RowConstraints();
-    rc.setPercentHeight(70);
-    this.primaryView.getRowConstraints().addAll(rc, new RowConstraints());
+    rc.setPercentHeight(100);
+    this.primaryView.getRowConstraints().addAll(rc);
 
-    ColumnConstraints cc = new ColumnConstraints();
-    cc.setPercentWidth(50);
-    this.primaryView.getColumnConstraints().addAll(cc, cc);
+    ColumnConstraints cc40 = new ColumnConstraints();
+    ColumnConstraints cc60 = new ColumnConstraints();
+    cc40.setPercentWidth(40);
+    cc60.setPercentWidth(60);
+    this.primaryView.getColumnConstraints().addAll(cc40, cc60);
   }
 
   private void renderViews() {
     VBox buttonBox = new VBox(
-        new StyledButton(this.serviceProvider, "next",
-            e -> nextStep()),
+        stageSwapPanel,
+        new StyledButton(this.serviceProvider, "next", e -> nextStep()),
         new StyledButton(this.serviceProvider, "mainMenu",
             e -> this.serviceProvider.viewStackManager().unwind())
     );
 
-    this.primaryView.add(stageSwapPanel, 0, 0);
-    this.primaryView.add(buttonBox, 0, 1);
-    this.primaryView.add(this.tileGridView.getRenderingNode(), 1, 0, 1, 2);
+    this.primaryView.add(buttonBox, 0, 0);
+    this.primaryView.add(this.tileGridView.getRenderingNode(), 1, 0);
     this.primaryView.getStyleClass().add("view");
   }
 
