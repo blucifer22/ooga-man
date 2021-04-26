@@ -17,14 +17,15 @@ import ooga.util.Vec2;
  */
 public class Cherry extends Sprite {
 
-  private int cherryScoreIncrement = 50;
+  private int cherryScoreIncrement = 100;
   private boolean isEdible = true;
 
   public Cherry(SpriteCoordinates position, Vec2 direction) {
     super("cherry",
             SpriteAnimationFactory.SpriteAnimationType.CHERRY_STILL,
             position, direction);
-    powerupOptions.putAll(Map
+    setSwapClass(SwapClass.NONE);
+    addPowerUpOptions(Map
         .of(GameEvent.POINT_BONUS_ACTIVATED, () -> cherryScoreIncrement *= 2,
             GameEvent.POINT_BONUS_DEACTIVATED, () -> cherryScoreIncrement *= 0.5));
   }

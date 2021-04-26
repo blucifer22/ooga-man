@@ -1,6 +1,7 @@
 package ooga.view.exceptions;
 
 public class UIServicedException extends Exception {
+
   private final String errorKey;
   private final String[] errorInformation;
 

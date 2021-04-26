@@ -36,15 +36,15 @@ public abstract class Ghost extends MoveableSprite {
       Vec2 direction,
       double speed) {
     super(spriteAnimationPrefix,
-          directionToAnimationType(direction, stateToAnimationType(INITIAL_STATE)), position, direction,
+          directionToAnimationType(direction, GhostAnimationType.ANIM_NORMAL), position, direction,
         speed);
     spawn = position;
-    swapClass = SwapClass.GHOST;
+    setSwapClass(SwapClass.GHOST);
     currentState = INITIAL_STATE;
     defaultMoveSpeed = speed;
     ghostClock = new Clock();
 
-    powerupOptions.putAll(Map
+    addPowerUpOptions(Map
         .of(GameEvent.FRIGHTEN_ACTIVATED, this::activateFrightened,
             GameEvent.FRIGHTEN_DEACTIVATED, this::deactivateFrightened,
             GameEvent.GHOST_SLOWDOWN_ACTIVATED, () -> setMovementSpeed(getMovementSpeed() * 0.5),
@@ -108,7 +108,11 @@ public abstract class Ghost extends MoveableSprite {
         }
         yield SpriteAnimationFactory.SpriteAnimationType
             .valueOf(
-                "GHOST_" + directionName + (type == GhostAnimationType.ANIM_EYES ? "_EYES" : ""));
+                    "GHOST_" + directionName + switch(type) {
+                      case ANIM_EYES -> "_EYES";
+                      case ANIM_PLAYER_BLINKING -> "_PLAYER";
+                      default -> "";
+                    });
       }
     };
   }
@@ -175,16 +179,20 @@ public abstract class Ghost extends MoveableSprite {
     }
   }
 
+  private boolean isPlayerControlled() {
+    return getInputSource().isHumanControlled();
+  }
+
   // TODO: Add other animations for: FRIGHTENED_WAIT, FRIGHTENED_WAIT_BLINKING, and FRIGHTENED_BLINKING
-  private static GhostAnimationType stateToAnimationType(GhostState currentState) {
+  private GhostAnimationType stateToAnimationType(GhostState currentState) {
+    if(isPlayerControlled() && (currentState != GhostState.EATEN))
+      return GhostAnimationType.ANIM_PLAYER_BLINKING;
+
     return switch (currentState) {
-      case WAIT -> GhostAnimationType.ANIM_NORMAL;
-      case FRIGHTENED_WAIT -> GhostAnimationType.ANIM_FRIGHTENED;
-      case FRIGHTENED_WAIT_BLINKING -> GhostAnimationType.ANIM_FRIGHTENED_BLINKING;
-      case FRIGHTENED -> GhostAnimationType.ANIM_FRIGHTENED;
-      case FRIGHTENED_BLINKING -> GhostAnimationType.ANIM_FRIGHTENED_BLINKING;
+      case WAIT, CHASE -> GhostAnimationType.ANIM_NORMAL;
+      case FRIGHTENED_WAIT, FRIGHTENED -> GhostAnimationType.ANIM_FRIGHTENED;
+      case FRIGHTENED_WAIT_BLINKING, FRIGHTENED_BLINKING -> GhostAnimationType.ANIM_FRIGHTENED_BLINKING;
       case EATEN -> GhostAnimationType.ANIM_EYES;
-      case CHASE -> GhostAnimationType.ANIM_NORMAL;
     };
   }
 
@@ -234,6 +242,13 @@ public abstract class Ghost extends MoveableSprite {
   }
 
   @Override
+  public void setInputSource(InputSource s) {
+    super.setInputSource(s);
+
+    forceAnimationUpdate = true;
+  }
+
+  @Override
   public boolean hasMultiplicativeScoring() {
     return true;
   }
@@ -280,6 +295,7 @@ public abstract class Ghost extends MoveableSprite {
   // TODO: Make each ENUM its own class
   private enum GhostAnimationType {
     ANIM_NORMAL,
+    ANIM_PLAYER_BLINKING,
     ANIM_EYES,
     ANIM_FRIGHTENED,
     ANIM_FRIGHTENED_BLINKING

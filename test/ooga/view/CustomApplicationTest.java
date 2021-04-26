@@ -10,7 +10,11 @@ public class CustomApplicationTest extends ApplicationTest {
   protected void syncFXRun(Runnable r) throws InterruptedException {
     CountDownLatch cdl = new CountDownLatch(1);
     Platform.runLater(() -> {
-      r.run();
+      try {
+        r.run();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
       cdl.countDown();
     });
     cdl.await();

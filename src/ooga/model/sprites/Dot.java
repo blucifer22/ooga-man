@@ -13,13 +13,14 @@ import ooga.util.Vec2;
  */
 public class Dot extends Sprite {
 
-  private int dotScoreIncrement = 1;
+  private int dotScoreIncrement = 10;
 
   public Dot(SpriteCoordinates position, Vec2 direction) {
     super("dot",
             SpriteAnimationFactory.SpriteAnimationType.DOT_STILL,
             position, direction);
-    powerupOptions.putAll(Map
+    setSwapClass(SwapClass.NONE);
+    addPowerUpOptions(Map
         .of(GameEvent.POINT_BONUS_ACTIVATED, () -> dotScoreIncrement *= 2,
             GameEvent.POINT_BONUS_DEACTIVATED, () -> dotScoreIncrement *= 0.5));
   }

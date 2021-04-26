@@ -7,9 +7,14 @@ import ooga.view.language.api.LanguageService;
 import ooga.view.theme.api.ThemeService;
 
 public interface UIServiceProvider {
+
   AudioService audioService();
+
   ExceptionService exceptionService();
+
   ThemeService themeService();
+
   LanguageService languageService();
+
   ViewStackService viewStackManager();
 }

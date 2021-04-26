@@ -9,6 +9,8 @@ import ooga.model.leveldescription.GridDescription;
 /**
  * Object that represents the structure of the Grid and its contents, along with dimensional
  * properties.
+ *
+ * @author George Hong
  */
 public class PacmanGrid implements Iterable<Tile>, ObservableGrid {
 
@@ -71,5 +73,9 @@ public class PacmanGrid implements Iterable<Tile>, ObservableGrid {
   @Override
   public Iterator<Tile> iterator() {
     return null;
+  }
+
+  public List<List<Tile>> getAllTiles() {
+    return contents;
   }
 }

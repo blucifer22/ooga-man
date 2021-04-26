@@ -1,5 +1,9 @@
 package ooga.model.sprites;
 
+import ooga.model.PacmanGrid;
+import ooga.model.SpriteCoordinates;
+import ooga.model.Tile;
+import ooga.model.TileCoordinates;
 import ooga.model.*;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
@@ -7,10 +11,12 @@ import ooga.util.Vec2;
 
 import java.util.Map;
 
+/**
+ * @author George Hong
+ */
 public abstract class MoveableSprite extends Sprite {
 
   public static final int UNIVERSAL_MAX_MOVEMENT_SPEED = 6;
-  private InputSource inputSource;
   private double currentSpeed;
   private double movementSpeed;
   private Vec2 queuedDirection;
@@ -29,7 +35,7 @@ public abstract class MoveableSprite extends Sprite {
     queuedDirection = null;
     frozen = true;
 
-    powerupOptions.putAll(Map.of(GameEvent.SPRITES_UNFROZEN, this::unfreeze));
+    addPowerUpOptions(Map.of(GameEvent.SPRITES_UNFROZEN, this::unfreeze));
 
     initialMovementSpeed = speed;
   }
@@ -62,19 +68,6 @@ public abstract class MoveableSprite extends Sprite {
     this.currentSpeed = speed;
   }
 
-  @Override
-  public InputSource getInputSource() {
-    return inputSource;
-  }
-
-  @Override
-  public void setInputSource(InputSource s) {
-    if (defaultInputSource == null) {
-      defaultInputSource = s;
-    }
-    inputSource = s;
-  }
-
   /**
    * Moveable Sprites can update their speed with every new round to increase the difficulty of the
    * Pac-Man game.  Additionally, a maximum movement speed is present to cap Sprites from moving too
@@ -91,11 +84,11 @@ public abstract class MoveableSprite extends Sprite {
 
   protected abstract boolean canMoveTo(Tile tile);
 
-  protected void unfreeze() {
+  public void unfreeze() {
     frozen = false;
   }
 
-  protected void freeze() {
+  public void freeze() {
     frozen = true;
   }
 
@@ -146,16 +139,10 @@ public abstract class MoveableSprite extends Sprite {
         currentSpeed = 0;
       }
     }
-
     nextPosition =
         getCoordinates().getPosition()
             .add(getDirection().scalarMult(getCurrentSpeed()).scalarMult(dt));
 
     setPosition(nextPosition);
-  }
-
-  @Override
-  public boolean needsSwap() {
-    return inputSource.isActionPressed();
   }
 }

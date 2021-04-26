@@ -29,8 +29,8 @@ public class PacMan extends MoveableSprite {
     super("pacman",
         SpriteAnimationFactory.SpriteAnimationType.PACMAN_CHOMP,
         position, direction, speed);
-    swapClass = SwapClass.PACMAN;
-    powerupOptions.putAll(Map
+    setSwapClass(SwapClass.PACMAN);
+    addPowerUpOptions(Map
         .of(GameEvent.SPEED_UP_ACTIVATED, this::activateSpeedUp,
             GameEvent.SPEED_UP_DEACTIVATED, this::deactivateSpeedUp));
     dotsEaten = 0;
@@ -97,9 +97,7 @@ public class PacMan extends MoveableSprite {
       currentState = PacmanState.DYING;
     } else if (other.isConsumable()) {
       applyScore(state, other);
-
       playEatingSound(state, other);
-
       System.out.println("SCORE: " + state.getScore());
     }
   }
@@ -107,7 +105,6 @@ public class PacMan extends MoveableSprite {
   @Override
   public void step(double dt, MutableGameState pacmanGameState) {
     super.step(dt, pacmanGameState);
-
     switch (currentState) {
       case ALIVE -> {
         move(dt, pacmanGameState.getGrid());

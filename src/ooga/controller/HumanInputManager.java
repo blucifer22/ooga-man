@@ -21,6 +21,7 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
 
   private final Map<String, KeyCode> keybinding;
   private final Set<KeyCode> pressedKeys;
+  private final Set<KeyCode> releasedKeys;
 
   /**
    * Basic constructor for HumanInputManager.
@@ -41,7 +42,7 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
             "RIGHT",
             KeyCode.D,
             "ACTION",
-            KeyCode.X);
+            KeyCode.Q);
     } else {
       keybinding =
         Map.of(
@@ -57,6 +58,7 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
           KeyCode.U);
     }
     pressedKeys = new HashSet<>();
+    releasedKeys = new HashSet<>();
   }
 
   /**
@@ -105,6 +107,7 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
   @Override
   public void onKeyRelease(KeyCode code) {
     pressedKeys.remove(code);
+    releasedKeys.add(code);
   }
 
   /**
@@ -118,7 +121,11 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
    */
   @Override
   public boolean isActionPressed() {
-    return pressedKeys.contains(keybinding.get("ACTION"));
+    boolean pressed = releasedKeys.contains(keybinding.get("ACTION"));
+    if(pressed)
+      releasedKeys.remove(keybinding.get("ACTION"));
+
+    return pressed;
   }
 
   /**
@@ -129,5 +136,10 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
   @Override
   public void addTarget(Sprite target) {
     // Do nothing
+  }
+
+  @Override
+  public boolean isHumanControlled() {
+    return true;
   }
 }

@@ -1,5 +1,5 @@
 {
-  "levelName": "Test Level",
+  "gameMode": "CHASE",
   "gridDescription": {
     "gridName": "testGrid",
     "width": 17,
@@ -2689,7 +2689,7 @@
         "inputSource": "NONE",
         "coordinates": {
           "position": {
-            "x": 2.5,
+            "x": 4.5,
             "y": 1.5
           }
         }

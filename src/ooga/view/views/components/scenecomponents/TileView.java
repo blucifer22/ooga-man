@@ -1,4 +1,4 @@
-package ooga.view.views.components;
+package ooga.view.views.components.scenecomponents;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.Node;

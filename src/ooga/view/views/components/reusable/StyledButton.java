@@ -1,4 +1,4 @@
-package ooga.view.views.components;
+package ooga.view.views.components.reusable;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -6,6 +6,7 @@ import javafx.scene.input.MouseEvent;
 import ooga.view.uiservice.UIServiceProvider;
 
 public class StyledButton extends Button {
+
   public StyledButton(UIServiceProvider serviceProvider, String labelKey,
       EventHandler<MouseEvent> onClickHandler) {
     this.getStyleClass().add("styled-button");

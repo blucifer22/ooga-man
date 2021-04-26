@@ -14,7 +14,7 @@ public class AudioManager implements GameEventObserver {
   private String oldAmbience = null;
   private int frightenDepth = 0, eyesDepth = 0;
 
-  private static final String NORMAL_AMBIENCE = "normal-loop";
+  public static final String NORMAL_AMBIENCE = "normal-loop";
   private static final String FRIGHT_AMBIENCE = "frightened-loop";
 
   public AudioManager() {
@@ -86,16 +86,11 @@ public class AudioManager implements GameEventObserver {
   public void reset() {
     frightenDepth = 0;
     eyesDepth = 0;
-    setAmbience(NORMAL_AMBIENCE);
   }
 
   public void stopAmbience() {
     if(currentAmbience != null)
       forEachObserver(obs -> obs.onStop(currentAmbience));
-  }
-
-  @Override
-  protected void finalize() throws Throwable {
-    stopAmbience();
+    currentAmbience = null;
   }
 }

@@ -254,6 +254,103 @@
       "scale" : 1.0,
       "bottomHeavy" : true
     },
+    "ghost_player_up_1" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_up_1.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_up_2" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_up_2.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_up_3" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_up_3.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_up_4" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_up_4.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_down_1" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_down_1.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_down_2" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_down_2.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_down_3" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_down_3.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_down_4" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_down_4.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_left_1" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_left_1.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_left_2" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_left_2.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_left_3" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_left_3.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_left_4" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_left_4.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_right_1" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_right_1.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_right_2" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_right_2.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_right_3" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_right_3.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+    "ghost_player_right_4" : {
+        "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_right_4.png",
+        "imageFill" : true,
+        "scale" : 1.0,
+        "bottomHeavy" : true
+    },
+
     "ghost" : {
       "fill" : "themes/classic/images/ghosts/blinky.png",
       "imageFill" : true,
@@ -268,6 +365,12 @@
     },
     "tileclosed" : {
       "fill" : "NAVY",
+      "imageFill" : false,
+      "scale" : 1.0,
+      "bottomHeavy" : false
+    },
+    "tilepermeable" : {
+      "fill" : "RED",
       "imageFill" : false,
       "scale" : 1.0,
       "bottomHeavy" : false
@@ -404,7 +507,49 @@
       "imageFill" : true,
       "scale" : 1.0,
       "bottomHeavy" : false,
-      "rotates" : false
+      "rotates" : true
+    },
+    "pacman_win_1" : {
+      "fill" : "themes/classic/images/general/pacman_win_1.png",
+      "imageFill" : true,
+      "scale" : 13,
+      "bottomHeavy" : false,
+      "rotates": false
+    },
+    "pacman_win_2" : {
+      "fill" : "themes/classic/images/general/pacman_win_2.png",
+      "imageFill" : true,
+      "scale" : 13,
+      "bottomHeavy" : false,
+      "rotates": false
+    },
+    "ghosts_win_1" : {
+      "fill" : "themes/classic/images/general/ghosts_win_1.png",
+      "imageFill" : true,
+      "scale" : 13,
+      "bottomHeavy" : false,
+      "rotates": false
+    },
+    "ghosts_win_2" : {
+      "fill" : "themes/classic/images/general/ghosts_win_2.png",
+      "imageFill" : true,
+      "scale" : 13,
+      "bottomHeavy" : false,
+      "rotates": false
+    },
+    "game_over_1" : {
+      "fill" : "themes/classic/images/general/game_over_1.png",
+      "imageFill" : true,
+      "scale" : 13,
+      "bottomHeavy" : false,
+      "rotates": false
+    },
+    "game_over_2" : {
+      "fill" : "themes/classic/images/general/game_over_2.png",
+      "imageFill" : true,
+      "scale" : 13,
+      "bottomHeavy" : false,
+      "rotates": false
     }
   },
   "sounds": {

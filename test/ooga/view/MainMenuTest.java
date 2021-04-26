@@ -9,10 +9,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import ooga.view.audio.AudioService;
+import ooga.view.audio.ThemedAudioService;
 import ooga.view.exceptions.ExceptionService;
 import ooga.view.exceptions.GraphicalExceptionService;
 import ooga.view.internal_api.MainMenuResponder;
 import ooga.view.language.bundled.BundledLanguageService;
+import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.serialized.SerializedThemeService;
 import ooga.view.uiservice.ServiceProvider;
 import ooga.view.uiservice.UIServiceProvider;
@@ -69,10 +71,11 @@ public class MainMenuTest extends CustomApplicationTest {
   public void reset() throws InterruptedException {
     syncFXRun(() -> {
       this.testHarness = new TestHarness();
-      AudioService as = new DoNothingAudioService();
       ExceptionService es = new GraphicalExceptionService();
+      ThemeService ts = new SerializedThemeService(es);
+      AudioService as = new ThemedAudioService(ts, es);
       UIServiceProvider serviceProvider =
-          new ServiceProvider(new GraphicalExceptionService(), as, new SerializedThemeService(es), new BundledLanguageService(
+          new ServiceProvider(new GraphicalExceptionService(), as, ts, new BundledLanguageService(
               es), () -> {});
       this.mainMenu = new MenuView(serviceProvider, this.testHarness);
       this.primaryStage.setScene(new Scene(mainMenu.getRenderingNode(), 600, 600));
