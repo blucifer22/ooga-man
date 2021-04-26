@@ -1,7 +1,10 @@
 package ooga.model.sprites;
 
 import java.util.Map;
-import ooga.model.*;
+import ooga.model.GameEvent;
+import ooga.model.MutableGameState;
+import ooga.model.SpriteCoordinates;
+import ooga.model.Tile;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Timer;
@@ -13,15 +16,9 @@ import ooga.util.Vec2;
 public class PacMan extends MoveableSprite {
 
   public static final String TYPE = "pacman_halfopen";
+  private static final double INITIAL_FREEZE_DURATION = 4.2; // length of the starting sound
   private int ghostsEaten;
   private int dotsEaten;
-  private enum PacmanState {
-    ALIVE,
-    DYING,
-    DEAD
-  };
-
-  private static final double INITIAL_FREEZE_DURATION = 4.2; // length of the starting sound
 
   private PacmanState currentState;
 
@@ -44,10 +41,11 @@ public class PacMan extends MoveableSprite {
 
   private void changeState(PacmanState state) {
     currentState = state;
-
-    switch(currentState) {
-      case DYING -> setCurrentAnimationType(SpriteAnimationFactory.SpriteAnimationType.PACMAN_DEATH);
-      case ALIVE -> setCurrentAnimationType(SpriteAnimationFactory.SpriteAnimationType.PACMAN_CHOMP);
+    switch (currentState) {
+      case DYING -> setCurrentAnimationType(
+          SpriteAnimationFactory.SpriteAnimationType.PACMAN_DEATH);
+      case ALIVE -> setCurrentAnimationType(
+          SpriteAnimationFactory.SpriteAnimationType.PACMAN_CHOMP);
     }
   }
 
@@ -57,17 +55,14 @@ public class PacMan extends MoveableSprite {
   }
 
   private void applyScore(MutableGameState state, Sprite other) {
-    assert(other.isConsumable());
-
+    assert (other.isConsumable());
     int pointsToAdd = 0;
-
-    if(other.hasMultiplicativeScoring()) {
+    if (other.hasMultiplicativeScoring()) {
       ghostsEaten++;
       pointsToAdd = other.getScore() * ghostsEaten;
     } else {
       pointsToAdd = other.getScore();
     }
-
     state.incrementScore(pointsToAdd);
   }
 
@@ -78,17 +73,18 @@ public class PacMan extends MoveableSprite {
      * must alternate between the two chomping noises -- each
      * individual dot doesn't know which one to play.
      */
-    if(!consumable.mustBeConsumed())
+    if (!consumable.mustBeConsumed()) {
       return;
+    }
 
     state.getAudioManager().playSound("pacman-chomp" + ((dotsEaten++ % 2 == 0) ? "1" : "2"));
   }
 
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-    if(currentState != PacmanState.ALIVE)
+    if (currentState != PacmanState.ALIVE) {
       return; // must be alive to die or score
-
+    }
     if (other.isDeadlyToPacMan()) {
       // begin death animation
       state.getAudioManager().playSound("pacman-death");
@@ -109,7 +105,6 @@ public class PacMan extends MoveableSprite {
       case ALIVE -> {
         move(dt, pacmanGameState.getGrid());
         handleCollisions(pacmanGameState);
-
         getCurrentAnimation().setPaused(getCurrentSpeed() == 0);
       }
       case DEAD -> {
@@ -125,8 +120,9 @@ public class PacMan extends MoveableSprite {
 
   @Override
   public void onAnimationComplete() {
-    if(currentState == PacmanState.DYING)
+    if (currentState == PacmanState.DYING) {
       changeState(PacmanState.DEAD);
+    }
   }
 
   @Override
@@ -147,17 +143,21 @@ public class PacMan extends MoveableSprite {
   @Override
   public void uponNewLevel(int roundNumber, MutableGameState state) {
     super.uponNewLevel(roundNumber, state);
-
     state.getAudioManager().playSound("start-classic");
-    state.getClock().addTimer(new Timer(INITIAL_FREEZE_DURATION, gameState -> gameState.broadcastEvent(GameEvent.SPRITES_UNFROZEN)));
-
+    state.getClock().addTimer(new Timer(INITIAL_FREEZE_DURATION,
+        gameState -> gameState.broadcastEvent(GameEvent.SPRITES_UNFROZEN)));
     reset();
   }
 
   @Override
   public void reset() {
     super.reset();
-
     changeState(PacmanState.ALIVE);
+  }
+
+  private enum PacmanState {
+    ALIVE,
+    DYING,
+    DEAD
   }
 }

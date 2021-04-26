@@ -9,5 +9,4 @@ public interface GameStateObserver {
    * @param state contains information about the Pac-Man game state
    */
   void onGameStateUpdate(GameStateObservable state);
-
 }

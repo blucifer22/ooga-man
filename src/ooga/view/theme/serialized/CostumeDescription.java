@@ -18,8 +18,7 @@ public class CostumeDescription extends JSONDescription {
       @JsonProperty("imageFill") boolean fillIsImage,
       @JsonProperty("scale") double scale,
       @JsonProperty("bottomHeavy") boolean bottomHeavy,
-      @JsonProperty("rotates") boolean rotatable
-  ) {
+      @JsonProperty("rotates") boolean rotatable) {
     this.scale = scale;
     this.bottomHeavy = bottomHeavy;
     this.fillIsImage = fillIsImage;

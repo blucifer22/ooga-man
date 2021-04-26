@@ -1,22 +1,20 @@
 package ooga.model.sprites;
 
+import java.util.Map;
+import ooga.model.GameEvent;
+import ooga.model.MutableGameState;
 import ooga.model.PacmanGrid;
 import ooga.model.SpriteCoordinates;
 import ooga.model.Tile;
 import ooga.model.TileCoordinates;
-import ooga.model.*;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Vec2;
 
-import java.util.Map;
-
-/**
- * @author George Hong
- */
+/** @author George Hong */
 public abstract class MoveableSprite extends Sprite {
 
-  public static final int UNIVERSAL_MAX_MOVEMENT_SPEED = 6;
+  public static final int UNIVERSAL_MAX_MOVEMENT_SPEED = 9;
   private double currentSpeed;
   private double movementSpeed;
   private Vec2 queuedDirection;
@@ -24,7 +22,8 @@ public abstract class MoveableSprite extends Sprite {
 
   private double initialMovementSpeed;
 
-  protected MoveableSprite(String spriteAnimationPrefix,
+  protected MoveableSprite(
+      String spriteAnimationPrefix,
       SpriteAnimationFactory.SpriteAnimationType startingAnimation,
       SpriteCoordinates position,
       Vec2 direction,
@@ -34,13 +33,12 @@ public abstract class MoveableSprite extends Sprite {
     this.movementSpeed = speed;
     queuedDirection = null;
     frozen = true;
-
     addPowerUpOptions(Map.of(GameEvent.SPRITES_UNFROZEN, this::unfreeze));
-
     initialMovementSpeed = speed;
   }
 
-  protected MoveableSprite(String spriteAnimationPrefix,
+  protected MoveableSprite(
+      String spriteAnimationPrefix,
       SpriteAnimationFactory.SpriteAnimationType startingAnimation,
       SpriteDescription description) {
     super(spriteAnimationPrefix, startingAnimation, description);
@@ -70,7 +68,7 @@ public abstract class MoveableSprite extends Sprite {
 
   /**
    * Moveable Sprites can update their speed with every new round to increase the difficulty of the
-   * Pac-Man game.  Additionally, a maximum movement speed is present to cap Sprites from moving too
+   * Pac-Man game. Additionally, a maximum movement speed is present to cap Sprites from moving too
    * quickly.
    *
    * @param roundNumber current round of Pac-Man.
@@ -78,7 +76,8 @@ public abstract class MoveableSprite extends Sprite {
    */
   @Override
   public void uponNewLevel(int roundNumber, MutableGameState state) {
-    movementSpeed = Math.min(initialMovementSpeed + 0.5 * roundNumber, UNIVERSAL_MAX_MOVEMENT_SPEED);
+    movementSpeed =
+        Math.min(initialMovementSpeed + 0.5 * roundNumber, UNIVERSAL_MAX_MOVEMENT_SPEED);
     frozen = true;
   }
 
@@ -93,26 +92,33 @@ public abstract class MoveableSprite extends Sprite {
   }
 
   public void move(double dt, PacmanGrid grid) {
-    if(frozen)
+    if (frozen) {
       return;
-
+    }
     Vec2 userDirection = getInputSource().getRequestedDirection(dt);
     userDirection = userDirection.getMagnitude() == 1 ? userDirection : Vec2.ZERO;
-
     if (getDirection().parallelTo(userDirection)) {
       setDirection(userDirection);
       currentSpeed = movementSpeed;
-      //System.out.println(movementSpeed);
+      // System.out.println(movementSpeed);
     } else if (!userDirection.equals(Vec2.ZERO)) {
       queuedDirection = userDirection;
     }
-
     Vec2 centerCoordinates = getCoordinates().getTileCenter();
     Vec2 currentPosition = getCoordinates().getPosition();
-    Vec2 nextPosition = currentPosition
-        .add(getDirection().scalarMult(getCurrentSpeed()).scalarMult(dt));
-
+    Vec2 nextPosition =
+        currentPosition.add(getDirection().scalarMult(getCurrentSpeed()).scalarMult(dt));
     // Grid-snapping
+    checkAndApplySnapping(grid, centerCoordinates, currentPosition, nextPosition);
+    nextPosition =
+        getCoordinates()
+            .getPosition()
+            .add(getDirection().scalarMult(getCurrentSpeed()).scalarMult(dt));
+    setPosition(nextPosition);
+  }
+
+  private void checkAndApplySnapping(
+      PacmanGrid grid, Vec2 centerCoordinates, Vec2 currentPosition, Vec2 nextPosition) {
     if (centerCoordinates.isBetween(currentPosition, nextPosition)) {
       setPosition(centerCoordinates);
       TileCoordinates currentTile = getCoordinates().getTileCoordinates();
@@ -139,10 +145,5 @@ public abstract class MoveableSprite extends Sprite {
         currentSpeed = 0;
       }
     }
-    nextPosition =
-        getCoordinates().getPosition()
-            .add(getDirection().scalarMult(getCurrentSpeed()).scalarMult(dt));
-
-    setPosition(nextPosition);
   }
 }

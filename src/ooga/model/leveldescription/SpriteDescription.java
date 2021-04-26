@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.reflect.InvocationTargetException;
-import ooga.model.sprites.Sprite;
 import ooga.model.SpriteCoordinates;
+import ooga.model.sprites.Sprite;
 
 /**
  * A class that serializes Sprites to JSON and can use reflection to convert it back to a Sprite.
@@ -14,9 +14,7 @@ import ooga.model.SpriteCoordinates;
  * @author Franklin Wei
  */
 public class SpriteDescription extends JSONDescription {
-  /**
-   * Name of the class (which must extend ooga.model.sprites.Sprite) backing this sprite.
-   */
+  /** Name of the class (which must extend ooga.model.sprites.Sprite) backing this sprite. */
   private final String spriteClassName;
 
   /**
@@ -61,7 +59,8 @@ public class SpriteDescription extends JSONDescription {
   public Sprite toSprite() {
     try {
       Class<?> spriteClass = Class.forName("ooga.model.sprites." + spriteClassName);
-      Sprite spriteToReturn = (Sprite) spriteClass.getDeclaredConstructor(SpriteDescription.class).newInstance(this);
+      Sprite spriteToReturn =
+          (Sprite) spriteClass.getDeclaredConstructor(SpriteDescription.class).newInstance(this);
       spriteToReturn.setInputString(inputSource);
       return spriteToReturn;
     } catch (ClassNotFoundException
@@ -69,8 +68,6 @@ public class SpriteDescription extends JSONDescription {
         | InstantiationException
         | InvocationTargetException
         | IllegalAccessException e) {
-      e.printStackTrace();
-      System.err.println(e.getMessage());
     }
     return null;
   }

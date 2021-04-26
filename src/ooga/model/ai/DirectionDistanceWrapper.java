@@ -3,9 +3,7 @@ package ooga.model.ai;
 import ooga.util.Vec2;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * @author George Hong
- */
+/** @author George Hong */
 public class DirectionDistanceWrapper implements Comparable<DirectionDistanceWrapper> {
 
   private final Vec2 vec;

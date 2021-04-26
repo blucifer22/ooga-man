@@ -31,29 +31,31 @@ public class PreferenceView implements ThemedObject, View {
   }
 
   private void buildScene() {
-    LabeledComboBoxCard languageSelectCard = new LabeledComboBoxCard(
-        this.serviceProvider,
-        "language",
-        this.preferenceService.languageSelectionService().getAvailableLanguages(),
-        selectedOption -> this.preferenceService.languageSelectionService()
-            .setLanguage(selectedOption)
-    );
+    LabeledComboBoxCard languageSelectCard =
+        new LabeledComboBoxCard(
+            this.serviceProvider,
+            "language",
+            this.preferenceService.languageSelectionService().getAvailableLanguages(),
+            selectedOption ->
+                this.preferenceService.languageSelectionService().setLanguage(selectedOption));
     this.primaryView.add(languageSelectCard, 0, 0);
 
-    LabeledComboBoxCard themeSelectCard = new LabeledComboBoxCard(
-        this.serviceProvider,
-        "theme",
-        this.preferenceService.themeSelectionService().getAvailableThemes(),
-        selectedOption -> this.preferenceService.themeSelectionService().setTheme(selectedOption)
-    );
+    LabeledComboBoxCard themeSelectCard =
+        new LabeledComboBoxCard(
+            this.serviceProvider,
+            "theme",
+            this.preferenceService.themeSelectionService().getAvailableThemes(),
+            selectedOption ->
+                this.preferenceService.themeSelectionService().setTheme(selectedOption));
     this.primaryView.add(themeSelectCard, 0, 1);
 
-    Button returnToMenu = new StyledButton(this.serviceProvider, "previousMenu",
-        e -> this.serviceProvider.viewStackManager().unwind());
+    Button returnToMenu =
+        new StyledButton(
+            this.serviceProvider,
+            "previousMenu",
+            e -> this.serviceProvider.viewStackManager().unwind());
 
-    VBox backButtonCard = new VBox(
-        returnToMenu
-    );
+    VBox backButtonCard = new VBox(returnToMenu);
     backButtonCard.setAlignment(Pos.CENTER);
     this.primaryView.add(backButtonCard, 0, 2);
   }
@@ -61,7 +63,8 @@ public class PreferenceView implements ThemedObject, View {
   @Override
   public void onThemeChange() {
     this.primaryView.getStylesheets().clear();
-    this.primaryView.getStylesheets()
+    this.primaryView
+        .getStylesheets()
         .add(this.serviceProvider.themeService().getTheme().getStylesheet());
   }
 

@@ -6953,7 +6953,7 @@
   "spriteLayoutDescription" : {
     "sprites" : [ {
       "className" : "PacMan",
-      "inputSource" : "PLAYER_1",
+      "inputSource" : "PacmanBFSAI",
       "coordinates" : {
         "position" : {
           "x" : 13.5,
@@ -6965,7 +6965,7 @@
       "inputSource" : "InkyAI",
       "coordinates" : {
         "position" : {
-          "x" : 11.5,
+          "x" : 12.5,
           "y" : 14.5
         }
       }
@@ -9189,9 +9189,29 @@
       "coordinates" : {
         "position" : {
           "x" : 14.5,
-          "y" : 12.5
+          "y" : 14.5
         }
       }
-    } ]
+    },
+      {
+        "className": "TeleporterOverlay",
+        "inputSource": "TELEPORTER_A",
+        "coordinates": {
+          "position": {
+            "x": 0.5,
+            "y": 14.5
+          }
+        }
+      },
+      {
+        "className": "TeleporterOverlay",
+        "inputSource": "TELEPORTER_A",
+        "coordinates": {
+          "position": {
+            "x": 27.5,
+            "y": 14.5
+          }
+        }
+      }]
   }
 }

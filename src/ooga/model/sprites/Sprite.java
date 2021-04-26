@@ -34,9 +34,9 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
   private final SpriteAnimationFactory animationFactory;
   private final SpriteCoordinates initialPosition;
   private final Vec2 initialDirection;
+  private final Map<GameEvent, Runnable> powerupOptions = new HashMap<>();
   private SwapClass swapClass;
   private InputSource inputSource;
-  private final Map<GameEvent, Runnable> powerupOptions = new HashMap<>();
   private InputSource defaultInputSource;
   private String inputString;
   private SpriteCoordinates position;
@@ -306,7 +306,9 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
     return false;
   }
 
-  public abstract int getScore();
+  public int getScore() {
+    return 0;
+  }
 
   @Override
   public final void onGameEvent(GameEvent event) {

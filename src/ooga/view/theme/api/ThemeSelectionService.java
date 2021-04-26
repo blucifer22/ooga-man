@@ -7,5 +7,4 @@ public interface ThemeSelectionService {
   void setTheme(String name);
 
   Set<String> getAvailableThemes();
-
 }

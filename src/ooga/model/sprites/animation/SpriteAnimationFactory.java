@@ -42,7 +42,7 @@ public class SpriteAnimationFactory {
     PACMAN_CHOMP(true, "chomp", 3, 1.0 / 20.0, FrameOrder.TRIANGLE),
     PACMAN_STILL_HALFOPEN(true, "halfopen", 1),
     PACMAN_STILL_OPEN(true, "open", 1),
-    PACMAN_DEATH(true, "death", 13, 1/9.0, true),
+    PACMAN_DEATH(true, "death", 13, 1 / 9.0, true),
     POWER_PILL_BLINK(true, "blink", 2, 1.0 / 6.0, FrameOrder.SAWTOOTH),
     DOT_STILL(true, "still", 1),
     CHERRY_STILL(true, "still", 1),
@@ -72,6 +72,7 @@ public class SpriteAnimationFactory {
       this.frameOrder = frameOrder;
       this.oneShot = oneShot;
     }
+
     SpriteAnimationType(
         boolean spriteSpecific,
         String costumeBaseName,
@@ -80,26 +81,36 @@ public class SpriteAnimationFactory {
         FrameOrder frameOrder) {
       this(spriteSpecific, costumeBaseName, frameCount, framePeriod, frameOrder, false);
     }
+
     SpriteAnimationType(boolean spriteSpecific, String costumeBaseName, int frameCount) {
-      this(spriteSpecific, costumeBaseName, frameCount, DEFAULT_FRAME_PERIOD, FrameOrder.SAWTOOTH, false);
+      this(
+          spriteSpecific,
+          costumeBaseName,
+          frameCount,
+          DEFAULT_FRAME_PERIOD,
+          FrameOrder.SAWTOOTH,
+          false);
     }
 
-    SpriteAnimationType(boolean spriteSpecific, String costumeBaseName, int frameCount, double framePeriod, boolean oneShot) {
+    SpriteAnimationType(
+        boolean spriteSpecific,
+        String costumeBaseName,
+        int frameCount,
+        double framePeriod,
+        boolean oneShot) {
       this(spriteSpecific, costumeBaseName, frameCount, framePeriod, FrameOrder.SAWTOOTH, true);
     }
 
     public ObservableAnimation getAnimation(String spriteName) {
-      List<String> costumes = IntStream.range(1, frameCount + 1)
-                              .mapToObj(
-                                  num ->
-                                  ((spriteSpecific ? spriteName + "_" : "") + costumeBaseName + "_" + num))
-                              .collect(Collectors.toList());
+      List<String> costumes =
+          IntStream.range(1, frameCount + 1)
+              .mapToObj(
+                  num -> ((spriteSpecific ? spriteName + "_" : "") + costumeBaseName + "_" + num))
+              .collect(Collectors.toList());
       return frameCount > 1
-          ? (
-              oneShot
+          ? (oneShot
               ? new OneShotAnimation(costumes, framePeriod)
-              : new FreeRunningPeriodicAnimation(costumes, frameOrder, framePeriod)
-            )
+              : new FreeRunningPeriodicAnimation(costumes, frameOrder, framePeriod))
           : new StillAnimation(costumes.get(0));
     }
   }

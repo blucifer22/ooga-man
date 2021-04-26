@@ -15,12 +15,14 @@ import ooga.util.Vec2;
  */
 public class PowerPill extends Sprite {
 
+  private static final int POINT_VALUE = 50;
   private final PowerUpFactory powerUpFactory;
 
-  private static final int POINT_VALUE = 50;
-
   public PowerPill(SpriteCoordinates position, Vec2 direction) {
-    super("powerpill", SpriteAnimationFactory.SpriteAnimationType.POWER_PILL_BLINK, position,
+    super(
+        "powerpill",
+        SpriteAnimationFactory.SpriteAnimationType.POWER_PILL_BLINK,
+        position,
         direction);
     setSwapClass(SwapClass.NONE);
     powerUpFactory = new PowerUpFactory();
@@ -34,18 +36,18 @@ public class PowerPill extends Sprite {
   public void uponHitBy(Sprite other, MutableGameState state) {
     if (other.eatsGhosts()) {
       delete(state);
-//      // GameEvent has cases for activation of powerups (Even indices) and deactivates them for odd indices
-//      // int evenIndex = new Random().nextInt(GameEvent.values().length / 2) * 2;
-//      int evenIndex = 4;
-//      state.broadcastEvent(GameEvent.values()[evenIndex]);
-//      System.out.println(GameEvent.values()[evenIndex]);
-//      state.getClock().addTimer(new Timer(9, mutableGameState -> {
-//        state.broadcastEvent(GameEvent.values()[evenIndex + 1]);
-//        System.out.println(GameEvent.values()[evenIndex + 1]);
-//      }));
+      //      // GameEvent has cases for activation of powerups (Even indices) and deactivates them
+      // for odd indices
+      //      // int evenIndex = new Random().nextInt(GameEvent.values().length / 2) * 2;
+      //      int evenIndex = 4;
+      //      state.broadcastEvent(GameEvent.values()[evenIndex]);
+      //      System.out.println(GameEvent.values()[evenIndex]);
+      //      state.getClock().addTimer(new Timer(9, mutableGameState -> {
+      //        state.broadcastEvent(GameEvent.values()[evenIndex + 1]);
+      //        System.out.println(GameEvent.values()[evenIndex + 1]);
+      //      }));
       PowerUp power = powerUpFactory.getRandomPowerUp();
       power.executePowerUp(state);
-
     }
   }
 
@@ -63,6 +65,4 @@ public class PowerPill extends Sprite {
   public boolean mustBeConsumed() {
     return true;
   }
-
-
 }

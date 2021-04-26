@@ -18,7 +18,7 @@ public class Timer implements Comparable<Timer> {
   /**
    * Creates an instance of the Timer object
    *
-   * @param delay      number of seconds before this code executes
+   * @param delay number of seconds before this code executes
    * @param executable code to execute when the Timer expires
    */
   public Timer(double delay, Consumer<MutableGameState> executable) {
@@ -49,7 +49,7 @@ public class Timer implements Comparable<Timer> {
   }
 
   /**
-   * Optimization for timers.  Timers that have the lowest expected execution time are sorted prior
+   * Optimization for timers. Timers that have the lowest expected execution time are sorted prior
    * to later timers.
    *
    * @param o other Timer to compare to
@@ -57,7 +57,6 @@ public class Timer implements Comparable<Timer> {
    */
   @Override
   public int compareTo(@NotNull Timer o) {
-    return Double
-        .compare(this.getExpirationTime(), o.getExpirationTime());
+    return Double.compare(this.getExpirationTime(), o.getExpirationTime());
   }
 }

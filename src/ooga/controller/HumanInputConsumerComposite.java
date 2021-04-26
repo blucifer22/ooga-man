@@ -33,7 +33,7 @@ public class HumanInputConsumerComposite implements HumanInputConsumer {
    */
   @Override
   public void onKeyPress(KeyCode keyCode) {
-    for (HumanInputConsumer consumer: components) {
+    for (HumanInputConsumer consumer : components) {
       consumer.onKeyPress(keyCode);
     }
   }
@@ -45,7 +45,7 @@ public class HumanInputConsumerComposite implements HumanInputConsumer {
    */
   @Override
   public void onKeyRelease(KeyCode keyCode) {
-    for (HumanInputConsumer consumer: components) {
+    for (HumanInputConsumer consumer : components) {
       consumer.onKeyRelease(keyCode);
     }
   }

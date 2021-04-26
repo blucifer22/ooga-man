@@ -11,15 +11,17 @@ public class IntegerLockedSlider extends Slider {
   public IntegerLockedSlider(int min, int max, int defaultVal) {
     super(min, max, defaultVal);
     this.changeListeners = new HashSet<>();
-    this.valueProperty().addListener((obs, oldVal, newVal) -> {
-      int roundedValue = (int) Math.round(newVal.doubleValue());
-      if (roundedValue != newVal.doubleValue()) {
-        ((DoubleProperty) obs).setValue(roundedValue);
-        for (IntegerValueObserver observer : changeListeners) {
-          observer.consume(roundedValue);
-        }
-      }
-    });
+    this.valueProperty()
+        .addListener(
+            (obs, oldVal, newVal) -> {
+              int roundedValue = (int) Math.round(newVal.doubleValue());
+              if (roundedValue != newVal.doubleValue()) {
+                ((DoubleProperty) obs).setValue(roundedValue);
+                for (IntegerValueObserver observer : changeListeners) {
+                  observer.consume(roundedValue);
+                }
+              }
+            });
   }
 
   public void addListener(IntegerValueObserver valueObserver) {

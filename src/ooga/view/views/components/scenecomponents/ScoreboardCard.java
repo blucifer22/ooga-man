@@ -62,15 +62,19 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
 
   private void populateData() {
     ReadOnlyStringProperty roundNum = stringFor("roundNumber");
-    StringBinding roundBinding = Bindings.createStringBinding(() ->
-        String.format(roundNum.get(), roundProperty.get()), roundNum, roundProperty);
+    StringBinding roundBinding =
+        Bindings.createStringBinding(
+            () -> String.format(roundNum.get(), roundProperty.get()), roundNum, roundProperty);
     this.view.add(new StyledBoundLabel(roundBinding, "heading"), 0, 0, NUM_COLS, 1);
 
     ReadOnlyStringProperty livesRemaining = stringFor("livesRemaining");
-    StringBinding livesBinding = Bindings.createStringBinding(() ->
-        String.format(livesRemaining.get(), livesProperty.get()), livesRemaining, livesProperty);
-    this.view.add(new StyledBoundLabel(livesBinding, "heading", "scoreboard-lives"),
-        0, 1, NUM_COLS, 1);
+    StringBinding livesBinding =
+        Bindings.createStringBinding(
+            () -> String.format(livesRemaining.get(), livesProperty.get()),
+            livesRemaining,
+            livesProperty);
+    this.view.add(
+        new StyledBoundLabel(livesBinding, "heading", "scoreboard-lives"), 0, 1, NUM_COLS, 1);
 
     this.view.add(new Label(), 0, 2, NUM_COLS, 1);
 
@@ -82,17 +86,22 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
       int rowNum = p.getID() + 3;
       PlayerDataBindingContainer container = dataBindingContainers.get(p.getID());
       this.view.add(
-          new StyledBoundLabel(new SimpleIntegerProperty(p.getID()).asString(), "body",
-              "scoreboard-player-" + p.getID()), 0, rowNum
-      );
+          new StyledBoundLabel(
+              new SimpleIntegerProperty(p.getID()).asString(),
+              "body",
+              "scoreboard-player-" + p.getID()),
+          0,
+          rowNum);
       this.view.add(
-          new StyledBoundLabel(container.scoreProperty.asString(), "body",
-              "scoreboard-score-" + p.getID()), 1, rowNum
-      );
+          new StyledBoundLabel(
+              container.scoreProperty.asString(), "body", "scoreboard-score-" + p.getID()),
+          1,
+          rowNum);
       this.view.add(
-          new StyledBoundLabel(container.winProperty.asString(), "body",
-              "scoreboard-score-" + p.getID()), 2, rowNum
-      );
+          new StyledBoundLabel(
+              container.winProperty.asString(), "body", "scoreboard-score-" + p.getID()),
+          2,
+          rowNum);
     }
   }
 

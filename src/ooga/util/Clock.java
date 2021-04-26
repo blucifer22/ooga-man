@@ -14,9 +14,7 @@ public class Clock {
   private final PriorityQueue<Timer> activeTimers;
   private double seconds;
 
-  /**
-   * Initializes a game clock where each tick increments the time by dt
-   */
+  /** Initializes a game clock where each tick increments the time by dt */
   public Clock() {
     this(0);
   }
@@ -26,16 +24,12 @@ public class Clock {
     this.activeTimers = new PriorityQueue<>();
   }
 
-  /**
-   * Removes all pending Timers from this Clock
-   */
+  /** Removes all pending Timers from this Clock */
   public void clear() {
     activeTimers.clear();
   }
 
-  /**
-   * Sets the Clock to 0
-   */
+  /** Sets the Clock to 0 */
   public void reset() {
     seconds = 0;
   }
@@ -49,7 +43,6 @@ public class Clock {
     timer.setInstantiationTimeStamp(seconds);
     activeTimers.add(timer);
   }
-
 
   /**
    * Returns the number of seconds that have elapsed
@@ -78,7 +71,7 @@ public class Clock {
   }
 
   /**
-   * @param dt        time step
+   * @param dt time step
    * @param gameState
    */
   public void step(double dt, MutableGameState gameState) {

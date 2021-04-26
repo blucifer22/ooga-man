@@ -4,9 +4,6 @@ import java.io.IOException;
 import ooga.controller.HumanInputManager;
 import ooga.model.sprites.Sprite;
 import ooga.model.sprites.SwapClass;
-import ooga.model.sprites.status.GhostWin;
-import ooga.model.sprites.status.PacmanWin;
-import ooga.util.Vec2;
 
 /**
  * The rules for Pac-Man: Chase Mode are given by
@@ -54,13 +51,9 @@ public class PacmanGameStateChase extends PacmanGameState {
   @Override
   protected void checkProceedToNextLevel() {
     if (getClock().getTime() >= TIME_LIMIT) {
-      System.out.println("PACMAN RAN AWAY!!!");
-      // TODO: PRESENT LOSE SCREEN
       gameOverCleanup();
       showPacmanWin();
     } else if (isPacmanDead()) {
-      // TODO: PRESENT WIN SCREEN
-      System.out.println("PACMAN WAS EATEN!!!!");
       gameOverCleanup();
       showGhostWin();
     }

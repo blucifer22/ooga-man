@@ -14,8 +14,11 @@ public class ServiceProvider implements UIServiceProvider {
   private final ViewStackService viewStackService;
   private final AudioService audioService;
 
-  public ServiceProvider(ExceptionService exceptionService, AudioService audioService,
-      ThemeService themeService, LanguageService languageService,
+  public ServiceProvider(
+      ExceptionService exceptionService,
+      AudioService audioService,
+      ThemeService themeService,
+      LanguageService languageService,
       ViewStackService viewStackService) {
     this.exceptionService = exceptionService;
     this.audioService = audioService;
@@ -23,8 +26,11 @@ public class ServiceProvider implements UIServiceProvider {
     this.languageService = languageService;
     this.viewStackService = viewStackService;
 
-    if (exceptionService == null || audioService == null || themeService == null ||
-        languageService == null || viewStackService == null) {
+    if (exceptionService == null
+        || audioService == null
+        || themeService == null
+        || languageService == null
+        || viewStackService == null) {
       throw new NullPointerException();
     }
   }

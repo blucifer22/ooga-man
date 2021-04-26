@@ -1,13 +1,10 @@
 package ooga.model.ai;
 
 import ooga.model.PacmanGrid;
-import ooga.model.sprites.Ghost;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 
-/**
- * @author George Hong
- */
+/** @author George Hong */
 public class PinkyAI extends GhostAI {
 
   public PinkyAI(PacmanGrid grid, Sprite ghost) {
@@ -20,12 +17,15 @@ public class PinkyAI extends GhostAI {
    *
    * @return direction to move the ghost
    */
-
   @Override
   public Vec2 chaseBehavior(double dt) {
     Vec2 targetOrientation = getTarget().getDirection();
-    Vec2 targetTilePos = getTarget().getCoordinates().getTileCoordinates().toVec2()
-        .add(targetOrientation.scalarMult(4));
+    Vec2 targetTilePos =
+        getTarget()
+            .getCoordinates()
+            .getTileCoordinates()
+            .toVec2()
+            .add(targetOrientation.scalarMult(4));
     Vec2 currentTilePos = getGhost().getCoordinates().getTileCoordinates().toVec2();
 
     return reduceDistance(targetTilePos, currentTilePos);

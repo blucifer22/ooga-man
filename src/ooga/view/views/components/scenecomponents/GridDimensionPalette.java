@@ -21,18 +21,20 @@ public class GridDimensionPalette extends StackPane {
     IntegerLockedSlider rowDim = new IntegerLockedSlider(MIN_SIZE, MAX_SIZE, DEFAULT_SIZE);
     IntegerLockedSlider colDim = new IntegerLockedSlider(MIN_SIZE, MAX_SIZE, DEFAULT_SIZE);
 
-    VBox paletteBox = new VBox(
-        new StyledBoundLabel(serviceProvider.languageService().getLocalizedString(
-            "dimensions"), "heading"),
-        new StyledBoundLabel(serviceProvider.languageService().getLocalizedString(
-            "rows"), "body"),
-        rowDim,
-        new StyledBoundLabel(serviceProvider.languageService().getLocalizedString(
-            "columns"), "body"),
-        colDim,
-        new StyledBoundLabel(serviceProvider.languageService().getLocalizedString(
-            "tilingInstructions"), "heading").wrap(true)
-    );
+    VBox paletteBox =
+        new VBox(
+            new StyledBoundLabel(
+                serviceProvider.languageService().getLocalizedString("dimensions"), "heading"),
+            new StyledBoundLabel(
+                serviceProvider.languageService().getLocalizedString("rows"), "body"),
+            rowDim,
+            new StyledBoundLabel(
+                serviceProvider.languageService().getLocalizedString("columns"), "body"),
+            colDim,
+            new StyledBoundLabel(
+                    serviceProvider.languageService().getLocalizedString("tilingInstructions"),
+                    "heading")
+                .wrap(true));
 
     this.getChildren().add(paletteBox);
 

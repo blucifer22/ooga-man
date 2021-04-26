@@ -6,9 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ooga.util.Vec2;
 
-/**
- * @author George Hong
- */
+/** @author George Hong */
 public class SpriteCoordinates {
 
   private final Vec2 position;

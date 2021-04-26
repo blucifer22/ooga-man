@@ -13,9 +13,9 @@ import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 
 /**
- * Add Pac-Man AI that uses a BFS algorithm.  This AI has two primary modes.  It engages in
- * ghost-like scatter movement when no ghosts are near.  If ghosts are in the vicinity, it attempts
- * to maximize the minimum distance from a ghost.
+ * Add Pac-Man AI that uses a BFS algorithm. This AI has two primary modes. It engages in ghost-like
+ * scatter movement when no ghosts are near. If ghosts are in the vicinity, it attempts to maximize
+ * the minimum distance from a ghost.
  *
  * @author George Hong
  */
@@ -60,12 +60,7 @@ public class PacmanBFSAI extends PacmanAI {
   }
 
   public int getDistanceBFS(TileCoordinates start, TileCoordinates target) {
-    Vec2[] directions = {
-        new Vec2(-1, 0),
-        new Vec2(1, 0),
-        new Vec2(0, 1),
-        new Vec2(0, -1)
-    };
+    Vec2[] directions = {new Vec2(-1, 0), new Vec2(1, 0), new Vec2(0, 1), new Vec2(0, -1)};
     Set<TileCoordinates> visited = new HashSet<>();
     Queue<TileCoordinates> qu = new LinkedList<>();
     qu.add(start);
@@ -84,8 +79,7 @@ public class PacmanBFSAI extends PacmanAI {
         for (Vec2 direction : directions) {
           Vec2 adjPosition = current.toVec2().add(direction);
           TileCoordinates coord = new TileCoordinates(adjPosition);
-          if (getPacmanGrid().inBoundaries(coord) && isOpenToPacman(
-              adjPosition)) {
+          if (getPacmanGrid().inBoundaries(coord) && isOpenToPacman(adjPosition)) {
             qu.add(coord);
           }
         }

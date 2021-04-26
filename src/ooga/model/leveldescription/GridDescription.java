@@ -3,16 +3,10 @@ package ooga.model.leveldescription;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import ooga.model.PacmanGrid;
 import ooga.model.Tile;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import ooga.model.sprites.Sprite;
 
 /**
  * GridDescription contains all of the information required to construct an ObservableGrid (AKA: A
@@ -112,7 +106,8 @@ public class GridDescription extends JSONDescription {
     // why would `return new PacmanGrid(this);` not work here?
     try {
       Class<?> spriteClass = Class.forName("ooga.model.PacmanGrid");
-      return (PacmanGrid) spriteClass.getDeclaredConstructor(GridDescription.class).newInstance(this);
+      return (PacmanGrid)
+          spriteClass.getDeclaredConstructor(GridDescription.class).newInstance(this);
     } catch (ClassNotFoundException
         | NoSuchMethodException
         | InstantiationException

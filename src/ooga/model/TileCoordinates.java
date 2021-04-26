@@ -6,9 +6,9 @@ import ooga.util.Vec2;
 
 /**
  * Represents a coordinate grid location composed of solely integer values
- * <p>
- * The grid coordinates follow the conventional raster coordinate system.  (0, 0) refers to the top
- * left.  The x-coordinate moves horizontally, left to right.  Increasing y-coordinate moves from
+ *
+ * <p>The grid coordinates follow the conventional raster coordinate system. (0, 0) refers to the
+ * top left. The x-coordinate moves horizontally, left to right. Increasing y-coordinate moves from
  * top to bottom.
  *
  * @author George Hong

@@ -1,21 +1,19 @@
 package ooga.model.audio;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.function.Consumer;
 import ooga.model.GameEvent;
 import ooga.model.api.AudioObserver;
 import ooga.model.api.GameEventObserver;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.function.Consumer;
-
 public class AudioManager implements GameEventObserver {
-  private Collection<AudioObserver> observers;
+  public static final String NORMAL_AMBIENCE = "normal-loop";
+  private static final String FRIGHT_AMBIENCE = "frightened-loop";
+  private final Collection<AudioObserver> observers;
   private String currentAmbience = null;
   private String oldAmbience = null;
   private int frightenDepth = 0, eyesDepth = 0;
-
-  public static final String NORMAL_AMBIENCE = "normal-loop";
-  private static final String FRIGHT_AMBIENCE = "frightened-loop";
 
   public AudioManager() {
     observers = new ArrayList<>();

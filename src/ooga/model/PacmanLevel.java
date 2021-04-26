@@ -23,7 +23,7 @@ public class PacmanLevel {
    * uses it to construct a List of Sprites and a PacmanGrid.
    *
    * @param levelDescription The levelDescription containing the sprites and grid that define the
-   *                         level
+   *     level
    */
   public PacmanLevel(LevelDescription levelDescription) {
 
@@ -38,9 +38,7 @@ public class PacmanLevel {
     grid = new PacmanGrid(levelDescription.getGridDescription());
   }
 
-  /**
-   * Constructor for a PacmanLevel that delays creation of the grid
-   */
+  /** Constructor for a PacmanLevel that delays creation of the grid */
   public PacmanLevel() {
     sprites = new ArrayList<>();
   }

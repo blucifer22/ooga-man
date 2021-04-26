@@ -112,7 +112,7 @@ public class TileViewTest extends CustomApplicationTest {
 
     private void notifyAll(EventType type) {
       for (TileObserver observer: observers) {
-        observer.onTileEvent(new TileEvent(this, type));
+        observer.onTileEvent(new TileEvent(type));
       }
     }
   }

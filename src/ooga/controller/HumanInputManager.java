@@ -32,30 +32,14 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
   public HumanInputManager(@JsonProperty("keybindingType") KeybindingType keybindingType) {
     if (keybindingType.equals(KeybindingType.PLAYER_1)) {
       keybinding =
-        Map.of(
-            "UP",
-            KeyCode.W,
-            "DOWN",
-            KeyCode.S,
-            "LEFT",
-            KeyCode.A,
-            "RIGHT",
-            KeyCode.D,
-            "ACTION",
-            KeyCode.Q);
+          Map.of(
+              "UP", KeyCode.W, "DOWN", KeyCode.S, "LEFT", KeyCode.A, "RIGHT", KeyCode.D, "ACTION",
+              KeyCode.Q);
     } else {
       keybinding =
-        Map.of(
-          "UP",
-          KeyCode.I,
-          "DOWN",
-          KeyCode.K,
-          "LEFT",
-          KeyCode.J,
-          "RIGHT",
-          KeyCode.L,
-          "ACTION",
-          KeyCode.U);
+          Map.of(
+              "UP", KeyCode.I, "DOWN", KeyCode.K, "LEFT", KeyCode.J, "RIGHT", KeyCode.L, "ACTION",
+              KeyCode.U);
     }
     pressedKeys = new HashSet<>();
     releasedKeys = new HashSet<>();
@@ -76,14 +60,10 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
   @Override
   public Vec2 getRequestedDirection(double dt) {
     Vec2 ret = Vec2.ZERO;
-    if ((pressedKeys.contains(keybinding.get("UP"))))
-      ret = ret.add(new Vec2(0, -1));
-    if ((pressedKeys.contains(keybinding.get("DOWN"))))
-      ret = ret.add(new Vec2(0, 1));
-    if ((pressedKeys.contains(keybinding.get("LEFT"))))
-      ret = ret.add(new Vec2(-1, 0));
-    if ((pressedKeys.contains(keybinding.get("RIGHT"))))
-      ret = ret.add(new Vec2(1, 0));
+    if ((pressedKeys.contains(keybinding.get("UP")))) ret = ret.add(new Vec2(0, -1));
+    if ((pressedKeys.contains(keybinding.get("DOWN")))) ret = ret.add(new Vec2(0, 1));
+    if ((pressedKeys.contains(keybinding.get("LEFT")))) ret = ret.add(new Vec2(-1, 0));
+    if ((pressedKeys.contains(keybinding.get("RIGHT")))) ret = ret.add(new Vec2(1, 0));
     return ret;
   }
 
@@ -94,7 +74,7 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
    */
   @Override
   public void onKeyPress(KeyCode code) {
-    //System.out.println(code);
+    // System.out.println(code);
     pressedKeys.add(code);
   }
 
@@ -122,8 +102,7 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
   @Override
   public boolean isActionPressed() {
     boolean pressed = releasedKeys.contains(keybinding.get("ACTION"));
-    if(pressed)
-      releasedKeys.remove(keybinding.get("ACTION"));
+    if (pressed) releasedKeys.remove(keybinding.get("ACTION"));
 
     return pressed;
   }

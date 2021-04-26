@@ -1,17 +1,14 @@
 package ooga.model;
 
+import java.util.List;
 import ooga.model.api.GameEventObserver;
 import ooga.model.audio.AudioManager;
 import ooga.model.sprites.Sprite;
-
-import java.util.List;
 import ooga.util.Clock;
 
 public interface MutableGameState {
 
-  /**
-   * @param score
-   */
+  /** @param score */
   void incrementScore(int score);
 
   int getScore();

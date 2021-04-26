@@ -11,7 +11,7 @@ import ooga.util.Vec2;
 
 /**
  * The Teleport Overlay is an invisible Sprite that redirects Sprite movement to a parallel
- * TeleportOverlay.  Can be taken by any Sprite with movement.
+ * TeleportOverlay. Can be taken by any Sprite with movement.
  *
  * @author George Hong
  */
@@ -33,7 +33,6 @@ public class TeleporterOverlay extends Sprite {
     this(spriteDescription.getCoordinates());
   }
 
-
   /**
    * Adds a teleporter that is parallel to this.
    *
@@ -53,10 +52,10 @@ public class TeleporterOverlay extends Sprite {
   }
 
   /**
-   * Changes the position of the Sprite that collides with this.  This object can not be modified by
-   * collision by other Sprites.  An object entering this teleporter will leave the teleporter
-   * moving in the same direction.  The teleporter that the entering Sprite leaves is randomly
-   * chosen of the connected teleporters.
+   * Changes the position of the Sprite that collides with this. This object can not be modified by
+   * collision by other Sprites. An object entering this teleporter will leave the teleporter moving
+   * in the same direction. The teleporter that the entering Sprite leaves is randomly chosen of the
+   * connected teleporters.
    *
    * @param other other Sprite that this sprite collides with
    * @param state current state of the game, allowing Sprites to perform actions such as remove
@@ -70,8 +69,7 @@ public class TeleporterOverlay extends Sprite {
 
     Vec2 newSpritePosition = teleporterCenter.add(spriteDirection.scalarMult(0.51));
 
-    other.setCoordinates(
-        new SpriteCoordinates(newSpritePosition));
+    other.setCoordinates(new SpriteCoordinates(newSpritePosition));
   }
 
   @Override

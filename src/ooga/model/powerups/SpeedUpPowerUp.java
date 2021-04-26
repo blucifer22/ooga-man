@@ -1,8 +1,9 @@
 package ooga.model.powerups;
 
-import java.util.Map;
+import static ooga.model.GameEvent.SPEED_UP_ACTIVATED;
+import static ooga.model.GameEvent.SPEED_UP_DEACTIVATED;
 
-import static ooga.model.GameEvent.*;
+import java.util.Map;
 
 public class SpeedUpPowerUp extends TimerBasedPowerUp {
 
