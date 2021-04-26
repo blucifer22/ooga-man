@@ -1,5 +1,6 @@
 package ooga.view.views.sceneroots;
 
+import java.io.IOException;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
@@ -7,11 +8,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import ooga.model.api.ObservableSprite;
 import ooga.model.api.ObservableTile;
 import ooga.model.leveldescription.LevelBuilder;
 import ooga.model.leveldescription.LevelBuilder.BuilderState;
 import ooga.model.leveldescription.Palette;
+import ooga.view.exceptions.UIServicedException;
 import ooga.view.internal_api.View;
 import ooga.view.theme.api.ThemedObject;
 import ooga.view.uiservice.UIServiceProvider;
@@ -73,8 +77,17 @@ public class LevelBuilderView implements View, ThemedObject {
   }
 
   private void nextStep() {
-    this.levelBuilder.advanceState();
-    this.refreshViews();
+    if (this.levelBuilder.getBuilderState() == BuilderState.SPRITE_PLACEMENT) {
+      try {
+        this.levelBuilder.writeToJSON((new FileChooser()).showSaveDialog(new Stage()));
+      } catch (IOException | NullPointerException e) {
+        this.serviceProvider.exceptionService().handleWarning(new UIServicedException(
+            "fileSaveError"));
+      }
+    } else {
+      this.levelBuilder.advanceState();
+      this.refreshViews();
+    }
   }
 
   private void refreshViews() {
