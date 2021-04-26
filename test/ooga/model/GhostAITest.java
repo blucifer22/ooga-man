@@ -81,6 +81,29 @@ public class GhostAITest {
   }
 
   @Test
+  public void testClydeNarrowDistance() {
+    /*
+    _ _ _ _ _ _ _ _ _ _ _ _
+    _ _ _ _ _ _ _ _ _ _ _ _
+    _ P _ _ _ _ _ _ _ _ I _
+    _ _ _ _ _ _ _ _ _ _ _ _
+    _ _ _ _ _ _ _ _ _ _ _ _
+     */
+    pacMan = new PacMan(new SpriteCoordinates(new Vec2(0.5, 2.5)), new Vec2(0, 0), 5);
+    Inky clyde = new Inky(new SpriteCoordinates(new Vec2(10.5, 2.5)), new Vec2(1, 0), 2);
+    ClydeAI in = new ClydeAI(grid, clyde);
+    in.setTarget(pacMan);
+    clyde.setInputSource(in);
+    pacMan.unfreeze();
+    clyde.onGameEvent(GameEvent.SPRITES_UNFROZEN);
+    for (int k = 0; k < 400; k++) {
+      clyde.step(1 / 60., state);
+    }
+    Vec2 req = in.getRequestedDirection(1/60.0);
+    assertEquals(new Vec2(-1, 0), req);
+  }
+
+  @Test
   public void testInitialWait() {
     blinky = new Blinky(new SpriteCoordinates(new Vec2(1.5, 1.9)), new Vec2(0, -1), 4);
     GhostAI AI = new GhostAI(grid, blinky);
