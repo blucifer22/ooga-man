@@ -306,7 +306,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
     return false;
   }
 
-  public abstract int getScore();
+  public int getScore(){ return 0; }
 
   @Override
   public final void onGameEvent(GameEvent event) {

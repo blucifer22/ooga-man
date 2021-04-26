@@ -7,7 +7,7 @@ import static ooga.model.GameEvent.*;
 /**
  * @author George Hong
  */
-class FrightenPowerUp extends TimerBasedPowerUp {
+public class FrightenPowerUp extends TimerBasedPowerUp {
 
   public FrightenPowerUp() {
     super(Map.of(0.0, FRIGHTEN_ACTIVATED,

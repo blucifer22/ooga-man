@@ -18,9 +18,6 @@ public class GhostWin extends Sprite {
     super("", SpriteAnimationType.GHOST_WIN_FLASH, position, direction);
   }
 
-  public GhostWin(SpriteDescription spriteDescription) {
-    this(spriteDescription.getCoordinates(), new Vec2(1, 0));
-  }
 
   /**
    * Sprites override this method to define game state changes or changes to the sprite upon coming
@@ -31,16 +28,6 @@ public class GhostWin extends Sprite {
    */
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
-
-  }
-
-  @Override
-  public void step(double dt, MutableGameState pacmanGameState) {
-    super.step(dt, pacmanGameState);
-  }
-
-  @Override
-  public int getScore() {
-    return 0;
+    // Does nothinng
   }
 }

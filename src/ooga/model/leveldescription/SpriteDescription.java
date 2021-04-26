@@ -68,10 +68,7 @@ public class SpriteDescription extends JSONDescription {
         | NoSuchMethodException
         | InstantiationException
         | InvocationTargetException
-        | IllegalAccessException e) {
-      e.printStackTrace();
-      System.err.println(e.getMessage());
-    }
+        | IllegalAccessException e) {}
     return null;
   }
 }
