@@ -20,6 +20,7 @@ import ooga.view.views.components.reusable.StyledBoundLabel;
 public class ScoreboardCard implements GameStateObserver, Renderable {
 
   private static final int NUM_COLS = 3;
+  private static final int NUM_AUX_ROWS = 4;
   private final UIServiceProvider serviceProvider;
   private final GridPane view;
   private final TreeMap<Integer, PlayerDataBindingContainer> dataBindingContainers;
@@ -48,7 +49,7 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
     int numPlayers = this.dataSource.getPlayers().size();
     for (int i = 0; i < numPlayers; i++) {
       RowConstraints rc = new RowConstraints();
-      rc.setPercentHeight(100.0 / (numPlayers + 4.0));
+      rc.setPercentHeight(100.0 / (numPlayers + NUM_AUX_ROWS));
       this.view.getRowConstraints().add(rc);
     }
     for (int i = 0; i < NUM_COLS; i++) {
