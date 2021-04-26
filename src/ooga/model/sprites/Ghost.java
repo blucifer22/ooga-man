@@ -32,6 +32,14 @@ public abstract class Ghost extends MoveableSprite {
   private GhostState currentState;
   private boolean forceAnimationUpdate;
 
+  /**
+   * Constructs Ghost object via parameters in JSON as well as speed
+   *
+   * @param spriteAnimationPrefix
+   * @param position
+   * @param direction
+   * @param speed
+   */
   protected Ghost(
       String spriteAnimationPrefix,
       SpriteCoordinates position,
@@ -70,6 +78,12 @@ public abstract class Ghost extends MoveableSprite {
     forceAnimationUpdate = false;
   }
 
+  /**
+   * Constructs Ghost from a sprite description
+   *
+   * @param spriteAnimationPrefix
+   * @param spriteDescription
+   */
   public Ghost(
       String spriteAnimationPrefix,
       SpriteDescription spriteDescription) {
@@ -78,6 +92,13 @@ public abstract class Ghost extends MoveableSprite {
         new Vec2(1, 0), 1);
   }
 
+  /**
+   * Changes animation sprite depending on which direction the ghost is travelling
+   *
+   * @param direction
+   * @param type
+   * @return
+   */
   protected static SpriteAnimationFactory.SpriteAnimationType directionToAnimationType(
       Vec2 direction, GhostAnimationType type) {
     return switch (type) {
@@ -141,14 +162,15 @@ public abstract class Ghost extends MoveableSprite {
     return 0;
   }
 
+  /**
+   * @return the default movement speed of the ghost
+   */
   public double getDefaultMoveSpeed() {
     return defaultMoveSpeed;
   }
 
   /**
-   * Gets the current state of the ghost
-   *
-   * @return
+   * @return the current state of the ghost
    */
   public GhostBehavior getGhostBehavior() {
     return switch (currentState) {
@@ -159,15 +181,28 @@ public abstract class Ghost extends MoveableSprite {
     };
   }
 
+  /**
+   * @return spawn coordinates of the ghost
+   */
   public SpriteCoordinates getSpawn() {
     return spawn;
   }
 
+  /**
+   * @param tile
+   * @return true if ghost can move into the given tile
+   */
   @Override
   protected boolean canMoveTo(Tile tile) {
     return tile.isOpenToGhosts();
   }
 
+  /**
+   * Determines what a ghost should do when interacting with other sprites
+   *
+   * @param other other Sprite that this sprite collides with
+   * @param state current state of the game, allowing Sprites to perform actions such as remove
+   */
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
     if (!isDeadlyToPacMan() && isConsumable() && other.eatsGhosts()) {
@@ -201,6 +236,12 @@ public abstract class Ghost extends MoveableSprite {
 
   }
 
+  /**
+   * Moves the ghost through a frame (1/60 of a second) in the gamestate
+   *
+   * @param dt
+   * @param pacmanGameState
+   */
   @Override
   public void step(double dt, MutableGameState pacmanGameState) {
     Vec2 oldDirection = getDirection();
@@ -226,11 +267,17 @@ public abstract class Ghost extends MoveableSprite {
     }
   }
 
+  /**
+   * @return true if ghost will kill PacMan on contact
+   */
   @Override
   public boolean isDeadlyToPacMan() {
     return getGhostBehavior() == GhostBehavior.CHASE;
   }
 
+  /**
+   * @return true if ghost is in a state in which it can be consumed by PacMan
+   */
   @Override
   public boolean isConsumable() {
     return Set.of(GhostState.FRIGHTENED,
@@ -239,18 +286,28 @@ public abstract class Ghost extends MoveableSprite {
         GhostState.FRIGHTENED_WAIT_BLINKING).contains(currentState);
   }
 
+  /**
+   * Sets input source of the ghost and updates in animation state (when swapping ghosts)
+   *
+   * @param s
+   */
   @Override
   public void setInputSource(InputSource s) {
     super.setInputSource(s);
-
     forceAnimationUpdate = true;
   }
 
+  /**
+   * @return true since ghost score is multiplicative based on how many have been consumed
+   */
   @Override
   public boolean hasMultiplicativeScoring() {
     return true;
   }
 
+  /**
+   * @return the current score for consuming a ghost (without compounding per ghost consumed)
+   */
   @Override
   public int getScore() {
     return baseGhostScore;

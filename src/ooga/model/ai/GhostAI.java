@@ -34,6 +34,12 @@ public class GhostAI implements InputSource {
   private Sprite target;
   private double wiggleTime;
 
+  /**
+   * Constructs a GhostAI object given a grid and a ghost sprite
+   *
+   * @param grid
+   * @param ghost
+   */
   public GhostAI(PacmanGrid grid, Sprite ghost) {
     this.pacmanGrid = grid;
     this.ghost = (Ghost) ghost;
@@ -46,22 +52,42 @@ public class GhostAI implements InputSource {
     wiggleTime = (0.25 * WIGGLE_PERIOD);
   }
 
+  /**
+   * @return the target of the current AI
+   */
   protected Sprite getTarget() {
     return target;
   }
 
+  /**
+   * Sets the target sprite for the AI
+   *
+   * @param target
+   */
   public void setTarget(Sprite target) {
     this.target = target;
   }
 
+  /**
+   * @return the Ghost that the AI is  controlling
+   */
   protected Ghost getGhost() {
     return ghost;
   }
 
+  /**
+   * @return the current game grid
+   */
   protected PacmanGrid getPacmanGrid() {
     return pacmanGrid;
   }
 
+  /**
+   * Provides the new Vec2 that the ghost will travel in depending on the state of the ghost
+   *
+   * @param dt
+   * @return
+   */
   @Override
   public Vec2 getRequestedDirection(double dt) {
     if (target == null) {
@@ -71,6 +97,12 @@ public class GhostAI implements InputSource {
     return getAI.apply(dt);
   }
 
+  /**
+   * This mode corresponds to the ghost waiting and wiggling until they are able to leave the Ghost box
+   *
+   * @param dt
+   * @return
+   */
   protected Vec2 waitBehavior(double dt) {
     getGhost().setMovementSpeed(ghost.getDefaultMoveSpeed());
     wiggleTime += dt;
@@ -78,8 +110,9 @@ public class GhostAI implements InputSource {
   }
 
   /**
-   * This mode corresponds to the ghost seeking home
+   * This mode corresponds to the ghost seeking their original spawn point
    *
+   * @param dt
    * @return
    */
   protected Vec2 eatenBehavior(double dt) {
@@ -92,6 +125,7 @@ public class GhostAI implements InputSource {
   /**
    * This mode coincides with the ghost reaction to upon the Power-pill's consumption.
    *
+   * @param dt
    * @return
    */
   protected Vec2 runawayBehavior(double dt) {
@@ -103,6 +137,7 @@ public class GhostAI implements InputSource {
    * to wander around for a few seconds. This is emulated by default by using a random direction
    * generator.
    *
+   * @param dt
    * @return direction to queue for ghost to move to
    */
   protected Vec2 scatterBehavior(double dt) {
@@ -127,6 +162,7 @@ public class GhostAI implements InputSource {
    * be used here to follow a tracked Sprite, such as Pac-Man. The default GhostAI defaults to
    * random behavior to "track" Pac-Man.
    *
+   * @param dt
    * @return direction to queue for ghost to move to
    */
   protected Vec2 chaseBehavior(double dt) {
@@ -145,6 +181,14 @@ public class GhostAI implements InputSource {
         .isOpenToGhosts();
   }
 
+  /**
+   * Finds the Vec2 for the ghost to travel upon that best reduces the distance between the target
+   * and the ghost
+   *
+   * @param targetTilePos
+   * @param currentTilePos
+   * @return
+   */
   @NotNull
   protected Vec2 reduceDistance(Vec2 targetTilePos, Vec2 currentTilePos) {
     Vec2[] directions = {new Vec2(-1, 0), new Vec2(1, 0), new Vec2(0, 1), new Vec2(0, -1)};
@@ -169,6 +213,9 @@ public class GhostAI implements InputSource {
     return Vec2.ZERO;
   }
 
+  /**
+   * @return false since key action events do not change GhostAI
+   */
   @Override
   public boolean isActionPressed() {
     return false;
