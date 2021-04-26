@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public abstract class MoveableSprite extends Sprite {
 
-  public static final int UNIVERSAL_MAX_MOVEMENT_SPEED = 6;
+  public static final int UNIVERSAL_MAX_MOVEMENT_SPEED = 9;
   private double currentSpeed;
   private double movementSpeed;
   private Vec2 queuedDirection;
