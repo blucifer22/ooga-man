@@ -113,8 +113,6 @@ public class GridDescription extends JSONDescription {
         | InstantiationException
         | InvocationTargetException
         | IllegalAccessException e) {
-      e.printStackTrace();
-      System.err.println(e.getMessage());
     }
     return null;
   }

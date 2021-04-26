@@ -285,7 +285,6 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
     getCurrentAnimation().step(dt);
   }
 
-  // TODO: Make not abstract to give a default
   public boolean mustBeConsumed() {
     return false;
   }

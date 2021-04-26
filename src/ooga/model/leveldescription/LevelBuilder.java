@@ -90,8 +90,6 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
 
   @Override
   public void addSprite(int x, int y) {
-    // TODO: Get currently active Sprite, feed x, y as inputs.  Load from properties files?
-    // TODO: Pair Sprite descriptions to become a metadata + representation class?
     double xCenter = x + 0.5;
     double yCenter = y + 0.5;
     Sprite sprite = palette.getSprite(xCenter, yCenter);

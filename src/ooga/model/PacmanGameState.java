@@ -180,7 +180,6 @@ public class PacmanGameState
       handleSwaps();
       notifyGameStateObservers();
     } else {
-      System.out.println("GAME OVER!");
     }
   }
 
@@ -476,7 +475,6 @@ public class PacmanGameState
         continue;
       }
       if (spriteToSwapOut.getSwapClass().equals(sprite.getSwapClass())) {
-        System.out.println("Swapping input from: " + spriteToSwapOut + " to " + sprite);
         sprite.setInputSource(spriteToSwapOut.getInputSource());
         spriteToSwapOut.setInputSource(spriteToSwapOut.getDefaultInputSource());
         return true;

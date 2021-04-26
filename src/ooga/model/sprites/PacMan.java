@@ -94,7 +94,6 @@ public class PacMan extends MoveableSprite {
     } else if (other.isConsumable()) {
       applyScore(state, other);
       playEatingSound(state, other);
-      System.out.println("SCORE: " + state.getScore());
     }
   }
 

@@ -18,7 +18,6 @@ public class SpriteCoordinates {
 
   @JsonCreator
   public SpriteCoordinates() {
-    // TODO: Verify that this is appropriate behavior for the no-arg constructor
     this.position = Vec2.ZERO;
   }
 

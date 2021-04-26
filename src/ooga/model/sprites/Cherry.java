@@ -53,7 +53,6 @@ public class Cherry extends Sprite {
     }
   }
 
-  // TODO: See if I dont need to override since it does nothing if not just add a DO NOTHING comment
   @Override
   public void step(double dt, MutableGameState pacmanGameState) {
     // Do Nothing since cherries do not move

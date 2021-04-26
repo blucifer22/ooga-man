@@ -118,8 +118,6 @@ public class SpriteLinkageFactory {
               | InstantiationException
               | InvocationTargetException
               | IllegalAccessException e) {
-            e.printStackTrace();
-            System.err.println(e.getMessage());
           }
         }
         break;

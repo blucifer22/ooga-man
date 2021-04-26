@@ -111,7 +111,6 @@ public class GameGridView
 
   @Override
   public void onThemeChange() {
-    // TODO: re-skin tiles!
   }
 
   @FunctionalInterface

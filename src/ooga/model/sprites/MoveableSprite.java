@@ -100,7 +100,6 @@ public abstract class MoveableSprite extends Sprite {
     if (getDirection().parallelTo(userDirection)) {
       setDirection(userDirection);
       currentSpeed = movementSpeed;
-      // System.out.println(movementSpeed);
     } else if (!userDirection.equals(Vec2.ZERO)) {
       queuedDirection = userDirection;
     }
