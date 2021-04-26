@@ -3,6 +3,7 @@ package ooga.view.views.components.scenecomponents;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import ooga.model.leveldescription.LevelBuilder;
+import ooga.model.leveldescription.LevelEditor;
 import ooga.view.uiservice.UIServiceProvider;
 import ooga.view.views.components.reusable.IntegerLockedSlider;
 import ooga.view.views.components.reusable.StyledBoundLabel;
@@ -12,11 +13,11 @@ public class GridDimensionPalette extends StackPane {
   private static final int MIN_SIZE = 5;
   private static final int MAX_SIZE = 40;
   private static final int DEFAULT_SIZE = 20;
-  private final LevelBuilder levelBuilder;
+  private final LevelEditor levelBuilder;
   private int rows = DEFAULT_SIZE;
   private int cols = DEFAULT_SIZE;
 
-  public GridDimensionPalette(UIServiceProvider serviceProvider, LevelBuilder levelBuilder) {
+  public GridDimensionPalette(UIServiceProvider serviceProvider, LevelEditor levelBuilder) {
     this.levelBuilder = levelBuilder;
     IntegerLockedSlider rowDim = new IntegerLockedSlider(MIN_SIZE, MAX_SIZE, DEFAULT_SIZE);
     IntegerLockedSlider colDim = new IntegerLockedSlider(MIN_SIZE, MAX_SIZE, DEFAULT_SIZE);

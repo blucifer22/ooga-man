@@ -14,6 +14,7 @@ import ooga.model.api.ObservableSprite;
 import ooga.model.api.ObservableTile;
 import ooga.model.leveldescription.LevelBuilder;
 import ooga.model.leveldescription.LevelBuilder.BuilderState;
+import ooga.model.leveldescription.LevelEditor;
 import ooga.model.leveldescription.Palette;
 import ooga.view.exceptions.UIServicedException;
 import ooga.view.internal_api.View;
@@ -30,7 +31,7 @@ public class LevelBuilderView implements View, ThemedObject {
   private static final int LARGE_COLUMN_WIDTH = 60;
   private final VBox stageSwapPanel;
   private final Palette spritePalette;
-  private final LevelBuilder levelBuilder;
+  private final LevelEditor levelBuilder;
   private final UIServiceProvider serviceProvider;
   private final GameGridView tileGridView;
   private final GridPane primaryView;
