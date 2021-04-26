@@ -9,13 +9,16 @@ import ooga.view.views.components.StyledBoundLabel;
 
 public class GridDimensionPalette extends StackPane {
   private final LevelBuilder levelBuilder;
-  private int rows = 15;
-  private int cols = 15;
+  private static final int MIN_SIZE = 5;
+  private static final int MAX_SIZE = 40;
+  private static final int DEFAULT_SIZE = 20;
+  private int rows = DEFAULT_SIZE;
+  private int cols = DEFAULT_SIZE;
 
   public GridDimensionPalette(UIServiceProvider serviceProvider, LevelBuilder levelBuilder) {
     this.levelBuilder = levelBuilder;
-    IntegerLockedSlider rowDim = new IntegerLockedSlider(5, 25, 15);
-    IntegerLockedSlider colDim = new IntegerLockedSlider(5, 25, 15);
+    IntegerLockedSlider rowDim = new IntegerLockedSlider(MIN_SIZE, MAX_SIZE, DEFAULT_SIZE);
+    IntegerLockedSlider colDim = new IntegerLockedSlider(MIN_SIZE, MAX_SIZE, DEFAULT_SIZE);
 
     VBox paletteBox = new VBox(
         new StyledBoundLabel(serviceProvider.languageService().getLocalizedString(
