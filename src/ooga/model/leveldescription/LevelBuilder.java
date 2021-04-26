@@ -136,7 +136,7 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
   }
 
   private Tile updateTileState(Tile tile) {
-    List<String> tileOptions = List.of("tileclosed", "tile", "tilepermeable");
+    List<String> tileOptions = List.of("tile", "tileclosed", "tilepermeable");
     Map<String, Boolean> pacmanTileMap = Map
         .of("tileclosed", false, "tile", true, "tilepermeable", false);
     Map<String, Boolean> ghostTileMap = Map
