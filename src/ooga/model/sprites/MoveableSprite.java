@@ -8,7 +8,6 @@ import ooga.model.*;
 import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Vec2;
-
 import java.util.Map;
 
 /**
@@ -34,9 +33,7 @@ public abstract class MoveableSprite extends Sprite {
     this.movementSpeed = speed;
     queuedDirection = null;
     frozen = true;
-
     addPowerUpOptions(Map.of(GameEvent.SPRITES_UNFROZEN, this::unfreeze));
-
     initialMovementSpeed = speed;
   }
 
@@ -78,7 +75,8 @@ public abstract class MoveableSprite extends Sprite {
    */
   @Override
   public void uponNewLevel(int roundNumber, MutableGameState state) {
-    movementSpeed = Math.min(initialMovementSpeed + 0.5 * roundNumber, UNIVERSAL_MAX_MOVEMENT_SPEED);
+    movementSpeed = Math
+        .min(initialMovementSpeed + 0.5 * roundNumber, UNIVERSAL_MAX_MOVEMENT_SPEED);
     frozen = true;
   }
 
@@ -93,12 +91,11 @@ public abstract class MoveableSprite extends Sprite {
   }
 
   public void move(double dt, PacmanGrid grid) {
-    if(frozen)
+    if (frozen) {
       return;
-
+    }
     Vec2 userDirection = getInputSource().getRequestedDirection(dt);
     userDirection = userDirection.getMagnitude() == 1 ? userDirection : Vec2.ZERO;
-
     if (getDirection().parallelTo(userDirection)) {
       setDirection(userDirection);
       currentSpeed = movementSpeed;
@@ -106,13 +103,20 @@ public abstract class MoveableSprite extends Sprite {
     } else if (!userDirection.equals(Vec2.ZERO)) {
       queuedDirection = userDirection;
     }
-
     Vec2 centerCoordinates = getCoordinates().getTileCenter();
     Vec2 currentPosition = getCoordinates().getPosition();
     Vec2 nextPosition = currentPosition
         .add(getDirection().scalarMult(getCurrentSpeed()).scalarMult(dt));
-
     // Grid-snapping
+    checkAndApplySnapping(grid, centerCoordinates, currentPosition, nextPosition);
+    nextPosition =
+        getCoordinates().getPosition()
+            .add(getDirection().scalarMult(getCurrentSpeed()).scalarMult(dt));
+    setPosition(nextPosition);
+  }
+
+  private void checkAndApplySnapping(PacmanGrid grid, Vec2 centerCoordinates, Vec2 currentPosition,
+      Vec2 nextPosition) {
     if (centerCoordinates.isBetween(currentPosition, nextPosition)) {
       setPosition(centerCoordinates);
       TileCoordinates currentTile = getCoordinates().getTileCoordinates();
@@ -139,10 +143,5 @@ public abstract class MoveableSprite extends Sprite {
         currentSpeed = 0;
       }
     }
-    nextPosition =
-        getCoordinates().getPosition()
-            .add(getDirection().scalarMult(getCurrentSpeed()).scalarMult(dt));
-
-    setPosition(nextPosition);
   }
 }

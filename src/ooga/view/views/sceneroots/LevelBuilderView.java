@@ -76,7 +76,7 @@ public class LevelBuilderView implements View, ThemedObject {
         new StyledButton(this.serviceProvider, "mainMenu",
             e -> this.serviceProvider.viewStackManager().unwind())
     );
-    buttonBox.setStyle("level-builder-panel;");
+    buttonBox.setStyle("level-builder-panel");
     buttonBox.setId("level-builder-panel");
 
     this.primaryView.add(buttonBox, 0, 0);

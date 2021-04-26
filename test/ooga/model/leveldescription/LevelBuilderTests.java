@@ -37,7 +37,7 @@ public class LevelBuilderTests {
   public void loadKeysTest() {
     List<String> names = palette.getSpriteNames();
     String[] allNames = {
-      "Blinky", "Inky", "Clyde", "Pinky", "PacMan", "Cherry", "Dot", "PowerPill"
+        "Blinky", "Inky", "Clyde", "Pinky", "PacMan", "Cherry", "Dot", "PowerPill"
     };
     for (String requiredName : allNames) {
       assertTrue(names.contains(requiredName));
@@ -81,9 +81,9 @@ public class LevelBuilderTests {
         .getGrid()
         .setTile(tile.getCoordinates().getX(), tile.getCoordinates().getY(), tile);
 
-    List<String> tileOptions = List.of("tileclosed", "tile", "tilepermeable");
-    List<Boolean> pacmanTileOptions = List.of(false, true, false);
-    List<Boolean> ghostTileOptions = List.of(false, true, true);
+    List<String> tileOptions = List.of("tile", "tileclosed", "tilepermeable");
+    List<Boolean> pacmanTileOptions = List.of(true, false, false);
+    List<Boolean> ghostTileOptions = List.of(true, false, true);
 
     // Validate that initial conditions are true
     assertEquals(new TileCoordinates(3, 3), tile.getCoordinates());
@@ -91,7 +91,7 @@ public class LevelBuilderTests {
     assertFalse(tile.isOpenToPacman());
     assertFalse(tile.isOpenToGhosts());
 
-    for (int i = 0; i < 9; i++) {
+    for (int i = 1; i < 9; i++) {
       levelBuilder.pokeTile(3, 3);
 
       // Validate that poking increments
@@ -128,19 +128,20 @@ public class LevelBuilderTests {
     levelBuilder.select(10, 10);
     assertEquals(
         levelBuilder.getLevel().getGrid().getTile(new TileCoordinates(10, 10)).getType(),
-        "tilepermeable");
+        "tileclosed");
     assertEquals(levelBuilder.getBuilderState(), BuilderState.TILING);
 
     // Test another centrally located Tile
     levelBuilder.select(30, 40);
     assertEquals(
         levelBuilder.getLevel().getGrid().getTile(new TileCoordinates(30, 40)).getType(),
-        "tilepermeable");
+        "tileclosed");
 
     // Test an edge Tile
     levelBuilder.select(0, 0);
     assertEquals(
-        levelBuilder.getLevel().getGrid().getTile(new TileCoordinates(0, 0)).getType(), "tile");
+        levelBuilder.getLevel().getGrid().getTile(new TileCoordinates(0, 0)).getType(),
+        "tilepermeable");
 
     // Advance the state to SPRITE_PLACEMENT and place some Sprites using the Palette
     levelBuilder.advanceState();
