@@ -37,7 +37,7 @@ public class LevelBuilderTests {
   public void loadKeysTest() {
     List<String> names = palette.getSpriteNames();
     String[] allNames = {
-        "Blinky", "Inky", "Clyde", "Pinky", "PacMan", "Cherry", "Dot", "PowerPill"
+      "Blinky", "Inky", "Clyde", "Pinky", "PacMan", "Cherry", "Dot", "PowerPill"
     };
     for (String requiredName : allNames) {
       assertTrue(names.contains(requiredName));

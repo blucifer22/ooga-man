@@ -119,9 +119,11 @@ public class GhostTests {
   public void testGhostPowerUpResponses() {
     PacmanGameState pgs = new PacmanGameState();
     try {
-      pgs.loadGrid(new JSONDescriptionFactory()
-          .getGridDescriptionFromJSON("data/levels/grids/demo_grid.json"));
-    } catch (Exception e) {}
+      pgs.loadGrid(
+          new JSONDescriptionFactory()
+              .getGridDescriptionFromJSON("data/levels/grids/demo_grid.json"));
+    } catch (Exception e) {
+    }
 
     PacMan pacMan = new PacMan(createDefaultPacmanDescription());
     pacMan.setInputSource(new HumanInputManager(KeybindingType.PLAYER_1));
@@ -148,7 +150,7 @@ public class GhostTests {
     pgs.step(DT);
 
     // Spoof Pac-Man eating a Ghost Slowdown power-up
-    for (int i=0; i < 10000; i++){
+    for (int i = 0; i < 10000; i++) {
       pgs.step(DT);
     }
 
@@ -173,7 +175,7 @@ public class GhostTests {
     assertEquals(defaultPointValue, blinky.getScore());
 
     // Add some "NOP" steps to give Blinky time to eat Pac-Man
-    for (int i=0; i < 10000; i++){
+    for (int i = 0; i < 10000; i++) {
       pgs.step(DT);
     }
 
@@ -182,6 +184,5 @@ public class GhostTests {
     pgs.step(DT);
     assertEquals(blinky.getGhostBehavior(), GhostBehavior.RUNAWAY);
     assertEquals(blinky.getCurrentAnimation().getCurrentCostume(), "frightened_1");
-
   }
 }

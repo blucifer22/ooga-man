@@ -1,6 +1,7 @@
 package ooga.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,16 +30,18 @@ public class CollisionTest {
   @BeforeEach
   public void setupGame() {
     int[][] protoGrid = {
-        {1, 1, 1, 1, 1, 1},
-        {1, 0, 1, 1, 1, 1},
-        {1, 0, 0, 0, 0, 1},
-        {1, 1, 1, 1, 1, 1},
+      {1, 1, 1, 1, 1, 1},
+      {1, 0, 1, 1, 1, 1},
+      {1, 0, 0, 0, 0, 1},
+      {1, 1, 1, 1, 1, 1},
     };
     grid = new PacmanGrid(6, 4);
     for (int j = 0; j < protoGrid.length; j++) {
       for (int k = 0; k < protoGrid[0].length; k++) {
-        Tile tile = protoGrid[j][k] == 0 ? new Tile(new TileCoordinates(k, j), null, true, false)
-            : new Tile(new TileCoordinates(k, j), null, false, false);
+        Tile tile =
+            protoGrid[j][k] == 0
+                ? new Tile(new TileCoordinates(k, j), null, true, false)
+                : new Tile(new TileCoordinates(k, j), null, false, false);
         grid.setTile(k, j, tile);
       }
     }
@@ -68,16 +71,15 @@ public class CollisionTest {
     blinky2.setInputSource(ai);
     pacMan.uponNewLevel(1, state);
 
-
     SeededTestInputSource pacmanAI = new SeededTestInputSource();
     for (int k = 0; k < 3000; k++) {
       pacmanAI.addActions(new Vec2(0, 0));
     }
     pacMan.setInputSource(pacmanAI);
-//    PacmanBFSAI pacmanBFSAI = new PacmanBFSAI(grid, pacMan);
-//    pacmanBFSAI.addTarget(blinky1);
-//    pacmanBFSAI.addTarget(blinky2);
-//    pacMan.setInputSource(pacmanBFSAI);
+    //    PacmanBFSAI pacmanBFSAI = new PacmanBFSAI(grid, pacMan);
+    //    pacmanBFSAI.addTarget(blinky1);
+    //    pacmanBFSAI.addTarget(blinky2);
+    //    pacMan.setInputSource(pacmanBFSAI);
 
     state.addSprite(pacMan);
     state.addSprite(blinky1);
@@ -110,7 +112,7 @@ public class CollisionTest {
     pacMan.setInputSource(input);
 
     for (int k = 0; k < 1000; k++) {
-      //pacMan.step(1 / 60., state);
+      // pacMan.step(1 / 60., state);
       state.step(1 / 60.);
     }
     assertTrue(state.getScore() > 0);
@@ -135,10 +137,10 @@ public class CollisionTest {
     state.addSprite(pacMan);
     pacMan.unfreeze();
 
-    TeleporterOverlay teleporter1 = new TeleporterOverlay(
-        new SpriteCoordinates(new Vec2(1.5, 2.5)));
-    TeleporterOverlay teleporter2 = new TeleporterOverlay(
-        new SpriteCoordinates(new Vec2(4.5, 2.5)));
+    TeleporterOverlay teleporter1 =
+        new TeleporterOverlay(new SpriteCoordinates(new Vec2(1.5, 2.5)));
+    TeleporterOverlay teleporter2 =
+        new TeleporterOverlay(new SpriteCoordinates(new Vec2(4.5, 2.5)));
     teleporter1.connectTeleporter(teleporter2);
     teleporter2.connectTeleporter(teleporter1);
     state.addSprite(teleporter1);

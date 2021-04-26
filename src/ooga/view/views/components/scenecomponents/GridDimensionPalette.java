@@ -2,7 +2,6 @@ package ooga.view.views.components.scenecomponents;
 
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import ooga.model.leveldescription.LevelBuilder;
 import ooga.model.leveldescription.LevelEditor;
 import ooga.view.uiservice.UIServiceProvider;
 import ooga.view.views.components.reusable.IntegerLockedSlider;

@@ -132,7 +132,6 @@ public class LevelDescriptionTests {
     assertEquals(level.getGrid().getHeight(), 6);
     assertFalse(level.getGrid().getTile(new TileCoordinates(0, 0)).isOpenToPacman());
 
-
     PacmanGameState pgs = new PacmanGameState();
     pgs.loadPacmanLevel(level);
 

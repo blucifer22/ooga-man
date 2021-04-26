@@ -24,17 +24,23 @@ public class TimerTest {
 
   @Test
   public void afterOneSecondTest() {
-    clock.addTimer(new Timer(1, x -> {
-      x.incrementScore(1);
-    }));
+    clock.addTimer(
+        new Timer(
+            1,
+            x -> {
+              x.incrementScore(1);
+            }));
     for (int k = 0; k < 60; k++) {
       clock.step(DT, state);
     }
     assertEquals(1, state.getScore());
 
-    clock.addTimer(new Timer(1, x -> {
-      x.incrementScore(5);
-    }));
+    clock.addTimer(
+        new Timer(
+            1,
+            x -> {
+              x.incrementScore(5);
+            }));
     for (int k = 0; k < 61; k++) {
       clock.step(DT, state);
     }
@@ -43,12 +49,18 @@ public class TimerTest {
 
   @Test
   public void orderTest() {
-    clock.addTimer(new Timer(1, x -> {
-      x.incrementScore(1);
-    }));
-    clock.addTimer(new Timer(0.75, x -> {
-      x.incrementScore(5);
-    }));
+    clock.addTimer(
+        new Timer(
+            1,
+            x -> {
+              x.incrementScore(1);
+            }));
+    clock.addTimer(
+        new Timer(
+            0.75,
+            x -> {
+              x.incrementScore(5);
+            }));
     for (int k = 0; k < 46; k++) {
       clock.step(DT, state);
     }
@@ -57,11 +69,14 @@ public class TimerTest {
 
   @Test
   public void testClearTimer() {
-    clock.addTimer(new Timer(4, x -> {
-      x.incrementScore(1);
-    }));
+    clock.addTimer(
+        new Timer(
+            4,
+            x -> {
+              x.incrementScore(1);
+            }));
     clock.clear();
-    for (int k = 0; k < 360; k++){
+    for (int k = 0; k < 360; k++) {
       clock.step(DT, state);
     }
     assertEquals(0, state.getScore());
@@ -69,25 +84,27 @@ public class TimerTest {
 
   @Test
   public void testResetTimer() {
-    for (int k = 0; k < 60; k++){
+    for (int k = 0; k < 60; k++) {
       clock.step(DT, state);
     }
-    clock.addTimer(new Timer(1, x -> {
-      x.incrementScore(1);
-    }));
+    clock.addTimer(
+        new Timer(
+            1,
+            x -> {
+              x.incrementScore(1);
+            }));
     clock.reset();
-    for (int k = 0; k < 30; k++){
+    for (int k = 0; k < 30; k++) {
       clock.step(DT, state);
     }
     clock.reset();
-    for (int k = 0; k < 30; k++){
+    for (int k = 0; k < 30; k++) {
       clock.step(DT, state);
     }
     clock.reset();
-    for (int k = 0; k < 30; k++){
+    for (int k = 0; k < 30; k++) {
       clock.step(DT, state);
     }
     assertEquals(0, state.getScore());
   }
-
 }

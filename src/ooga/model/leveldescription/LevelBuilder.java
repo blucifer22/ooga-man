@@ -7,14 +7,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import ooga.model.grid.PacmanGrid;
 import ooga.model.PacmanLevel;
-import ooga.model.grid.Tile;
-import ooga.model.grid.TileCoordinates;
 import ooga.model.api.GridRebuildObservable;
 import ooga.model.api.GridRebuildObserver;
 import ooga.model.api.SpriteExistenceObservable;
 import ooga.model.api.SpriteExistenceObserver;
+import ooga.model.grid.PacmanGrid;
+import ooga.model.grid.Tile;
+import ooga.model.grid.TileCoordinates;
 import ooga.model.sprites.Sprite;
 import ooga.model.sprites.SwapClass;
 

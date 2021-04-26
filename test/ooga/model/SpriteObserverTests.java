@@ -88,9 +88,7 @@ class TestObservableSprite extends Sprite {
   }
 
   @Override
-  public void uponHitBy(Sprite other, MutableGameState state) {
-
-  }
+  public void uponHitBy(Sprite other, MutableGameState state) {}
 
   @Override
   public void step(double dt, MutableGameState pacmanGameState) {

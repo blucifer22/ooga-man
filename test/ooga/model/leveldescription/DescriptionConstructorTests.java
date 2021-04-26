@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
-import ooga.model.grid.PacmanGrid;
 import ooga.model.PacmanLevel;
+import ooga.model.grid.PacmanGrid;
 import ooga.model.grid.SpriteCoordinates;
 import ooga.model.sprites.PacMan;
 import ooga.model.sprites.Sprite;

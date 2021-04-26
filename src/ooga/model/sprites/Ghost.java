@@ -6,8 +6,8 @@ import static ooga.model.sprites.animation.SpriteAnimationFactory.SpriteAnimatio
 import java.util.Map;
 import java.util.Set;
 import ooga.model.GameEvent;
-import ooga.model.api.InputSource;
 import ooga.model.MutableGameState;
+import ooga.model.api.InputSource;
 import ooga.model.grid.SpriteCoordinates;
 import ooga.model.grid.Tile;
 import ooga.model.leveldescription.SpriteDescription;
@@ -21,7 +21,9 @@ import ooga.util.Vec2;
  */
 public abstract class Ghost extends MoveableSprite {
 
+  protected static final double DEFAULT_SPEED = 5.0;
   private static final GhostState INITIAL_STATE = GhostState.WAIT;
+  private static final double EYES_SPEEDUP = 2.0;
   private final Clock ghostClock;
   private final double defaultMoveSpeed;
   private final SpriteCoordinates spawn;
@@ -29,8 +31,6 @@ public abstract class Ghost extends MoveableSprite {
   private int frightenedBank;
   private GhostState currentState;
   private boolean forceAnimationUpdate;
-  private static final double EYES_SPEEDUP = 2.0;
-  protected static final double DEFAULT_SPEED = 5.0;
 
   protected Ghost(
       String spriteAnimationPrefix,
