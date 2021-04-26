@@ -24,6 +24,9 @@ import ooga.view.views.components.StyledButton;
 import ooga.view.views.components.levelbuilder.GridDimensionPalette;
 
 public class LevelBuilderView implements View, ThemedObject {
+  private static final int FULL_WIDTH = 100;
+  private static final int SMALL_COLUMN_WIDTH = 40;
+  private static final int LARGE_COLUMN_WIDTH = 60;
   private final VBox stageSwapPanel;
   private final Palette spritePalette;
   private final LevelBuilder levelBuilder;
@@ -55,13 +58,13 @@ public class LevelBuilderView implements View, ThemedObject {
 
   private void configureConstraints() {
     RowConstraints rc = new RowConstraints();
-    rc.setPercentHeight(100);
+    rc.setPercentHeight(FULL_WIDTH);
     this.primaryView.getRowConstraints().addAll(rc);
 
     ColumnConstraints cc40 = new ColumnConstraints();
     ColumnConstraints cc60 = new ColumnConstraints();
-    cc40.setPercentWidth(40);
-    cc60.setPercentWidth(60);
+    cc40.setPercentWidth(SMALL_COLUMN_WIDTH);
+    cc60.setPercentWidth(LARGE_COLUMN_WIDTH);
     this.primaryView.getColumnConstraints().addAll(cc40, cc60);
   }
 
