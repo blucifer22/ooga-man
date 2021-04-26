@@ -82,6 +82,10 @@ public class PacmanGameState
     registerEventListener(audioManager);
   }
 
+  protected void setLives(int lives) {
+    pacmanLivesRemaining = lives;
+  }
+
   /**
    * This method is called to reset a level. Sprites that have been consumed (such as Dots or
    * Power-Pills) do not respawn. Other Sprites are reset to their initial positions. Finally, the
