@@ -110,5 +110,8 @@ public class PowerUpFactoryTests {
     frightenPowerUp.executePowerUp(pgs);
     pgs.step(1.0/60);
     assertEquals(GhostBehavior.RUNAWAY, ghost.getGhostBehavior());
+    for (int i=0; i < 10000; i++){
+      pgs.step(1.0/60);
+    }
   }
 }
