@@ -27,6 +27,16 @@ import ooga.view.views.sceneroots.LevelBuilderView;
 import ooga.view.views.sceneroots.MenuView;
 import ooga.view.views.sceneroots.PreferenceView;
 
+/**
+ * Primary UI controller class. Manages the {@link javafx.application.Application}'s
+ * {@link Stage}. Instantiates and de-instantiates views as appropriate. Not concretely
+ * referenced by any other {@link ooga.view}. Implements {@link MainMenuResponder} and
+ * {@link ViewStackService} to enable user interactions in other views to trigger view changes.
+ *
+ * Should <em>never</em> be referenced directly by either model or view classes.
+ *
+ * @author David Coffman
+ */
 public class UIController implements MainMenuResponder, ViewStackService {
 
   // constants
@@ -42,8 +52,15 @@ public class UIController implements MainMenuResponder, ViewStackService {
   private final UIServiceProvider serviceProvider;
   private GameView gameView;
 
-  public UIController(
-      Stage primaryStage, GameStateController gameController, HumanInputConsumer inputConsumer) {
+  /**
+   * Instantiates a {@link UIController} to manage the views associated with the game.
+   *
+   * @param primaryStage the {@link javafx.application.Application} primary {@link Stage}
+   * @param gameController the {@link GameStateController} managing the game
+   * @param inputConsumer the {@link HumanInputConsumer} to which keyboard input should be fed
+   */
+  public UIController(Stage primaryStage, GameStateController gameController,
+      HumanInputConsumer inputConsumer) {
     // Configure Data Sources & Displays
     this.inputConsumer = inputConsumer;
     this.gameController = gameController;
@@ -82,10 +99,12 @@ public class UIController implements MainMenuResponder, ViewStackService {
     gameController.startGame(this.gameView);
   }
 
+  /**
+   *
+   */
   @Override
   public void openLevelBuilder() {
     LevelBuilder builder = new LevelBuilder();
-    Palette palette = new Palette();
     showScene(
         new Scene(new LevelBuilderView(this.serviceProvider, builder).getRenderingNode()), true);
   }
