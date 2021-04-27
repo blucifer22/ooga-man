@@ -32,6 +32,12 @@ public class SerializedThemeService implements ThemeService, ThemeSelectionServi
   private final ExceptionService exceptionService;
   private Theme theme;
 
+  /**
+   * Sole constructor for {@link SerializedThemeService}. Takes a single {@link ExceptionService}
+   * as a parameter.
+   *
+   * @param exceptionService the {@link ExceptionService} to notify if an operation fails
+   */
   public SerializedThemeService(ExceptionService exceptionService) {
     this.exceptionService = exceptionService;
     this.observers = new HashSet<>();
