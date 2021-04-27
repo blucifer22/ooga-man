@@ -23,8 +23,8 @@ public class Cherry extends Sprite {
   /**
    * Constructs a cherry object at the given coordinates
    *
-   * @param position
-   * @param direction
+   * @param position Initial position.
+   * @param direction Initial direction.
    */
   public Cherry(SpriteCoordinates position, Vec2 direction) {
     super("cherry", SpriteAnimationFactory.SpriteAnimationType.CHERRY_STILL, position, direction);
@@ -38,7 +38,7 @@ public class Cherry extends Sprite {
   /**
    * Constructs a cherry from a Sprite Description
    *
-   * @param spriteDescription
+   * @param spriteDescription description to use
    */
   public Cherry(SpriteDescription spriteDescription) {
     this(spriteDescription.getCoordinates(), new Vec2(1, 0));
@@ -73,8 +73,8 @@ public class Cherry extends Sprite {
   /**
    * Does nothing since the Cherry does not move and is not animated
    *
-   * @param dt
-   * @param pacmanGameState
+   * @param dt Time step.
+   * @param pacmanGameState Game state.
    */
   @Override
   public void step(double dt, MutableGameState pacmanGameState) {
@@ -82,6 +82,8 @@ public class Cherry extends Sprite {
   }
 
   /**
+   * Whether this object is consumable.
+   *
    * @return true if the cherry is visible on screen and can be eaten
    */
   @Override
@@ -90,6 +92,7 @@ public class Cherry extends Sprite {
   }
 
   /**
+   * Point value of this sprite.
    * @return the current score value of the Cherry
    */
   @Override

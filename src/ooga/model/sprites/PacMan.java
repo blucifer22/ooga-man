@@ -15,13 +15,18 @@ import ooga.util.Vec2;
  */
 public class PacMan extends MoveableSprite {
 
-  public static final String TYPE = "pacman_halfopen";
   private static final double INITIAL_FREEZE_DURATION = 4.2; // length of the starting sound
   private int ghostsEaten;
   private int dotsEaten;
 
   private PacmanState currentState;
 
+  /**
+   * Construct a Pac-Man sprite.
+   * @param position Initial position.
+   * @param direction Initial direction.
+   * @param speed Movement speed.
+   */
   public PacMan(SpriteCoordinates position, Vec2 direction, double speed) {
     super("pacman",
         SpriteAnimationFactory.SpriteAnimationType.PACMAN_CHOMP,
@@ -34,6 +39,10 @@ public class PacMan extends MoveableSprite {
     changeState(PacmanState.ALIVE);
   }
 
+  /**
+   * Construct a Pac-Man from a description.
+   * @param spriteDescription Description to use.
+   */
   public PacMan(SpriteDescription spriteDescription) {
     this(spriteDescription.getCoordinates(),
         new Vec2(1, 0), 6.4);
@@ -49,6 +58,11 @@ public class PacMan extends MoveableSprite {
     }
   }
 
+  /**
+   * Whether this sprite can move to a tile.
+   * @param tile Destination.
+   * @return True if the tile is open to pacman.
+   */
   @Override
   protected boolean canMoveTo(Tile tile) {
     return tile.isOpenToPacman();
@@ -80,6 +94,11 @@ public class PacMan extends MoveableSprite {
     state.getAudioManager().playSound("pacman-chomp" + ((dotsEaten++ % 2 == 0) ? "1" : "2"));
   }
 
+  /**
+   * Respond to a hit.
+   * @param other other Sprite that this sprite collides with
+   * @param state current state of the game, allowing Sprites to perform actions such as remove
+   */
   @Override
   public void uponHitBy(Sprite other, MutableGameState state) {
     if (currentState != PacmanState.ALIVE) {
@@ -97,6 +116,11 @@ public class PacMan extends MoveableSprite {
     }
   }
 
+  /**
+   * Advance sprite state.
+   * @param dt Time step.
+   * @param pacmanGameState Game state.
+   */
   @Override
   public void step(double dt, MutableGameState pacmanGameState) {
     super.step(dt, pacmanGameState);
@@ -112,11 +136,18 @@ public class PacMan extends MoveableSprite {
     }
   }
 
+  /**
+   * Whether this sprite eats ghosts.
+   * @return True.
+   */
   @Override
   public boolean eatsGhosts() {
     return true;
   }
 
+  /**
+   * Called upon animation completion of the death animation.
+   */
   @Override
   public void onAnimationComplete() {
     if (currentState == PacmanState.DYING) {
@@ -124,6 +155,10 @@ public class PacMan extends MoveableSprite {
     }
   }
 
+  /**
+   * Point value.
+   * @return 0
+   */
   @Override
   public int getScore() {
     return 0;
@@ -139,6 +174,11 @@ public class PacMan extends MoveableSprite {
     getCurrentAnimation().setRelativeSpeed(getCurrentAnimation().getRelativeSpeed() * 2);
   }
 
+  /**
+   * Called upon new level. Fixes sounds.
+   * @param roundNumber current round of Pac-Man.
+   * @param state Game state.
+   */
   @Override
   public void uponNewLevel(int roundNumber, MutableGameState state) {
     super.uponNewLevel(roundNumber, state);
@@ -148,6 +188,9 @@ public class PacMan extends MoveableSprite {
     reset();
   }
 
+  /**
+   * Called upon respawn.
+   */
   @Override
   public void reset() {
     super.reset();

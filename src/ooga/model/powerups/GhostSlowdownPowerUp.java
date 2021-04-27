@@ -5,9 +5,16 @@ import static ooga.model.GameEvent.GHOST_SLOWDOWN_DEACTIVATED;
 
 import java.util.Map;
 
-/** @author George Hong */
+/**
+ * Powerup that slows down ghosts.
+ *
+ * @author George Hong
+ */
 public class GhostSlowdownPowerUp extends TimerBasedPowerUp {
 
+  /**
+   * Construct a powerup that slows down ghosts.
+   */
   public GhostSlowdownPowerUp() {
     super(
         Map.of(

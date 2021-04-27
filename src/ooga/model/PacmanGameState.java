@@ -47,7 +47,13 @@ public class PacmanGameState
         MutableGameState,
         GameStateObservable {
 
+  /**
+   * Iniital round number.
+   */
   public static final int STARTING_ROUND_NUMBER = 1;
+  /**
+   * Initial life count.
+   */
   public static final int STARTING_LIVE_COUNT = 3;
   private final Set<SpriteExistenceObserver> spriteExistenceObservers;
   private final Set<GridRebuildObserver> gridRebuildObservers;
@@ -559,7 +565,7 @@ public class PacmanGameState
    * Register Sprite to be notified when powerup effects begin and end, allowing the Sprites to
    * change their behavior as required.
    *
-   * @param listener
+   * @param listener Listener to add.
    */
   @Override
   public void registerEventListener(GameEventObserver listener) {

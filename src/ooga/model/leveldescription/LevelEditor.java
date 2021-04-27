@@ -35,7 +35,7 @@ public interface LevelEditor {
    * Writes a completed level to a JSON file
    *
    * @param file input file
-   * @throws IOException
+   * @throws IOException on error.
    */
   void writeToJSON(File file) throws IOException;
 

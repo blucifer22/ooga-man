@@ -48,10 +48,10 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
   /**
    * Initialize a Sprite
    *
-   * @param spriteAnimationPrefix
-   * @param startingAnimation
-   * @param position
-   * @param direction
+   * @param spriteAnimationPrefix Prefix to use when constructing sprite-specific animations; e.g. "blinky"
+   * @param startingAnimation Initial animation.
+   * @param position Initial position.
+   * @param direction Initial orientation vector.
    */
   protected Sprite(
       String spriteAnimationPrefix,
@@ -70,6 +70,12 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
     setCurrentAnimationType(startingAnimation);
   }
 
+  /**
+   * Construct a sprite from a SpriteDescription.
+   * @param spriteAnimationPrefix Animation prefix to use when construcing sprite-specific animations.
+   * @param startingAnimation Initial animation.
+   * @param description Sprite description object.
+   */
   protected Sprite(
       String spriteAnimationPrefix,
       SpriteAnimationFactory.SpriteAnimationType startingAnimation,
@@ -77,6 +83,11 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
     this(spriteAnimationPrefix, startingAnimation, description.getCoordinates(), new Vec2(1, 0));
   }
 
+  /**
+   * Construct a sprite at the default starting location.
+   * @param spriteAnimationPrefix Animation prefix to use.
+   * @param startingAnimation Starting animation.
+   */
   protected Sprite(
       String spriteAnimationPrefix, SpriteAnimationFactory.SpriteAnimationType startingAnimation) {
     this(spriteAnimationPrefix, startingAnimation, new SpriteCoordinates(), new Vec2(1, 0));
@@ -85,8 +96,8 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
   /**
    * Sprites can change properties based on the current round.
    *
-   * @param roundNumber
-   * @param state
+   * @param roundNumber New round number.
+   * @param state State to which this sprite belongs.
    */
   public void uponNewLevel(int roundNumber, MutableGameState state) {
     // Does nothing (Overriden in specific child classes)
@@ -108,7 +119,11 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
     }
   }
 
-  /** Removes the Sprite from the game */
+  /**
+   * Removes the Sprite from the game
+   *
+   * @param state State from which to remove.
+   */
   public void delete(MutableGameState state) {
     state.prepareRemove(this);
   }
@@ -124,6 +139,10 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
     return currentAnimation.getCurrentCostume();
   }
 
+  /**
+   * Get the current animation of this sprite.
+   * @return Current animation.
+   */
   public final ObservableAnimation getCurrentAnimation() {
     return currentAnimation;
   }
@@ -141,10 +160,18 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
     newAnimation.addObserver(this);
   }
 
+  /**
+   * Get the animation factorty associated with this sprite.
+   * @return Animation factory.
+   */
   protected SpriteAnimationFactory getAnimationFactory() {
     return animationFactory;
   }
 
+  /**
+   * Set the current animation type.
+   * @param type Animation type enum.
+   */
   protected void setCurrentAnimationType(SpriteAnimationFactory.SpriteAnimationType type) {
     if (type != currentAnimationType) {
       setCurrentAnimation(getAnimationFactory().createAnimation(type));
@@ -152,6 +179,10 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
     }
   }
 
+  /**
+   * Called upon a costume change.
+   * @param newCostume New costume name.
+   */
   @Override
   public void onCostumeChange(String newCostume) {
     notifyObservers(TYPE_CHANGE);
@@ -162,7 +193,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
   /**
    * Coordinates of this Sprite. Also provides the tile coordinates.
    *
-   * @return
+   * @return Coordinates.
    */
   public SpriteCoordinates getCoordinates() {
     return position;
@@ -194,7 +225,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
   /**
    * Direction that the Sprite is facing
    *
-   * @return
+   * @return Orientation.
    */
   public Vec2 getDirection() {
     return direction;
@@ -219,7 +250,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
    * Allows a Sprite to detect all objects that reside in the same tile as it does. Each of these
    * other Sprites is given the opportunity to respond to coming into contact with this Sprite.
    *
-   * @param state
+   * @param state Game state.
    */
   public void handleCollisions(MutableGameState state) {
     List<Sprite> sprites = state.getCollidingWith(this);
@@ -280,35 +311,67 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
     }
   }
 
-  // advance state by dt seconds
+  /**
+   * Advance this sprite's animation.
+   * @param dt Time step.
+   * @param pacmanGameState Game state.
+   */
   public void step(double dt, MutableGameState pacmanGameState) {
     getCurrentAnimation().step(dt);
   }
 
+  /**
+   * Whether this sprite blocks level advancement.
+   * @return Consumption required for level advancement if true.
+   */
   public boolean mustBeConsumed() {
     return false;
   }
 
+  /**
+   * Query deadliness.
+   * @return Deadliness.
+   */
   public boolean isDeadlyToPacMan() {
     return false;
   }
 
+  /**
+   * Whether this sprite eats ghosts.
+   * @return True if eats ghosts.
+   */
   public boolean eatsGhosts() {
     return false;
   }
 
+  /**
+   * Whether this sprite is consumable.
+   * @return True if consumable.
+   */
   public boolean isConsumable() {
     return true;
   }
 
+  /**
+   * Whether this sprite should be scored multiplicatively.
+   * @return True if it should be scored multiplicatively.
+   */
   public boolean hasMultiplicativeScoring() {
     return false;
   }
 
+  /**
+   * Point value of this sprite.
+   * @return Point value.
+   */
   public int getScore() {
     return 0;
   }
 
+  /**
+   * Called on a game event.
+   * @param event Event sent.
+   */
   @Override
   public final void onGameEvent(GameEvent event) {
     if (powerupOptions.containsKey(event)) {
@@ -316,30 +379,58 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
     }
   }
 
+  /**
+   * Get swap class of this sprite.
+   * @return Swap class.
+   */
   public SwapClass getSwapClass() {
     return swapClass;
   }
 
+  /**
+   * Set swap class of this sprite.
+   * @param swapClass Swap class.
+   */
   protected void setSwapClass(SwapClass swapClass) {
     this.swapClass = swapClass;
   }
 
+  /**
+   * Get default input source of this sprite.
+   * @return Default input source.
+   */
   public InputSource getDefaultInputSource() {
     return defaultInputSource;
   }
 
+  /**
+   * Set default input source of this sprite.
+   * @param defaultInputSource New default input source.
+   */
   protected void setDefaultInputSource(InputSource defaultInputSource) {
     this.defaultInputSource = defaultInputSource;
   }
 
+  /**
+   * Whether this sprite is requesting an input swap.
+   * @return True if swap requested.
+   */
   public boolean needsSwap() {
     return inputSource.isActionPressed();
   }
 
+  /**
+   * Currently active input source of this sprite.
+   * @return Input source.
+   */
   public InputSource getInputSource() {
     return inputSource;
   }
 
+  /**
+   * Set the current input source.
+   * @param s New input source.
+   */
   public void setInputSource(InputSource s) {
     if (getDefaultInputSource() == null) {
       setDefaultInputSource(s);
@@ -347,18 +438,34 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
     inputSource = s;
   }
 
+  /**
+   * Get the string describing this sprite's input source.
+   * @return Input source, as a string.
+   */
   public String getInputString() {
     return inputString;
   }
 
+  /**
+   * Set this sprite's input source.
+   * @param inputString Input string.
+   */
   public void setInputString(String inputString) {
     this.inputString = inputString;
   }
 
+  /**
+   * Get the map of power-up event handlers.
+   * @return Power-up event handlers.
+   */
   protected Map<GameEvent, Runnable> getPowerupOptions() {
     return powerupOptions;
   }
 
+  /**
+   * Add power-up event handlers.
+   * @param powerupOptions New handlers to add.
+   */
   protected void addPowerUpOptions(Map<GameEvent, Runnable> powerupOptions) {
     this.powerupOptions.putAll(powerupOptions);
   }

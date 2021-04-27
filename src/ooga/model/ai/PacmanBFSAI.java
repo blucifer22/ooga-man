@@ -78,6 +78,12 @@ public class PacmanBFSAI extends PacmanAI {
     return ret.equals(currentReverseDirection) ? Vec2.ZERO : ret;
   }
 
+  /**
+   * Get the shortest distance (Manhattan metric) between two points.
+   * @param start Start point
+   * @param target Ent point.
+   * @return Manhattan distance.
+   */
   public int getDistanceBFS(TileCoordinates start, TileCoordinates target) {
     Vec2[] directions = {new Vec2(-1, 0), new Vec2(1, 0), new Vec2(0, 1), new Vec2(0, -1)};
     Set<TileCoordinates> visited = new HashSet<>();
