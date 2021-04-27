@@ -23,28 +23,28 @@ public interface UIServiceProvider {
   AudioService audioService();
 
   /**
-   * Provides the referencing vieew with an {@link ExceptionService}.
+   * Provides the referencing view with an {@link ExceptionService}.
    *
    * @return the {@link UIServiceProvider}'s {@link ExceptionService}.
    */
   ExceptionService exceptionService();
 
   /**
-   * Provides the referencing vieew with an {@link ThemeService}.
+   * Provides the referencing view with an {@link ThemeService}.
    *
    * @return the {@link UIServiceProvider}'s {@link ThemeService}.
    */
   ThemeService themeService();
 
   /**
-   * Provides the referencing vieew with an {@link LanguageService}.
+   * Provides the referencing view with an {@link LanguageService}.
    *
    * @return the {@link UIServiceProvider}'s {@link LanguageService}.
    */
   LanguageService languageService();
 
   /**
-   * Provides the referencing vieew with an {@link ViewStackService}.
+   * Provides the referencing view with an {@link ViewStackService}.
    *
    * @return the {@link UIServiceProvider}'s {@link ViewStackService}.
    */
