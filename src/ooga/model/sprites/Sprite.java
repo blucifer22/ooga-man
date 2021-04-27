@@ -203,7 +203,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
   /**
    * Change the orientation of this Sprite. Notifies observers
    *
-   * @param
+   * @param direction New direction.
    */
   protected void setDirection(Vec2 direction) {
     this.direction = direction;
