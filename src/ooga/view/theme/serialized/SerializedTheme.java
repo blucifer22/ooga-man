@@ -10,7 +10,16 @@ import ooga.view.exceptions.ExceptionService;
 import ooga.view.exceptions.UIServicedException;
 import ooga.view.theme.api.Costume;
 import ooga.view.theme.api.Theme;
+import ooga.view.theme.api.ThemeService;
 
+/**
+ * Concrete implementation of {@link Theme}. A container representing various styled aspects of a
+ * view. A mini-service that allows for (usually indirectly, through a
+ * {@link ooga.view.uiservice.UIServiceProvider}'s {@link ThemeService}) referencing view to
+ * query for {@link Media}, {@link Costume}s, and stylesheets.
+ *
+ * @author David Coffman
+ */
 public class SerializedTheme implements Theme {
 
   private final Map<String, Costume> costumes;
@@ -19,6 +28,13 @@ public class SerializedTheme implements Theme {
   private final String name;
   private final ExceptionService exceptionService;
 
+  /**
+   * Constructor for a {@link SerializedTheme}. Requires an {@link ExceptionService} to service
+   * file-not-found errors.
+   *
+   * @param description the {@link ThemeDescription} data source
+   * @param exceptionService the {@link ExceptionService} to which errors should be directed
+   */
   protected SerializedTheme(ThemeDescription description, ExceptionService exceptionService) {
     this.stylesheet = description.getStylesheet();
     this.exceptionService = exceptionService;
@@ -50,6 +66,12 @@ public class SerializedTheme implements Theme {
     }
   }
 
+  /**
+   * Returns a themed piece of audio.
+   *
+   * @param identifier the identifier for the requested audio
+   * @return the audio, wrapped by a {@link Media} instance
+   */
   @Override
   public Media getSoundByIdentifier(String identifier) {
     if (sounds.get(identifier) == null) {
@@ -61,6 +83,12 @@ public class SerializedTheme implements Theme {
     }
   }
 
+  /**
+   * Returns the {@link Costume} associated with an object type.
+   *
+   * @param type the object's {@link String} type
+   * @return the {@link Costume} associated with the parameter object type
+   */
   @Override
   public Costume getCostumeForObjectOfType(String type) {
     Costume ret = costumes.get(type);
@@ -93,11 +121,21 @@ public class SerializedTheme implements Theme {
     }
   }
 
+  /**
+   * Returns the location of this theme's stylesheet.
+   *
+   * @return the location of this theme's stylesheet
+   */
   @Override
   public String getStylesheet() {
     return this.stylesheet;
   }
 
+  /**
+   * Returns this theme's name.
+   *
+   * @return this theme's name
+   */
   @Override
   public String getName() {
     return this.name;
