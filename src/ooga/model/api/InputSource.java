@@ -18,7 +18,7 @@ public interface InputSource {
    * downwards.
    *
    * @return currently requested input direction, or Vec2.ZERO if none
-   * @param dt
+   * @param dt Time step.
    */
   Vec2 getRequestedDirection(double dt);
 
@@ -40,6 +40,10 @@ public interface InputSource {
    */
   void addTarget(Sprite target);
 
+  /**
+   * Query whether this input source is human-controlled
+   * @return Human controlled if true.
+   */
   default boolean isHumanControlled() {
     return false;
   }

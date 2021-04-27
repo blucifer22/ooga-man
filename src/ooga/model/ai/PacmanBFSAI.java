@@ -21,8 +21,8 @@ import ooga.util.Vec2;
  */
 public class PacmanBFSAI extends PacmanAI {
 
-  public static final int SENSITIVITY_RADIUS = 4;
-  public static final double STABLE_MOVEMENT = 0.5;
+  private static final int SENSITIVITY_RADIUS = 4;
+  private static final double STABLE_MOVEMENT = 0.5;
 
   /**
    * Constructs an instance of the Pac-Man BFS-based AI.
@@ -41,7 +41,7 @@ public class PacmanBFSAI extends PacmanAI {
    * mode.
    *
    * @param dt change in time, used for complex movement decisions.
-   * @return
+   * @return Direction of movement.
    */
   @Override
   public Vec2 getRequestedDirection(double dt) {
@@ -59,6 +59,10 @@ public class PacmanBFSAI extends PacmanAI {
     return maximizeDistance(currentTilePos, threatsInVicinity);
   }
 
+  /**
+   * Cause pacman to scatter.
+   * @return Direction of movement.
+   */
   protected Vec2 scatterBehavior() {
     ArrayList<Vec2> randomVectorOptions = new ArrayList<>();
     if (ThreadLocalRandom.current().nextDouble(1) < STABLE_MOVEMENT) {
