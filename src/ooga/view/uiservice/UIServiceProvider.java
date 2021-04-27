@@ -30,21 +30,21 @@ public interface UIServiceProvider {
   ExceptionService exceptionService();
 
   /**
-   * Provides the referencing view with an {@link ThemeService}.
+   * Provides the referencing view with a {@link ThemeService}.
    *
    * @return the {@link UIServiceProvider}'s {@link ThemeService}.
    */
   ThemeService themeService();
 
   /**
-   * Provides the referencing view with an {@link LanguageService}.
+   * Provides the referencing view with a {@link LanguageService}.
    *
    * @return the {@link UIServiceProvider}'s {@link LanguageService}.
    */
   LanguageService languageService();
 
   /**
-   * Provides the referencing view with an {@link ViewStackService}.
+   * Provides the referencing view with a {@link ViewStackService}.
    *
    * @return the {@link UIServiceProvider}'s {@link ViewStackService}.
    */
