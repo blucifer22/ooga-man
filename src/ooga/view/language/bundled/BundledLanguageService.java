@@ -21,7 +21,7 @@ import ooga.view.language.api.LanguageService;
  * application language resources folder. See {@link LanguageService} and {@link LanguageService}
  * for usage details.
  *
- * @authod David Coffman
+ * @author David Coffman
  */
 public class BundledLanguageService implements LanguageService, LanguageSelectionService {
 
