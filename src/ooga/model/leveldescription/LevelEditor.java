@@ -25,6 +25,10 @@ public interface LevelEditor {
   /** Advance to the next state */
   void advanceState();
 
+  /**
+   * Retrieve sprite palette.
+   * @return Palette of sprites.
+   */
   Palette getPalette();
 
   /**
