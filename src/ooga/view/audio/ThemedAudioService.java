@@ -9,6 +9,17 @@ import ooga.view.exceptions.ExceptionService;
 import ooga.view.exceptions.UIServicedException;
 import ooga.view.theme.api.ThemeService;
 
+/**
+ * Concrete implementation of {@link AudioService}. Uses a {@link ThemeService} to retrieve audio
+ * files (and thus supports themed audio), then loads them into managed {@link MediaPlayer}s.
+ * Calling classes interact with neither {@link Media} nor {@link MediaPlayer} instances directly.
+ *
+ * Automatically self-disabling on some Linux systems, where MPEG-3 audio codecs are often not
+ * pre-installed. A message is piped to the {@link ExceptionService} provided in the constructor
+ * in such cases.
+ *
+ * @author David Coffman
+ */
 public class ThemedAudioService implements AudioService {
 
   private final ThemeService dataSource;
@@ -17,6 +28,12 @@ public class ThemedAudioService implements AudioService {
   private final HashMap<String, HashSet<MediaPlayer>> reusablePlayers;
   private boolean disabled;
 
+  /**
+   * Sole {@link ThemedAudioService} constructor.
+   *
+   * @param dataSource the {@link ThemeService} to query for {@link Media}
+   * @param exceptionService the {@link ExceptionService} to which errors should be directed
+   */
   public ThemedAudioService(ThemeService dataSource, ExceptionService exceptionService) {
     this.dataSource = dataSource;
     this.exceptionService = exceptionService;
@@ -25,6 +42,11 @@ public class ThemedAudioService implements AudioService {
     this.disabled = false;
   }
 
+  /**
+   * Plays a sound with the parameter identifier exactly one time.
+   *
+   * @param soundIdentifier the identifier of the sound to play
+   */
   @Override
   public void playOnce(String soundIdentifier) {
     MediaPlayer spaPlayer = getMediaPlayerForSound(soundIdentifier);
@@ -39,6 +61,12 @@ public class ThemedAudioService implements AudioService {
     }
   }
 
+  /**
+   * Plays a sound with the parameter identifier until stopped. The sound repeats automatically
+   * when finished.
+   *
+   * @param soundIdentifier the identifier of the sound to play
+   */
   @Override
   public void playIndefinitely(String soundIdentifier) {
     MediaPlayer infPlayer = getMediaPlayerForSound(soundIdentifier);
@@ -53,6 +81,12 @@ public class ThemedAudioService implements AudioService {
     }
   }
 
+  /**
+   * Pauses all running sounds with the parameter identifier. Sounds playing indefinitely will
+   * pause, but will resume playing indefinitely once resumed.
+   *
+   * @param soundIdentifier the identifier of the sound to stop
+   */
   @Override
   public void pause(String soundIdentifier) {
     if (activeAudio.containsKey(soundIdentifier)) {
@@ -62,6 +96,10 @@ public class ThemedAudioService implements AudioService {
     }
   }
 
+  /**
+   * Pauses all running sounds. Sounds playing indefinitely will pause, but will resume playing
+   * indefinitely once resumed.
+   */
   @Override
   public void pauseAll() {
     for (HashSet<MediaPlayer> soundPlayers : activeAudio.values()) {
@@ -71,6 +109,12 @@ public class ThemedAudioService implements AudioService {
     }
   }
 
+  /**
+   * Stops all running sounds with the parameter identifier. Sounds playing indefinitely will
+   * stop.
+   *
+   * @param soundIdentifier the identifier of the sound to stop
+   */
   @Override
   public void stop(String soundIdentifier) {
     if (activeAudio.containsKey(soundIdentifier)) {
@@ -82,6 +126,9 @@ public class ThemedAudioService implements AudioService {
     }
   }
 
+  /**
+   * Stops all running sounds. Sounds playing indefinitely will stop.
+   */
   @Override
   public void stopAll() {
     for (String soundIdentifier : activeAudio.keySet()) {
@@ -94,6 +141,8 @@ public class ThemedAudioService implements AudioService {
     }
   }
 
+  // Constructs, or retrieves from a cache, a media player with audio matching the requested
+  // identifier loaded and ready to play.
   private MediaPlayer getMediaPlayerForSound(String soundIdentifier) {
     if (disabled) {
       return null;
