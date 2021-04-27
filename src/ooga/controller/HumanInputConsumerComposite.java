@@ -5,22 +5,42 @@ import java.util.HashSet;
 import javafx.scene.input.KeyCode;
 import ooga.view.io.HumanInputConsumer;
 
+/**
+ * A composite human input consumer that feeds into several input consumers.
+ *
+ * @author David Coffman
+ */
 public class HumanInputConsumerComposite implements HumanInputConsumer {
 
   private final HashSet<HumanInputConsumer> components = new HashSet<>();
 
+  /**
+   * Construct a input consumer composite.
+   * @param consumers Consumers in this composite.
+   */
   public HumanInputConsumerComposite(HumanInputConsumer... consumers) {
     components.addAll(Arrays.asList(consumers));
   }
 
+  /**
+   * Add consumers.
+   * @param consumers More consumers to add.
+   */
   public void addConsumers(HumanInputConsumer... consumers) {
     components.addAll(Arrays.asList(consumers));
   }
 
+  /**
+   * Remove consumers.
+   * @param consumers Consumers to remove.
+   */
   public void removeConsumers(HumanInputConsumer... consumers) {
     Arrays.asList(consumers).forEach(components::remove);
   }
 
+  /**
+   * Remove all consumers.
+   */
   public void clearConsumers() {
     components.clear();
   }
