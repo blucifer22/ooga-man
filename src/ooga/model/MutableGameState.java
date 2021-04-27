@@ -7,6 +7,15 @@ import ooga.model.grid.PacmanGrid;
 import ooga.model.sprites.Sprite;
 import ooga.util.Clock;
 
+/**
+ * Interface that selectively exposes parts of a game state, as needed
+ * by classes which must update the state.
+ *
+ * @author Franklin Wei
+ * @author George Hong
+ * @author Marc Chmielewski
+ * @author Matthew Belissary
+ */
 public interface MutableGameState {
 
   /** @param score */

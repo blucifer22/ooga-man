@@ -17,6 +17,12 @@ public abstract class PeriodicAnimation extends SpriteAnimation {
   private final List<String> costumes;
   private final int period, numCostumes;
   private int phase;
+
+  /**
+   * Construct a periodic animation.
+   * @param costumes List of costumes.
+   * @param order Order in which to play costumes.
+   */
   public PeriodicAnimation(List<String> costumes, FrameOrder order) {
     super(costumes.get(0));
 
@@ -33,6 +39,10 @@ public abstract class PeriodicAnimation extends SpriteAnimation {
     phase = 0;
   }
 
+  /**
+   * Update the phase of the animation.
+   * @param newPhase New phase.
+   */
   protected void setPhase(int newPhase) {
     phase = newPhase % period;
 
@@ -44,8 +54,17 @@ public abstract class PeriodicAnimation extends SpriteAnimation {
     setCostume(costumes.get(currentCostumeIndex));
   }
 
-public enum FrameOrder {
+  /**
+   * Order in which to play frames.
+   */
+  public enum FrameOrder {
+    /**
+     * 1-2-3-2-1
+     */
     SAWTOOTH,
+    /**
+     * 1-2-3-1-2-3
+     */
     TRIANGLE
   }
 }
