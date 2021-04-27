@@ -4,9 +4,21 @@ import ooga.model.grid.PacmanGrid;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 
-/** @author George Hong */
+/**
+ * AI intended for use with the ghost Clyde that has unpredictable Chase behavior, considerably less
+ * focused on pursuing Pac-Man.
+ *
+ * @author George Hong
+ */
 public class ClydeAI extends GhostAI {
 
+  /**
+   * Constructs an instance of ClydeAI, similar to the classical Clyde ghost behavior.  This ghost
+   * pursues Pac-Man only when Pac-Man becomes too far away.
+   *
+   * @param grid  grid occupied by the Ghost linked to this Ghost AI
+   * @param ghost reference to the ghost that this AI provides instructions to
+   */
   public ClydeAI(PacmanGrid grid, Sprite ghost) {
     super(grid, ghost);
   }

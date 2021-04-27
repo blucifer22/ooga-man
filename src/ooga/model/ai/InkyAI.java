@@ -4,9 +4,21 @@ import ooga.model.grid.PacmanGrid;
 import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 
-/** @author George Hong */
+/**
+ * The InkyAI is an AI intended for use with the Inky ghost.  Inky's behavior is unpredictable, and
+ * can be characterized by random movement when Pac-Man is far away, before springing into action
+ * when Pac-Man becomes close to it.
+ *
+ * @author George Hong
+ */
 public class InkyAI extends GhostAI {
 
+  /**
+   * Constructs an instance of InkyAI
+   *
+   * @param grid  grid occupied by the linked Ghost associated with this AI
+   * @param ghost ghost controlled by this AI instance.
+   */
   public InkyAI(PacmanGrid grid, Sprite ghost) {
     super(grid, ghost);
   }

@@ -24,10 +24,25 @@ public class PacmanBFSAI extends PacmanAI {
   public static final int SENSITIVITY_RADIUS = 4;
   public static final double STABLE_MOVEMENT = 0.5;
 
+  /**
+   * Constructs an instance of the Pac-Man BFS-based AI.
+   *
+   * @param grid   grid occupied by the Pac-Man Sprite connected to this AI
+   * @param pacMan Pac-Man Sprite controlled by this AI
+   */
   public PacmanBFSAI(PacmanGrid grid, Sprite pacMan) {
     super(grid, pacMan);
   }
 
+  /**
+   * Queried by the connected Sprite.  This AI will check whether ghosts are within its
+   * SENSITIVITY_RADIUS.  If this is the case, the AI will panic and attempt to escape by maximizing
+   * BFS distance within the maze from each of the ghosts.  Otherwise, it will engage in scatter
+   * mode.
+   *
+   * @param dt change in time, used for complex movement decisions.
+   * @return
+   */
   @Override
   public Vec2 getRequestedDirection(double dt) {
     List<Sprite> threatsInVicinity = new ArrayList<>();
