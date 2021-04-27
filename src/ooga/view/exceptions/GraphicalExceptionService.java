@@ -8,6 +8,21 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import ooga.view.language.api.LanguageService;
 
+/**
+ * Concrete implementation of {@link ExceptionService} used for displaying exceptions to the user
+ * without unintentionally crashing the application. Typically called in a <code>catch</code> block:
+ *
+ * <code>
+ *   try {
+ *     File f = new File("path/to/nonexistent/file.test");
+ *     functionThatThrowsIOException(f);
+ *   } catch (IOException e) {
+ *     exceptionService.handleWarning(new UIServicedException("missingFile"));
+ *   }
+ * </code>
+ *
+ * @author David Coffman
+ */
 public class GraphicalExceptionService implements ExceptionService {
 
   private static final String MUTE_WARNINGS_FALLBACK = "Mute Warnings";
@@ -15,20 +30,39 @@ public class GraphicalExceptionService implements ExceptionService {
   private LanguageService languageService;
   private boolean mute;
 
+  /**
+   * Sets the {@link LanguageService} for this object. The {@link LanguageService} is thereafter
+   * used by the {@link GraphicalExceptionService} to localize error messages.
+   *
+   * @param languageService the {@link LanguageService} to be used for lookup
+   */
   public void setLanguageService(LanguageService languageService) {
     this.languageService = languageService;
   }
 
+  /**
+   * Handles highly severe, application-terminating-ly critical errors, such as the absence of
+   * all resource bundles. This implementation <b>DOES</b> elect to terminate the application on
+   * a fatal error.
+   *
+   * @param subProcessFatalError the extremely severe error to handle
+   */
   @Override
   public void handleFatalError(UIServicedException subProcessFatalError) {
     handle(AlertType.ERROR, getMessage(subProcessFatalError));
   }
 
+  /**
+   * Handles less severe, non-fatal errors, such as missing image assets.
+   *
+   * @param warning the warning to handle
+   */
   @Override
   public void handleWarning(UIServicedException warning) {
     handle(AlertType.WARNING, getMessage(warning));
   }
 
+  // retrieves an error message from the LanguageService, if initialized
   private String getMessage(UIServicedException exception) {
     if (languageService != null) {
       try {
@@ -46,6 +80,7 @@ public class GraphicalExceptionService implements ExceptionService {
         exception.getErrorKey(), Arrays.toString(exception.getErrorInformation()));
   }
 
+  // Handles the error by displaying it to the user in an Alert box.
   private void handle(AlertType alertType, String text) {
     Alert a = new Alert(alertType);
     a.setContentText(text);
