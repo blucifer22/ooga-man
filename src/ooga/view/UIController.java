@@ -46,6 +46,7 @@ public class UIController implements MainMenuResponder, ViewStackService {
   private final Stage primaryStage;
   private final GameStateController gameController;
   private final Stack<Scene> viewStack;
+
   // shared UI dependencies
   private final HumanInputConsumer inputConsumer;
   private final UIPreferenceService preferenceService;
@@ -92,6 +93,10 @@ public class UIController implements MainMenuResponder, ViewStackService {
     this.primaryStage.show();
   }
 
+  /**
+   * Menu view callback for a "start game" user interaction. Calls appropriate
+   * {@link GameStateController} method to begin the game and displays the game view.
+   */
   @Override
   public void startGame() {
     this.gameView = new GameView(this.serviceProvider);
@@ -100,7 +105,9 @@ public class UIController implements MainMenuResponder, ViewStackService {
   }
 
   /**
-   *
+   * Menu view callback for an "open level builder" user interaction. Constructs a
+   * {@link LevelBuilder}, a {@link LevelBuilderView} view onto that {@link LevelBuilder}, and
+   * displays the view.
    */
   @Override
   public void openLevelBuilder() {
@@ -109,17 +116,36 @@ public class UIController implements MainMenuResponder, ViewStackService {
         new Scene(new LevelBuilderView(this.serviceProvider, builder).getRenderingNode()), true);
   }
 
+  /**
+   * Menu view callback for an "open preferences" user interaction. Instantiates a
+   * {@link PreferenceView} and displays it.
+   */
   @Override
   public void openPreferences() {
     PreferenceView prefView = new PreferenceView(this.serviceProvider, this.preferenceService);
     showScene(new Scene((prefView.getRenderingNode())), true);
   }
 
+  /**
+   * Callback for when a view is done (such as when a "return to main menu" button is pressed).
+   * The view must call the {@link ViewStackService#unwind()} method on (most likely) the
+   * {@link ViewStackService} retrieved from its {@link ooga.view.uiservice.UIServiceProvider} in
+   * order to return to the previous view. In {@link UIController}, removes the topmost view from
+   * an accrued stack of views and displays it, discarding the current view.
+   */
   @Override
   public void unwind() {
     showScene(viewStack.pop(), false);
   }
 
+  /**
+   * Displays a {@link FileChooser} to the user. Used only by {@link GameStateController}, since
+   * {@link GameStateController} is the only class with a concrete reference to
+   * {@link UIController}.
+   *
+   * @param initialDirectory directory from which to base the displayed {@link FileChooser}
+   * @return a {@link File} selected by the user
+   */
   public File requestUserFile(File initialDirectory) {
     FileChooser fileChooser = new FileChooser();
     fileChooser.getExtensionFilters().add(new ExtensionFilter("JSON Files (*.json)", "*.json"));
@@ -129,20 +155,31 @@ public class UIController implements MainMenuResponder, ViewStackService {
     return fileChooser.showOpenDialog(new Stage());
   }
 
+  /**
+   * Handles exceptions thrown by a backend. Used only by {@link GameStateController}, since
+   * {@link GameStateController} is the only class with a concrete reference to
+   * {@link UIController}. Exceptions thrown by views are handled internally by design contract
+   * (no view or UI service may <em>ever</em> be in a critically inconsistent state).
+   *
+   * @param exceptionKey the key for a backend-internal exception
+   */
   public void handleException(String exceptionKey) {
     this.serviceProvider.exceptionService().handleWarning(new UIServicedException(exceptionKey));
   }
 
+  // redirects keyboard input from a scene to a HumanInputConsumer
   private void redirectInput(Scene s) {
     s.setOnKeyPressed(e -> inputConsumer.onKeyPress(e.getCode()));
     s.setOnKeyReleased(e -> inputConsumer.onKeyRelease(e.getCode()));
   }
 
+  // shows the game view
   private void showGameView() {
     Scene gameViewScene = new Scene(this.gameView.getRenderingNode());
     showScene(gameViewScene, true);
   }
 
+  // displays a scene, possibly adding it to the view stack
   private void showScene(Scene s, boolean addToStack) {
     gameController.pauseGame();
     serviceProvider.audioService().stopAll();

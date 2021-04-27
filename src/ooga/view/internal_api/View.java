@@ -4,5 +4,6 @@ import javafx.scene.layout.Pane;
 
 public interface View extends Renderable {
 
+  @Override
   Pane getRenderingNode();
 }
