@@ -1,5 +1,10 @@
 package ooga.model.api;
 
+/**
+ * Observer interface exposed by game states.
+ *
+ * @author George Hong
+ */
 public interface GameStateObserver {
 
   /**
