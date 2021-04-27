@@ -3299,7 +3299,7 @@
       }
     }, {
       "className" : "PacMan",
-      "inputSource" : "PacmanBFSAI",
+      "inputSource" : "PLAYER_1",
       "coordinates" : {
         "position" : {
           "x" : 18.5,

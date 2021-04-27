@@ -3213,15 +3213,6 @@
       "coordinates" : {
         "position" : {
           "x" : 1.5,
-          "y" : 7.5
-        }
-      }
-    }, {
-      "className" : "Inky",
-      "inputSource" : "InkyAI",
-      "coordinates" : {
-        "position" : {
-          "x" : 1.5,
           "y" : 8.5
         }
       }
@@ -3232,33 +3223,6 @@
         "position" : {
           "x" : 1.5,
           "y" : 9.5
-        }
-      }
-    }, {
-      "className" : "Inky",
-      "inputSource" : "InkyAI",
-      "coordinates" : {
-        "position" : {
-          "x" : 1.5,
-          "y" : 10.5
-        }
-      }
-    }, {
-      "className" : "Inky",
-      "inputSource" : "InkyAI",
-      "coordinates" : {
-        "position" : {
-          "x" : 1.5,
-          "y" : 11.5
-        }
-      }
-    }, {
-      "className" : "Pinky",
-      "inputSource" : "PinkyAI",
-      "coordinates" : {
-        "position" : {
-          "x" : 2.5,
-          "y" : 7.5
         }
       }
     }, {
@@ -3277,29 +3241,11 @@
         "position" : {
           "x" : 2.5,
           "y" : 9.5
-        }
-      }
-    }, {
-      "className" : "Pinky",
-      "inputSource" : "PinkyAI",
-      "coordinates" : {
-        "position" : {
-          "x" : 2.5,
-          "y" : 10.5
-        }
-      }
-    }, {
-      "className" : "Pinky",
-      "inputSource" : "PinkyAI",
-      "coordinates" : {
-        "position" : {
-          "x" : 2.5,
-          "y" : 11.5
         }
       }
     }, {
       "className" : "PacMan",
-      "inputSource" : "PacmanBFSAI",
+      "inputSource" : "PLAYER_1",
       "coordinates" : {
         "position" : {
           "x" : 18.5,
@@ -5392,6 +5338,114 @@
         "position" : {
           "x" : 16.5,
           "y" : 1.5
+        }
+      }
+    }, {
+      "className" : "Clyde",
+      "inputSource" : "ClydeAI",
+      "coordinates" : {
+        "position" : {
+          "x" : 1.5,
+          "y" : 10.5
+        }
+      }
+    }, {
+      "className" : "Clyde",
+      "inputSource" : "ClydeAI",
+      "coordinates" : {
+        "position" : {
+          "x" : 2.5,
+          "y" : 10.5
+        }
+      }
+    }, {
+      "className" : "Clyde",
+      "inputSource" : "ClydeAI",
+      "coordinates" : {
+        "position" : {
+          "x" : 1.5,
+          "y" : 11.5
+        }
+      }
+    }, {
+      "className" : "Clyde",
+      "inputSource" : "ClydeAI",
+      "coordinates" : {
+        "position" : {
+          "x" : 2.5,
+          "y" : 11.5
+        }
+      }
+    }, {
+      "className" : "Blinky",
+      "inputSource" : "BlinkyAI",
+      "coordinates" : {
+        "position" : {
+          "x" : 1.5,
+          "y" : 7.5
+        }
+      }
+    }, {
+      "className" : "Blinky",
+      "inputSource" : "BlinkyAI",
+      "coordinates" : {
+        "position" : {
+          "x" : 2.5,
+          "y" : 7.5
+        }
+      }
+    }, {
+      "className" : "Blinky",
+      "inputSource" : "BlinkyAI",
+      "coordinates" : {
+        "position" : {
+          "x" : 1.5,
+          "y" : 6.5
+        }
+      }
+    }, {
+      "className" : "Blinky",
+      "inputSource" : "BlinkyAI",
+      "coordinates" : {
+        "position" : {
+          "x" : 2.5,
+          "y" : 6.5
+        }
+      }
+    }, {
+      "className" : "Inky",
+      "inputSource" : "InkyAI",
+      "coordinates" : {
+        "position" : {
+          "x" : 1.5,
+          "y" : 12.5
+        }
+      }
+    }, {
+      "className" : "Inky",
+      "inputSource" : "InkyAI",
+      "coordinates" : {
+        "position" : {
+          "x" : 2.5,
+          "y" : 12.5
+        }
+      }
+    }, {
+      "className" : "Pinky",
+      "inputSource" : "PinkyAI",
+      "coordinates" : {
+        "position" : {
+          "x" : 1.5,
+          "y" : 5.5
+        }
+      }
+    }, {
+      "className" : "Pinky",
+      "inputSource" : "PinkyAI",
+      "coordinates" : {
+        "position" : {
+          "x" : 2.5,
+          "y" : 5.5
         }
       }
     } ]
