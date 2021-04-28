@@ -11,8 +11,24 @@ import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 import ooga.view.uiservice.UIServiceProvider;
 
+/**
+ * A visual card containing a {@link Label} directly above a {@link ComboBox}.
+ *
+ * @author David Coffman
+ */
 public class LabeledComboBoxCard extends StackPane {
 
+  /**
+   * {@link Map} constructor used when option keys (i.e. what the {@link OptionSelectionHandler}
+   * expects) differ from the labels to display to the user.
+   *
+   * @param serviceProvider a {@link UIServiceProvider} providing UI services as desired
+   * @param labelBundleIdentifier the {@link ooga.view.language.api.LanguageService} key for the
+   *                              localized label string
+   * @param options a {@link Map} of option keys to their labels
+   * @param selectionHandler an {@link OptionSelectionHandler} to call when a new option has been
+   *                        selected
+   */
   public LabeledComboBoxCard(
       UIServiceProvider serviceProvider,
       String labelBundleIdentifier,
@@ -22,6 +38,17 @@ public class LabeledComboBoxCard extends StackPane {
     configure(serviceProvider, labelBundleIdentifier, options, selectionHandler);
   }
 
+  /**
+   * {@link Collection} constructor used when option keys <em>do not</em> differ from the labels
+   * to display to the user.
+   *
+   * @param serviceProvider a {@link UIServiceProvider} providing UI services as desired
+   * @param labelBundleIdentifier the {@link ooga.view.language.api.LanguageService} key for the
+   *    *                              localized label string
+   * @param options a {@link Collection} of options
+   * @param selectionHandler an {@link OptionSelectionHandler} to call when a new option has been
+   *    *                        selected
+   */
   public LabeledComboBoxCard(
       UIServiceProvider serviceProvider,
       String labelBundleIdentifier,
@@ -35,6 +62,7 @@ public class LabeledComboBoxCard extends StackPane {
     configure(serviceProvider, labelBundleIdentifier, orderedOptions, selectionHandler);
   }
 
+  // Configures the labeled ComboBox card.
   private void configure(
       UIServiceProvider serviceProvider,
       String labelBundleIdentifier,
@@ -73,6 +101,11 @@ public class LabeledComboBoxCard extends StackPane {
   @FunctionalInterface
   public interface OptionSelectionHandler {
 
+    /**
+     * Called when a new option is selected in the ComboBox.
+     *
+     * @param selectedOption the new option selected in the ComboBox.
+     */
     void onSelection(String selectedOption);
   }
 }
