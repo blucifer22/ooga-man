@@ -17,10 +17,15 @@ import ooga.util.Timer;
 import ooga.util.Vec2;
 
 /**
+ * A Ghost sprite.
+ *
  * @author Matthew Belissary
  */
 public abstract class Ghost extends MoveableSprite {
 
+  /**
+   * Default speed of ghosts.
+   */
   protected static final double DEFAULT_SPEED = 5.0;
   private static final GhostState INITIAL_STATE = GhostState.WAIT;
   private static final double EYES_SPEEDUP = 2.0;
@@ -35,10 +40,10 @@ public abstract class Ghost extends MoveableSprite {
   /**
    * Constructs Ghost object via parameters in JSON as well as speed
    *
-   * @param spriteAnimationPrefix
-   * @param position
-   * @param direction
-   * @param speed
+   * @param spriteAnimationPrefix prefix to be used in sprite-specific animations
+   * @param position initial position
+   * @param direction intiial direction
+   * @param speed initial movement speed
    */
   protected Ghost(
       String spriteAnimationPrefix,
@@ -81,8 +86,8 @@ public abstract class Ghost extends MoveableSprite {
   /**
    * Constructs Ghost from a sprite description
    *
-   * @param spriteAnimationPrefix
-   * @param spriteDescription
+   * @param spriteAnimationPrefix prefix to be used in constructing sprite-specific animations.
+   * @param spriteDescription description.
    */
   public Ghost(
       String spriteAnimationPrefix,
@@ -95,9 +100,9 @@ public abstract class Ghost extends MoveableSprite {
   /**
    * Changes animation sprite depending on which direction the ghost is travelling
    *
-   * @param direction
-   * @param type
-   * @return
+   * @param direction Direction of motion.
+   * @param type Type of animation requested.
+   * @return Directional animation.
    */
   protected static SpriteAnimationFactory.SpriteAnimationType directionToAnimationType(
       Vec2 direction, GhostAnimationType type) {
@@ -156,13 +161,15 @@ public abstract class Ghost extends MoveableSprite {
   /**
    * Defines how long this ghost takes before leaving the pen at the start of the game
    *
-   * @return
+   * @return Initial wait time.
    */
   protected double getInitialWaitTime() {
     return 0;
   }
 
   /**
+   * Get default move speed.
+   *
    * @return the default movement speed of the ghost
    */
   public double getDefaultMoveSpeed() {
@@ -170,6 +177,8 @@ public abstract class Ghost extends MoveableSprite {
   }
 
   /**
+   * Get current behavior.
+   *
    * @return the current state of the ghost
    */
   public GhostBehavior getGhostBehavior() {
@@ -182,6 +191,8 @@ public abstract class Ghost extends MoveableSprite {
   }
 
   /**
+   * Get home.
+   *
    * @return spawn coordinates of the ghost
    */
   public SpriteCoordinates getSpawn() {
@@ -189,7 +200,9 @@ public abstract class Ghost extends MoveableSprite {
   }
 
   /**
-   * @param tile
+   * Check if a ghost can move into a tile.
+   *
+   * @param tile Tile to move into.
    * @return true if ghost can move into the given tile
    */
   @Override
@@ -239,8 +252,8 @@ public abstract class Ghost extends MoveableSprite {
   /**
    * Moves the ghost through a frame (1/60 of a second) in the gamestate
    *
-   * @param dt
-   * @param pacmanGameState
+   * @param dt Time step.
+   * @param pacmanGameState state.
    */
   @Override
   public void step(double dt, MutableGameState pacmanGameState) {
@@ -268,6 +281,8 @@ public abstract class Ghost extends MoveableSprite {
   }
 
   /**
+   * Query deadliness.
+   *
    * @return true if ghost will kill PacMan on contact
    */
   @Override
@@ -276,6 +291,8 @@ public abstract class Ghost extends MoveableSprite {
   }
 
   /**
+   * Query consumability.
+   *
    * @return true if ghost is in a state in which it can be consumed by PacMan
    */
   @Override
@@ -289,7 +306,7 @@ public abstract class Ghost extends MoveableSprite {
   /**
    * Sets input source of the ghost and updates in animation state (when swapping ghosts)
    *
-   * @param s
+   * @param s New input source.
    */
   @Override
   public void setInputSource(InputSource s) {
@@ -298,6 +315,8 @@ public abstract class Ghost extends MoveableSprite {
   }
 
   /**
+   * Query multiplicative scoring property.
+   *
    * @return true since ghost score is multiplicative based on how many have been consumed
    */
   @Override
@@ -306,6 +325,8 @@ public abstract class Ghost extends MoveableSprite {
   }
 
   /**
+   * Value of a ghost in points.
+   *
    * @return the current score for consuming a ghost (without compounding per ghost consumed)
    */
   @Override
@@ -350,11 +371,29 @@ public abstract class Ghost extends MoveableSprite {
     ANIM_FRIGHTENED_BLINKING
   }
 
+  /**
+   * Current behavior of this ghost.
+   */
   public enum GhostBehavior {
+    /**
+     * Running away from pacman (frightened state).
+     */
     RUNAWAY,
+    /**
+     * Random scattering.
+     */
     SCATTER,
+    /**
+     * Seeking pacman.
+     */
     CHASE,
+    /**
+     * Going home.
+     */
     EATEN,
+    /**
+     * Waiting to leave pen.
+     */
     WAIT
   }
 

@@ -46,6 +46,9 @@ public class HumanInputConsumerComposite implements HumanInputConsumer {
     Arrays.asList(consumers).forEach(components::remove);
   }
 
+  /**
+   * Remove all consumers.
+   */
   public void clearConsumers() {
     components.clear();
   }
