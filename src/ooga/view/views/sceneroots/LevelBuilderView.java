@@ -23,6 +23,12 @@ import ooga.view.views.components.reusable.LabeledComboBoxCard;
 import ooga.view.views.components.reusable.StyledButton;
 import ooga.view.views.components.scenecomponents.GridDimensionPalette;
 
+/**
+ * Primary view for interfacing with a {@link LevelEditor}. Allows the user to resize a game
+ * grid, add or remove sprites of various types, and eventually save the grid to a new level file.
+ *
+ * @author David Coffman
+ */
 public class LevelBuilderView implements View, ThemedObject {
 
   private static final int FULL_WIDTH = 100;
@@ -35,6 +41,12 @@ public class LevelBuilderView implements View, ThemedObject {
   private final GameGridView tileGridView;
   private final GridPane primaryView;
 
+  /**
+   * Sole constructor for {@link LevelBuilderView}.
+   *
+   * @param serviceProvider the {@link UIServiceProvider} to provide services as desired
+   * @param levelBuilder the {@link LevelEditor} to poke in response to user interaction
+   */
   public LevelBuilderView(UIServiceProvider serviceProvider, LevelEditor levelBuilder) {
     this.serviceProvider = serviceProvider;
     this.levelBuilder = levelBuilder;
