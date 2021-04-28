@@ -24,8 +24,8 @@ import ooga.view.views.components.reusable.StyledButton;
 import ooga.view.views.components.scenecomponents.ScoreboardCard;
 
 /**
- * GameView lays out how a round appears (the GridView in the center, information about
- * lives/round/score above and below).
+ * Renders the visual representation of a game round (the GridView in the center, information about
+ * lives/round/score to the left).
  */
 public class GameView implements View, ThemedObject, GameStateObservationComposite {
 
