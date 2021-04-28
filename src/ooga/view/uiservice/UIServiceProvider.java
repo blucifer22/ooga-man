@@ -7,9 +7,9 @@ import ooga.view.language.api.LanguageService;
 import ooga.view.theme.api.ThemeService;
 
 /**
- * A standardized container for UI services. Allows passing one consistent set of UI services
- * (the overwhelmingly most common use case) instead of five separate servicing instances (one
- * for each service interface) to dependent views.
+ * A standardized container for UI services. Allows passing one consistent set of UI services (the
+ * overwhelmingly most common use case) instead of five separate servicing instances (one for each
+ * service interface) to dependent views.
  *
  * @author David Coffman
  */

@@ -5,7 +5,6 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
-import ooga.model.api.ObservableSprite;
 import ooga.model.api.ObservableTile;
 import ooga.model.api.TileEvent;
 import ooga.model.api.TileObserver;
@@ -16,9 +15,9 @@ import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.api.ThemedObject;
 
 /**
- * Handles the rendering of a single {@link TileView}, by responding (through
- * observation) to changes in its size and type. Also responds to theme changes and updates the
- * view's {@link Costume} accordingly.
+ * Handles the rendering of a single {@link TileView}, by responding (through observation) to
+ * changes in its size and type. Also responds to theme changes and updates the view's {@link
+ * Costume} accordingly.
  *
  * @author David Coffman
  */
@@ -31,8 +30,8 @@ public class TileView implements Renderable, TileObserver, ThemedObject {
   /**
    * Sole {@link TileView} constructor.
    *
-   * @param tile the {@link ObservableTile} to act as this view's data source
-   * @param tileSize the bound size of this tile
+   * @param tile         the {@link ObservableTile} to act as this view's data source
+   * @param tileSize     the bound size of this tile
    * @param themeService the {@link ThemeService} to query for {@link Costume}s
    */
   public TileView(ObservableTile tile, DoubleProperty tileSize, ThemeService themeService) {
@@ -85,8 +84,8 @@ public class TileView implements Renderable, TileObserver, ThemedObject {
   }
 
   /**
-   * Called when a tile event occurs. Updates the {@link TileView}'s state to match that of
-   * the observed {@link ObservableTile}.
+   * Called when a tile event occurs. Updates the {@link TileView}'s state to match that of the
+   * observed {@link ObservableTile}.
    *
    * @param e Event that occurred.
    */

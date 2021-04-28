@@ -2,8 +2,8 @@ package ooga.view.theme.api;
 
 /**
  * The view-facing interface of a theme management class. Allows for {@link ThemedObject}s to
- * register for theme-change updates, as well as to query for the current {@link Theme}
- * (typically in response to updates received following the former).
+ * register for theme-change updates, as well as to query for the current {@link Theme} (typically
+ * in response to updates received following the former).
  *
  * @author David Coffman
  */

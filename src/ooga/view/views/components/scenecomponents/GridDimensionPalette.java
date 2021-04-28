@@ -8,8 +8,8 @@ import ooga.view.views.components.reusable.IntegerLockedSlider;
 import ooga.view.views.components.reusable.StyledBoundLabel;
 
 /**
- * Component for use in a level editor view to allow the user to configure the dimensions of a
- * game grid. Consists of several sets of instructions and two siders.
+ * Component for use in a level editor view to allow the user to configure the dimensions of a game
+ * grid. Consists of several sets of instructions and two siders.
  *
  * @author David Coffman
  */
@@ -26,7 +26,7 @@ public class GridDimensionPalette extends StackPane {
    * Sole {@link GridDimensionPalette} constructor.
    *
    * @param serviceProvider a {@link UIServiceProvider} to provide UI services as desired
-   * @param levelBuilder a {@link LevelEditor} for which to resize the grid
+   * @param levelBuilder    a {@link LevelEditor} for which to resize the grid
    */
   public GridDimensionPalette(UIServiceProvider serviceProvider, LevelEditor levelBuilder) {
     this.levelBuilder = levelBuilder;
@@ -44,8 +44,8 @@ public class GridDimensionPalette extends StackPane {
                 serviceProvider.languageService().getLocalizedString("columns"), "body"),
             colDim,
             new StyledBoundLabel(
-                    serviceProvider.languageService().getLocalizedString("tilingInstructions"),
-                    "heading")
+                serviceProvider.languageService().getLocalizedString("tilingInstructions"),
+                "heading")
                 .wrap(true));
 
     this.getChildren().add(paletteBox);

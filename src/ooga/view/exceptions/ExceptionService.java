@@ -5,12 +5,9 @@ package ooga.view.exceptions;
  * application. Typically called in a <code>catch</code> block:
  *
  * <code>
- *   try {
- *     File f = new File("path/to/nonexistent/file.test");
- *     functionThatThrowsIOException(f);
- *   } catch (IOException e) {
- *     exceptionService.handleWarning(new UIServicedException("missingFile"));
- *   }
+ * try { File f = new File("path/to/nonexistent/file.test"); functionThatThrowsIOException(f); }
+ * catch (IOException e) { exceptionService.handleWarning(new UIServicedException("missingFile"));
+ * }
  * </code>
  *
  * @author David Coffman
@@ -18,9 +15,9 @@ package ooga.view.exceptions;
 public interface ExceptionService {
 
   /**
-   * Handles highly severe, application-terminating-ly critical errors, such as the absence of
-   * all resource bundles. {@link ExceptionService} implementing classes <b>MAY ELECT TO
-   * TERMINATE THE APPLICATION AFTER THE USER ACKNOWLEDGES THE FATAL ERROR</b>.
+   * Handles highly severe, application-terminating-ly critical errors, such as the absence of all
+   * resource bundles. {@link ExceptionService} implementing classes <b>MAY ELECT TO TERMINATE THE
+   * APPLICATION AFTER THE USER ACKNOWLEDGES THE FATAL ERROR</b>.
    *
    * @param subProcessFatalError the extremely severe error to handle
    */

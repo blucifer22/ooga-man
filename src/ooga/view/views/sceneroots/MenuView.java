@@ -19,8 +19,8 @@ import ooga.view.uiservice.UIServiceProvider;
 import ooga.view.views.components.reusable.StyledButton;
 
 /**
- * A main menu view implementation. Provides buttons to trigger the actions in
- * {@link MainMenuResponder} -- start the game, open the level builder, open the preferences view.
+ * A main menu view implementation. Provides buttons to trigger the actions in {@link
+ * MainMenuResponder} -- start the game, open the level builder, open the preferences view.
  *
  * @author David Coffman
  */
@@ -33,9 +33,9 @@ public class MenuView implements View, ThemedObject {
   /**
    * Sole constructor for {@link MenuView}.
    *
-   * @param serviceProvider the {@link ooga.view.uiservice.ServiceProvider} to provide UI
-   *                        services as desired
-   * @param menuResponder  the {@link MainMenuResponder} to handle this view's action responses
+   * @param serviceProvider the {@link ooga.view.uiservice.ServiceProvider} to provide UI services
+   *                        as desired
+   * @param menuResponder   the {@link MainMenuResponder} to handle this view's action responses
    */
   public MenuView(UIServiceProvider serviceProvider, MainMenuResponder menuResponder) {
     this.serviceProvider = serviceProvider;

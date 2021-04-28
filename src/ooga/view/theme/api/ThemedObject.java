@@ -1,8 +1,8 @@
 package ooga.view.theme.api;
 
 /**
- * An observer interface responsible for notifying themed views when the theme changes, in order
- * to allow them to change their appearance.
+ * An observer interface responsible for notifying themed views when the theme changes, in order to
+ * allow them to change their appearance.
  *
  * @author David Coffman
  */

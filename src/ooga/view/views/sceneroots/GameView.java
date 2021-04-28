@@ -28,9 +28,9 @@ import ooga.view.views.components.scenecomponents.ScoreboardCard;
 
 /**
  * Renders the visual representation of a game round (the GridView in the center, information about
- * lives/round/score to the left). Sub-views respond to various aspects of game state: see
- * {@link GameGridView}, {@link ScoreboardCard}, and {@link ViewBoundAudioPlayer} for details on
- * game state response specifics; this class only serves to lay out the former on a grid.
+ * lives/round/score to the left). Sub-views respond to various aspects of game state: see {@link
+ * GameGridView}, {@link ScoreboardCard}, and {@link ViewBoundAudioPlayer} for details on game state
+ * response specifics; this class only serves to lay out the former on a grid.
  *
  * @author David Coffman
  */

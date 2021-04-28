@@ -10,15 +10,13 @@ import ooga.view.language.api.LanguageService;
 
 /**
  * Concrete implementation of {@link ExceptionService} used for displaying exceptions to the user
- * without unintentionally crashing the application. Typically called in a <code>catch</code> block:
+ * without unintentionally crashing the application. Typically called in a <code>catch</code>
+ * block:
  *
  * <code>
- *   try {
- *     File f = new File("path/to/nonexistent/file.test");
- *     functionThatThrowsIOException(f);
- *   } catch (IOException e) {
- *     exceptionService.handleWarning(new UIServicedException("missingFile"));
- *   }
+ * try { File f = new File("path/to/nonexistent/file.test"); functionThatThrowsIOException(f); }
+ * catch (IOException e) { exceptionService.handleWarning(new UIServicedException("missingFile"));
+ * }
  * </code>
  *
  * @author David Coffman
@@ -41,9 +39,9 @@ public class GraphicalExceptionService implements ExceptionService {
   }
 
   /**
-   * Handles highly severe, application-terminating-ly critical errors, such as the absence of
-   * all resource bundles. This implementation <b>DOES</b> elect to terminate the application on
-   * a fatal error.
+   * Handles highly severe, application-terminating-ly critical errors, such as the absence of all
+   * resource bundles. This implementation <b>DOES</b> elect to terminate the application on a fatal
+   * error.
    *
    * @param subProcessFatalError the extremely severe error to handle
    */

@@ -15,7 +15,7 @@ public class StyledBoundLabel extends Label {
    * Constructs a {@link StyledBoundLabel} using a label binding and label style class.
    *
    * @param labelBinding the {@link StringBinding} to bind the label to
-   * @param labelClass the style class for the label
+   * @param labelClass   the style class for the label
    */
   public StyledBoundLabel(StringBinding labelBinding, String labelClass) {
     this.textProperty().bind(labelBinding);
@@ -26,8 +26,8 @@ public class StyledBoundLabel extends Label {
    * Constructs a {@link StyledBoundLabel} using a label binding and label style class.
    *
    * @param labelBinding the {@link StringBinding} to bind the label to
-   * @param labelClass the style class for the label
-   * @param id the style ID for the label
+   * @param labelClass   the style class for the label
+   * @param id           the style ID for the label
    */
   public StyledBoundLabel(StringBinding labelBinding, String labelClass, String id) {
     this(labelBinding, labelClass);
@@ -38,7 +38,7 @@ public class StyledBoundLabel extends Label {
    * Constructs a {@link StyledBoundLabel} using a label property and label style class.
    *
    * @param labelProperty the {@link ReadOnlyStringProperty} to bind the label to
-   * @param labelClass the style class for the label
+   * @param labelClass    the style class for the label
    */
   public StyledBoundLabel(ReadOnlyStringProperty labelProperty, String labelClass) {
     this.textProperty().bind(labelProperty);
@@ -49,8 +49,8 @@ public class StyledBoundLabel extends Label {
    * Constructs a {@link StyledBoundLabel} using a label property and label style class.
    *
    * @param labelProperty the {@link ReadOnlyStringProperty} to bind the label to
-   * @param labelClass the style class for the label
-   * @param id the style ID for the label
+   * @param labelClass    the style class for the label
+   * @param id            the style ID for the label
    */
   public StyledBoundLabel(ReadOnlyStringProperty labelProperty, String labelClass, String id) {
     this(labelProperty, labelClass);

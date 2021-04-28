@@ -9,8 +9,8 @@ import ooga.view.theme.api.ThemeService;
 /**
  * A simple implementation of {@link UIServiceProvider}. Allows passing one consistent set of UI
  * services (the overwhelmingly most common use case) instead of five separate servicing instances
- * (one for each service interface) to dependent views. Views may then reference the
- * {@link ServiceProvider} as a source of UI services.
+ * (one for each service interface) to dependent views. Views may then reference the {@link
+ * ServiceProvider} as a source of UI services.
  *
  * @author David Coffman
  */

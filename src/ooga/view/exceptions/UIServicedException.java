@@ -5,14 +5,11 @@ package ooga.view.exceptions;
  * example below:
  *
  * <code>
- *   try {
- *     File f = new File("path/to/nonexistent/file.test");
- *     functionThatThrowsIOException(f);
- *   } catch (IOException e) {
- *     exceptionService.handleWarning(new UIServicedException("missingFile"));
- *   }
+ * try { File f = new File("path/to/nonexistent/file.test"); functionThatThrowsIOException(f); }
+ * catch (IOException e) { exceptionService.handleWarning(new UIServicedException("missingFile"));
+ * }
  * </code>
- *
+ * <p>
  * See {@link ExceptionService} for additional documentation.
  *
  * @author David Coffman
@@ -25,9 +22,9 @@ public class UIServicedException extends Exception {
   /**
    * Sole {@link UIServicedException} constructor.
    *
-   * @param errorKey the error's error key (type)
-   * @param errorInformation additional information for use in formatting an error message for
-   *                         the user
+   * @param errorKey         the error's error key (type)
+   * @param errorInformation additional information for use in formatting an error message for the
+   *                         user
    */
   public UIServicedException(String errorKey, String... errorInformation) {
     this.errorKey = errorKey;
@@ -36,9 +33,9 @@ public class UIServicedException extends Exception {
   }
 
   /**
-   * Returns the error key. Used by {@link GraphicalExceptionService} to either directly display
-   * an error to a user or to look up the localization for the error in the
-   * {@link ooga.view.language.api.LanguageSelectionService}.
+   * Returns the error key. Used by {@link GraphicalExceptionService} to either directly display an
+   * error to a user or to look up the localization for the error in the {@link
+   * ooga.view.language.api.LanguageSelectionService}.
    *
    * @return the error key
    */
@@ -47,9 +44,9 @@ public class UIServicedException extends Exception {
   }
 
   /**
-   * Returns any additional information for use in formatting an error message for the user.
-   * Should correspond with the format string matching the error key; this information will
-   * otherwise not be displayed.
+   * Returns any additional information for use in formatting an error message for the user. Should
+   * correspond with the format string matching the error key; this information will otherwise not
+   * be displayed.
    *
    * @return additional information for use in formatting an error message for the user.
    */

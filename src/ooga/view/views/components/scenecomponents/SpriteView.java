@@ -16,9 +16,9 @@ import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.api.ThemedObject;
 
 /**
- * Handles the rendering of a single {@link ObservableSprite}, by responding (through
- * observation) to changes in its rotation, visibility, and type. Also responds to theme changes
- * and updates the view's {@link Costume} accordingly.
+ * Handles the rendering of a single {@link ObservableSprite}, by responding (through observation)
+ * to changes in its rotation, visibility, and type. Also responds to theme changes and updates the
+ * view's {@link Costume} accordingly.
  *
  * @author David Coffman
  */
@@ -33,9 +33,9 @@ public class SpriteView implements SpriteObserver, ThemedObject, Renderable {
   /**
    * Sole {@link SpriteView} constructor.
    *
-   * @param so the {@link ObservableSprite} to act as this view's data source
+   * @param so           the {@link ObservableSprite} to act as this view's data source
    * @param themeService the {@link ThemeService} to query for a {@link Costume}
-   * @param size the bound size of this view
+   * @param size         the bound size of this view
    */
   public SpriteView(ObservableSprite so, ThemeService themeService, DoubleProperty size) {
     // configure data sourcing
@@ -61,8 +61,8 @@ public class SpriteView implements SpriteObserver, ThemedObject, Renderable {
   }
 
   /**
-   * Called when a sprite event occurs. Updates the {@link SpriteView}'s state to match that of
-   * the observed {@link ObservableSprite}.
+   * Called when a sprite event occurs. Updates the {@link SpriteView}'s state to match that of the
+   * observed {@link ObservableSprite}.
    *
    * @param e Event that occurred.
    */

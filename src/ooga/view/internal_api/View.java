@@ -3,8 +3,8 @@ package ooga.view.internal_api;
 import javafx.scene.layout.Pane;
 
 /**
- * Strengthening of the {@link Renderable} interface used to render <em>whole views</em> rather
- * than view components. See {@link Renderable}.
+ * Strengthening of the {@link Renderable} interface used to render <em>whole views</em> rather than
+ * view components. See {@link Renderable}.
  *
  * @author David Coffman
  */

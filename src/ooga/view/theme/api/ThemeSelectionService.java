@@ -3,8 +3,8 @@ package ooga.view.theme.api;
 import java.util.Set;
 
 /**
- * Configurator-facing interface on a theme management class. Allows a referencing object to set
- * the current theme, as well as view available themes.
+ * Configurator-facing interface on a theme management class. Allows a referencing object to set the
+ * current theme, as well as view available themes.
  *
  * @author David Coffman
  */

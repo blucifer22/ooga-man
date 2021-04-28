@@ -7,8 +7,8 @@ import ooga.view.theme.api.Costume;
 
 /**
  * Serialization description implementation for a {@link Costume}, as part of the
- * serialization/deserialization scheme in {@link ooga.view.theme.serialized}. Equates all
- * {@link Costume} parameters to primitives.
+ * serialization/deserialization scheme in {@link ooga.view.theme.serialized}. Equates all {@link
+ * Costume} parameters to primitives.
  *
  * @author David Coffman
  */
@@ -23,11 +23,11 @@ public class CostumeDescription extends JSONDescription {
   /**
    * Sole constructor. Called only during deserialization.
    *
-   * @param fill a {@link String} representing the fill
+   * @param fill        a {@link String} representing the fill
    * @param fillIsImage <code>true</code> if the fill is an image, <code>false</code> if a color
-   * @param scale the object scale
+   * @param scale       the object scale
    * @param bottomHeavy see {@link Costume}
-   * @param rotatable see {@link Costume}
+   * @param rotatable   see {@link Costume}
    */
   public CostumeDescription(
       @JsonProperty("fill") String fill,
@@ -86,8 +86,8 @@ public class CostumeDescription extends JSONDescription {
   }
 
   /**
-   * Returns whether the fill for this {@link CostumeDescription}'s {@link Costume} is bottom
-   * -heavy (see{@link Costume}).
+   * Returns whether the fill for this {@link CostumeDescription}'s {@link Costume} is bottom -heavy
+   * (see{@link Costume}).
    *
    * @return whether the fill for this {@link CostumeDescription}'s {@link Costume} is bottom-heavy
    */

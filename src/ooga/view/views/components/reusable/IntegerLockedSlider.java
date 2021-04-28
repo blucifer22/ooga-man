@@ -15,12 +15,12 @@ public class IntegerLockedSlider extends Slider {
   private final HashSet<IntegerValueObserver> changeListeners;
 
   /**
-   * Sole {@link IntegerLockedSlider} constructor. Constructs a slider identical to that
-   * constructed by the {@link Slider} superclass, except that it automatically locks double
-   * values to the nearet integer value.
+   * Sole {@link IntegerLockedSlider} constructor. Constructs a slider identical to that constructed
+   * by the {@link Slider} superclass, except that it automatically locks double values to the
+   * nearet integer value.
    *
-   * @param min the minimum bound for the slider range
-   * @param max the maximum bound for the slider range
+   * @param min        the minimum bound for the slider range
+   * @param max        the maximum bound for the slider range
    * @param defaultVal the default value of the slider
    */
   public IntegerLockedSlider(int min, int max, int defaultVal) {

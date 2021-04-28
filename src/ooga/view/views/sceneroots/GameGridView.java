@@ -5,7 +5,6 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import ooga.model.api.GridRebuildObserver;
@@ -14,7 +13,6 @@ import ooga.model.api.ObservableSprite;
 import ooga.model.api.ObservableTile;
 import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.grid.TileCoordinates;
-import ooga.view.internal_api.Renderable;
 import ooga.view.internal_api.View;
 import ooga.view.theme.api.Theme;
 import ooga.view.theme.api.ThemeService;
@@ -44,8 +42,8 @@ public class GameGridView
   /**
    * Sole {@link GameGridView} constructor.
    *
-   * @param themeService the {@link ThemeService} to query for
-   * {@link ooga.view.theme.api.Costume}s and stylesheets
+   * @param themeService the {@link ThemeService} to query for {@link ooga.view.theme.api.Costume}s
+   *                     and stylesheets
    */
   public GameGridView(ThemeService themeService) {
     this.primaryView = new Pane();
@@ -155,11 +153,12 @@ public class GameGridView
   }
 
   /**
-   * Observer callback. Called when the theme changes. Re-queries the {@link ThemeService} for a
-   * new {@link Theme} when this method is called.
+   * Observer callback. Called when the theme changes. Re-queries the {@link ThemeService} for a new
+   * {@link Theme} when this method is called.
    */
   @Override
-  public void onThemeChange() {}
+  public void onThemeChange() {
+  }
 
   @FunctionalInterface
   public interface TileClickHandler {
@@ -167,7 +166,7 @@ public class GameGridView
     /**
      * Handler for tile click observation events.
      *
-     * @param e the {@link MouseEvent} associated with the tile click
+     * @param e    the {@link MouseEvent} associated with the tile click
      * @param tile the {@link ObservableTile} whose graphical representation was clicked
      */
     void handle(MouseEvent e, ObservableTile tile);
@@ -179,7 +178,7 @@ public class GameGridView
     /**
      * Handler for sprite click observation events.
      *
-     * @param e the {@link MouseEvent} associated with the tile click
+     * @param e      the {@link MouseEvent} associated with the tile click
      * @param sprite the {@link ObservableSprite} whose graphical representation was clicked
      */
     void handle(MouseEvent e, ObservableSprite sprite);

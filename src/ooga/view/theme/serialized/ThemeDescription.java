@@ -11,8 +11,8 @@ import ooga.view.theme.api.Theme;
 
 /**
  * Serialization description implementation for a {@link Theme}, as part of the
- * serialization/deserialization scheme in {@link ooga.view.theme.serialized}. Equates all
- * {@link Theme} parameters to primitives and {@link CostumeDescription}s.
+ * serialization/deserialization scheme in {@link ooga.view.theme.serialized}. Equates all {@link
+ * Theme} parameters to primitives and {@link CostumeDescription}s.
  *
  * @author David Coffman
  */
@@ -26,10 +26,10 @@ public class ThemeDescription extends JSONDescription {
   /**
    * Sole constructor. Called only during deserialization.
    *
-   * @param name the name of the represented {@link Theme}
+   * @param name           the name of the represented {@link Theme}
    * @param audioFilePaths a {@link Map} mapping audio asset names to their file paths
-   * @param costumes a {@link Map} mapping costume names to their serialized descriptions
-   * @param stylesheet the file path of the represented {@link Theme}'s stylesheet
+   * @param costumes       a {@link Map} mapping costume names to their serialized descriptions
+   * @param stylesheet     the file path of the represented {@link Theme}'s stylesheet
    */
   public ThemeDescription(
       @JsonProperty("name") String name,
@@ -83,8 +83,8 @@ public class ThemeDescription extends JSONDescription {
   }
 
   /**
-   * Converts the {@link ThemeDescription} to a concrete implementation of {@link Theme}
-   * represented by this {@link ThemeDescription}.
+   * Converts the {@link ThemeDescription} to a concrete implementation of {@link Theme} represented
+   * by this {@link ThemeDescription}.
    *
    * @param exceptionService the {@link ExceptionService} to which exceptions should be directed
    * @return a concrete implementation of {@link Theme} represented by this {@link ThemeDescription}

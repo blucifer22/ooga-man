@@ -17,9 +17,9 @@ import ooga.view.language.api.LanguageService;
 
 /**
  * Implementation of {@link LanguageService} and {@link LanguageSelectionService}. Uses resource
- * bundles referenced by the application language manifest and language files from the
- * application language resources folder. See {@link LanguageService} and {@link LanguageService}
- * for usage details.
+ * bundles referenced by the application language manifest and language files from the application
+ * language resources folder. See {@link LanguageService} and {@link LanguageService} for usage
+ * details.
  *
  * @author David Coffman
  */
@@ -48,7 +48,7 @@ public class BundledLanguageService implements LanguageService, LanguageSelectio
    * Sets a new language.
    *
    * @param languageName the language <em>bundle</em> name, stored as a key in the return from
-   * {@link LanguageSelectionService#getAvailableLanguages()}
+   *                     {@link LanguageSelectionService#getAvailableLanguages()}
    */
   @Override
   public void setLanguage(String languageName) {
@@ -120,8 +120,8 @@ public class BundledLanguageService implements LanguageService, LanguageSelectio
 
   /**
    * Returns a {@link ReadOnlyStringProperty} whose value is bound to the current language's
-   * translation for the key parameter. The {@link ReadOnlyStringProperty} is updated whenever
-   * the application language changes.s
+   * translation for the key parameter. The {@link ReadOnlyStringProperty} is updated whenever the
+   * application language changes.s
    *
    * @param s the key to search for
    * @return a {@link ReadOnlyStringProperty} whose value is bound to the current language's

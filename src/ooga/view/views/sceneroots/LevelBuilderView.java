@@ -16,7 +16,6 @@ import ooga.model.leveldescription.LevelBuilder.BuilderState;
 import ooga.model.leveldescription.LevelEditor;
 import ooga.model.leveldescription.Palette;
 import ooga.view.exceptions.UIServicedException;
-import ooga.view.internal_api.Renderable;
 import ooga.view.internal_api.View;
 import ooga.view.theme.api.Theme;
 import ooga.view.theme.api.ThemeService;
@@ -27,8 +26,8 @@ import ooga.view.views.components.reusable.StyledButton;
 import ooga.view.views.components.scenecomponents.GridDimensionPalette;
 
 /**
- * Primary view for interfacing with a {@link LevelEditor}. Allows the user to resize a game
- * grid, add or remove sprites of various types, and eventually save the grid to a new level file.
+ * Primary view for interfacing with a {@link LevelEditor}. Allows the user to resize a game grid,
+ * add or remove sprites of various types, and eventually save the grid to a new level file.
  *
  * @author David Coffman
  */
@@ -48,7 +47,7 @@ public class LevelBuilderView implements View, ThemedObject {
    * Sole constructor for {@link LevelBuilderView}.
    *
    * @param serviceProvider the {@link UIServiceProvider} to provide services as desired
-   * @param levelBuilder the {@link LevelEditor} to poke in response to user interaction
+   * @param levelBuilder    the {@link LevelEditor} to poke in response to user interaction
    */
   public LevelBuilderView(UIServiceProvider serviceProvider, LevelEditor levelBuilder) {
     this.serviceProvider = serviceProvider;
@@ -141,8 +140,8 @@ public class LevelBuilderView implements View, ThemedObject {
   }
 
   /**
-   * Observer callback. Called when the theme changes. Re-queries the {@link ThemeService} for a
-   * new {@link Theme} when this method is called.
+   * Observer callback. Called when the theme changes. Re-queries the {@link ThemeService} for a new
+   * {@link Theme} when this method is called.
    */
   @Override
   public void onThemeChange() {

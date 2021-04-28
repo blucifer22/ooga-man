@@ -16,11 +16,10 @@ public class StyledButton extends Button {
   /**
    * Instantiates a {@link StyledButton}.
    *
-   * @param serviceProvider the {@link UIServiceProvider} whose
-   * {@link ooga.view.language.api.LanguageService} should be queried for this
-   * {@link StyledButton}'s label text property
-   * @param labelKey the key with which to query for a label string property
-   * @param onClickHandler the button's on-click handler
+   * @param serviceProvider the {@link UIServiceProvider} whose {@link ooga.view.language.api.LanguageService}
+   *                        should be queried for this {@link StyledButton}'s label text property
+   * @param labelKey        the key with which to query for a label string property
+   * @param onClickHandler  the button's on-click handler
    */
   public StyledButton(
       UIServiceProvider serviceProvider, String labelKey, EventHandler<MouseEvent> onClickHandler) {

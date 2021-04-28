@@ -4,9 +4,8 @@ import javafx.scene.media.Media;
 
 /**
  * A container representing various styled aspects of a view. A mini-service that allows for
- * (usually indirectly, through a {@link ooga.view.uiservice.UIServiceProvider}'s
- * {@link ThemeService}) referencing view to query for {@link Media}, {@link Costume}s, and
- * stylesheets.
+ * (usually indirectly, through a {@link ooga.view.uiservice.UIServiceProvider}'s {@link
+ * ThemeService}) referencing view to query for {@link Media}, {@link Costume}s, and stylesheets.
  *
  * @author David Coffman
  */

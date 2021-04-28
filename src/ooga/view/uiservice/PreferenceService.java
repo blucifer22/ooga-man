@@ -4,9 +4,9 @@ import ooga.view.language.api.LanguageSelectionService;
 import ooga.view.theme.api.ThemeSelectionService;
 
 /**
- * A concrete implementation of {@link UIPreferenceService}. Allows passing one consistent
- * set of UI preference selection services (the overwhelmingly most common use case) instead of
- * two separate servicing instances (one for each service interface) to dependent views.
+ * A concrete implementation of {@link UIPreferenceService}. Allows passing one consistent set of UI
+ * preference selection services (the overwhelmingly most common use case) instead of two separate
+ * servicing instances (one for each service interface) to dependent views.
  *
  * @author David Coffman
  */
@@ -18,7 +18,7 @@ public class PreferenceService implements UIPreferenceService {
   /**
    * Sole {@link PreferenceService} constructor.
    *
-   * @param themeSelectionService a {@link ThemeSelectionService} for use by referencing views
+   * @param themeSelectionService    a {@link ThemeSelectionService} for use by referencing views
    * @param languageSelectionService a {@link LanguageSelectionService} for use by refrerencing
    *                                 views
    * @throws NullPointerException if any of the input parameters are null (views expect to be able

@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import ooga.view.internal_api.Renderable;
 import ooga.view.internal_api.View;
 import ooga.view.theme.api.Theme;
 import ooga.view.theme.api.ThemeService;
@@ -17,11 +16,11 @@ import ooga.view.views.components.reusable.LabeledComboBoxCard;
 import ooga.view.views.components.reusable.StyledButton;
 
 /**
- * Application preference view. Interfaces with a {@link UIPreferenceService} in order to allow
- * the user to set application preferences through a UI. The {@link PreferenceView} allows these
- * preference selections through combo-box menus. Preference changes take effect immediately --
- * or, at least, the {@link ooga.view.uiservice.PreferenceService} is immediately notified (it
- * may, depending on implementation, delay the preference change at its discretion).
+ * Application preference view. Interfaces with a {@link UIPreferenceService} in order to allow the
+ * user to set application preferences through a UI. The {@link PreferenceView} allows these
+ * preference selections through combo-box menus. Preference changes take effect immediately -- or,
+ * at least, the {@link ooga.view.uiservice.PreferenceService} is immediately notified (it may,
+ * depending on implementation, delay the preference change at its discretion).
  *
  * @author David Coffman
  */
@@ -34,8 +33,8 @@ public class PreferenceView implements ThemedObject, View {
   /**
    * Sole {@link PreferenceView} constructor.
    *
-   * @param serviceProvider the {@link ooga.view.uiservice.ServiceProvider} to provide UI services
-   *                       as desired
+   * @param serviceProvider   the {@link ooga.view.uiservice.ServiceProvider} to provide UI services
+   *                          as desired
    * @param preferenceService the {@link ooga.view.uiservice.PreferenceService} to provide UI
    *                          preference selection and retrieval services as desired
    */

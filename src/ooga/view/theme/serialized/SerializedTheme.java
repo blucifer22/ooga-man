@@ -14,9 +14,9 @@ import ooga.view.theme.api.ThemeService;
 
 /**
  * Concrete implementation of {@link Theme}. A container representing various styled aspects of a
- * view. A mini-service that allows for (usually indirectly, through a
- * {@link ooga.view.uiservice.UIServiceProvider}'s {@link ThemeService}) referencing view to
- * query for {@link Media}, {@link Costume}s, and stylesheets.
+ * view. A mini-service that allows for (usually indirectly, through a {@link
+ * ooga.view.uiservice.UIServiceProvider}'s {@link ThemeService}) referencing view to query for
+ * {@link Media}, {@link Costume}s, and stylesheets.
  *
  * @author David Coffman
  */
@@ -32,7 +32,7 @@ public class SerializedTheme implements Theme {
    * Constructor for a {@link SerializedTheme}. Requires an {@link ExceptionService} to service
    * file-not-found errors.
    *
-   * @param description the {@link ThemeDescription} data source
+   * @param description      the {@link ThemeDescription} data source
    * @param exceptionService the {@link ExceptionService} to which errors should be directed
    */
   protected SerializedTheme(ThemeDescription description, ExceptionService exceptionService) {

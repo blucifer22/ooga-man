@@ -16,10 +16,10 @@ import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.api.ThemedObject;
 
 /**
- * A management class for {@link SerializedTheme}s. Implements {@link ThemeService} and
- * {@link ThemeSelectionService}, meaning that {@link SerializedThemeService} allows both for
- * {@link ThemedObject}s to register for theme-change updates and  query for the
- * current {@link Theme} <em>and</em> .
+ * A management class for {@link SerializedTheme}s. Implements {@link ThemeService} and {@link
+ * ThemeSelectionService}, meaning that {@link SerializedThemeService} allows both for {@link
+ * ThemedObject}s to register for theme-change updates and  query for the current {@link Theme}
+ * <em>and</em> .
  */
 public class SerializedThemeService implements ThemeService, ThemeSelectionService {
 
@@ -33,8 +33,8 @@ public class SerializedThemeService implements ThemeService, ThemeSelectionServi
   private Theme theme;
 
   /**
-   * Sole constructor for {@link SerializedThemeService}. Takes a single {@link ExceptionService}
-   * as a parameter.
+   * Sole constructor for {@link SerializedThemeService}. Takes a single {@link ExceptionService} as
+   * a parameter.
    *
    * @param exceptionService the {@link ExceptionService} to notify if an operation fails
    */

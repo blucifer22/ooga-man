@@ -18,13 +18,12 @@ import ooga.view.uiservice.UIServiceProvider;
 import ooga.view.views.components.reusable.StyledBoundLabel;
 
 /**
- * A scoreboard "card" view component. Displays information received by observer callbacks via
- * the {@link GameStateObserver} interface. Implements {@link Renderable} and may thus be
- * rendered as a portion of, but not as an entire, scene.
- *
- * The {@link ScoreboardCard} expects to be added as a {@link GameStateObserver} to a
- * {@link GameStateObservable}. It will <em>not</em> query an {@link GameStateObservable}
- * unprompted.
+ * A scoreboard "card" view component. Displays information received by observer callbacks via the
+ * {@link GameStateObserver} interface. Implements {@link Renderable} and may thus be rendered as a
+ * portion of, but not as an entire, scene.
+ * <p>
+ * The {@link ScoreboardCard} expects to be added as a {@link GameStateObserver} to a {@link
+ * GameStateObservable}. It will <em>not</em> query an {@link GameStateObservable} unprompted.
  *
  * @author David Coffman
  */
@@ -190,8 +189,7 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
     }
 
     /**
-     * Called during observer callbacks to
-     * {@link ScoreboardCard#onGameStateUpdate(GameStateObservable)}.
+     * Called during observer callbacks to {@link ScoreboardCard#onGameStateUpdate(GameStateObservable)}.
      *
      * @param p the {@link ImmutablePlayer} to update
      */

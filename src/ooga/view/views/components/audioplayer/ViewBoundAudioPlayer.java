@@ -4,9 +4,8 @@ import ooga.model.api.AudioObserver;
 import ooga.view.audio.AudioService;
 
 /**
- * Middleware class that triggers {@link AudioService} methods in response to
- * {@link AudioObserver} callbacks. Essentially responsible for linking the frontend and
- * backend's audio interfaces.
+ * Middleware class that triggers {@link AudioService} methods in response to {@link AudioObserver}
+ * callbacks. Essentially responsible for linking the frontend and backend's audio interfaces.
  *
  * @author David Coffman
  */
@@ -15,11 +14,11 @@ public class ViewBoundAudioPlayer implements AudioObserver {
   private final AudioService audioService;
 
   /**
-   * Sole constructor for {@link ViewBoundAudioPlayer}. Takes an {@link AudioService}, to which
-   * the player's audio playing requests are directed.
+   * Sole constructor for {@link ViewBoundAudioPlayer}. Takes an {@link AudioService}, to which the
+   * player's audio playing requests are directed.
    *
-   * @param audioService {@link AudioService} to which the player's audio playing requests should
-   *                                        be directed.
+   * @param audioService {@link AudioService} to which the player's audio playing requests should be
+   *                     directed.
    */
   public ViewBoundAudioPlayer(AudioService audioService) {
     this.audioService = audioService;
@@ -36,8 +35,8 @@ public class ViewBoundAudioPlayer implements AudioObserver {
   }
 
   /**
-   * Plays a sound with the parameter identifier until stopped. The sound repeats automatically
-   * when finished.
+   * Plays a sound with the parameter identifier until stopped. The sound repeats automatically when
+   * finished.
    *
    * @param soundIdentifier the identifier of the sound to play
    */
@@ -67,8 +66,7 @@ public class ViewBoundAudioPlayer implements AudioObserver {
   }
 
   /**
-   * Stops all running sounds with the parameter identifier. Sounds playing indefinitely will
-   * stop.
+   * Stops all running sounds with the parameter identifier. Sounds playing indefinitely will stop.
    *
    * @param soundIdentifier the identifier of the sound to stop
    */

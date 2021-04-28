@@ -22,12 +22,12 @@ public class LabeledComboBoxCard extends StackPane {
    * {@link Map} constructor used when option keys (i.e. what the {@link OptionSelectionHandler}
    * expects) differ from the labels to display to the user.
    *
-   * @param serviceProvider a {@link UIServiceProvider} providing UI services as desired
+   * @param serviceProvider       a {@link UIServiceProvider} providing UI services as desired
    * @param labelBundleIdentifier the {@link ooga.view.language.api.LanguageService} key for the
    *                              localized label string
-   * @param options a {@link Map} of option keys to their labels
-   * @param selectionHandler an {@link OptionSelectionHandler} to call when a new option has been
-   *                        selected
+   * @param options               a {@link Map} of option keys to their labels
+   * @param selectionHandler      an {@link OptionSelectionHandler} to call when a new option has
+   *                              been selected
    */
   public LabeledComboBoxCard(
       UIServiceProvider serviceProvider,
@@ -39,15 +39,15 @@ public class LabeledComboBoxCard extends StackPane {
   }
 
   /**
-   * {@link Collection} constructor used when option keys <em>do not</em> differ from the labels
-   * to display to the user.
+   * {@link Collection} constructor used when option keys <em>do not</em> differ from the labels to
+   * display to the user.
    *
-   * @param serviceProvider a {@link UIServiceProvider} providing UI services as desired
-   * @param labelBundleIdentifier the {@link ooga.view.language.api.LanguageService} key for the
-   *    *                              localized label string
-   * @param options a {@link Collection} of options
-   * @param selectionHandler an {@link OptionSelectionHandler} to call when a new option has been
-   *    *                        selected
+   * @param serviceProvider       a {@link UIServiceProvider} providing UI services as desired
+   * @param labelBundleIdentifier the {@link ooga.view.language.api.LanguageService} key for the *
+   *                              localized label string
+   * @param options               a {@link Collection} of options
+   * @param selectionHandler      an {@link OptionSelectionHandler} to call when a new option has
+   *                              been *                        selected
    */
   public LabeledComboBoxCard(
       UIServiceProvider serviceProvider,

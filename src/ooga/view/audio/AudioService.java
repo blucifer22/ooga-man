@@ -15,8 +15,8 @@ public interface AudioService {
   void playOnce(String soundIdentifier);
 
   /**
-   * Plays a sound with the parameter identifier until stopped. The sound repeats automatically
-   * when finished.
+   * Plays a sound with the parameter identifier until stopped. The sound repeats automatically when
+   * finished.
    *
    * @param soundIdentifier the identifier of the sound to play
    */
@@ -37,8 +37,7 @@ public interface AudioService {
   void pauseAll();
 
   /**
-   * Stops all running sounds with the parameter identifier. Sounds playing indefinitely will
-   * stop.
+   * Stops all running sounds with the parameter identifier. Sounds playing indefinitely will stop.
    *
    * @param soundIdentifier the identifier of the sound to stop
    */
