@@ -5,6 +5,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import ooga.model.api.GridRebuildObserver;
@@ -13,15 +14,20 @@ import ooga.model.api.ObservableSprite;
 import ooga.model.api.ObservableTile;
 import ooga.model.api.SpriteExistenceObserver;
 import ooga.model.grid.TileCoordinates;
+import ooga.view.internal_api.Renderable;
 import ooga.view.internal_api.View;
+import ooga.view.theme.api.Theme;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.api.ThemedObject;
 import ooga.view.views.components.scenecomponents.SpriteView;
 import ooga.view.views.components.scenecomponents.TileView;
 
 /**
- * GameGridView lays out the grid and the Sprites on the grid (a necessary combination because only
- * the GameGridView knows where the grid is!).
+ * Handles the rendering of the grid and the {@link SpriteView}s on the grid (a necessary
+ * combination because only the {@link GameGridView} knows where the grid is). Handles resizing,
+ * re-theming, {@link SpriteView} creation and destruction, and {@link ObservableGrid} rebuilds.
+ *
+ * @author David Coffman
  */
 public class GameGridView
     implements View, GridRebuildObserver, SpriteExistenceObserver, ThemedObject {
@@ -35,6 +41,12 @@ public class GameGridView
   private SpriteClickHandler spriteClickHandler;
   private TileClickHandler tileClickHandler;
 
+  /**
+   * Sole {@link GameGridView} constructor.
+   *
+   * @param themeService the {@link ThemeService} to query for
+   * {@link ooga.view.theme.api.Costume}s and stylesheets
+   */
   public GameGridView(ThemeService themeService) {
     this.primaryView = new Pane();
     this.tileSize = new SimpleDoubleProperty();
@@ -50,6 +62,7 @@ public class GameGridView
     this.themeService.addThemedObject(this);
   }
 
+  // Create tile graphics based on a supplied observable grid (through the observer interface).
   private void createTileGraphics(ObservableGrid grid) {
     for (int row = 0; row < grid.getHeight(); row++) {
       for (int col = 0; col < grid.getWidth(); col++) {
@@ -67,14 +80,31 @@ public class GameGridView
     }
   }
 
+  /**
+   * Installs a {@link TileClickHandler} to observe clicks on tiles. Useful for interacting with
+   * {@link ObservableTile} objects.
+   *
+   * @param tileClickHandler the {@link TileClickHandler} to observe tile clicks
+   */
   public void setOnTileClicked(TileClickHandler tileClickHandler) {
     this.tileClickHandler = tileClickHandler;
   }
 
+  /**
+   * Installs a {@link SpriteClickHandler} to observe clicks on sprites. Useful for interacting with
+   * {@link ObservableSprite} objects.
+   *
+   * @param spriteClickHandler the {@link SpriteClickHandler} to observe tile clicks
+   */
   public void setOnSpriteClicked(SpriteClickHandler spriteClickHandler) {
     this.spriteClickHandler = spriteClickHandler;
   }
 
+  /**
+   * Called on creation of an {@link ObservableSprite}.
+   *
+   * @param so {@link ObservableSprite} that was created
+   */
   @Override
   public void onSpriteCreation(ObservableSprite so) {
     SpriteView createdSpriteView = new SpriteView(so, this.themeService, tileSize);
@@ -88,12 +118,22 @@ public class GameGridView
             });
   }
 
+  /**
+   * Called on destruction of an {@link ObservableSprite}.
+   *
+   * @param so {@link ObservableSprite} that was destroyed
+   */
   @Override
   public void onSpriteDestruction(ObservableSprite so) {
     spriteNodes.getChildren().remove(spriteViews.get(so).getRenderingNode());
     spriteViews.remove(so);
   }
 
+  /**
+   * Called when a new grid should be displayed in place of an old grid.
+   *
+   * @param grid the post-rebuild grid
+   */
   @Override
   public void onGridRebuild(ObservableGrid grid) {
     this.tileGrid.getChildren().clear();
@@ -104,23 +144,44 @@ public class GameGridView
     createTileGraphics(grid);
   }
 
+  /**
+   * Returns the {@link GameGridView}'s managed {@link Pane}.
+   *
+   * @return the {@link GameGridView}'s managed {@link Pane}.
+   */
   @Override
   public Pane getRenderingNode() {
     return primaryView;
   }
 
+  /**
+   * Observer callback. Called when the theme changes. Re-queries the {@link ThemeService} for a
+   * new {@link Theme} when this method is called.
+   */
   @Override
   public void onThemeChange() {}
 
   @FunctionalInterface
   public interface TileClickHandler {
 
+    /**
+     * Handler for tile click observation events.
+     *
+     * @param e the {@link MouseEvent} associated with the tile click
+     * @param tile the {@link ObservableTile} whose graphical representation was clicked
+     */
     void handle(MouseEvent e, ObservableTile tile);
   }
 
   @FunctionalInterface
   public interface SpriteClickHandler {
 
+    /**
+     * Handler for sprite click observation events.
+     *
+     * @param e the {@link MouseEvent} associated with the tile click
+     * @param sprite the {@link ObservableSprite} whose graphical representation was clicked
+     */
     void handle(MouseEvent e, ObservableSprite sprite);
   }
 }
