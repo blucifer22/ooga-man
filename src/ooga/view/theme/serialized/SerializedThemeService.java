@@ -15,6 +15,12 @@ import ooga.view.theme.api.ThemeSelectionService;
 import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.api.ThemedObject;
 
+/**
+ * A management class for {@link SerializedTheme}s. Implements {@link ThemeService} and {@link
+ * ThemeSelectionService}, meaning that {@link SerializedThemeService} allows both for {@link
+ * ThemedObject}s to register for theme-change updates and  query for the current {@link Theme}
+ * <em>and</em> .
+ */
 public class SerializedThemeService implements ThemeService, ThemeSelectionService {
 
   private static final String USER_THEME_PATH = "data/themes/";
@@ -26,6 +32,12 @@ public class SerializedThemeService implements ThemeService, ThemeSelectionServi
   private final ExceptionService exceptionService;
   private Theme theme;
 
+  /**
+   * Sole constructor for {@link SerializedThemeService}. Takes a single {@link ExceptionService} as
+   * a parameter.
+   *
+   * @param exceptionService the {@link ExceptionService} to notify if an operation fails
+   */
   public SerializedThemeService(ExceptionService exceptionService) {
     this.exceptionService = exceptionService;
     this.observers = new HashSet<>();
@@ -34,11 +46,21 @@ public class SerializedThemeService implements ThemeService, ThemeSelectionServi
     this.setTheme(DEFAULT_THEME_NAME);
   }
 
+  /**
+   * Returns the active {@link Theme}.
+   *
+   * @return the active {@link Theme}.
+   */
   @Override
   public Theme getTheme() {
     return this.theme;
   }
 
+  /**
+   * Sets a new theme.
+   *
+   * @param name the name of the {@link Theme} to enable
+   */
   @Override
   public void setTheme(String name) {
     this.theme = availableThemes.get(name);
@@ -48,18 +70,29 @@ public class SerializedThemeService implements ThemeService, ThemeSelectionServi
     }
   }
 
+  /**
+   * Registers a {@link ThemedObject} for theme change updates.
+   *
+   * @param themedObject the {@link ThemedObject} to register for theme change updates
+   */
   @Override
   public void addThemedObject(ThemedObject themedObject) {
     this.observers.add(themedObject);
     themedObject.onThemeChange();
   }
 
+  /**
+   * Returns a {@link Set<String>} containing the names of all available {@link Theme}s.
+   *
+   * @return a {@link Set<String>} containing the names of all available {@link Theme}s.
+   */
   @Override
   public Set<String> getAvailableThemes() {
     refreshAvailableThemes();
     return Collections.unmodifiableSet(this.availableThemes.keySet());
   }
 
+  // Refreshes the available themes from disk.
   private void refreshAvailableThemes() {
     this.availableThemes.clear();
 
@@ -75,6 +108,7 @@ public class SerializedThemeService implements ThemeService, ThemeSelectionServi
     recursiveDirectoryTraversal(base);
   }
 
+  // Recursively searches the "data/themes" directory for themes.
   private void recursiveDirectoryTraversal(File base) {
     if (base.isFile() && base.exists() && base.getName().equals(THEME_MANIFEST_NAME)) {
       try {
@@ -90,6 +124,7 @@ public class SerializedThemeService implements ThemeService, ThemeSelectionServi
     }
   }
 
+  // Loads a theme from disk. Throws an exception if the theme file is malformed.
   private void loadThemeFromFile(File f) throws IOException {
     Theme t =
         (new ObjectMapper()).readValue(f, ThemeDescription.class).toTheme(this.exceptionService);

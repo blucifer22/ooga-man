@@ -1,35 +1,38 @@
 package ooga.model.api;
 
 /**
- * Composite observable interface to be implemented by objects which must observe
- * a game state.
+ * Composite observable interface. Streamlines the delivery of dependencies to the model.
  *
  * @author David Coffman
  * @author Marc Chmielewski
  */
 public interface GameStateObservationComposite {
+
   /**
-   * Get the sprite existence observer
-   * @return The sprite existence component of this composite.
+   * Returns this composite's {@link SpriteExistenceObserver}.
+   *
+   * @return this composite's {@link SpriteExistenceObserver}.
    */
   SpriteExistenceObserver spriteExistenceObserver();
 
   /**
-   * Get the grid rebuild observer of this composite.
-   * @return The rebuild observer of this composite.
+   * Returns this composite's {@link GridRebuildObserver}.
+   *
+   * @return this composite's {@link GridRebuildObserver}.
    */
   GridRebuildObserver gridRebuildObserver();
 
   /**
-   * Get the audio observer of this composite.
-   * @return Audio observer.
+   * Returns this composite's {@link AudioObserver}.
+   *
+   * @return this composite's {@link AudioObserver}.
    */
   AudioObserver audioObserver();
 
   /**
-   * Get the game state observer of this composite.
+   * Returns this composite's {@link GameStateObserver}.
    *
-   * @return Game state observer.
+   * @return this composite's {@link GameStateObserver}.
    */
   GameStateObserver gameStateObserver();
 }

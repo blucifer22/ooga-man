@@ -1,7 +1,7 @@
 package ooga.model.api;
 
 /**
- * Interface to be implemented by objects which should respond
+ * Interface to be implemented by objects which should respond to
  * sprite creation/deletion.
  */
 public interface SpriteExistenceObserver {

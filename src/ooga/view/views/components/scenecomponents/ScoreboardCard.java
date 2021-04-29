@@ -17,6 +17,16 @@ import ooga.view.internal_api.Renderable;
 import ooga.view.uiservice.UIServiceProvider;
 import ooga.view.views.components.reusable.StyledBoundLabel;
 
+/**
+ * A scoreboard "card" view component. Displays information received by observer callbacks via the
+ * {@link GameStateObserver} interface. Implements {@link Renderable} and may thus be rendered as a
+ * portion of, but not as an entire, scene.
+ * <p>
+ * The {@link ScoreboardCard} expects to be added as a {@link GameStateObserver} to a {@link
+ * GameStateObservable}. It will <em>not</em> query an {@link GameStateObservable} unprompted.
+ *
+ * @author David Coffman
+ */
 public class ScoreboardCard implements GameStateObserver, Renderable {
 
   private static final int NUM_COLS = 3;
@@ -29,6 +39,11 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
   private GameStateObservable dataSource;
   private boolean initialized = false;
 
+  /**
+   * Sole constructor for {@link ScoreboardCard}.
+   *
+   * @param serviceProvider a {@link UIServiceProvider} to provide UI services as desired
+   */
   public ScoreboardCard(UIServiceProvider serviceProvider) {
     this.view = new GridPane();
     this.serviceProvider = serviceProvider;
@@ -37,6 +52,7 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
     this.roundProperty = new SimpleIntegerProperty();
   }
 
+  // Initial loading of player data into map
   private void configureData() {
     for (ImmutablePlayer p : dataSource.getPlayers()) {
       dataBindingContainers.put(p.getID(), new PlayerDataBindingContainer(p));
@@ -45,6 +61,7 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
     roundProperty.setValue(dataSource.getRoundNumber());
   }
 
+  // Configure the GridPane constraints for the scoreboard card's primary view element.
   private void setConstraints() {
     int numPlayers = this.dataSource.getPlayers().size();
     for (int i = 0; i < numPlayers; i++) {
@@ -61,6 +78,8 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
     this.view.getStyleClass().add("scoreboard");
   }
 
+  // Initial data loading; after initial loading, all visual updates are accomplished by property
+  // binding.
   private void populateData() {
     ReadOnlyStringProperty roundNum = stringFor("roundNumber");
     StringBinding roundBinding =
@@ -106,6 +125,7 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
     }
   }
 
+  // Refreshes property bindings. Sole code called on an observer callback.
   private void refresh() {
     for (ImmutablePlayer p : dataSource.getPlayers()) {
       dataBindingContainers.get(p.getID()).update(p);
@@ -114,6 +134,7 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
     roundProperty.setValue(dataSource.getRoundNumber());
   }
 
+  // utility method to reduce code duplication; retrieves binding for a given keyed string
   private ReadOnlyStringProperty stringFor(String key) {
     return this.serviceProvider.languageService().getLocalizedString(key);
   }
@@ -137,21 +158,41 @@ public class ScoreboardCard implements GameStateObserver, Renderable {
     }
   }
 
+  /**
+   * Returns the {@link ScoreboardCard}'s managed {@link Node}.
+   *
+   * @return the {@link ScoreboardCard}'s managed {@link Node}.
+   */
   @Override
   public Node getRenderingNode() {
     return this.view;
   }
 
+  /**
+   * Inner class used for player data binding management.
+   *
+   * @author David Coffman
+   */
   private static class PlayerDataBindingContainer {
 
     private final SimpleIntegerProperty scoreProperty;
     private final SimpleIntegerProperty winProperty;
 
+    /**
+     * Instantiates a {@link PlayerDataBindingContainer} from an {@link ImmutablePlayer}.
+     *
+     * @param p the {@link ImmutablePlayer} to bind
+     */
     public PlayerDataBindingContainer(ImmutablePlayer p) {
       this.scoreProperty = new SimpleIntegerProperty(p.getScore());
       this.winProperty = new SimpleIntegerProperty(p.getRoundWins());
     }
 
+    /**
+     * Called during observer callbacks to {@link ScoreboardCard#onGameStateUpdate(GameStateObservable)}.
+     *
+     * @param p the {@link ImmutablePlayer} to update
+     */
     public void update(ImmutablePlayer p) {
       scoreProperty.set(p.getScore());
       winProperty.set(p.getRoundWins());

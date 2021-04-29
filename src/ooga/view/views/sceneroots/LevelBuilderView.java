@@ -17,12 +17,20 @@ import ooga.model.leveldescription.LevelEditor;
 import ooga.model.leveldescription.Palette;
 import ooga.view.exceptions.UIServicedException;
 import ooga.view.internal_api.View;
+import ooga.view.theme.api.Theme;
+import ooga.view.theme.api.ThemeService;
 import ooga.view.theme.api.ThemedObject;
 import ooga.view.uiservice.UIServiceProvider;
 import ooga.view.views.components.reusable.LabeledComboBoxCard;
 import ooga.view.views.components.reusable.StyledButton;
 import ooga.view.views.components.scenecomponents.GridDimensionPalette;
 
+/**
+ * Primary view for interfacing with a {@link LevelEditor}. Allows the user to resize a game grid,
+ * add or remove sprites of various types, and eventually save the grid to a new level file.
+ *
+ * @author David Coffman
+ */
 public class LevelBuilderView implements View, ThemedObject {
 
   private static final int FULL_WIDTH = 100;
@@ -35,6 +43,12 @@ public class LevelBuilderView implements View, ThemedObject {
   private final GameGridView tileGridView;
   private final GridPane primaryView;
 
+  /**
+   * Sole constructor for {@link LevelBuilderView}.
+   *
+   * @param serviceProvider the {@link UIServiceProvider} to provide services as desired
+   * @param levelBuilder    the {@link LevelEditor} to poke in response to user interaction
+   */
   public LevelBuilderView(UIServiceProvider serviceProvider, LevelEditor levelBuilder) {
     this.serviceProvider = serviceProvider;
     this.levelBuilder = levelBuilder;
@@ -57,6 +71,7 @@ public class LevelBuilderView implements View, ThemedObject {
     this.onThemeChange();
   }
 
+  // Configure the level builder primary view's GridPane constraints.
   private void configureConstraints() {
     RowConstraints rc = new RowConstraints();
     rc.setPercentHeight(FULL_WIDTH);
@@ -69,6 +84,7 @@ public class LevelBuilderView implements View, ThemedObject {
     this.primaryView.getColumnConstraints().addAll(cc40, cc60);
   }
 
+  // Render the button box and swappable panes.
   private void renderViews() {
     VBox buttonBox = new VBox(
         stageSwapPanel,
@@ -84,6 +100,7 @@ public class LevelBuilderView implements View, ThemedObject {
     this.primaryView.getStyleClass().add("view");
   }
 
+  // Advance to next level builder step.
   private void nextStep() {
     if (this.levelBuilder.getBuilderState() == BuilderState.SPRITE_PLACEMENT) {
       try {
@@ -98,6 +115,7 @@ public class LevelBuilderView implements View, ThemedObject {
     }
   }
 
+  // Refresh view components when the level builder advances to the next step.
   private void refreshViews() {
     this.stageSwapPanel.getChildren().clear();
 
@@ -111,11 +129,20 @@ public class LevelBuilderView implements View, ThemedObject {
     this.stageSwapPanel.getChildren().add(paletteChild);
   }
 
+  /**
+   * Returns the {@link LevelBuilderView}'s managed {@link Pane}.
+   *
+   * @return the {@link LevelBuilderView}'s managed {@link Pane}.
+   */
   @Override
   public Pane getRenderingNode() {
     return this.primaryView;
   }
 
+  /**
+   * Observer callback. Called when the theme changes. Re-queries the {@link ThemeService} for a new
+   * {@link Theme} when this method is called.
+   */
   @Override
   public void onThemeChange() {
     this.primaryView.getStylesheets().clear();
@@ -125,6 +152,7 @@ public class LevelBuilderView implements View, ThemedObject {
     }
   }
 
+  // Sprite click handler supplied to GameGridView
   private void onSpriteClick(MouseEvent e, ObservableSprite sprite) {
     int tileX = sprite.getCoordinates().getTileCoordinates().getX();
     int tileY = sprite.getCoordinates().getTileCoordinates().getY();
@@ -135,6 +163,7 @@ public class LevelBuilderView implements View, ThemedObject {
     }
   }
 
+  // Tile click handler supplied to GameGridView
   private void onTileClick(MouseEvent e, ObservableTile tile) {
     BuilderState builderState = levelBuilder.getBuilderState();
     int tileX = tile.getCoordinates().getX();
