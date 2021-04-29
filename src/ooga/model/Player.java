@@ -48,22 +48,42 @@ public class Player implements ImmutablePlayer {
     this.inputSource = inputSource;
   }
 
+  /**
+   * Get player score.
+   * @return Score.
+   */
   public int getScore() {
     return score;
   }
 
+  /**
+   * Set score of this player.
+   * @param score New score.
+   */
   public void setScore(int score) {
     this.score = score;
   }
 
+  /**
+   * Get number of rounds won.
+   * @return Wins.
+   */
   public int getRoundWins() {
     return roundWins;
   }
 
+  /**
+   * Set number of rounds won.
+   * @param roundWins Number won.
+   */
   public void setRoundWins(int roundWins) {
     this.roundWins = roundWins;
   }
 
+  /**
+   * Get ID of player.
+   * @return ID
+   */
   @JsonGetter
   public int getID() {
     return id;

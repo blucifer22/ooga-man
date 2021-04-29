@@ -14,6 +14,9 @@ import ooga.util.Vec2;
 /** @author George Hong */
 public abstract class MoveableSprite extends Sprite {
 
+  /**
+   * Maximum movement speed cap. 9 u/s.
+   */
   public static final int UNIVERSAL_MAX_MOVEMENT_SPEED = 9;
   private double currentSpeed;
   private double movementSpeed;
@@ -22,6 +25,14 @@ public abstract class MoveableSprite extends Sprite {
 
   private double initialMovementSpeed;
 
+  /**
+   * Construct a moveable sprite.
+   * @param spriteAnimationPrefix Animation prefix.
+   * @param startingAnimation Starting animation.
+   * @param position Initial position.
+   * @param direction Initial orientation.
+   * @param speed Movement speed.
+   */
   protected MoveableSprite(
       String spriteAnimationPrefix,
       SpriteAnimationFactory.SpriteAnimationType startingAnimation,
@@ -37,6 +48,12 @@ public abstract class MoveableSprite extends Sprite {
     initialMovementSpeed = speed;
   }
 
+  /**
+   * Construct a moveable sprite from a sprite description.
+   * @param spriteAnimationPrefix Animation prefix.
+   * @param startingAnimation Starting animation.
+   * @param description Sprite description.
+   */
   protected MoveableSprite(
       String spriteAnimationPrefix,
       SpriteAnimationFactory.SpriteAnimationType startingAnimation,
@@ -44,24 +61,43 @@ public abstract class MoveableSprite extends Sprite {
     super(spriteAnimationPrefix, startingAnimation, description);
   }
 
+  /**
+   * Called on a respawn. Resets movement speed.
+   */
   @Override
   public void reset() {
     super.reset();
     movementSpeed = initialMovementSpeed;
   }
 
+  /**
+   * Get default movement speed.
+   * @return Movement speed.
+   */
   public double getMovementSpeed() {
     return movementSpeed;
   }
 
+  /**
+   * Set default movement speed.
+   * @param speed Speed to set.
+   */
   public void setMovementSpeed(double speed) {
     this.movementSpeed = speed;
   }
 
+  /**
+   * Get current speed.
+   * @return Current speed.
+   */
   public double getCurrentSpeed() {
     return currentSpeed;
   }
 
+  /**
+   * Set current speed.
+   * @param speed Speed to set.
+   */
   public void setCurrentSpeed(double speed) {
     this.currentSpeed = speed;
   }
@@ -72,7 +108,7 @@ public abstract class MoveableSprite extends Sprite {
    * quickly.
    *
    * @param roundNumber current round of Pac-Man.
-   * @param state
+   * @param state Game state.
    */
   @Override
   public void uponNewLevel(int roundNumber, MutableGameState state) {
@@ -81,16 +117,32 @@ public abstract class MoveableSprite extends Sprite {
     frozen = true;
   }
 
+  /**
+   * Check whether this sprite can move into a tile.
+   * @param tile Destination.
+   * @return True if can move into.
+   */
   protected abstract boolean canMoveTo(Tile tile);
 
+  /**
+   * Unfreeze this sprite. Called after the start music plays.
+   */
   public void unfreeze() {
     frozen = false;
   }
 
+  /**
+   * Freeze this sprite. Prevents sprite from moving.
+   */
   public void freeze() {
     frozen = true;
   }
 
+  /**
+   * Move this sprite according to its input source.
+   * @param dt Time step.
+   * @param grid Grid on which this sprite moves.
+   */
   public void move(double dt, PacmanGrid grid) {
     if (frozen) {
       return;

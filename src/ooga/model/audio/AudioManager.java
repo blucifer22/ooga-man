@@ -15,6 +15,9 @@ import ooga.model.api.GameEventObserver;
  * @author Franklin Wei
  */
 public class AudioManager implements GameEventObserver {
+  /**
+   * Normal ambient noise.
+   */
   public static final String NORMAL_AMBIENCE = "normal-loop";
   private static final String FRIGHT_AMBIENCE = "frightened-loop";
   private final Collection<AudioObserver> observers;

@@ -25,13 +25,17 @@ public interface LevelEditor {
   /** Advance to the next state */
   void advanceState();
 
+  /**
+   * Retrieve sprite palette.
+   * @return Palette of sprites.
+   */
   Palette getPalette();
 
   /**
    * Writes a completed level to a JSON file
    *
    * @param file input file
-   * @throws IOException
+   * @throws IOException on error.
    */
   void writeToJSON(File file) throws IOException;
 

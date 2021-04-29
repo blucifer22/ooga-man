@@ -27,6 +27,7 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
    * Basic constructor for HumanInputManager.
    *
    * <p>Creates a new HashSet of pressedKeys.
+   * @param keybindingType which keybinding to use -- player 1 or 2.
    */
   @JsonCreator
   public HumanInputManager(@JsonProperty("keybindingType") KeybindingType keybindingType) {
@@ -55,7 +56,7 @@ public class HumanInputManager implements InputSource, HumanInputConsumer {
    * downwards.
    *
    * @return currently requested input direction, or Vec2.ZERO if none
-   * @param dt
+   * @param dt Time step.
    */
   @Override
   public Vec2 getRequestedDirection(double dt) {

@@ -29,6 +29,10 @@ public class TeleporterOverlay extends Sprite {
     connectedTeleporters = new ArrayList<>();
   }
 
+  /**
+   * Construct a teleporter from a sprite description.
+   * @param spriteDescription Description to use.
+   */
   public TeleporterOverlay(SpriteDescription spriteDescription) {
     this(spriteDescription.getCoordinates());
   }
@@ -36,7 +40,7 @@ public class TeleporterOverlay extends Sprite {
   /**
    * Adds a teleporter that is parallel to this.
    *
-   * @param teleportOverlay
+   * @param teleportOverlay Other teleporter.
    */
   public void connectTeleporter(Sprite teleportOverlay) {
     connectedTeleporters.add(teleportOverlay);
@@ -72,11 +76,19 @@ public class TeleporterOverlay extends Sprite {
     other.setCoordinates(new SpriteCoordinates(newSpritePosition));
   }
 
+  /**
+   * Point value of this teleporter.
+   * @return 0
+   */
   @Override
   public int getScore() {
     return 0;
   }
 
+  /**
+   * Consumability of this teleporter.
+   * @return false
+   */
   @Override
   public boolean isConsumable() {
     return false;

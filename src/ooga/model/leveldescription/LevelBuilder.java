@@ -336,7 +336,13 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
    * PacmanLevel in the LevelBuilder
    */
   public enum BuilderState {
+    /**
+     * In tile modification.
+     */
     TILING,
+    /**
+     * Placing sprites.
+     */
     SPRITE_PLACEMENT,
   }
 }

@@ -12,6 +12,12 @@ public class FreeRunningPeriodicAnimation extends PeriodicAnimation {
   private final double framePeriod;
   private double animationTime;
 
+  /**
+   * Construct a free-running, periodic animation.
+   * @param costumes Costumes, in order.
+   * @param frameOrder Order in which to cycle costumes.
+   * @param framePeriod Duration of each frame.
+   */
   public FreeRunningPeriodicAnimation(
       List<String> costumes, FrameOrder frameOrder, double framePeriod) {
     super(costumes, frameOrder);
@@ -19,6 +25,10 @@ public class FreeRunningPeriodicAnimation extends PeriodicAnimation {
     this.animationTime = 0;
   }
 
+  /**
+   * Step animation.
+   * @param dt Time step.
+   */
   @Override
   public void step(double dt) {
     if (!isPaused()) {

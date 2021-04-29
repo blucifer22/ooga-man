@@ -18,8 +18,8 @@ public class Dot extends Sprite {
   /**
    * Constructs a dot object at the given coordinates
    *
-   * @param position
-   * @param direction
+   * @param position Initial position
+   * @param direction Initial orientation.
    */
   public Dot(SpriteCoordinates position, Vec2 direction) {
     super("dot", SpriteAnimationFactory.SpriteAnimationType.DOT_STILL, position, direction);
@@ -33,7 +33,7 @@ public class Dot extends Sprite {
   /**
    * Constructs a dot from a Sprite Description
    *
-   * @param spriteDescription
+   * @param spriteDescription Sprite description.
    */
   public Dot(SpriteDescription spriteDescription) {
     this(spriteDescription.getCoordinates(), new Vec2(1, 0));
@@ -55,8 +55,8 @@ public class Dot extends Sprite {
   /**
    * Steps through animation and sound of a dot per frame (1/60 of a second)
    *
-   * @param dt
-   * @param pacmanGameState
+   * @param dt Time step.
+   * @param pacmanGameState Game state.
    */
   @Override
   public void step(double dt, MutableGameState pacmanGameState) {
@@ -64,6 +64,8 @@ public class Dot extends Sprite {
   }
 
   /**
+   * Whether this dot is advancement-blocking.
+   *
    * @return true since a ghost must be consumed
    */
   @Override
@@ -72,6 +74,8 @@ public class Dot extends Sprite {
   }
 
   /**
+   * Get point value.
+   *
    * @return the base score of a dot
    */
   @Override

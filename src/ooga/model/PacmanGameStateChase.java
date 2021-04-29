@@ -19,6 +19,9 @@ import ooga.model.sprites.SwapClass;
  */
 public class PacmanGameStateChase extends PacmanGameState {
 
+  /**
+   * Length of a round.
+   */
   public static final int TIME_LIMIT = 45;
 
   /**

@@ -21,8 +21,8 @@ public class PowerPill extends Sprite {
   /**
    * Constructs a powerpill object at the given coordinates
    *
-   * @param position
-   * @param direction
+   * @param position Initial position.
+   * @param direction Initial orientation.
    */
   public PowerPill(SpriteCoordinates position, Vec2 direction) {
     super(
@@ -37,7 +37,7 @@ public class PowerPill extends Sprite {
   /**
    * Constructs a powerpill from a Sprite Description
    *
-   * @param description
+   * @param description Sprite description to use.
    */
   public PowerPill(SpriteDescription description) {
     this(description.getCoordinates(), new Vec2(1, 0));
@@ -62,8 +62,8 @@ public class PowerPill extends Sprite {
   /**
    * Animates the powerpill each frame (1/60 of a second)
    *
-   * @param dt
-   * @param pacmanGameState
+   * @param dt Time step.
+   * @param pacmanGameState Game state.
    */
   @Override
   public void step(double dt, MutableGameState pacmanGameState) {
@@ -71,6 +71,8 @@ public class PowerPill extends Sprite {
   }
 
   /**
+   * Get point value.
+   *
    * @return the point value for consuming a powerpill
    */
   @Override
@@ -79,6 +81,8 @@ public class PowerPill extends Sprite {
   }
 
   /**
+   * Get required consumability.
+   *
    * @return true since a powerpill must be consumed to progress a level
    */
   @Override

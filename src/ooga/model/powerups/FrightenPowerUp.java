@@ -6,9 +6,15 @@ import static ooga.model.GameEvent.FRIGHTEN_WARNING;
 
 import java.util.Map;
 
-/** @author George Hong */
+/**
+ * Powerup that frightens ghosts.
+ * @author George Hong
+ */
 public class FrightenPowerUp extends TimerBasedPowerUp {
 
+  /**
+   * Construct a frighten power-up.
+   */
   public FrightenPowerUp() {
     super(
         Map.of(

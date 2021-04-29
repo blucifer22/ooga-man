@@ -112,7 +112,7 @@ public abstract class SpriteAnimation implements ObservableAnimation {
   }
 
   /**
-   * SEt relative speed of this animation.
+   * Set relative speed of this animation.
    * @param relativeSpeed factor by which to speed up.
    */
   @Override
