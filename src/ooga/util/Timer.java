@@ -18,7 +18,7 @@ public class Timer implements Comparable<Timer> {
   /**
    * Creates an instance of the Timer object
    *
-   * @param delay number of seconds before this code executes
+   * @param delay      number of seconds before this code executes
    * @param executable code to execute when the Timer expires
    */
   public Timer(double delay, Consumer<MutableGameState> executable) {
@@ -44,6 +44,11 @@ public class Timer implements Comparable<Timer> {
     executable.accept(gameState);
   }
 
+  /**
+   * Gets when this timer expires and the saved code snippet should be executed
+   *
+   * @return expiration time
+   */
   public double getExpirationTime() {
     return instantiationTimeStamp + delay;
   }

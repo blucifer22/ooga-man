@@ -30,7 +30,9 @@ public class TeleporterOverlay extends Sprite {
   }
 
   /**
-   * Construct a teleporter from a sprite description.
+   * Construct a teleporter from a sprite description, useful for when loading from a configuration
+   * file.
+   *
    * @param spriteDescription Description to use.
    */
   public TeleporterOverlay(SpriteDescription spriteDescription) {
@@ -38,7 +40,8 @@ public class TeleporterOverlay extends Sprite {
   }
 
   /**
-   * Adds a teleporter that is parallel to this.
+   * Adds a teleporter that is parallel to this.  A teleporter can be connected to multiple
+   * teleporters
    *
    * @param teleportOverlay Other teleporter.
    */
@@ -47,9 +50,9 @@ public class TeleporterOverlay extends Sprite {
   }
 
   /**
-   * Get this TeleporterOverlay's List of connectedTeleporters.
+   * Gets this TeleporterOverlay's List of connected Teleporters.
    *
-   * @return This TeleporterOverlay's List of connectedTeleporters.
+   * @return This TeleporterOverlay's List of connected Teleporters.
    */
   public List<Sprite> getConnectedTeleporters() {
     return connectedTeleporters;
@@ -58,8 +61,9 @@ public class TeleporterOverlay extends Sprite {
   /**
    * Changes the position of the Sprite that collides with this. This object can not be modified by
    * collision by other Sprites. An object entering this teleporter will leave the teleporter moving
-   * in the same direction. The teleporter that the entering Sprite leaves is randomly chosen of the
-   * connected teleporters.
+   * in the same direction, which is an important decision in order to avoid rubberbanding or
+   * placement into an invalid tile position. The teleporter that the entering Sprite leaves is
+   * randomly chosen of the connected teleporters.
    *
    * @param other other Sprite that this sprite collides with
    * @param state current state of the game, allowing Sprites to perform actions such as remove
@@ -77,7 +81,8 @@ public class TeleporterOverlay extends Sprite {
   }
 
   /**
-   * Point value of this teleporter.
+   * Point value of this teleporter.  Teleporters can not be consumed and provide no score.
+   *
    * @return 0
    */
   @Override
@@ -86,7 +91,8 @@ public class TeleporterOverlay extends Sprite {
   }
 
   /**
-   * Consumability of this teleporter.
+   * Consumability of this teleporter.  Teleporters cannot be consumed.
+   *
    * @return false
    */
   @Override

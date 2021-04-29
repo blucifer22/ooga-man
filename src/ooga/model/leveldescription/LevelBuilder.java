@@ -261,7 +261,6 @@ public class LevelBuilder implements SpriteExistenceObservable, GridRebuildObser
     notifyGridRebuildObservers();
   }
 
-
   /**
    * This method attaches a new GridRebuildObserver to this LevelBuilder, thus allowing the front-end
    * to be notified of any changes to the grid state.
