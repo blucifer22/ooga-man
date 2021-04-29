@@ -1,7 +1,7 @@
 OOGA-Man
 ====
 
-This project implements a Pac-Man engine that is able to the classic game-mode as well as other
+This project implements a Pac-Man engine that is able to emulate the classic game-mode as well as other
 variations on the original to illustrate our data-driven design.
 
 Names:
