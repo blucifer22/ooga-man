@@ -8,7 +8,7 @@ import ooga.model.api.InputSource;
 
 /**
  * This implementation of Pac-Man accommodates versus mode, allowing more than one player to play at
- * a time.
+ * a time.  This implementation is general and can be adaptable to games other than Pac-Man.
  *
  * @author George Hong
  */
@@ -24,7 +24,7 @@ public class Player implements ImmutablePlayer {
    * starts with a score of 0 and no round wins. This is intended to be used for the first round of
    * a Pac-Man Game.
    *
-   * @param id identification number for this player.
+   * @param id          identification number for this player.
    * @param inputSource Keybindings used by this player to control their Sprites.
    */
   @JsonCreator
@@ -35,10 +35,10 @@ public class Player implements ImmutablePlayer {
   /**
    * Creates an instance of Player used to keep score for all variants of Pac-Man.
    *
-   * @param id identification number for this player.
-   * @param score total score attained by this player while playing Pac-Man
-   * @param roundWins keeps track of the number of rounds won by this player, useful in best-of
-   *     approaches to determining overall winner.
+   * @param id          identification number for this player.
+   * @param score       total score attained by this player while playing Pac-Man
+   * @param roundWins   keeps track of the number of rounds won by this player, useful in best-of
+   *                    approaches to determining overall winner.
    * @param inputSource Keybindings used by this player to control their Sprites.
    */
   public Player(int id, int score, int roundWins, InputSource inputSource) {
@@ -50,6 +50,7 @@ public class Player implements ImmutablePlayer {
 
   /**
    * Get player score.
+   *
    * @return Score.
    */
   public int getScore() {
@@ -58,6 +59,7 @@ public class Player implements ImmutablePlayer {
 
   /**
    * Set score of this player.
+   *
    * @param score New score.
    */
   public void setScore(int score) {
@@ -66,6 +68,7 @@ public class Player implements ImmutablePlayer {
 
   /**
    * Get number of rounds won.
+   *
    * @return Wins.
    */
   public int getRoundWins() {
@@ -74,6 +77,7 @@ public class Player implements ImmutablePlayer {
 
   /**
    * Set number of rounds won.
+   *
    * @param roundWins Number won.
    */
   public void setRoundWins(int roundWins) {
@@ -82,6 +86,7 @@ public class Player implements ImmutablePlayer {
 
   /**
    * Get ID of player.
+   *
    * @return ID
    */
   @JsonGetter

@@ -8,8 +8,10 @@ import ooga.model.MutableGameState;
  * @author Franklin Wei
  */
 public interface PowerUp {
+
   /**
    * Execute this powerup.
+   *
    * @param state State on which to act.
    */
   void executePowerUp(MutableGameState state);

@@ -1,0 +1,625 @@
+{
+  "gameMode" : "CHASE",
+  "gridDescription" : {
+    "gridName" : "",
+    "width" : 8,
+    "height" : 8,
+    "grid" : [ [ {
+      "coordinates" : {
+        "x" : 0,
+        "y" : 0
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 1,
+        "y" : 0
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 2,
+        "y" : 0
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 3,
+        "y" : 0
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 4,
+        "y" : 0
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 5,
+        "y" : 0
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 6,
+        "y" : 0
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 7,
+        "y" : 0
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    } ], [ {
+      "coordinates" : {
+        "x" : 0,
+        "y" : 1
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 1,
+        "y" : 1
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 2,
+        "y" : 1
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 3,
+        "y" : 1
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 4,
+        "y" : 1
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 5,
+        "y" : 1
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 6,
+        "y" : 1
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 7,
+        "y" : 1
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    } ], [ {
+      "coordinates" : {
+        "x" : 0,
+        "y" : 2
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 1,
+        "y" : 2
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 2,
+        "y" : 2
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 3,
+        "y" : 2
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 4,
+        "y" : 2
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 5,
+        "y" : 2
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 6,
+        "y" : 2
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 7,
+        "y" : 2
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    } ], [ {
+      "coordinates" : {
+        "x" : 0,
+        "y" : 3
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 1,
+        "y" : 3
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 2,
+        "y" : 3
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 3,
+        "y" : 3
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 4,
+        "y" : 3
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 5,
+        "y" : 3
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 6,
+        "y" : 3
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 7,
+        "y" : 3
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    } ], [ {
+      "coordinates" : {
+        "x" : 0,
+        "y" : 4
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 1,
+        "y" : 4
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 2,
+        "y" : 4
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 3,
+        "y" : 4
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 4,
+        "y" : 4
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 5,
+        "y" : 4
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 6,
+        "y" : 4
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 7,
+        "y" : 4
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    } ], [ {
+      "coordinates" : {
+        "x" : 0,
+        "y" : 5
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 1,
+        "y" : 5
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 2,
+        "y" : 5
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 3,
+        "y" : 5
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 4,
+        "y" : 5
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 5,
+        "y" : 5
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 6,
+        "y" : 5
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 7,
+        "y" : 5
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    } ], [ {
+      "coordinates" : {
+        "x" : 0,
+        "y" : 6
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 1,
+        "y" : 6
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 2,
+        "y" : 6
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 3,
+        "y" : 6
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 4,
+        "y" : 6
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 5,
+        "y" : 6
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 6,
+        "y" : 6
+      },
+      "type" : "tile",
+      "openToPacman" : true,
+      "openToGhosts" : true
+    }, {
+      "coordinates" : {
+        "x" : 7,
+        "y" : 6
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    } ], [ {
+      "coordinates" : {
+        "x" : 0,
+        "y" : 7
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 1,
+        "y" : 7
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 2,
+        "y" : 7
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 3,
+        "y" : 7
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 4,
+        "y" : 7
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 5,
+        "y" : 7
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 6,
+        "y" : 7
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    }, {
+      "coordinates" : {
+        "x" : 7,
+        "y" : 7
+      },
+      "type" : "tileclosed",
+      "openToPacman" : false,
+      "openToGhosts" : false
+    } ] ]
+  },
+  "spriteLayoutDescription" : {
+    "sprites" : [ {
+      "className" : "Dot",
+      "inputSource" : "NONE",
+      "coordinates" : {
+        "position" : {
+          "x" : 2.5,
+          "y" : 3.5
+        }
+      }
+    }, {
+      "className" : "Dot",
+      "inputSource" : "NONE",
+      "coordinates" : {
+        "position" : {
+          "x" : 3.5,
+          "y" : 3.5
+        }
+      }
+    }, {
+      "className" : "Dot",
+      "inputSource" : "NONE",
+      "coordinates" : {
+        "position" : {
+          "x" : 4.5,
+          "y" : 3.5
+        }
+      }
+    }, {
+      "className" : "Dot",
+      "inputSource" : "NONE",
+      "coordinates" : {
+        "position" : {
+          "x" : 4.5,
+          "y" : 4.5
+        }
+      }
+    }, {
+      "className" : "Dot",
+      "inputSource" : "NONE",
+      "coordinates" : {
+        "position" : {
+          "x" : 3.5,
+          "y" : 4.5
+        }
+      }
+    }, {
+      "className" : "Dot",
+      "inputSource" : "NONE",
+      "coordinates" : {
+        "position" : {
+          "x" : 2.5,
+          "y" : 4.5
+        }
+      }
+    },  {
+      "className" : "Blinky",
+      "inputSource" : "BlinkyAI",
+      "coordinates" : {
+        "position" : {
+          "x" : 5.5,
+          "y" : 1.5
+        }
+      }
+    }, {
+      "className" : "Blinky",
+      "inputSource" : "BlinkyAI",
+      "coordinates" : {
+        "position" : {
+          "x" : 6.5,
+          "y" : 1.5
+        }
+      }
+    }, {
+      "className": "TeleporterOverlay",
+      "inputSource": "TELEPORTER_A",
+      "coordinates": {
+        "position": {
+          "x": 1.5,
+          "y": 1.5
+        }
+      }
+    },
+      {
+        "className": "TeleporterOverlay",
+        "inputSource": "TELEPORTER_A",
+        "coordinates": {
+          "position": {
+            "x": 6.5,
+            "y": 6.5
+          }
+        }
+      },
+      {
+      "className" : "PacMan",
+      "inputSource" : "PacmanBFSAI",
+      "coordinates" : {
+        "position" : {
+          "x" : 1.5,
+          "y" : 3.5
+        }
+      }
+    } ]
+  }
+}

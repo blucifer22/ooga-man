@@ -11,7 +11,12 @@ import ooga.model.leveldescription.SpriteDescription;
 import ooga.model.sprites.animation.SpriteAnimationFactory;
 import ooga.util.Vec2;
 
-/** @author George Hong */
+/**
+ * The MoveableSprite provides utilities for each Sprites that move, including the sticky movement
+ * algorithm that emulates the classical Pac-Man's movement planning.
+ *
+ * @author George Hong
+ */
 public abstract class MoveableSprite extends Sprite {
 
   /**
@@ -22,16 +27,17 @@ public abstract class MoveableSprite extends Sprite {
   private double movementSpeed;
   private Vec2 queuedDirection;
   private boolean frozen;
-
   private double initialMovementSpeed;
 
   /**
-   * Construct a moveable sprite.
+   * Construct a moveable sprite that also sets quantities necessary for movement.
+   *
    * @param spriteAnimationPrefix Animation prefix.
-   * @param startingAnimation Starting animation.
-   * @param position Initial position.
-   * @param direction Initial orientation.
-   * @param speed Movement speed.
+   * @param startingAnimation     Starting animation.
+   * @param position              Initial position of this Sprite.
+   * @param direction             Initial orientation of this Sprite determining the direction it
+   *                              moves when updated.
+   * @param speed                 Movement speed of this Sprite.
    */
   protected MoveableSprite(
       String spriteAnimationPrefix,
@@ -50,9 +56,11 @@ public abstract class MoveableSprite extends Sprite {
 
   /**
    * Construct a moveable sprite from a sprite description.
+   *
    * @param spriteAnimationPrefix Animation prefix.
-   * @param startingAnimation Starting animation.
-   * @param description Sprite description.
+   * @param startingAnimation     Starting animation.
+   * @param description           Sprite description used to initialize a Sprite from a
+   *                              configuration file.
    */
   protected MoveableSprite(
       String spriteAnimationPrefix,
@@ -62,7 +70,8 @@ public abstract class MoveableSprite extends Sprite {
   }
 
   /**
-   * Called on a respawn. Resets movement speed.
+   * Called on a respawn to reset quantities as if beginning from the start of the level.  Resets
+   * movement speed.
    */
   @Override
   public void reset() {
@@ -71,7 +80,8 @@ public abstract class MoveableSprite extends Sprite {
   }
 
   /**
-   * Get default movement speed.
+   * Gets the default movement speed of this MoveableSprite.
+   *
    * @return Movement speed.
    */
   public double getMovementSpeed() {
@@ -79,7 +89,8 @@ public abstract class MoveableSprite extends Sprite {
   }
 
   /**
-   * Set default movement speed.
+   * Set default movement speed of this MoveableSprite.
+   *
    * @param speed Speed to set.
    */
   public void setMovementSpeed(double speed) {
@@ -87,7 +98,9 @@ public abstract class MoveableSprite extends Sprite {
   }
 
   /**
-   * Get current speed.
+   * Gets the current speed of this MoveableSprite, which may also reflect this MoveableSprite
+   * stopping due to the structure of the Grid.
+   *
    * @return Current speed.
    */
   public double getCurrentSpeed() {
@@ -95,8 +108,9 @@ public abstract class MoveableSprite extends Sprite {
   }
 
   /**
-   * Set current speed.
-   * @param speed Speed to set.
+   * Set current speed of this Moveable Sprite.
+   *
+   * @param speed new speed for this MoveableSprite
    */
   public void setCurrentSpeed(double speed) {
     this.currentSpeed = speed;
@@ -108,7 +122,8 @@ public abstract class MoveableSprite extends Sprite {
    * quickly.
    *
    * @param roundNumber current round of Pac-Man.
-   * @param state Game state.
+   * @param state       MutableGameState that can be modified and read for information on the status
+   *                    of the game.
    */
   @Override
   public void uponNewLevel(int roundNumber, MutableGameState state) {
@@ -118,9 +133,11 @@ public abstract class MoveableSprite extends Sprite {
   }
 
   /**
-   * Check whether this sprite can move into a tile.
-   * @param tile Destination.
-   * @return True if can move into.
+   * Checks whether this sprite can move into a given tile.  Classes overriding this can check the
+   * tile for whether the given class can enter (such as Ghost or Pac-Man).
+   *
+   * @param tile Destination tile to check whether a Sprite can enter.
+   * @return True if this Sprite object can move into the provided Tile.
    */
   protected abstract boolean canMoveTo(Tile tile);
 
@@ -139,9 +156,15 @@ public abstract class MoveableSprite extends Sprite {
   }
 
   /**
-   * Move this sprite according to its input source.
-   * @param dt Time step.
-   * @param grid Grid on which this sprite moves.
+   * Move this sprite according to its input source.  This method provides access to the classical
+   * Pac-Man movement, but also supports moving ghosts.  Inputs for turns that are not currently
+   * allowed are queued, and reversing direction is instantaneous.  This method also provides
+   * checking for stops required based on the PacmanGrid provided.  Finally, this movement algorithm
+   * also provides grid-snapping, which allows for animating the sprite movement cleanly and keeps
+   * Sprites centered on the Grid after turning.
+   *
+   * @param dt   Time step that passes between consecutive updates.
+   * @param grid Grid on which this sprite moves, encoding availability of tiles.
    */
   public void move(double dt, PacmanGrid grid) {
     if (frozen) {

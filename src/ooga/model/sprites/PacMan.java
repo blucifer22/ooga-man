@@ -11,6 +11,9 @@ import ooga.util.Timer;
 import ooga.util.Vec2;
 
 /**
+ * Pac-Man Sprite that the player controls and navigates the game with.  This class encodes many of
+ * the properties for the player to play the game with.
+ *
  * @author George Hong
  */
 public class PacMan extends MoveableSprite {
@@ -23,9 +26,10 @@ public class PacMan extends MoveableSprite {
 
   /**
    * Construct a Pac-Man sprite.
-   * @param position Initial position.
+   *
+   * @param position  Initial position.
    * @param direction Initial direction.
-   * @param speed Movement speed.
+   * @param speed     Movement speed.
    */
   public PacMan(SpriteCoordinates position, Vec2 direction, double speed) {
     super("pacman",
@@ -40,7 +44,8 @@ public class PacMan extends MoveableSprite {
   }
 
   /**
-   * Construct a Pac-Man from a description.
+   * Construct a Pac-Man from a description, useful for loading Sprites from configuration files.
+   *
    * @param spriteDescription Description to use.
    */
   public PacMan(SpriteDescription spriteDescription) {
@@ -59,8 +64,9 @@ public class PacMan extends MoveableSprite {
   }
 
   /**
-   * Whether this sprite can move to a tile.
-   * @param tile Destination.
+   * Whether this sprite can move to a given tile.
+   *
+   * @param tile Destination tile.
    * @return True if the tile is open to pacman.
    */
   @Override
@@ -95,7 +101,8 @@ public class PacMan extends MoveableSprite {
   }
 
   /**
-   * Respond to a hit.
+   * Respond to a collision with another Sprite.
+   *
    * @param other other Sprite that this sprite collides with
    * @param state current state of the game, allowing Sprites to perform actions such as remove
    */
@@ -117,8 +124,10 @@ public class PacMan extends MoveableSprite {
   }
 
   /**
-   * Advance sprite state.
-   * @param dt Time step.
+   * Advance sprite state, moving this Sprite according to its internal stream of movement inputs,
+   * and also checks its own interactions with other Sprites.
+   *
+   * @param dt              Time step.
    * @param pacmanGameState Game state.
    */
   @Override
@@ -137,8 +146,9 @@ public class PacMan extends MoveableSprite {
   }
 
   /**
-   * Whether this sprite eats ghosts.
-   * @return True.
+   * Whether this sprite is able to consume ghosts.
+   *
+   * @return True because Pac-Man can consume the Power-Pill, making the ghosts vulnerable.
    */
   @Override
   public boolean eatsGhosts() {
@@ -156,8 +166,9 @@ public class PacMan extends MoveableSprite {
   }
 
   /**
-   * Point value.
-   * @return 0
+   * Point value of Pac-Man.  This method is kept for potential new game modes.
+   *
+   * @return 0.  Classical Pac-Man does not reward any points upon consumption.
    */
   @Override
   public int getScore() {
@@ -176,8 +187,9 @@ public class PacMan extends MoveableSprite {
 
   /**
    * Called upon new level. Fixes sounds.
+   *
    * @param roundNumber current round of Pac-Man.
-   * @param state Game state.
+   * @param state       Game state.
    */
   @Override
   public void uponNewLevel(int roundNumber, MutableGameState state) {
@@ -189,7 +201,7 @@ public class PacMan extends MoveableSprite {
   }
 
   /**
-   * Called upon respawn.
+   * Called upon respawn, resetting properties as if beginning the level again.
    */
   @Override
   public void reset() {

@@ -13,7 +13,7 @@ import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 
 /**
- * Add Pac-Man AI that uses a BFS algorithm. This AI has two primary modes. It engages in ghost-like
+ * Pac-Man AI that uses a BFS algorithm. This AI has two primary modes. It engages in ghost-like
  * scatter movement when no ghosts are near. If ghosts are in the vicinity, it attempts to maximize
  * the minimum distance from a ghost.
  *
@@ -60,7 +60,9 @@ public class PacmanBFSAI extends PacmanAI {
   }
 
   /**
-   * Cause pacman to scatter.
+   * Cause pacman to scatter randomly.  At any point in time, the chance of Pac-Man turning is 1 -
+   * STABLE_MOVEMENT
+   *
    * @return Direction of movement.
    */
   protected Vec2 scatterBehavior() {
@@ -79,8 +81,10 @@ public class PacmanBFSAI extends PacmanAI {
   }
 
   /**
-   * Get the shortest distance (Manhattan metric) between two points.
-   * @param start Start point
+   * Get the shortest distance between two points, assuming shortest distance through the Pac-Man
+   * Grid via BFS.
+   *
+   * @param start  Start point
    * @param target Ent point.
    * @return Manhattan distance.
    */
@@ -114,6 +118,15 @@ public class PacmanBFSAI extends PacmanAI {
     return Integer.MAX_VALUE;
   }
 
+  /**
+   * Returns the distance between a start and end point, a common decision for AI classes.  For this
+   * class, BFS is used to determine candidate distances when making movement decisions,
+   * incorporating more context from the maze.
+   *
+   * @param start start point to calculate a candidate distance
+   * @param end   end point to calculate a candidate distance
+   * @return distance between start and end points
+   */
   @Override
   protected double getCandDistance(Vec2 start, Vec2 end) {
     return getDistanceBFS(new TileCoordinates(start), new TileCoordinates(end));

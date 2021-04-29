@@ -48,10 +48,11 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
   /**
    * Initialize a Sprite
    *
-   * @param spriteAnimationPrefix Prefix to use when constructing sprite-specific animations; e.g. "blinky"
-   * @param startingAnimation Initial animation.
-   * @param position Initial position.
-   * @param direction Initial orientation vector.
+   * @param spriteAnimationPrefix Prefix to use when constructing sprite-specific animations; e.g.
+   *                              "blinky"
+   * @param startingAnimation     Initial animation.
+   * @param position              Initial position.
+   * @param direction             Initial orientation vector.
    */
   protected Sprite(
       String spriteAnimationPrefix,
@@ -72,9 +73,11 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Construct a sprite from a SpriteDescription.
-   * @param spriteAnimationPrefix Animation prefix to use when construcing sprite-specific animations.
-   * @param startingAnimation Initial animation.
-   * @param description Sprite description object.
+   *
+   * @param spriteAnimationPrefix Animation prefix to use when construcing sprite-specific
+   *                              animations.
+   * @param startingAnimation     Initial animation.
+   * @param description           Sprite description object.
    */
   protected Sprite(
       String spriteAnimationPrefix,
@@ -85,8 +88,9 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Construct a sprite at the default starting location.
+   *
    * @param spriteAnimationPrefix Animation prefix to use.
-   * @param startingAnimation Starting animation.
+   * @param startingAnimation     Starting animation.
    */
   protected Sprite(
       String spriteAnimationPrefix, SpriteAnimationFactory.SpriteAnimationType startingAnimation) {
@@ -97,7 +101,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
    * Sprites can change properties based on the current round.
    *
    * @param roundNumber New round number.
-   * @param state State to which this sprite belongs.
+   * @param state       State to which this sprite belongs.
    */
   public void uponNewLevel(int roundNumber, MutableGameState state) {
     // Does nothing (Overriden in specific child classes)
@@ -120,7 +124,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
   }
 
   /**
-   * Removes the Sprite from the game
+   * Removes the Sprite from the game.  Removing further interactions with other Sprites
    *
    * @param state State from which to remove.
    */
@@ -141,6 +145,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Get the current animation of this sprite.
+   *
    * @return Current animation.
    */
   public final ObservableAnimation getCurrentAnimation() {
@@ -161,7 +166,8 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
   }
 
   /**
-   * Get the animation factorty associated with this sprite.
+   * Get the animation factory associated with this sprite.
+   *
    * @return Animation factory.
    */
   protected SpriteAnimationFactory getAnimationFactory() {
@@ -170,6 +176,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Set the current animation type.
+   *
    * @param type Animation type enum.
    */
   protected void setCurrentAnimationType(SpriteAnimationFactory.SpriteAnimationType type) {
@@ -181,6 +188,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Called upon a costume change.
+   *
    * @param newCostume New costume name.
    */
   @Override
@@ -188,12 +196,10 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
     notifyObservers(TYPE_CHANGE);
   }
 
-  // coordinates of the tile above which this sprite's center lies
-
   /**
-   * Coordinates of this Sprite. Also provides the tile coordinates.
+   * Coordinates of this Sprite's center of mass. Also provides the tile coordinates.
    *
-   * @return Coordinates.
+   * @return Coordinates of this Sprite.
    */
   public SpriteCoordinates getCoordinates() {
     return position;
@@ -266,14 +272,14 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
    *
    * @param other other Sprite that this sprite collides with
    * @param state current state of the game, allowing Sprites to perform actions such as remove
-   *     themselves from the game or adjust the score
+   *              themselves from the game or adjust the score
    */
   public abstract void uponHitBy(Sprite other, MutableGameState state);
 
   /**
    * Adds an observer that will be notified whenever any of the subset of observedEvents occurs
    *
-   * @param so observer object to add
+   * @param so             observer object to add
    * @param observedEvents events that this observer listens for
    */
   public void addObserver(SpriteObserver so, SpriteEvent.EventType... observedEvents) {
@@ -313,7 +319,8 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Advance this sprite's animation.
-   * @param dt Time step.
+   *
+   * @param dt              Time step.
    * @param pacmanGameState Game state.
    */
   public void step(double dt, MutableGameState pacmanGameState) {
@@ -322,6 +329,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Whether this sprite blocks level advancement.
+   *
    * @return Consumption required for level advancement if true.
    */
   public boolean mustBeConsumed() {
@@ -330,6 +338,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Query deadliness.
+   *
    * @return Deadliness.
    */
   public boolean isDeadlyToPacMan() {
@@ -338,6 +347,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Whether this sprite eats ghosts.
+   *
    * @return True if eats ghosts.
    */
   public boolean eatsGhosts() {
@@ -346,6 +356,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Whether this sprite is consumable.
+   *
    * @return True if consumable.
    */
   public boolean isConsumable() {
@@ -354,6 +365,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Whether this sprite should be scored multiplicatively.
+   *
    * @return True if it should be scored multiplicatively.
    */
   public boolean hasMultiplicativeScoring() {
@@ -362,6 +374,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Point value of this sprite.
+   *
    * @return Point value.
    */
   public int getScore() {
@@ -370,6 +383,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Called on a game event.
+   *
    * @param event Event sent.
    */
   @Override
@@ -380,7 +394,8 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
   }
 
   /**
-   * Get swap class of this sprite.
+   * Get swap class of this sprite, used for changing the input source of classes for game modes.
+   *
    * @return Swap class.
    */
   public SwapClass getSwapClass() {
@@ -389,6 +404,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Set swap class of this sprite.
+   *
    * @param swapClass Swap class.
    */
   protected void setSwapClass(SwapClass swapClass) {
@@ -397,6 +413,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Get default input source of this sprite.
+   *
    * @return Default input source.
    */
   public InputSource getDefaultInputSource() {
@@ -405,6 +422,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Set default input source of this sprite.
+   *
    * @param defaultInputSource New default input source.
    */
   protected void setDefaultInputSource(InputSource defaultInputSource) {
@@ -413,6 +431,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Whether this sprite is requesting an input swap.
+   *
    * @return True if swap requested.
    */
   public boolean needsSwap() {
@@ -421,6 +440,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Currently active input source of this sprite.
+   *
    * @return Input source.
    */
   public InputSource getInputSource() {
@@ -429,6 +449,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Set the current input source.
+   *
    * @param s New input source.
    */
   public void setInputSource(InputSource s) {
@@ -440,6 +461,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Get the string describing this sprite's input source.
+   *
    * @return Input source, as a string.
    */
   public String getInputString() {
@@ -448,6 +470,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Set this sprite's input source.
+   *
    * @param inputString Input string.
    */
   public void setInputString(String inputString) {
@@ -456,6 +479,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Get the map of power-up event handlers.
+   *
    * @return Power-up event handlers.
    */
   protected Map<GameEvent, Runnable> getPowerupOptions() {
@@ -464,6 +488,7 @@ public abstract class Sprite implements ObservableSprite, GameEventObserver, Ani
 
   /**
    * Add power-up event handlers.
+   *
    * @param powerupOptions New handlers to add.
    */
   protected void addPowerUpOptions(Map<GameEvent, Runnable> powerupOptions) {
