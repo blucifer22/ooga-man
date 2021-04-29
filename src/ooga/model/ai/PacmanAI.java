@@ -116,7 +116,8 @@ public class PacmanAI implements InputSource {
   }
 
   /**
-   * Returns the distance from two points
+   * Returns the distance from two points, allowing the AI to define the desired distance metric to
+   * use based on the complexity of the algorithm
    *
    * @param start start point
    * @param end   end point

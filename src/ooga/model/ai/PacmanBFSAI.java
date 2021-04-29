@@ -13,7 +13,7 @@ import ooga.model.sprites.Sprite;
 import ooga.util.Vec2;
 
 /**
- * Add Pac-Man AI that uses a BFS algorithm. This AI has two primary modes. It engages in ghost-like
+ * Pac-Man AI that uses a BFS algorithm. This AI has two primary modes. It engages in ghost-like
  * scatter movement when no ghosts are near. If ghosts are in the vicinity, it attempts to maximize
  * the minimum distance from a ghost.
  *
