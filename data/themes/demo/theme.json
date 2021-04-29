@@ -281,6 +281,114 @@
       "bottomHeavy" : true,
       "rotates" : true
     },
+    "frightened_end_3" : {
+      "fill" : "themes/demo/images/a7.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "frightened_end_4" : {
+      "fill" : "themes/demo/images/a7.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "ghost_player_up_1" : {
+      "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_up_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "ghost_player_up_2" : {
+      "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_up_2.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "ghost_player_up_3" : {
+      "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_up_3.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "ghost_player_up_4" : {
+      "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_up_4.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "ghost_player_down_1" : {
+      "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_down_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "ghost_player_down_2" : {
+      "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_down_2.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "ghost_player_down_3" : {
+      "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_down_3.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "ghost_player_down_4" : {
+      "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_down_4.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "ghost_player_left_1" : {
+      "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_left_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "ghost_player_left_2" : {
+      "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_left_2.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "ghost_player_left_3" : {
+      "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_left_3.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "ghost_player_left_4" : {
+      "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_left_4.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "ghost_player_right_1" : {
+      "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_right_1.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "ghost_player_right_2" : {
+      "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_right_2.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "ghost_player_right_3" : {
+      "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_right_3.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "ghost_player_right_4" : {
+      "fill" : "themes/classic/images/ghosts/player_controlled/ghost_player_right_4.png",
+      "imageFill" : true,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
     "ghost" : {
       "fill" : "themes/demo/images/a7.png",
       "imageFill" : true,
@@ -296,6 +404,12 @@
     },
     "tileclosed" : {
       "fill" : "BLACK",
+      "imageFill" : false,
+      "scale" : 1.0,
+      "bottomHeavy" : false
+    },
+    "tilepermeable" : {
+      "fill" : "RED",
       "imageFill" : false,
       "scale" : 1.0,
       "bottomHeavy" : false
@@ -320,6 +434,84 @@
       "scale" : 1.5,
       "bottomHeavy" : true,
       "rotates" : false
+    },
+    "pacman_death_1" : {
+      "fill" : "TRANSPARENT",
+      "imageFill" : false,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_2" : {
+      "fill" : "TRANSPARENT",
+      "imageFill" : false,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_3" : {
+      "fill" : "TRANSPARENT",
+      "imageFill" : false,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_4" : {
+      "fill" : "TRANSPARENT",
+      "imageFill" : false,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_5" : {
+      "fill" : "TRANSPARENT",
+      "imageFill" : false,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_6" : {
+      "fill" : "TRANSPARENT",
+      "imageFill" : false,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_7" : {
+      "fill" : "TRANSPARENT",
+      "imageFill" : false,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_8" : {
+      "fill" : "TRANSPARENT",
+      "imageFill" : false,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_9" : {
+      "fill" : "TRANSPARENT",
+      "imageFill" : false,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_10" : {
+      "fill" : "TRANSPARENT",
+      "imageFill" : false,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_11" : {
+      "fill" : "TRANSPARENT",
+      "imageFill" : false,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_12" : {
+      "fill" : "TRANSPARENT",
+      "imageFill" : false,
+      "scale" : 1.0,
+      "bottomHeavy" : true
+    },
+    "pacman_death_13" : {
+      "fill" : "TRANSPARENT",
+      "imageFill" : false,
+      "scale" : 1.0,
+      "bottomHeavy" : true
     },
     "dot_still_1" : {
       "fill" : "themes/demo/images/colab.png",
@@ -355,6 +547,68 @@
       "scale" : 1.5,
       "bottomHeavy" : false,
       "rotates" : false
+    },
+    "pacman_win_1" : {
+      "fill" : "themes/classic/images/general/pacman_win_1.png",
+      "imageFill" : true,
+      "scale" : 13,
+      "bottomHeavy" : false,
+      "rotates": false
+    },
+    "pacman_win_2" : {
+      "fill" : "themes/classic/images/general/pacman_win_2.png",
+      "imageFill" : true,
+      "scale" : 13,
+      "bottomHeavy" : false,
+      "rotates": false
+    },
+    "ghosts_win_1" : {
+      "fill" : "themes/classic/images/general/ghosts_win_1.png",
+      "imageFill" : true,
+      "scale" : 13,
+      "bottomHeavy" : false,
+      "rotates": false
+    },
+    "ghosts_win_2" : {
+      "fill" : "themes/classic/images/general/ghosts_win_2.png",
+      "imageFill" : true,
+      "scale" : 13,
+      "bottomHeavy" : false,
+      "rotates": false
+    },
+    "game_over_1" : {
+      "fill" : "themes/classic/images/general/game_over_1.png",
+      "imageFill" : true,
+      "scale" : 13,
+      "bottomHeavy" : false,
+      "rotates": false
+    },
+    "game_over_2" : {
+      "fill" : "themes/classic/images/general/game_over_2.png",
+      "imageFill" : true,
+      "scale" : 13,
+      "bottomHeavy" : false,
+      "rotates": false
+    },
+    "ready_1" : {
+      "fill" : "themes/classic/images/general/ready_1.png",
+      "imageFill" : true,
+      "scale" : 3.0,
+      "bottomHeavy" : false,
+      "rotates": false
     }
+  },
+  "sounds": {
+    "button-click": "themes/classic/sounds/button.mp3",
+    "frightened-loop": "themes/classic/sounds/frightened_loop.wav",
+    "fruit-eaten": "themes/classic/sounds/fruit_eaten.wav",
+    "ghost-eaten": "themes/classic/sounds/ghost_eaten.wav",
+    "ghost-eyes": "themes/classic/sounds/ghost_eyes.wav",
+    "normal-loop": "themes/classic/sounds/normal_loop.wav",
+    "pacman-chomp1": "themes/classic/sounds/pacman_chomp1.wav",
+    "pacman-chomp2": "themes/classic/sounds/pacman_chomp2.wav",
+    "pacman-death": "themes/classic/sounds/pacman_death.wav",
+    "start-classic": "themes/classic/sounds/start_classic.wav",
+    "start-mspacman": "themes/classic/sounds/start_mspacman.wav"
   }
 }
