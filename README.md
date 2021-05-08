@@ -10,11 +10,11 @@ _Please click on the following video link to see a demo of the various Pac-Man l
 [![Demo of Pac-Man Classic Mode and Level Builder](https://img.youtube.com/vi/v_0xGi7gEZY/0.jpg)](https://www.youtube.com/watch?v=v_0xGi7gEZY)
 
 ### In-Game Clips
-_Classic map included:_
+_Classic Mode, Original Map:_
 
 ![Classic Mode](game_clips/gameplay.png)
 
-_Stage Builder:_
+_Level Builder Support:_
 ![Stage Builder](game_clips/stage_builder.png)
 
 _Two-Player, Adversarial Mode:_
