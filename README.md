@@ -4,7 +4,24 @@ OOGA-Man
 This project implements a Pac-Man engine that is able to emulate the classic game-mode as well as other
 variations on the original to illustrate our data-driven design.
 
-Names:
+### Demo
+_Please click on the following video link to see a demo of the various Pac-Man levels available and the level builder:_
+
+[![Demo of Pac-Man Classic Mode and Level Builder](https://img.youtube.com/vi/v_0xGi7gEZY/0.jpg)](https://www.youtube.com/watch?v=v_0xGi7gEZY)
+
+### In-Game Clips
+_Classic Mode, Original Map:_
+
+![Classic Mode](game_clips/gameplay.png)
+
+_Level Builder Support:_
+![Stage Builder](game_clips/stage_builder.png)
+
+_Two-Player, Adversarial Mode:_
+![Adversarial Mode](game_clips/adversarial.png)
+
+
+Team:
 
 - Matthew Belissary (mab185)
 - Marc Chmielewski (msc68)
